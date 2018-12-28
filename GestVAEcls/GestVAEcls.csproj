@@ -49,6 +49,15 @@
   <ItemGroup>
     <Compile Include="Candidat.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="GestVAE.cs" />
+    <Compile Include="Migrations\201812281436295_Init.cs" />
+    <Compile Include="Migrations\201812281436295_Init.Designer.cs">
+      <DependentUpon>201812281436295_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812281444028_No-PreoCandidat.cs" />
+    <Compile Include="Migrations\201812281444028_No-PreoCandidat.Designer.cs">
+      <DependentUpon>201812281444028_No-PreoCandidat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -64,6 +73,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812281436295_Init.resx">
+      <DependentUpon>201812281436295_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812281444028_No-PreoCandidat.resx">
+      <DependentUpon>201812281444028_No-PreoCandidat.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

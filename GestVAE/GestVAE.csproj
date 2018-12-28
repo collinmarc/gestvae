@@ -101,11 +101,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GestVAEcls\GestVAEcls.csproj">
-      <Project>{2537158c-ede7-47d6-835d-1d95b30f4620}</Project>
-      <Name>GestVAEcls</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

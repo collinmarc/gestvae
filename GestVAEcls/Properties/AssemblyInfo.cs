@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("clsGestVAE")]
+[assembly: AssemblyTitle("GestVAEcls")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("clsGestVAE")]
+[assembly: AssemblyProduct("GestVAEcls")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
-[assembly: Guid("33144427-b649-48dc-8484-7c5b24d6c024")]
+[assembly: Guid("2537158c-ede7-47d6-835d-1d95b30f4620")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //

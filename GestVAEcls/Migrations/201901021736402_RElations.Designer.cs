@@ -7,13 +7,13 @@ namespace GestVAEcls.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class NoPreoCandidat : IMigrationMetadata
+    public sealed partial class RElations : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(NoPreoCandidat));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RElations));
         
         string IMigrationMetadata.Id
         {
-            get { return "201812281444028_No-PreoCandidat"; }
+            get { return "201901021736402_RElations"; }
         }
         
         string IMigrationMetadata.Source

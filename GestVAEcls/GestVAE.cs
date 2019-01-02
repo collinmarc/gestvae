@@ -9,7 +9,7 @@ namespace GestVAEcls
 {
     public class GestVAE
     {
-        public int ID { get; set; }
+        public Int32 ID { get; set; }
         public DateTime dateCreation { get; set; }
         public DateTime dateModif { get; set; }
         public Boolean bDeleted { get; set; }

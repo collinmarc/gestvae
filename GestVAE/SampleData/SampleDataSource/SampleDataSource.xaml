@@ -1,0 +1,19 @@
+﻿<!--
+      *********    NE PAS MODIFIER CE FICHIER     *********
+      Ce fichier est régénéré par un outil de création.Modifier
+ .     ce fichier peut provoquer des erreurs.
+-->
+<SampleDataSource:SampleDataSource xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource">
+	<SampleDataSource:SampleDataSource.Collection>
+		<SampleDataSource:Item Property1="Aenean maecenas" Property2="True"/>
+		<SampleDataSource:Item Property1="Aliquam mauris nam class" Property2="False"/>
+		<SampleDataSource:Item Property1="Praesent curae" Property2="True"/>
+		<SampleDataSource:Item Property1="Nullam donec etiam" Property2="False"/>
+		<SampleDataSource:Item Property1="Sed accumsan" Property2="True"/>
+		<SampleDataSource:Item Property1="Integer cras duis" Property2="False"/>
+		<SampleDataSource:Item Property1="Nunc amet" Property2="True"/>
+		<SampleDataSource:Item Property1="Dis bibendum" Property2="False"/>
+		<SampleDataSource:Item Property1="Aptent fusce lorem" Property2="True"/>
+		<SampleDataSource:Item Property1="Auctor est ante" Property2="False"/>
+	</SampleDataSource:SampleDataSource.Collection>
+</SampleDataSource:SampleDataSource>

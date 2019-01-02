@@ -48,23 +48,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Candidat.cs" />
+    <Compile Include="DomaineCompetenceCand.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Diplome.cs" />
+    <Compile Include="DiplomeCand.cs" />
     <Compile Include="GestVAE.cs" />
     <Compile Include="Migrations\201812281436295_Init.cs" />
     <Compile Include="Migrations\201812281436295_Init.Designer.cs">
       <DependentUpon>201812281436295_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812281444028_No-PreoCandidat.cs" />
-    <Compile Include="Migrations\201812281444028_No-PreoCandidat.Designer.cs">
-      <DependentUpon>201812281444028_No-PreoCandidat.cs</DependentUpon>
+    <Compile Include="Migrations\201901021600491_restart.cs" />
+    <Compile Include="Migrations\201901021600491_restart.Designer.cs">
+      <DependentUpon>201901021600491_restart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901021714506_T1T2.cs" />
+    <Compile Include="Migrations\201901021714506_T1T2.Designer.cs">
+      <DependentUpon>201901021714506_T1T2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901021726186_T1T2-Optional.cs" />
+    <Compile Include="Migrations\201901021726186_T1T2-Optional.Designer.cs">
+      <DependentUpon>201901021726186_T1T2-Optional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901021736402_RElations.cs" />
+    <Compile Include="Migrations\201901021736402_RElations.Designer.cs">
+      <DependentUpon>201901021736402_RElations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="DomaineCompetence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="T1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -78,8 +95,17 @@
     <EmbeddedResource Include="Migrations\201812281436295_Init.resx">
       <DependentUpon>201812281436295_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812281444028_No-PreoCandidat.resx">
-      <DependentUpon>201812281444028_No-PreoCandidat.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901021600491_restart.resx">
+      <DependentUpon>201901021600491_restart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901021714506_T1T2.resx">
+      <DependentUpon>201901021714506_T1T2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901021726186_T1T2-Optional.resx">
+      <DependentUpon>201901021726186_T1T2-Optional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901021736402_RElations.resx">
+      <DependentUpon>201901021736402_RElations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

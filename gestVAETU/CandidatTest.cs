@@ -13,6 +13,8 @@ namespace GestVAETU
         {
 
             Context ctx = new Context();
+            ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
+
             Candidat oCand = new Candidat();
             oCand.Nom = "COLLIN";
             oCand.Prenom = "MArc";

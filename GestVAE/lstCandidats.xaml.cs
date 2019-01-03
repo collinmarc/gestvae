@@ -33,13 +33,10 @@ namespace GestVAE
         {
             _VM = new VM.MyViewModel();
             _VM.getData();
-            Candidat oCand;
+   
  
-            oCand = new Candidat("THOMAS");
-            oCand.Prenom = "JF";
-            oCand.Ville = "Ste Luce";
-            _VM.candidats.Add(oCand);
-            this.DataContext = _VM.candidats;
+            
+            this.DataContext = _VM;
         }
     }
 }

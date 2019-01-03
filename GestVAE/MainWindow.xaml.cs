@@ -24,7 +24,7 @@ namespace GestVAE
     public partial class MainWindow : Window
     {
 
-        private MyViewModel _VM ;
+        private MyViewModel _VM;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,12 +34,30 @@ namespace GestVAE
         {
             _VM = new MyViewModel();
             _VM.getData();
-            this.DataContext = _VM.candidats;
+            this.DataContext = _VM;
+            lbCandidats.ItemsSource = _VM.Lst;
+            grid1.DataContext = _VM.Lst;
+                
+        }
+        private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _VM.saveData();
+            MessageBox.Show("Données Sauvegardées");
+        }
+        private void OpenCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            _VM.getData();
+            MessageBox.Show("Données Rechargée");
         }
     }
 }

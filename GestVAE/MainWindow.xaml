@@ -7,6 +7,13 @@
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" x:Class="GestVAE.MainWindow"
         mc:Ignorable="d"
         Title="EHESP : Gestion VAE" Height="764.571" Width="1051.286" Loaded="Window_Loaded">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" CanExecute="SaveCommand_CanExecute" />
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed" CanExecute="OpenCommand_CanExecute" />
+    </Window.CommandBindings>
+    
+    
     <Window.Resources>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"></local:EnumToBoleanConverter>
         <Style x:Key="Label" TargetType="{x:Type Label}" BasedOn="{x:Null}">
@@ -26,7 +33,16 @@
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
 
     </Window.Resources>
-    <Grid  >
+
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Name="btnSave" Command="ApplicationCommands.Save" Content="Save" />
+                <Button Name="btnRefresh" Command="ApplicationCommands.Open" Content="Refresh" />
+            </ToolBar>
+        </ToolBarTray>
+
+    <Grid x:Name="MainGrid"  >
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100"/>
             <ColumnDefinition Width="5"/>
@@ -40,7 +56,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <GridSplitter  HorizontalAlignment="Stretch"  Grid.Row="1"  VerticalAlignment="Stretch" Background="#FF0A0101" />
-            <ListBox x:Name="lbCandidats" Grid.Row="2"  ItemsSource="{Binding ''}" IsSynchronizedWithCurrentItem="True" >
+            <ListBox x:Name="lbCandidats" Grid.Row="2" IsSynchronizedWithCurrentItem="True" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -157,11 +173,12 @@
                     <RadioButton Content="Femme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Height="21" Width="85" IsChecked="{Binding Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}"/>
                 </Grid>
             </Grid>
-            <Button Content="Save" HorizontalAlignment="Left" Height="21" Margin="361,692,0,0" VerticalAlignment="Top" Width="137" Click="Button_Click"/>
+            <Button Content="Save" HorizontalAlignment="Left" Height="21" Margin="361,652,0,0" VerticalAlignment="Top" Width="137" Command="ApplicationCommands.Save"/>
         </Grid>
 
 
 
-
     </Grid>
+    </DockPanel>
+
 </Window>

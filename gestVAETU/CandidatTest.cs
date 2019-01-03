@@ -28,8 +28,8 @@ namespace GestVAETU
             Int32 nId = oCand.ID;
 
             oCand = (from obj in ctx.Candidats
-                    where (obj.ID == nId) && (!obj.bDeleted )
-                    select obj).First<Candidat>();
+                     where (obj.ID == nId) && (!obj.bDeleted)
+                     select obj).First<Candidat>();
             Assert.AreEqual("COLLIN", oCand.Nom);
             Assert.AreEqual("MArc", oCand.Prenom);
 
@@ -58,4 +58,4 @@ namespace GestVAETU
 
         }
     }
-}
+    }

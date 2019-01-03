@@ -18,8 +18,6 @@ namespace GestVAEcls
         public DbSet<DomaineCompetence> DomainesCompetences { get; set; }
         public DbSet<DiplomeCand> DiplomeCands { get; set; }
         public DbSet<DomaineCompetenceCand> DomaineCompetenceCands { get; set; }
-        public DbSet<T1> T1s { get; set; }
-        public DbSet<T2> T2s { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -61,17 +61,33 @@
     <Compile Include="Migrations\201901021600491_restart.Designer.cs">
       <DependentUpon>201901021600491_restart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901021714506_T1T2.cs" />
-    <Compile Include="Migrations\201901021714506_T1T2.Designer.cs">
-      <DependentUpon>201901021714506_T1T2.cs</DependentUpon>
+    <Compile Include="Migrations\201901030722465_Cand-Dipl-DC.cs" />
+    <Compile Include="Migrations\201901030722465_Cand-Dipl-DC.Designer.cs">
+      <DependentUpon>201901030722465_Cand-Dipl-DC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901021726186_T1T2-Optional.cs" />
-    <Compile Include="Migrations\201901021726186_T1T2-Optional.Designer.cs">
-      <DependentUpon>201901021726186_T1T2-Optional.cs</DependentUpon>
+    <Compile Include="Migrations\201901030725272_supprT1T2.cs" />
+    <Compile Include="Migrations\201901030725272_supprT1T2.Designer.cs">
+      <DependentUpon>201901030725272_supprT1T2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901021736402_RElations.cs" />
-    <Compile Include="Migrations\201901021736402_RElations.Designer.cs">
-      <DependentUpon>201901021736402_RElations.cs</DependentUpon>
+    <Compile Include="Migrations\201901030741106_PropCandidat.cs" />
+    <Compile Include="Migrations\201901030741106_PropCandidat.Designer.cs">
+      <DependentUpon>201901030741106_PropCandidat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901031418570_NomNaissance.cs" />
+    <Compile Include="Migrations\201901031418570_NomNaissance.Designer.cs">
+      <DependentUpon>201901031418570_NomNaissance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901031425528_PropCandidats.cs" />
+    <Compile Include="Migrations\201901031425528_PropCandidats.Designer.cs">
+      <DependentUpon>201901031425528_PropCandidats.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901031632381_Sexe.cs" />
+    <Compile Include="Migrations\201901031632381_Sexe.Designer.cs">
+      <DependentUpon>201901031632381_Sexe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901031650304_SexeNull.cs" />
+    <Compile Include="Migrations\201901031650304_SexeNull.Designer.cs">
+      <DependentUpon>201901031650304_SexeNull.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DomaineCompetence.cs" />
@@ -86,6 +102,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Context.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -98,14 +115,26 @@
     <EmbeddedResource Include="Migrations\201901021600491_restart.resx">
       <DependentUpon>201901021600491_restart.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901021714506_T1T2.resx">
-      <DependentUpon>201901021714506_T1T2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901030722465_Cand-Dipl-DC.resx">
+      <DependentUpon>201901030722465_Cand-Dipl-DC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901021726186_T1T2-Optional.resx">
-      <DependentUpon>201901021726186_T1T2-Optional.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901030725272_supprT1T2.resx">
+      <DependentUpon>201901030725272_supprT1T2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901021736402_RElations.resx">
-      <DependentUpon>201901021736402_RElations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901030741106_PropCandidat.resx">
+      <DependentUpon>201901030741106_PropCandidat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901031418570_NomNaissance.resx">
+      <DependentUpon>201901031418570_NomNaissance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901031425528_PropCandidats.resx">
+      <DependentUpon>201901031425528_PropCandidats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901031632381_Sexe.resx">
+      <DependentUpon>201901031632381_Sexe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901031650304_SexeNull.resx">
+      <DependentUpon>201901031650304_SexeNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

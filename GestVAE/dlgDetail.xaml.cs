@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GestVAE.VM;
+using GestVAEcls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,16 +26,16 @@ namespace GestVAE
             InitializeComponent();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("J'ai clicqué sur Cancel");
-            this.Close();
-        }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("J'ai clicqué sur OK");
+            this.Close();
 
+        }
+
+        public void setContexte(DiplomeCandVM pDiplome)
+        {
+            this.DataContext = pDiplome;
         }
     }
 }

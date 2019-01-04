@@ -4,10 +4,89 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestVAE"
+        xmlns:localVM="clr-namespace:GestVAE.VM"
+        xmlns:localCLS="clr-namespace:GestVAEcls"
         mc:Ignorable="d"
-        Title="dlgDetail" Height="450" Width="800">
-    <Canvas>
-            <Button Name ="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="481,369,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
-        <Button Name ="btnOK" Content="OK" Canvas.Left="607" Canvas.Top="367" Width="75" Click="btnOK_Click"/>
+        Title="Detail du diplome d'un candidat" Height="450" Width="1020.243">
+    <Canvas Margin="0,0,-219,0">
+        <Button Name ="btnOK" Content="OK" Canvas.Left="707" Canvas.Top="389" Width="75" Click="btnOK_Click"/>
+        <TextBox Height="23" Canvas.Left="177" TextWrapping="Wrap"  Canvas.Top="46" Width="120" Text="{Binding NomDiplome}"/>
+        <TextBlock Canvas.Left="40" TextWrapping="Wrap" Text="Nom du diplome" Canvas.Top="46"/>
+        <TextBlock Text="Statut DC1" Canvas.Left="40" TextWrapping="Wrap" Canvas.Top="104"/>
+        <TextBlock Text="Statut DC2" Canvas.Left="40" TextWrapping="Wrap" Canvas.Top="124"/>
+        <TextBlock Text="Statut DC3" Canvas.Left="40" TextWrapping="Wrap" Canvas.Top="144"/>
+        <TextBlock Text="Statut DC4" Canvas.Left="40" TextWrapping="Wrap" Canvas.Top="164"/>
+
+        <ComboBox Name="cbxStatutDC1" 
+                  SelectedItem="{Binding StatutDC1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                  ItemsSource="{Binding Path=LstStatut}"
+                  Canvas.Left="177" 
+                  Canvas.Top="98" 
+                  Width="120"/>
+        <ComboBox Name="cbxStatutDC2" 
+                  SelectedItem="{Binding StatutDC2, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                  ItemsSource="{Binding Path=LstStatut}"
+                  Canvas.Left="177" 
+                  Canvas.Top="124" 
+                  Width="120"/>
+        <ComboBox Name="cbxStatutDC3" 
+                  SelectedItem="{Binding StatutDC3, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                  ItemsSource="{Binding Path=LstStatut}"
+                  Canvas.Left="177" 
+                  Canvas.Top="144" 
+                  Width="120"/>
+        <ComboBox Name="cbxStatutDC4" 
+                  SelectedItem="{Binding StatutDC4, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                  ItemsSource="{Binding Path=LstStatut}"
+                  Canvas.Left="177" 
+                  Canvas.Top="164" 
+                  Width="120"/>
+        <TextBlock Text="Date Obtention DC1" Canvas.Left="327" TextWrapping="Wrap" Canvas.Top="72"/>
+        <DatePicker Name="dtDateObtDC1"
+                    SelectedDate="{Binding DateObtentionDC1, Mode=TwoWay}"
+                    IsEnabled="{Binding isDC1ACCEPTE}"
+                    Canvas.Left="327" Canvas.Top="98" Height="22"/>
+
+        <ComboBox x:Name="cbxModeObtentionDC1" 
+            SelectedItem="{Binding ModeObtentionDC1, Mode=TwoWay}" 
+            ItemsSource="{Binding LstModeObtention}"
+                    IsEnabled="{Binding isDC1ACCEPTE}"
+            Canvas.Left="505" 
+            Canvas.Top="98" 
+            Width="120" Height="22"/>
+        <TextBlock Text="Date Obtention DC1" Canvas.Left="505" TextWrapping="Wrap" Canvas.Top="72"/>
+        <DatePicker x:Name="dtDateObtD2"
+            SelectedDate="{Binding DateObtentionDC2, Mode=TwoWay}"
+            IsEnabled="{Binding isDC2ACCEPTE}"
+            Canvas.Left="327" Canvas.Top="122" RenderTransformOrigin="0.474,1.96"/>
+        <DatePicker x:Name="dtDateObtDC3"
+            SelectedDate="{Binding DateObtentionDC3, Mode=TwoWay}"
+            IsEnabled="{Binding isDC3ACCEPTE}"
+            Canvas.Left="327" Canvas.Top="142"/>
+        <DatePicker x:Name="dtDateObtDC4"
+            SelectedDate="{Binding DateObtentionDC4, Mode=TwoWay}"
+            IsEnabled="{Binding isDC4ACCEPTE}"
+            Canvas.Left="327" Canvas.Top="162"/>
+        <ComboBox x:Name="cbxModeObtentionDC2" 
+            SelectedItem="{Binding ModeObtentionDC2, Mode=TwoWay}" 
+            ItemsSource="{Binding LstModeObtention}"
+            IsEnabled="{Binding isDC2ACCEPTE}"
+            Canvas.Left="505" 
+            Canvas.Top="124" 
+            Width="120" Height="22"/>
+        <ComboBox x:Name="cbxModeObtentionDC3" 
+            SelectedItem="{Binding ModeObtentionDC3, Mode=TwoWay}" 
+            ItemsSource="{Binding LstModeObtention}"
+            IsEnabled="{Binding isDC3ACCEPTE}"
+            Canvas.Left="505" 
+            Canvas.Top="144" 
+            Width="120" Height="22"/>
+        <ComboBox x:Name="cbxModeObtentionDC4" 
+            SelectedItem="{Binding ModeObtentionDC4, Mode=TwoWay}" 
+            ItemsSource="{Binding LstModeObtention}"
+            IsEnabled="{Binding isDC4ACCEPTE}"
+            Canvas.Left="505" 
+            Canvas.Top="164" 
+            Width="120" Height="22"/>
     </Canvas>
 </Window>

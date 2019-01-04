@@ -12,12 +12,16 @@ namespace GestVAE.VM
     {
 
         public Candidat TheCandidat { get; set; }
-        public ObservableCollection<CAFDESVM> Diplome { get; set; }
+        public ObservableCollection<DiplomeCandVM> Diplome { get; set; }
         public CandidatVM(Candidat pCandidat)
         {
             TheCandidat = pCandidat;
-            Diplome = new ObservableCollection<CAFDESVM>();
-            Diplome.Add(new CAFDESVM(pCandidat));
+            Diplome = new ObservableCollection<DiplomeCandVM>();
+            foreach (DiplomeCand item in pCandidat.lstDiplomes)
+            {
+                DiplomeCandVM oDipCand = new DiplomeCandVM(item);
+                Diplome.Add(oDipCand);
+            }
         }
     }
 }

@@ -172,7 +172,7 @@
                     <TextBlock HorizontalAlignment="Left"  Grid.Row="15" Margin="10,10,0,0" TextWrapping="Wrap" Text="DIPLOME" VerticalAlignment="Top" Height="16" Width="63"/>
                     <DataGrid Name="gridLstDiplome" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="15" VerticalAlignment="Top" ItemsSource="{Binding Diplome}" Grid.RowSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding" MouseDoubleClick="gridLstDiplome_MouseDoubleClick">
                         <DataGrid.Resources>
-                            <localVM:CAFDESVM x:Key="ComboItems"  />
+                            <localVM:DiplomeCandVM x:Key="ComboItems"  />
                         </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Diplome" Binding="{Binding NomDiplome}"/>

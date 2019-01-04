@@ -8,27 +8,27 @@ using System.Threading.Tasks;
 
 namespace GestVAE.VM
 {
-    public class CAFDESVM:VMBase
+    public class DiplomeCandVM:VMBase
     {
-        private Candidat _candidat { get; set; }
-        public CAFDESVM(Candidat pCandidat)
+        private DiplomeCand TheDiplome { get; set; }
+        public DiplomeCandVM(DiplomeCand pDiplome)
         {
-            _candidat = pCandidat;
+            TheDiplome = pDiplome;
         }
 
 
-        public CAFDESVM()
+        public DiplomeCandVM()
         {
         }
         public String NomDiplome {
             get
             {
-                return _candidat.lstDiplomes[0].oDiplome.Nom;
+                return TheDiplome.oDiplome.Nom;
             }
             set
             {
                 
-                 _candidat.lstDiplomes[0].oDiplome.Nom = value;
+                 TheDiplome.oDiplome.Nom = value;
                 RaisePropertyChanged();
 
             }
@@ -39,7 +39,7 @@ namespace GestVAE.VM
             {
 
                 Boolean bReturn= true;
-                foreach (var oDC in _candidat.lstDiplomes[0].lstDCCands)
+                foreach (var oDC in TheDiplome.lstDCCands)
                 {
                     if (oDC.Statut =="REFUSE")
                     {
@@ -54,7 +54,7 @@ namespace GestVAE.VM
                 {
                     if (value)
                     {
-                        foreach (var oDC in _candidat.lstDiplomes[0].lstDCCands)
+                        foreach (var oDC in TheDiplome.lstDCCands)
                         {
                             oDC.Statut = "ACCEPTE";
                             oDC.DateObtention = DateTime.Now;
@@ -73,13 +73,51 @@ namespace GestVAE.VM
         {
             get
             {
-                return _candidat.lstDiplomes[0].lstDCCands[0].Statut;
+                return TheDiplome.lstDCCands[0].Statut;
             }
             set
             {
                 if (value != StatutDC1)
                 {
-                    _candidat.lstDiplomes[0].lstDCCands[0].Statut = value;
+                    TheDiplome.lstDCCands[0].Statut = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("isDC1ACCEPTE");
+                }
+            }
+        }
+        public  Boolean isDC1ACCEPTE
+        {
+            get
+            {
+                return StatutDC1 == "ACCEPTE";
+            }
+        }
+        public DateTime DateObtentionDC1
+        {
+            get
+            {
+                return TheDiplome.lstDCCands[0].DateObtention.Value;
+            }
+            set
+            {
+                if (value != DateObtentionDC1)
+                {
+                    TheDiplome.lstDCCands[0].DateObtention = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String ModeObtentionDC1
+        {
+            get
+            {
+                return TheDiplome.lstDCCands[0].ModeObtention;
+            }
+            set
+            {
+                if (value != ModeObtentionDC1)
+                {
+                    TheDiplome.lstDCCands[0].ModeObtention = value;
                     RaisePropertyChanged();
                 }
             }
@@ -88,13 +126,51 @@ namespace GestVAE.VM
         {
             get
             {
-                return _candidat.lstDiplomes[0].lstDCCands[1].Statut;
+                return TheDiplome.lstDCCands[1].Statut;
             }
             set
             {
                 if (value != StatutDC2)
                 {
-                    _candidat.lstDiplomes[0].lstDCCands[1].Statut = value;
+                    TheDiplome.lstDCCands[1].Statut = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("isDC2ACCEPTE");
+                }
+            }
+        }
+        public Boolean isDC2ACCEPTE
+        {
+            get
+            {
+                return StatutDC2 == "ACCEPTE";
+            }
+        }
+        public DateTime DateObtentionDC2
+        {
+            get
+            {
+                return TheDiplome.lstDCCands[1].DateObtention.Value;
+            }
+            set
+            {
+                if (value != DateObtentionDC2)
+                {
+                    TheDiplome.lstDCCands[1].DateObtention = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String ModeObtentionDC2
+        {
+            get
+            {
+                return TheDiplome.lstDCCands[1].ModeObtention;
+            }
+            set
+            {
+                if (value != ModeObtentionDC2)
+                {
+                    TheDiplome.lstDCCands[1].ModeObtention = value;
                     RaisePropertyChanged();
                 }
             }
@@ -103,14 +179,53 @@ namespace GestVAE.VM
         {
             get
             {
-                return _candidat.lstDiplomes[0].lstDCCands[2].Statut;
+                return TheDiplome.lstDCCands[2].Statut;
             }
             set
             {
                 if (value != StatutDC3)
                 {
-                    _candidat.lstDiplomes[0].lstDCCands[2].Statut = value;
+                    TheDiplome.lstDCCands[2].Statut = value;
                     RaisePropertyChanged();
+                    RaisePropertyChanged("isDC3ACCEPTE");
+                }
+            }
+        }
+        public Boolean isDC3ACCEPTE
+        {
+            get
+            {
+                return StatutDC3 == "ACCEPTE";
+            }
+        }
+        public DateTime DateObtentionDC3
+        {
+            get
+            {
+                return TheDiplome.lstDCCands[2].DateObtention.Value;
+            }
+            set
+            {
+                if (value != DateObtentionDC3)
+                {
+                    TheDiplome.lstDCCands[2].DateObtention = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String ModeObtentionDC3
+        {
+            get
+            {
+                return TheDiplome.lstDCCands[2].ModeObtention;
+            }
+            set
+            {
+                if (value != ModeObtentionDC3)
+                {
+                    TheDiplome.lstDCCands[2].ModeObtention = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("isDC3ACCEPTE");
                 }
             }
         }
@@ -118,14 +233,52 @@ namespace GestVAE.VM
         {
             get
             {
-                return _candidat.lstDiplomes[0].lstDCCands[3].Statut;
+                return TheDiplome.lstDCCands[3].Statut;
             }
             set
             {
                 if (value != StatutDC4)
                 {
-                    _candidat.lstDiplomes[0].lstDCCands[3].Statut = value;
+                    TheDiplome.lstDCCands[3].Statut = value;
                     RaisePropertyChanged();
+                }
+            }
+        }
+        public Boolean isDC4ACCEPTE
+        {
+            get
+            {
+                return StatutDC4 == "ACCEPTE";
+            }
+        }
+        public DateTime DateObtentionDC4
+        {
+            get
+            {
+                return TheDiplome.lstDCCands[3].DateObtention.Value;
+            }
+            set
+            {
+                if (value != DateObtentionDC4)
+                {
+                    TheDiplome.lstDCCands[3].DateObtention = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String ModeObtentionDC4
+        {
+            get
+            {
+                return TheDiplome.lstDCCands[3].ModeObtention;
+            }
+            set
+            {
+                if (value != ModeObtentionDC4)
+                {
+                    TheDiplome.lstDCCands[3].ModeObtention = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("isDC4ACCEPTE");
                 }
             }
         }
@@ -139,5 +292,17 @@ namespace GestVAE.VM
             }
             set { }
                  }
+        public List<String> LstModeObtention
+        {
+            get
+            {
+                List<String> oReturn = new List<String>();
+                oReturn.Add("FI");
+                oReturn.Add("VAE");
+                oReturn.Add("Dispence");
+                return oReturn;
+            }
+            set { }
+        }
     }
 }

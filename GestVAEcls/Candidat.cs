@@ -45,7 +45,7 @@ namespace GestVAEcls
             Nom = "";
             Prenom = "";
             bHandicap = false;
-
+            lstDiplomes = new ObservableCollection<DiplomeCand>();
 
         }
         public Candidat(String pNom) : this ()

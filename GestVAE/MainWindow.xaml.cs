@@ -35,8 +35,8 @@ namespace GestVAE
             _VM = new MyViewModel();
             _VM.getData();
             this.DataContext = _VM;
-            lbCandidats.ItemsSource = _VM.Lst;
-            grid1.DataContext = _VM.Lst;
+            lbCandidats.ItemsSource = _VM.lstCandidatVM;
+            grid1.DataContext = _VM.lstCandidatVM;
                 
         }
         private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -57,7 +57,24 @@ namespace GestVAE
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _VM.getData();
-            MessageBox.Show("Données Rechargée");
+            MessageBox.Show("Données Rechargées");
+        }
+        bool manualCommit = false;
+        private void gridLstDiplome_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (!manualCommit)
+            {
+                manualCommit = true;
+                gridLstDiplome.CommitEdit(DataGridEditingUnit.Row, true);
+                manualCommit = false;
+            }
+        }
+
+        private void gridLstDiplome_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            dlgDetail odlg = new dlgDetail();
+
+            odlg.ShowDialog();
         }
     }
 }

@@ -26,6 +26,22 @@ namespace GestVAE.VM
         {
         }
 
+        public String NomDiplome
+        {
+            get
+            {
+                return TheLivret.oDiplome.Nom;
+            }
+            set
+            {
+                if (value != NomDiplome)
+                {
+                    TheLivret.oDiplome.Nom = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
 
         public Boolean IsContrat {
             get{

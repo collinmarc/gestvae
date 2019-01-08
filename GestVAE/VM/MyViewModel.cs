@@ -87,8 +87,15 @@ namespace GestVAE.VM
                 CandidatVM oCand = new CandidatVM(item);
                 _lstCandidatVM.Add(oCand);
             }
+        }
 
- 
+        public void AddCandidat()
+        {
+            Candidat oCand = new Candidat("...");
+            //_ctx.Candidats.Add(oCand);
+            CandidatVM oCandVM = new CandidatVM(oCand);
+            lstCandidatVM.Add(oCandVM);
+
         }
         public void saveData()
         {

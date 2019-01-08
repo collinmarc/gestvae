@@ -58,8 +58,9 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <GridSplitter  HorizontalAlignment="Stretch"  Grid.Row="1"  VerticalAlignment="Stretch" Background="#FF0A0101" />
-                <ListBox x:Name="lbCandidats" Grid.Row="2" IsSynchronizedWithCurrentItem="True" >
-                    <ListBox.ItemTemplate>
+                <StackPanel Name="pnlListCandidats" Grid.Row="2" >
+                    <ListBox x:Name="lbCandidats"  IsSynchronizedWithCurrentItem="True"  VerticalAlignment="Stretch" Height="343">
+                        <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding TheCandidat.Nom}" />
@@ -67,7 +68,9 @@
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>
+                    </ListBox>
+                    <Button Name="cbAddCandidat" Content="Ajout candidat" Height="30" Margin="10" Click="cbAddCandidat_Click"></Button>
+                </StackPanel>
             </Grid>
             <Grid x:Name="GridRight" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                 <Grid x:Name="grid1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,60" Style="{DynamicResource GridStyle1}">

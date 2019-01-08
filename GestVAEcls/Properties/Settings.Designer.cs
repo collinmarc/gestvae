@@ -32,5 +32,14 @@ namespace GestVAEcls.Properties {
                 return ((string)(this["CSGESTVAE"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CAFDES")]
+        public string NomDiplomeDefaut {
+            get {
+                return ((string)(this["NomDiplomeDefaut"]));
+            }
+        }
     }
 }

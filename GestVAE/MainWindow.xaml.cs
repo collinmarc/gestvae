@@ -36,7 +36,7 @@ namespace GestVAE
             _VM.getData();
             this.DataContext = _VM;
             lbCandidats.ItemsSource = _VM.lstCandidatVM;
-            grid1.DataContext = _VM.lstCandidatVM;
+           grid1.DataContext = _VM.lstCandidatVM;
                 
         }
         private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -92,6 +92,11 @@ namespace GestVAE
             ofrm.setContexte(obj);
 
             ofrm.ShowDialog();
+        }
+
+        private void cbAddCandidat_Click(object sender, RoutedEventArgs e)
+        {
+            _VM.AddCandidat();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace GestVAE
         {
             InitializeComponent();
 
-
+            tbDiplome.SetBinding(TextBox.TextProperty, "NomDiplome");
             cbxEtatLivret.SetBinding(ComboBox.SelectedItemProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.ItemsSourceProperty, "LstEtatLivret");
 

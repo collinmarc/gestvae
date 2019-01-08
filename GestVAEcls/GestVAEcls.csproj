@@ -115,6 +115,10 @@
     <Compile Include="Migrations\201901081652056_PJ Requiered.Designer.cs">
       <DependentUpon>201901081652056_PJ Requiered.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901082235416_Livret-Diplome.cs" />
+    <Compile Include="Migrations\201901082235416_Livret-Diplome.Designer.cs">
+      <DependentUpon>201901082235416_Livret-Diplome.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DomaineCompetence.cs" />
     <Compile Include="Echanges.cs" />
@@ -181,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901081652056_PJ Requiered.resx">
       <DependentUpon>201901081652056_PJ Requiered.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901082235416_Livret-Diplome.resx">
+      <DependentUpon>201901082235416_Livret-Diplome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

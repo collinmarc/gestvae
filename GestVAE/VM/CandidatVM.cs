@@ -36,5 +36,27 @@ namespace GestVAE.VM
             }
 
         }
+        public CandidatVM()
+        {
+            TheCandidat = new Candidat();
+            Diplome = new ObservableCollection<DiplomeCandVM>();
+            lstLivrets = new ObservableCollection<LivretVM>();
+            foreach (DiplomeCand item in TheCandidat.lstDiplomes)
+            {
+                DiplomeCandVM oDipCand = new DiplomeCandVM(item);
+                Diplome.Add(oDipCand);
+            }
+            foreach (Livret item in TheCandidat.lstLivrets1)
+            {
+                LivretVM oLivret = new LivretVM(item);
+                lstLivrets.Add(oLivret);
+            }
+            foreach (Livret item in TheCandidat.lstLivrets2)
+            {
+                LivretVM oLivret = new LivretVM(item);
+                lstLivrets.Add(oLivret);
+            }
+
+        }
     }
 }

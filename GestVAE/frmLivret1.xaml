@@ -27,7 +27,8 @@
         <TextBlock Text="LIVRET1" Grid.Row="0" FontSize="36" HorizontalAlignment="Center">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
-            </TextBlock.Foreground></TextBlock>
+            </TextBlock.Foreground>
+        </TextBlock>
 
         <Grid x:Name="grdEntete" ShowGridLines="True" Grid.Row="1" Margin="10" >
 
@@ -41,11 +42,27 @@
                 <RowDefinition x:Name="lgContratTypeOrigine" Height="Auto"/>
                 <RowDefinition x:Name="lgDates"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" >
-                <Label Content="Etat Livret :"></Label>
-                <ComboBox Name="cbxEtatLivret" Width="172" />
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="Numéro Livret :"/>
+                    <TextBox x:Name="tbNumLivret" Text="{Binding TheLivret.Numero}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="Etat Livret :"></Label>
+                    <ComboBox Name="cbxEtatLivret" Width="172" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="Diplome :"/>
+                    <TextBox x:Name="tbDiplome" />
+                </StackPanel>
 
             </StackPanel>
+
+
             <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="3">
                 <StackPanel Orientation="Horizontal">
                     <Label>Pièces jointes :</Label>
@@ -122,13 +139,7 @@
             </StackPanel>
 
 
-            <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Numéro Livret :"/>
-                    <TextBox x:Name="tbNumLivret" Text="{Binding TheLivret.Numero}"/>
-                </StackPanel>
 
-            </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" >
                 <Label Content="Date échéance :"/>
                 <DatePicker SelectedDate="{Binding Path=TheLivret.DateEcheance}"/>

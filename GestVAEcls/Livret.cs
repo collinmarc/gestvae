@@ -25,12 +25,20 @@ namespace GestVAEcls
         public DateTime? DateReceptCandidat { get; set; }
         public Boolean isEnvoiEHESP_AR { get; set; }
         public Boolean isEnvoiCand_AR { get; set; }
-        public  virtual ObservableCollection<Jury> lstJurys { get; set; }
+        public virtual Diplome oDiplome { get; set; }
+        public virtual ObservableCollection<Jury> lstJurys { get; set; }
         public Livret()
         {
             EtatLivret = "";
             Typestr = "";
             lstJurys = new ObservableCollection<Jury>();
+            using (Context ctx = new Context())
+            {
+                oDiplome = (from obj in ctx.Diplomes
+                            where obj.bDeleted == false &&
+                            obj.Nom == Properties.Settings.Default.NomDiplomeDefaut
+                            select obj).First<Diplome>();
+            }
         }
 
 

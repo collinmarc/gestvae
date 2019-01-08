@@ -56,6 +56,7 @@ namespace GestVAEcls
         public Candidat(String pNom) : this ()
         {
             Nom = pNom;
+            Sexe = GestVAEcls.Sexe.H;
         }
 
 

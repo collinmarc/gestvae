@@ -44,6 +44,7 @@ namespace GestVAETU
             oL1.isContrat = false;
             oL1.TypeDemande = "Courrier";
             oL1.OrigineDemande = "site Ehesp";
+            oL1.EtatLivret = "0-Demandé";
 
             oCand.lstLivrets1.Add(oL1);
 
@@ -59,6 +60,7 @@ namespace GestVAETU
             Assert.AreEqual(oL1.isContrat, oL2.isContrat);
             Assert.AreEqual(oL1.TypeDemande, oL2.TypeDemande);
             Assert.AreEqual(oL1.OrigineDemande, oL2.OrigineDemande);
+            Assert.AreEqual(oL1.EtatLivret, oL2.EtatLivret);
 
 
         }
@@ -91,6 +93,34 @@ namespace GestVAETU
             Assert.AreEqual(oPJ.Nom, oPJ2.Nom);
             Assert.AreEqual(oPJ.IsRecu, oPJ2.IsRecu);
             Assert.AreEqual(oPJ.IsOK, oPJ2.IsOK);
+
+        }
+        [TestMethod]
+        public void TestCRUDLivret1EchangeTest()
+        {
+            int nId = 0;
+            nId = oCand.ID;
+            Livret1 oL1 = new Livret1();
+            oL1.Numero = "20190115001";
+
+            EchangeL1 oECH = new EchangeL1("Demande de PJ");
+            oL1.lstEchanges.Add(oECH);
+
+            oCand.lstLivrets1.Add(oL1);
+
+
+            ctx.SaveChanges();
+
+            ctx = new Context();
+            oCand = ctx.Candidats.Find(nId);
+            Assert.AreEqual(1, oCand.lstLivrets1.Count);
+
+            oL1 = oCand.lstLivrets1[0];
+            EchangeL1 oECH2 = oL1.lstEchanges[0];
+
+            Assert.AreEqual(oECH2.MotifEch, oECH.MotifEch);
+//            Assert.AreEqual(oECH2.DateEch, oECH.DateEch);
+            Assert.AreEqual(oECH2.IsOK, oECH.IsOK);
 
         }
     }

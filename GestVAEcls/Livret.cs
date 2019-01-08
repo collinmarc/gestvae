@@ -18,13 +18,21 @@ namespace GestVAEcls
         public String TypeDemande { get; set; }
         public String OrigineDemande { get; set; }
 
+        public String EtatLivret { get; set; }
         public DateTime? DateEnvoiEHESP { get; set; }
         public DateTime? DateEnvoiCandidat { get; set; }
         public DateTime? DateReceptEHESP { get; set; }
         public DateTime? DateReceptCandidat { get; set; }
         public Boolean isEnvoiEHESP_AR { get; set; }
         public Boolean isEnvoiCand_AR { get; set; }
-        
+        public  virtual ObservableCollection<Jury> lstJurys { get; set; }
+        public Livret()
+        {
+            EtatLivret = "";
+            Typestr = "";
+            lstJurys = new ObservableCollection<Jury>();
+        }
+
 
     }
     public class Livret1 : Livret
@@ -32,39 +40,37 @@ namespace GestVAEcls
         public String Numero { get; set; }
         public DateTime? DateDemande { get; set; }
 
-        public String EtatDossier { get; set; }
 
-        public virtual ObservableCollection<Jury> lstJurys { get; set; }
         public virtual ObservableCollection<PieceJointeL1> lstPiecesJointes { get; set; }
+        public virtual ObservableCollection<EchangeL1> lstEchanges { get; set; }
         [Required]
         public virtual Candidat oCandidat { get; set; }
 
-        public Livret1()
+        public Livret1():base()
         {
             Typestr = "LIVRET1";
-            lstJurys = new ObservableCollection<Jury>();
             lstPiecesJointes = new ObservableCollection<PieceJointeL1>();
+            lstEchanges = new ObservableCollection<EchangeL1>();
         }
 
 
-   }
+    }
     public class Livret2 : Livret
     {
 
         public int Numero { get; set; }
         public DateTime? DateDemande { get; set; }
-        public String EtatDossier { get; set; }
 
-        public virtual ObservableCollection<Jury> lstJurys { get; set; }
         public virtual ObservableCollection<PieceJointeL2> lstPiecesJointes { get; set; }
+        public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
         [Required]
         public virtual Candidat oCandidat { get; set; }
 
-        public Livret2()
+        public Livret2():base()
         {
             Typestr = "LIVRET2";
-            lstJurys = new ObservableCollection<Jury>();
             lstPiecesJointes = new ObservableCollection<PieceJointeL2>();
+            lstEchanges = new ObservableCollection<EchangeL2>();
         }
 
     }

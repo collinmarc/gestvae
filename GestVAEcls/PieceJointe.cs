@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,10 @@ namespace GestVAEcls
             Nom = pNom;
         }
     }
+
     public class PieceJointeL1 : PieceJointe
     {
+        [Required]
 
         public virtual Livret1 oLivret { get; set; }
 
@@ -39,7 +42,7 @@ namespace GestVAEcls
     }
     public class PieceJointeL2 : PieceJointe
     {
-
+        [Required]
         public virtual Livret2 oLivret { get; set; }
 
         public PieceJointeL2() : base()

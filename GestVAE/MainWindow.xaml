@@ -188,7 +188,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Numero" Binding="{Binding TheLivret.Numero}"/>
                             <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}"/>
-                            <DataGridTextColumn Header="Etat" Binding="{Binding TheLivret.EtatDossier}"/>
+                            <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret}"/>
                             <DataGridTextColumn Header="Echéance" Binding="{Binding TheLivret.DateEcheance, StringFormat='dd/MM/yyyy'}"/>
                             <DataGridCheckBoxColumn Header="Contrat" Binding="{Binding IsContrat}"/>
                         </DataGrid.Columns>

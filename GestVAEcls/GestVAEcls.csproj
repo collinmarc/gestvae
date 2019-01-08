@@ -95,8 +95,29 @@
     <Compile Include="Migrations\201901081209000_Livret_PJ.Designer.cs">
       <DependentUpon>201901081209000_Livret_PJ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901081301174_Livret_Echanges.cs" />
+    <Compile Include="Migrations\201901081301174_Livret_Echanges.Designer.cs">
+      <DependentUpon>201901081301174_Livret_Echanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901081303420_Livret_Echanges2.cs" />
+    <Compile Include="Migrations\201901081303420_Livret_Echanges2.Designer.cs">
+      <DependentUpon>201901081303420_Livret_Echanges2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901081501004_Jury.cs" />
+    <Compile Include="Migrations\201901081501004_Jury.Designer.cs">
+      <DependentUpon>201901081501004_Jury.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901081633163_etatLivret.cs" />
+    <Compile Include="Migrations\201901081633163_etatLivret.Designer.cs">
+      <DependentUpon>201901081633163_etatLivret.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901081652056_PJ Requiered.cs" />
+    <Compile Include="Migrations\201901081652056_PJ Requiered.Designer.cs">
+      <DependentUpon>201901081652056_PJ Requiered.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DomaineCompetence.cs" />
+    <Compile Include="Echanges.cs" />
     <Compile Include="PieceJointe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -145,6 +166,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901081209000_Livret_PJ.resx">
       <DependentUpon>201901081209000_Livret_PJ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081301174_Livret_Echanges.resx">
+      <DependentUpon>201901081301174_Livret_Echanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081303420_Livret_Echanges2.resx">
+      <DependentUpon>201901081303420_Livret_Echanges2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081501004_Jury.resx">
+      <DependentUpon>201901081501004_Jury.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081633163_etatLivret.resx">
+      <DependentUpon>201901081633163_etatLivret.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081652056_PJ Requiered.resx">
+      <DependentUpon>201901081652056_PJ Requiered.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

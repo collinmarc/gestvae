@@ -10,7 +10,7 @@ namespace GestVAEcls
     {
         public int NumeroOrdre { get; set; }
         public String NomJury { get; set; }
-        public DateTime DateJury { get; set; }
+        public DateTime? DateJury { get; set; }
         public String LieuJury { get; set; }
         public String Decision { get; set; }
         public String MotifGeneral { get; set; }

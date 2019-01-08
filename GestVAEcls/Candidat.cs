@@ -38,6 +38,9 @@ namespace GestVAEcls
         public String Tel2 { get; set; }
         public String Tel3 { get; set; }
         public Boolean bHandicap { get; set; }
+        public virtual ObservableCollection<DiplomeCand> lstDiplomes { get; set; }
+        public virtual ObservableCollection<Livret1> lstLivrets1 { get; set; }
+        public virtual ObservableCollection<Livret2> lstLivrets2 { get; set; }
 
 
         public Candidat() :base()
@@ -46,6 +49,8 @@ namespace GestVAEcls
             Prenom = "";
             bHandicap = false;
             lstDiplomes = new ObservableCollection<DiplomeCand>();
+            lstLivrets1 = new ObservableCollection<Livret1>();
+            lstLivrets2 = new ObservableCollection<Livret2>();
 
         }
         public Candidat(String pNom) : this ()
@@ -54,7 +59,6 @@ namespace GestVAEcls
         }
 
 
-        public virtual ObservableCollection<DiplomeCand> lstDiplomes { get; set; }
 
     }
 }

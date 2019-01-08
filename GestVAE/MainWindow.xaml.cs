@@ -78,5 +78,20 @@ namespace GestVAE
 
             odlg.ShowDialog();
         }
+
+        private void gridLstLivrets_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+
+        }
+
+        private void gridLstLivrets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            frmLivret1 ofrm = new frmLivret1();
+            LivretVM obj = (LivretVM)gridLstLivrets.SelectedItem;
+            ofrm.setContexte(obj);
+
+            ofrm.ShowDialog();
+        }
     }
 }

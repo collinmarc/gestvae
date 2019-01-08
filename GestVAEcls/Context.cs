@@ -22,7 +22,35 @@ namespace GestVAEcls
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            //modelBuilder.Entity<Livret>()
+            //.Property(p => p.ID)
+            //.HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None)
+            //;
+            //modelBuilder.Entity<Livret1>()
+            //.Property(p => p.ID)
+            //.HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None)
+            //;
+            //modelBuilder.Entity<Livret2>()
+            //.Property(p => p.ID)
+            //.HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None)
+            //;
+
+            //modelBuilder.Entity<Livret1>().HasKey(t => t.IDLivret);
+            //modelBuilder.Entity<Livret2>().HasKey(t => t.IDLivret);
+
+            //modelBuilder.Entity<Livret1>().Map(m =>
+            //{
+            //    m.MapInheritedProperties();
+            //    m.ToTable("Livret1");
+            //});
+
+            //modelBuilder.Entity<Livret2>().Map(m =>
+            //{
+            //    m.MapInheritedProperties();
+            //    m.ToTable("Livret2");
+            //});
+            ////modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             //modelBuilder.Entity<Candidat>()
             //    .HasKey(t => t.ID);

@@ -48,11 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Candidat.cs" />
+    <Compile Include="Jury.cs" />
     <Compile Include="DomaineCompetenceCand.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Diplome.cs" />
     <Compile Include="DiplomeCand.cs" />
     <Compile Include="GestVAE.cs" />
+    <Compile Include="Livret.cs" />
     <Compile Include="Migrations\201812281436295_Init.cs" />
     <Compile Include="Migrations\201812281436295_Init.Designer.cs">
       <DependentUpon>201812281436295_Init.cs</DependentUpon>
@@ -89,8 +91,13 @@
     <Compile Include="Migrations\201901031650304_SexeNull.Designer.cs">
       <DependentUpon>201901031650304_SexeNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901081209000_Livret_PJ.cs" />
+    <Compile Include="Migrations\201901081209000_Livret_PJ.Designer.cs">
+      <DependentUpon>201901081209000_Livret_PJ.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DomaineCompetence.cs" />
+    <Compile Include="PieceJointe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -136,6 +143,12 @@
     <EmbeddedResource Include="Migrations\201901031650304_SexeNull.resx">
       <DependentUpon>201901031650304_SexeNull.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081209000_Livret_PJ.resx">
+      <DependentUpon>201901081209000_Livret_PJ.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

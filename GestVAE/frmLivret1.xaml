@@ -1,0 +1,154 @@
+﻿<Window x:Class="GestVAE.frmLivret1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestVAE"
+        mc:Ignorable="d"
+        Title="frmLivret1" Height="600" Width="800">
+    <Window.Resources>
+        <Image x:Key="AddIco" Source="IMG/Add.png"></Image>
+    </Window.Resources>
+    <Grid x:Name ="grdLivret" ShowGridLines="true" >
+        <Grid.RowDefinitions>
+            <!--Type-->
+            <RowDefinition Height="Auto"/>
+            <!--Entete-->
+            <RowDefinition Height="Auto"/>
+            <!--Echanges-->
+            <RowDefinition Height="209*"/>
+            <!--Decision-->
+
+            <RowDefinition Height="208*"/>
+            <!--Recours-->
+
+            <RowDefinition Height="209*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="LIVRET1" Grid.Row="0" FontSize="36" HorizontalAlignment="Center">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
+            </TextBlock.Foreground></TextBlock>
+
+        <Grid x:Name="grdEntete" ShowGridLines="True" Grid.Row="1" Margin="10" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="cgID"/>
+                <ColumnDefinition x:Name="cgDateDemande"/>
+                <ColumnDefinition x:Name="cgEtat"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="lgIDDemandeEtat" Height="Auto"/>
+                <RowDefinition x:Name="lgContratTypeOrigine" Height="Auto"/>
+                <RowDefinition x:Name="lgDates"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" >
+                <Label Content="Etat Livret :"></Label>
+                <ComboBox Name="cbxEtatLivret" Width="185" 
+                          SelectedItem="{Binding TheLivret.EtatDossier}" 
+                          ItemsSource="{Binding LstEtatLivret}">
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="3">
+                <Label>Pièces jointes</Label>
+                <StackPanel Orientation="Horizontal">
+                    <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" ItemsSource="{Binding TheLivret.lstPiecesJointes}" AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" Width="202" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Désignation" Binding="{Binding Nom}" Width="4*"/>
+                            <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
+                            <DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    <Button x:Name="btnAddPJ" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddPJ_Click">
+                        <Image Source="IMG/add.png" Margin="0,0,10,0" />
+                    </Button>
+
+                </StackPanel>
+            </StackPanel>
+            <!-- LgContratTypeOrigine-->
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                <RadioButton Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat}" GroupName="ContratLivret"></RadioButton>
+                <RadioButton Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention}" GroupName="ContratLivret"></RadioButton>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                <Label Content="Type demande :"></Label>
+                <ComboBox Name="cbxTypeDemande" 
+                          SelectedItem="{Binding TheLivret.TypeDemande}" 
+                          ItemsSource="{Binding LstTypeDemande}"/>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                <Label Content="Origine demande :"></Label>
+                <ComboBox Name="cbxOrigineDemande"
+                          SelectedItem="{Binding TheLivret.OrigineDemande}" 
+                          ItemsSource="{Binding LstOrigineDemande}"/>
+
+
+            </StackPanel>
+            <!-- LgDates-->
+            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" >
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Date demande" Width="150"></Label>
+                    <DatePicker Name="dtpDateDemande" SelectedDate="{Binding Path=TheLivret.DateDemande}" Width="101"></DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Date envoi EHESP" Width="150"></Label>
+                    <DatePicker Name="dtpenvoiEHESP" Width="100" SelectedDate="{Binding Path=TheLivret.DateEnvoiEHESP}"></DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Accusé de réception" Width="150"></Label>
+                    <CheckBox  Name="chkAccuseRecepEHESP" IsChecked="{Binding TheLivret.isEnvoiEHESP_AR}" VerticalAlignment="Center" ></CheckBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Date Reception Candidat" Width="150" ></Label>
+                    <DatePicker Name="dtpReceptCandidat" Width="99" SelectedDate="{Binding Path=TheLivret.DateReceptCandidat}" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" >
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Date Envoi candidat :"></Label>
+                    <DatePicker Name="dtpenvoiCandidat" SelectedDate="{Binding Path=TheLivret.DateEnvoiCandidat}" Width="122"></DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Accusé de réception" Width="150"></Label>
+                    <CheckBox  Name="chkAccuseRecepCand" IsChecked="{Binding TheLivret.isEnvoiCand_AR}" VerticalAlignment="Center" ></CheckBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Date Reception EHESP"></Label>
+                    <DatePicker Name="dtpReceptEHESP"  SelectedDate="{Binding Path=TheLivret.DateReceptEHESP}" Width="114"></DatePicker>
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Numéro Livret :"/>
+                    <TextBox x:Name="tbNumLivret" Text="{Binding TheLivret.Numero}"/>
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" >
+                <Label Content="Date échéance :"/>
+                <DatePicker SelectedDate="{Binding Path=TheLivret.DateEcheance}"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" >
+            <Label Content="Echanges :"/>
+            <StackPanel Orientation="Horizontal">
+                <DataGrid x:Name="dgEchanges" Background="#FFF90A0A" ItemsSource="{Binding TheLivret.lstPiecesJointes}" AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" Width="737" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Désignation" Binding="{Binding Nom}" Width="4*"/>
+                        <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
+                        <DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+                <Button x:Name="btnAddEchange" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddPJ_Click">
+                    <Image Source="IMG/add.png" Margin="0,0,10,0" />
+                </Button>
+
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

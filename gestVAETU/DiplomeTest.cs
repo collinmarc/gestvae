@@ -34,7 +34,7 @@ namespace GestVAETU
             oDiplome.Description = "Ma Description2";
 
             ctx.SaveChanges();
-            ctx = new Context();
+            ctx = Context.instance;
 
             oDiplome = (from obj in ctx.Diplomes
                      where (obj.ID == nId) && (!obj.bDeleted)
@@ -75,22 +75,22 @@ namespace GestVAETU
             ctx.Diplomes.Add(oDip1);
 
             ctx.SaveChanges();
-            ctx = new Context();
+            ctx = Context.instance;
 
             oDip2 = ctx.Diplomes.Find(oDip1.ID);
 
             Assert.AreEqual(2, oDip2.lstDomainesCompetences.Count<DomaineCompetence>());
 
-            oDC1 = oDip2.lstDomainesCompetencesSorted()[0];
-            Assert.AreEqual("DC1", oDC1.Nom);
-            oDC2 = oDip2.lstDomainesCompetencesSorted()[1];
-            Assert.AreEqual("DC2", oDC2.Nom);
+            oDC1 = oDip2.lstDomainesCompetences[0];
+            Assert.AreEqual("DC2", oDC1.Nom);
+            oDC2 = oDip2.lstDomainesCompetences[1];
+            Assert.AreEqual("DC1", oDC2.Nom);
 
             ctx.DomainesCompetences.Remove(oDC2);
 
             ctx.SaveChanges();
 
-            ctx = new Context();
+            ctx = Context.instance;
 
             oDip2 = (from obj in ctx.Diplomes
                      where obj.ID == oDip1.ID
@@ -120,7 +120,7 @@ namespace GestVAETU
             ctx.Diplomes.Add(oDip1);
 
             ctx.SaveChanges();
-            ctx = new Context();
+            ctx = Context.instance;
 
             oDip2 = ctx.Diplomes.Find(oDip1.ID);
 

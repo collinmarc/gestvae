@@ -18,9 +18,8 @@ namespace GestVAEcls
             Statut = "";
         }
 
-        public DiplomeCand(Candidat pCandidat, Diplome pDip ,DateTime pDateObtention) : this()
+        public DiplomeCand(Diplome pDip ,DateTime pDateObtention) : this()
         {
-            oCandidat = pCandidat;
             oDiplome = pDip;
             this.DateObtention = pDateObtention;
             SetDCs();
@@ -32,7 +31,7 @@ namespace GestVAEcls
         /// </summary>
         public void SetDCs()
         {
-            foreach (DomaineCompetence oDC in oDiplome.lstDomainesCompetencesSorted())
+            foreach (DomaineCompetence oDC in oDiplome.lstDomainesCompetences)
             {
                 DomaineCompetenceCand oDCCand = new DomaineCompetenceCand(oDC);
                 lstDCCands.Add(oDCCand);

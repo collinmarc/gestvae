@@ -12,7 +12,7 @@ namespace GestVAETU
         public void TestCRUD()
         {
 
-            Context ctx = new Context();
+            Context ctx = Context.instance;
             ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
 
             Candidat oCand = new Candidat();
@@ -37,7 +37,7 @@ namespace GestVAETU
             oCand.Prenom = "JF";
 
             ctx.SaveChanges();
-            ctx = new Context();
+            ctx = Context.instance;
 
             oCand = (from obj in ctx.Candidats
                      where (obj.ID == nId) && (!obj.bDeleted)

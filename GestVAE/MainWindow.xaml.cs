@@ -47,7 +47,7 @@ namespace GestVAE
         private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _VM.saveData();
-            MessageBox.Show("Données Sauvegardées");
+            
         }
         private void OpenCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -72,7 +72,7 @@ namespace GestVAE
 
         private void gridLstDiplome_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            dlgDetail odlg = new dlgDetail();
+            dlgDiplomeCand odlg = new dlgDiplomeCand();
             DiplomeCandVM obj = (DiplomeCandVM)gridLstDiplome.SelectedItem;
             odlg.setContexte(obj);
 
@@ -97,6 +97,23 @@ namespace GestVAE
         private void cbAddCandidat_Click(object sender, RoutedEventArgs e)
         {
             _VM.AddCandidat();
+        }
+
+        /// <summary>
+        /// Ajout d'un diplome au Candidat
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddDiplomeCand_Click(object sender, RoutedEventArgs e)
+        {
+            CandidatVM oCandVM = (CandidatVM)this.lbCandidats.SelectedItem;
+            DiplomeCandVM oDipCandVM= oCandVM.AjoutDiplomeCand();
+            dlgDiplomeCand odlg = new dlgDiplomeCand();
+            
+            odlg.setContexte(oDipCandVM);
+
+            odlg.ShowDialog();
+
         }
     }
 }

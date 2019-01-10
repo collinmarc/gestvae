@@ -119,6 +119,14 @@
     <Compile Include="Migrations\201901082235416_Livret-Diplome.Designer.cs">
       <DependentUpon>201901082235416_Livret-Diplome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901090839281_NomDomaineCompetence.cs" />
+    <Compile Include="Migrations\201901090839281_NomDomaineCompetence.Designer.cs">
+      <DependentUpon>201901090839281_NomDomaineCompetence.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901092240325_AjoutDiplome.cs" />
+    <Compile Include="Migrations\201901092240325_AjoutDiplome.Designer.cs">
+      <DependentUpon>201901092240325_AjoutDiplome.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DomaineCompetence.cs" />
     <Compile Include="Echanges.cs" />
@@ -188,6 +196,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901082235416_Livret-Diplome.resx">
       <DependentUpon>201901082235416_Livret-Diplome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901090839281_NomDomaineCompetence.resx">
+      <DependentUpon>201901090839281_NomDomaineCompetence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901092240325_AjoutDiplome.resx">
+      <DependentUpon>201901092240325_AjoutDiplome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

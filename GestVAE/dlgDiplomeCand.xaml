@@ -1,0 +1,38 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestVAE"
+        xmlns:localVM="clr-namespace:GestVAE.VM"
+        xmlns:localCLS="clr-namespace:GestVAEcls"
+        xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplomeCand"
+        mc:Ignorable="d"
+        Title="Détail du diplome d'un candidat" Height="253.708" Width="530.611">
+    <Canvas Margin="0,0,553,353">
+        <Button x:Name ="btnOK" Content="OK" Canvas.Left="353" Canvas.Top="193" Width="75" Click="btnOK_Click"/>
+
+
+        <Label Content="Nom du diplome :" Canvas.Left="8" Canvas.Top="6"/>
+        <ComboBox x:Name="cbxNomdiplome" Canvas.Left="145" Canvas.Top="10" Width="120" SelectionChanged="cbxNomdiplome_SelectionChanged"/>
+        <Button x:Name="btnAddDiplome" Grid.Row ="15" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddDiplome_Click" Canvas.Left="279" Canvas.Top="10">
+            <Image Source="IMG/add.png" Margin="0,0,10,0" Height="17" Width="18" RenderTransformOrigin="0.639,0.059" />
+        </Button>
+        <Label Content="Statut :" Canvas.Left="329" Canvas.Top="6"/>
+        <ComboBox x:Name="cbxStatutdiplome" Canvas.Left="391" Canvas.Top="6" Width="120"/>
+        <DataGrid x:Name="dgDC" Height="124" Canvas.Left="10" Canvas.Top="52" Width="501" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                  ItemsSource="{Binding lstDCCands}"
+                  CellEditEnding="dgDC_CellEditEnding">
+            <DataGrid.Resources>
+                <localVM:DiplomeCandVM x:Key="ComboItems"  />
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nom" Binding="{Binding NomDomaineCompetence}" IsReadOnly="true" />
+                <DataGridComboBoxColumn Header="Statut" SelectedItemBinding="{Binding Statut}" ItemsSource="{Binding LstStatutModule, Source={StaticResource ComboItems}}"/>
+                <DataGridTextColumn Header="Date Obtention" Binding="{Binding DateObtention, StringFormat='d'}"  />
+                <DataGridComboBoxColumn Header="Mode Obtention" SelectedItemBinding="{Binding ModeObtention}" ItemsSource="{Binding LstModeObtention, Source={StaticResource ComboItems}}"  />
+                <DataGridTextColumn Header="Commentaire" Binding="{Binding Commentaire}"  />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Canvas>
+</Window>

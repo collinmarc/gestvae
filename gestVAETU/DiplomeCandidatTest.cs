@@ -29,9 +29,9 @@ namespace GestVAETU
 
             DiplomeCand oDC1;
             DiplomeCand oDC2;
-            oDC1 = new DiplomeCand(oCand, oDip, DateTime.Now);
+            oDC1 = oCand.AddDiplome(oDip);
 
-            ctx.DiplomeCands.Add(oDC1);
+            //ctx.DiplomeCands.Add(oDC1);
 
             ctx.SaveChanges();
 
@@ -48,7 +48,7 @@ namespace GestVAETU
             oDC2.DateObtention = Convert.ToDateTime("06/02/1964");
 
             ctx.SaveChanges();
-            ctx = new Context();
+            ctx = Context.instance;
 
             oDC1 = (from obj in ctx.DiplomeCands
                     where (obj.ID == nId) && (!obj.bDeleted)
@@ -74,10 +74,8 @@ namespace GestVAETU
 
 
             DiplomeCand oDC1;
-            oDC1 = new DiplomeCand(oCand, oDip, DateTime.Now);
-            oDC1.SetDCs();
-            ctx.DiplomeCands.Add(oDC1);
-
+            oDC1 = oCand.AddDiplome(oDip);
+ 
             ctx.SaveChanges();
 
 

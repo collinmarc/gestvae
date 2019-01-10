@@ -21,14 +21,32 @@ namespace GestVAEcls
         public DomaineCompetenceCand(DomaineCompetence pDC ) : this()
         {
            
-          //  oDomaineCompetence = pDC;
+            oDomaineCompetence = pDC;
+            this.Statut = "??";
         }
         [Required]
         public virtual DiplomeCand oDiplomeCand { get; set; }
-       // public  DomaineCompetence oDomaineCompetence { get; set; }
+  
+        public virtual DomaineCompetence oDomaineCompetence { get; set; }
         public String Statut { get; set; }
         public DateTime? DateObtention { get; set; }
         public String ModeObtention { get; set; }
         public String Commentaire { get; set; }
+        [NotMapped]
+        public String NomDomaineCompetence {
+            get
+            {
+                if (oDomaineCompetence == null)
+                {
+                    return "";
+                }
+                else
+                { 
+                return oDomaineCompetence.Nom;
+                }
+            }
+
+        }
+
     }
 }

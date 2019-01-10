@@ -32,13 +32,7 @@ namespace GestVAEcls
             EtatLivret = "";
             Typestr = "";
             lstJurys = new ObservableCollection<Jury>();
-            using (Context ctx = new Context())
-            {
-                oDiplome = (from obj in ctx.Diplomes
-                            where obj.bDeleted == false &&
-                            obj.Nom == Properties.Settings.Default.NomDiplomeDefaut
-                            select obj).First<Diplome>();
-            }
+            oDiplome = Diplome.getDiplomeParDefaut();
         }
 
 

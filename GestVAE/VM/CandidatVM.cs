@@ -12,17 +12,17 @@ namespace GestVAE.VM
     {
 
         public Candidat TheCandidat { get; set; }
-        public ObservableCollection<DiplomeCandVM> Diplome { get; set; }
+        public ObservableCollection<DiplomeCandVM> lstDiplomesCandVMs { get; set; }
         public ObservableCollection<LivretVM> lstLivrets { get; set; }
         public CandidatVM(Candidat pCandidat)
         {
             TheCandidat = pCandidat;
-            Diplome = new ObservableCollection<DiplomeCandVM>();
+            lstDiplomesCandVMs = new ObservableCollection<DiplomeCandVM>();
             lstLivrets = new ObservableCollection<LivretVM>();
             foreach (DiplomeCand item in pCandidat.lstDiplomes)
             {
                 DiplomeCandVM oDipCand = new DiplomeCandVM(item);
-                Diplome.Add(oDipCand);
+                lstDiplomesCandVMs.Add(oDipCand);
             }
             foreach (Livret item in pCandidat.lstLivrets1)
             {
@@ -39,12 +39,12 @@ namespace GestVAE.VM
         public CandidatVM()
         {
             TheCandidat = new Candidat();
-            Diplome = new ObservableCollection<DiplomeCandVM>();
+            lstDiplomesCandVMs = new ObservableCollection<DiplomeCandVM>();
             lstLivrets = new ObservableCollection<LivretVM>();
             foreach (DiplomeCand item in TheCandidat.lstDiplomes)
             {
                 DiplomeCandVM oDipCand = new DiplomeCandVM(item);
-                Diplome.Add(oDipCand);
+                lstDiplomesCandVMs.Add(oDipCand);
             }
             foreach (Livret item in TheCandidat.lstLivrets1)
             {
@@ -58,5 +58,28 @@ namespace GestVAE.VM
             }
 
         }
+
+        public DiplomeCandVM AjoutDiplomeCand()
+        {
+            DiplomeCand oDiplCand = TheCandidat.AddDiplome();
+            DiplomeCandVM oDiplomeCand = new DiplomeCandVM(oDiplCand);
+            lstDiplomesCandVMs.Add(oDiplomeCand);
+            RaisePropertyChanged("lstDiplomesCandVMs");
+            return oDiplomeCand;
+        }
+
+        //public Diplome getDiplomeParDefaut()
+        //{
+        //    Diplome oDiplome;
+        //    //Context ctx = Context.instance;
+        //    oDiplome = (from obj in _ctx.Diplomes
+        //                where obj.bDeleted == false &&
+        //                       obj.Nom == Properties.Settings.Default.NomDiplomeDefaut
+        //                select obj).FirstOrDefault<Diplome>();
+        //    //Chargement de la liste des domanes de compétences
+        //    oDiplome.lstDomainesCompetences.ToList();
+        //    return oDiplome;
+
+        //}
     }
 }

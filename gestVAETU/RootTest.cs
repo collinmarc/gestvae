@@ -19,42 +19,47 @@ namespace GestVAETU
 
         public void cleanDB()
         {
-            ctx = new Context();
-            //ctx.DomaineCompetenceCands.RemoveRange(ctx.DomaineCompetenceCands.ToList<DomaineCompetenceCand>());
-            //ctx.DiplomeCands.RemoveRange(ctx.DiplomeCands.ToList<DiplomeCand>());
-            //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-            //ctx.DomainesCompetences.RemoveRange(ctx.DomainesCompetences.ToList<DomaineCompetence>());
-            ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-            ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
-            ctx.SaveChanges();
-
+            //using (ctx = Context.instance)
+            //{
+                ;
+                //ctx.DomaineCompetenceCands.RemoveRange(ctx.DomaineCompetenceCands.ToList<DomaineCompetenceCand>());
+                //ctx.DiplomeCands.RemoveRange(ctx.DiplomeCands.ToList<DiplomeCand>());
+                //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
+                //ctx.DomainesCompetences.RemoveRange(ctx.DomainesCompetences.ToList<DomaineCompetence>());
+                ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
+                ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
+                ctx.SaveChanges();
+            //}
 
         }
         [TestInitialize]
         public void Setup()
         {
+            ctx = Context.instance;
             cleanDB();
-            ctx = new Context();
-            //ctx.DomaineCompetenceCands.RemoveRange(ctx.DomaineCompetenceCands.ToList<DomaineCompetenceCand>());
-            //ctx.DiplomeCands.RemoveRange(ctx.DiplomeCands.ToList<DiplomeCand>());
-            //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-            //ctx.DomainesCompetences.RemoveRange(ctx.DomainesCompetences.ToList<DomaineCompetence>());
-            //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-            ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
-            ctx.SaveChanges();
+            //using (ctx = Context.instance)
+            //{
+            //    //ctx.DomaineCompetenceCands.RemoveRange(ctx.DomaineCompetenceCands.ToList<DomaineCompetenceCand>());
+                //ctx.DiplomeCands.RemoveRange(ctx.DiplomeCands.ToList<DiplomeCand>());
+                //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
+                //ctx.DomainesCompetences.RemoveRange(ctx.DomainesCompetences.ToList<DomaineCompetence>());
+                //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
+                ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
+                ctx.SaveChanges();
 
-            oCand = new Candidat("Marc Collin");
-            ctx.Candidats.Add(oCand);
-            oDip = new Diplome("CAFDES");
-            oDip.Description = "Description du CAFDES";
-            oDip.addDomainecompetence("DC1");
-            oDip.addDomainecompetence("DC2");
-            oDip.addDomainecompetence("DC3");
-            oDip.addDomainecompetence("DC4");
+                oCand = new Candidat("Marc Collin");
+                ctx.Candidats.Add(oCand);
+                oDip = new Diplome("CAFDES");
+                oDip.Description = "Description du CAFDES";
+                oDip.addDomainecompetence("DC1");
+                oDip.addDomainecompetence("DC2");
+                oDip.addDomainecompetence("DC3");
+                oDip.addDomainecompetence("DC4");
 
-            ctx.Diplomes.Add(oDip);
-            ctx.SaveChanges();
-
+                ctx.Diplomes.Add(oDip);
+                ctx.SaveChanges();
+            //}
+            //ctx = Context.instance;
         }
     }
 }

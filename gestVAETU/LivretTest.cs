@@ -26,7 +26,7 @@ namespace GestVAETU
 
             ctx.SaveChanges();
 
-            ctx = new Context();
+            ctx = Context.instance;
             oCand = ctx.Candidats.Find(nId);
             Assert.AreEqual(1, oCand.lstLivrets1.Count);
             Assert.AreEqual(1, oCand.lstLivrets2.Count);
@@ -51,7 +51,7 @@ namespace GestVAETU
 
             ctx.SaveChanges();
 
-            ctx = new Context();
+            ctx = Context.instance;
             oCand = ctx.Candidats.Find(nId);
             Assert.AreEqual(1, oCand.lstLivrets1.Count);
 
@@ -83,7 +83,7 @@ namespace GestVAETU
 
             ctx.SaveChanges();
 
-            ctx = new Context();
+            ctx = Context.instance;
             oCand = ctx.Candidats.Find(nId);
             Assert.AreEqual(1, oCand.lstLivrets1.Count);
 
@@ -111,7 +111,7 @@ namespace GestVAETU
 
             ctx.SaveChanges();
 
-            ctx = new Context();
+            ctx = Context.instance;
             oCand = ctx.Candidats.Find(nId);
             Assert.AreEqual(1, oCand.lstLivrets1.Count);
 

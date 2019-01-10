@@ -40,16 +40,12 @@ namespace GestVAE.VM
 
         public void getData()
         {
-            _ctx = new Context();
+            _ctx = Context.instance;
 
             // Créatino du CAFDES si Necessaire
-            int nDip = (from obj in _ctx.Diplomes
-                        where obj.Nom == "CAFDES"
-                        select obj).Count<Diplome>();
+             Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
 
-            Diplome oDipCAFDES;
-
-            if (nDip == 0)
+            if (oDipCAFDES == null)
             {
                 oDipCAFDES = new Diplome("CAFDES");
                 oDipCAFDES.addDomainecompetence("DC1");
@@ -59,13 +55,7 @@ namespace GestVAE.VM
 
                 _ctx.Diplomes.Add(oDipCAFDES);
             }
-            else
-            {
-                oDipCAFDES = (from obj in _ctx.Diplomes
-                              where obj.Nom == "CAFDES"
-                              select obj).First<Diplome>();
-            }
-
+ 
             _lstCandidatVM.Clear();
             foreach (Candidat item in _ctx.Candidats)
             {
@@ -74,16 +64,16 @@ namespace GestVAE.VM
                     item.Sexe = Sexe.H;
                 }
                 //List<DiplomeCand> olst =  item.lstDiplomes.ToList();
-                if (item.lstDiplomes.Count() ==0)
-                {
-                    DiplomeCand oDipCand = new DiplomeCand(item, oDipCAFDES, DateTime.Now);
-                    oDipCand.lstDCCands[0].Statut = "REFUSE";
-                    oDipCand.lstDCCands[1].Statut = "REFUSE";
-                    oDipCand.lstDCCands[2].Statut = "REFUSE";
-                    oDipCand.lstDCCands[3].Statut = "REFUSE";
-                    item.lstDiplomes.Add(oDipCand);
-                    //_ctx.DiplomeCands.Add(oDipCand);
-                }
+                //if (item.lstDiplomes.Count() ==0)
+                //{
+                //    DiplomeCand oDipCand = new DiplomeCand(oDipCAFDES, DateTime.Now);
+                //    oDipCand.lstDCCands[0].Statut = "REFUSE";
+                //    oDipCand.lstDCCands[1].Statut = "REFUSE";
+                //    oDipCand.lstDCCands[2].Statut = "REFUSE";
+                //    oDipCand.lstDCCands[3].Statut = "REFUSE";
+                //    item.lstDiplomes.Add(oDipCand);
+                //    //_ctx.DiplomeCands.Add(oDipCand);
+                //}
                 CandidatVM oCand = new CandidatVM(item);
                 _lstCandidatVM.Add(oCand);
             }
@@ -99,28 +89,9 @@ namespace GestVAE.VM
         }
         public void saveData()
         {
-            _ctx.SaveChanges();
+            Context.instance.SaveChanges();
         }
 
-        public ICommand SaveCommand
-        {
-            get;
-            internal set;
-        }
-
-        private bool CanExecuteSaveCommand()
-        {
-            return _ctx.ChangeTracker.HasChanges();
-        }
-
-        private void CreateSaveCommand()
-        {
-           // SaveCommand = new SaveCommand(SaveExecute, CanExecuteSaveCommand);
-        }
-
-        public void SaveExecute()
-        {
-            _ctx.SaveChanges();
-        }
+ 
     }
 }

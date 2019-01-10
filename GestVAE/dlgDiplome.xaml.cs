@@ -19,23 +19,29 @@ namespace GestVAE
     /// <summary>
     /// Logique d'interaction pour dlgDetail.xaml
     /// </summary>
-    public partial class dlgDetail : Window
+    public partial class dlgDiplome: Window
     {
-        public dlgDetail()
+        public dlgDiplome()
         {
             InitializeComponent();
+
+            tbNomdiplome.SetBinding(TextBox.TextProperty, "NomDiplome");
         }
 
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
+
+            DiplomeVM oDiplomeVM = (DiplomeVM)this.DataContext;
+            oDiplomeVM.Commit();
             this.Close();
 
         }
 
-        public void setContexte(DiplomeCandVM pDiplome)
+        public void setContexte(DiplomeVM pDiplome)
         {
             this.DataContext = pDiplome;
         }
+ 
     }
 }

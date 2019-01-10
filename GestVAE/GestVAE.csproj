@@ -77,8 +77,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="dlgDetail.xaml.cs">
-      <DependentUpon>dlgDetail.xaml</DependentUpon>
+    <Compile Include="dlgDiplome.xaml.cs">
+      <DependentUpon>dlgDiplome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="dlgDiplomeCand.xaml.cs">
+      <DependentUpon>dlgDiplomeCand.xaml</DependentUpon>
     </Compile>
     <Compile Include="frmLivret1.xaml.cs">
       <DependentUpon>frmLivret1.xaml</DependentUpon>
@@ -90,11 +93,16 @@
     <Compile Include="VM\CandidatVM.cs" />
     <Compile Include="VM\Comand.cs" />
     <Compile Include="VM\Converter.cs" />
+    <Compile Include="VM\DiplomeVM.cs" />
     <Compile Include="VM\LivretVM.cs" />
     <Compile Include="VM\MyViewModel.cs" />
     <Compile Include="VM\NotifyUIBase.cs" />
     <Compile Include="VM\VMBase.cs" />
-    <Page Include="dlgDetail.xaml">
+    <Page Include="dlgDiplome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="dlgDiplomeCand.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

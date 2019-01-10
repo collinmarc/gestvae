@@ -20,9 +20,9 @@ namespace GestVAETU
             Int32 nDCAvant = ctx.DomainesCompetences.Count<DomaineCompetence>();
             DomaineCompetence oDC1;
             DomaineCompetence oDC2;
-            oDC1 = new DomaineCompetence(oDip,"DC1");
+            oDC1 = new DomaineCompetence("DC1");
             oDC1.Numero = 1;
-
+            oDip.lstDomainesCompetences.Add(oDC1);
             ctx.DomainesCompetences.Add(oDC1);
 
             ctx.SaveChanges();
@@ -41,7 +41,7 @@ namespace GestVAETU
             oDC1.Numero = 2;
 
             ctx.SaveChanges();
-            ctx = new Context();
+            ctx = Context.instance;
 
             oDC1 = (from obj in ctx.DomainesCompetences
                      where (obj.ID == nId) && (!obj.bDeleted)
@@ -58,6 +58,38 @@ namespace GestVAETU
 
             Assert.AreEqual(nDCAvant, nDomaineCompetence);
 
+
+        }
+        [TestMethod]
+        public void TestAjoutDiplome()
+        {
+            DiplomeCand oDipC = oCand.AddDiplome(oDip);
+            
+            Diplome oDipDefaut = Diplome.getDiplomeParDefaut();
+
+            Assert.AreEqual(oDip.ID, oDipC.oDiplome.ID);
+        }
+        [TestMethod]
+        public void TestAjoutDiplomePArDefaut()
+        {
+
+            int nId = oCand.ID;
+            Diplome oDipDefaut = Diplome.getDiplomeParDefaut();
+            DiplomeCand oDipC = oCand.AddDiplome(oDipDefaut);
+
+
+            Assert.IsNotNull(oDipDefaut);
+            Assert.AreEqual(oDipDefaut.ID, oDipC.oDiplome.ID);
+            Assert.AreEqual(oDipDefaut.lstDomainesCompetences.Count, oDipC.lstDCCands.Count);
+            Assert.AreEqual(1, oCand.lstDiplomes.Count);
+
+            ctx.SaveChanges();
+            ctx = Context.instance;
+
+            oCand = ctx.Candidats.Find(nId);
+            Assert.AreEqual(1, oCand.lstDiplomes.Count);
+            Assert.AreEqual(oDipDefaut.ID, oCand.lstDiplomes[0].oDiplome.ID);
+            Assert.AreEqual(oDipDefaut.lstDomainesCompetences.Count, oCand.lstDiplomes[0].oDiplome.lstDomainesCompetences.Count);
 
         }
     }

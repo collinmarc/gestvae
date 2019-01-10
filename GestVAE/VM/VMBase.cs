@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestVAEcls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace GestVAE.VM
 {
     public class VMBase : NotifyUIBase
     {
+
+        protected Context _ctx = Context.instance;
         private bool isNew = true;
         public bool IsNew
         {

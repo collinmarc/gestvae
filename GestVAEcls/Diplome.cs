@@ -9,6 +9,7 @@ namespace GestVAEcls
 {
     public class Diplome:GestVAE
     {
+
         public Diplome()
         {
             lstDomainesCompetences = new ObservableCollection<DomaineCompetence>();
@@ -24,15 +25,37 @@ namespace GestVAEcls
 
         public List<DomaineCompetence> lstDomainesCompetencesSorted()
         {
-            return  lstDomainesCompetences.OrderBy(dc => dc.Numero).ToList<DomaineCompetence>();
+            List<DomaineCompetence> oReturn; 
+            using (Context _ctx = Context.instance)
+            {
+                oReturn = (from obj in _ctx.DomainesCompetences
+                           where bDeleted == false && obj.oDiplome.ID == ID
+                           orderby obj.Numero ascending
+                           select obj).ToList<DomaineCompetence>();
+            }
+                return oReturn;
         }
 
         public void addDomainecompetence(String pNom)
         {
-            DomaineCompetence oDC = new DomaineCompetence(this,pNom);
+            DomaineCompetence oDC = new DomaineCompetence(pNom);
             oDC.Numero = lstDomainesCompetences.Count + 1;
             lstDomainesCompetences.Add(oDC);
 
         }
+        public static Diplome getDiplomeParDefaut()
+        {
+            Diplome oDiplome;
+            Context ctx = Context.instance;
+            oDiplome = (from obj in ctx.Diplomes
+                        where obj.bDeleted == false &&
+                               obj.Nom == Properties.Settings.Default.NomDiplomeDefaut
+                        select obj).FirstOrDefault<Diplome>();
+            //Chargement de la liste des domanes de compétences
+            oDiplome.lstDomainesCompetences.ToList();
+            return oDiplome;
+
+        }
+
     }
 }

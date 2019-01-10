@@ -16,9 +16,8 @@ namespace GestVAEcls
         {
 
         }
-        public DomaineCompetence(Diplome pDip, String pNom) : base()
+        public DomaineCompetence(String pNom) : base()
         {
-            this.oDiplome = pDip;
             this.Nom = pNom;
 
         }
@@ -27,7 +26,6 @@ namespace GestVAEcls
         public String Nom { get; set; }
 
         [Required]
-
         public virtual Diplome oDiplome { get; set; }
        //public virtual ObservableCollection<DomaineCompetenceCand> lstDCCands { get; set; }
     }

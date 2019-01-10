@@ -59,7 +59,19 @@ namespace GestVAEcls
             Sexe = GestVAEcls.Sexe.H;
         }
 
+        public DiplomeCand AddDiplome(Diplome pDiplome = null, String pStatut = "Validé")
+        {
+            DiplomeCand oReturn = null;
+            if (pDiplome == null)
+            {
+                pDiplome = Diplome.getDiplomeParDefaut();
+            }
+            oReturn = new DiplomeCand(pDiplome, DateTime.Now);
+            oReturn.Statut = pStatut;
+            this.lstDiplomes.Add(oReturn);
 
+            return oReturn;
+        }
 
     }
 }

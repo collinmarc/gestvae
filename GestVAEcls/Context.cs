@@ -10,6 +10,18 @@ namespace GestVAEcls
 {
     public class Context:DbContext
     {
+        private static Context _instance = null;
+        public static Context instance
+        {
+            get
+            {
+                if (_instance==null)
+                {
+                    _instance = new Context();
+                }
+                return _instance;
+            }
+        }
         public Context() : base("name=CSGESTVAE")
         {
         }
@@ -76,5 +88,7 @@ namespace GestVAEcls
             //    .WillCascadeOnDelete();
 
         }
+
+
     }
 }

@@ -82,7 +82,18 @@ namespace GestVAE.VM
 
         public Livret2VM AjoutLivret2()
         {
-            Livret2 oLiv = new Livret2();
+            Diplome oDiplome = Diplome.getDiplomeParDefaut();
+            Livret2 oLiv = new Livret2(oDiplome);
+            oLiv.Numero = TheCandidat.lstLivrets2.Count() + 1;
+            Livret2VM oLiv2VM = new Livret2VM(oLiv);
+            TheCandidat.lstLivrets2.Add(oLiv);
+            lstLivrets.Add(oLiv2VM);
+            RaisePropertyChanged("lstLivrets");
+            return oLiv2VM;
+        }
+        public Livret2VM AjoutLivret2(Diplome pDiplome)
+        {
+            Livret2 oLiv = new Livret2(pDiplome);
             oLiv.Numero = TheCandidat.lstLivrets2.Count() + 1;
             Livret2VM oLiv2VM = new Livret2VM(oLiv);
             TheCandidat.lstLivrets2.Add(oLiv);

@@ -25,7 +25,7 @@ namespace GestVAEcls
 
         public static void Reset()
         {
-            _instance = null;
+            _instance = new Context();
         }
         public Context() : base("name=CSGESTVAE")
         {

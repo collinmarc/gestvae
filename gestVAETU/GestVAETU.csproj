@@ -68,6 +68,7 @@
     <Compile Include="RootTest.cs" />
     <Compile Include="DiplomeTest.cs" />
     <Compile Include="LivretTest.cs" />
+    <Compile Include="DCLivretTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -73,6 +73,7 @@ namespace GestVAEcls
 
         public virtual ObservableCollection<PieceJointeL2> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
+        public virtual ObservableCollection<DCLivret> lstDCLivrets { get; set; }
         [Required]
         public virtual Candidat oCandidat { get; set; }
  //       public virtual ObservableCollection<Recours> lstRecours { get; set; }
@@ -82,7 +83,19 @@ namespace GestVAEcls
             Typestr = "LIVRET2";
             lstPiecesJointes = new ObservableCollection<PieceJointeL2>();
             lstEchanges = new ObservableCollection<EchangeL2>();
- //           lstRecours = new ObservableCollection<Recours>();
+            lstDCLivrets = new ObservableCollection<DCLivret>();
+            //           lstRecours = new ObservableCollection<Recours>();
+
+        }
+        public Livret2(Diplome pDipl) : this()
+        {
+            oDiplome = pDipl;
+            foreach (DomaineCompetence item in oDiplome.lstDomainesCompetences)
+            {
+                DCLivret oDCLivret = new DCLivret(item);
+                lstDCLivrets.Add(oDCLivret);
+            }
+            //           lstRecours = new ObservableCollection<Recours>();
 
         }
 

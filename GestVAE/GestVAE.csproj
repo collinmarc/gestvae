@@ -83,6 +83,9 @@
     <Compile Include="dlgDiplomeCand.xaml.cs">
       <DependentUpon>dlgDiplomeCand.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmLivret2.xaml.cs">
+      <DependentUpon>frmLivret2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmLivret1.xaml.cs">
       <DependentUpon>frmLivret1.xaml</DependentUpon>
     </Compile>
@@ -94,7 +97,9 @@
     <Compile Include="VM\Comand.cs" />
     <Compile Include="VM\Converter.cs" />
     <Compile Include="VM\DiplomeVM.cs" />
-    <Compile Include="VM\LivretVM.cs" />
+    <Compile Include="VM\LivretVMBase.cs" />
+    <Compile Include="VM\Livret2VM.cs" />
+    <Compile Include="VM\Livret1VM.cs" />
     <Compile Include="VM\MyViewModel.cs" />
     <Compile Include="VM\NotifyUIBase.cs" />
     <Compile Include="VM\VMBase.cs" />
@@ -105,6 +110,10 @@
     <Page Include="dlgDiplomeCand.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmLivret2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="frmLivret1.xaml">
       <SubType>Designer</SubType>
@@ -166,6 +175,9 @@
     <Resource Include="IMG\add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="IMG\addL2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

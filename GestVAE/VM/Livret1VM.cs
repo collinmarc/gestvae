@@ -10,19 +10,15 @@ using System.Windows.Media;
 
 namespace GestVAE.VM
 {
-    public class LivretVM:VMBase
+    public class Livret1VM:LivretVMBase
     {
-        public Livret TheLivret { get; set; }
-        //public ObservableCollection<PieceJointeL1> lstPiecesJointes;
 
-        public LivretVM(Livret pLivret)
+        public Livret1VM(Livret pLivret):base(pLivret)
         {
-            TheLivret = pLivret;
-            //lstPiecesJointes = new ObservableCollection<PieceJointeL1>();
         }
 
 
-        public LivretVM()
+        public Livret1VM():base()
         {
         }
 

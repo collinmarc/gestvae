@@ -13,12 +13,12 @@ namespace GestVAE.VM
 
         public Candidat TheCandidat { get; set; }
         public ObservableCollection<DiplomeCandVM> lstDiplomesCandVMs { get; set; }
-        public ObservableCollection<LivretVM> lstLivrets { get; set; }
+        public ObservableCollection<LivretVMBase> lstLivrets { get; set; }
         public CandidatVM(Candidat pCandidat)
         {
             TheCandidat = pCandidat;
             lstDiplomesCandVMs = new ObservableCollection<DiplomeCandVM>();
-            lstLivrets = new ObservableCollection<LivretVM>();
+            lstLivrets = new ObservableCollection<LivretVMBase>();
             foreach (DiplomeCand item in pCandidat.lstDiplomes)
             {
                 DiplomeCandVM oDipCand = new DiplomeCandVM(item);
@@ -26,12 +26,12 @@ namespace GestVAE.VM
             }
             foreach (Livret item in pCandidat.lstLivrets1)
             {
-                LivretVM oLivret = new LivretVM(item);
+                Livret1VM oLivret = new Livret1VM(item);
                 lstLivrets.Add(oLivret);
             }
             foreach (Livret item in pCandidat.lstLivrets2)
             {
-                LivretVM oLivret = new LivretVM(item);
+                Livret2VM oLivret = new Livret2VM(item);
                 lstLivrets.Add(oLivret);
             }
 
@@ -40,7 +40,7 @@ namespace GestVAE.VM
         {
             TheCandidat = new Candidat();
             lstDiplomesCandVMs = new ObservableCollection<DiplomeCandVM>();
-            lstLivrets = new ObservableCollection<LivretVM>();
+            lstLivrets = new ObservableCollection<LivretVMBase>();
             foreach (DiplomeCand item in TheCandidat.lstDiplomes)
             {
                 DiplomeCandVM oDipCand = new DiplomeCandVM(item);
@@ -48,12 +48,12 @@ namespace GestVAE.VM
             }
             foreach (Livret item in TheCandidat.lstLivrets1)
             {
-                LivretVM oLivret = new LivretVM(item);
+                Livret1VM oLivret = new Livret1VM(item);
                 lstLivrets.Add(oLivret);
             }
             foreach (Livret item in TheCandidat.lstLivrets2)
             {
-                LivretVM oLivret = new LivretVM(item);
+                Livret1VM oLivret = new Livret1VM(item);
                 lstLivrets.Add(oLivret);
             }
 
@@ -68,18 +68,27 @@ namespace GestVAE.VM
             return oDiplomeCand;
         }
 
-        //public Diplome getDiplomeParDefaut()
-        //{
-        //    Diplome oDiplome;
-        //    //Context ctx = Context.instance;
-        //    oDiplome = (from obj in _ctx.Diplomes
-        //                where obj.bDeleted == false &&
-        //                       obj.Nom == Properties.Settings.Default.NomDiplomeDefaut
-        //                select obj).FirstOrDefault<Diplome>();
-        //    //Chargement de la liste des domanes de compétences
-        //    oDiplome.lstDomainesCompetences.ToList();
-        //    return oDiplome;
 
-        //}
+        public Livret1VM AjoutLivret1()
+        {
+            Livret1 oLiv = new Livret1();
+            oLiv.Numero = DateTime.Now.ToString("yyyyMMddHHmm");
+            Livret1VM oLivVM = new Livret1VM(oLiv);
+            TheCandidat.lstLivrets1.Add(oLiv);
+            lstLivrets.Add(oLivVM);
+            RaisePropertyChanged("lstLivrets");
+            return oLivVM;
+        }
+
+        public Livret2VM AjoutLivret2()
+        {
+            Livret2 oLiv = new Livret2();
+            oLiv.Numero = TheCandidat.lstLivrets2.Count() + 1;
+            Livret2VM oLiv2VM = new Livret2VM(oLiv);
+            TheCandidat.lstLivrets2.Add(oLiv);
+            lstLivrets.Add(oLiv2VM);
+            RaisePropertyChanged("lstLivrets");
+            return oLiv2VM;
+        }
     }
 }

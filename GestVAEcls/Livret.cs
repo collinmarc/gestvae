@@ -53,6 +53,10 @@ namespace GestVAEcls
             Typestr = "LIVRET1";
             lstPiecesJointes = new ObservableCollection<PieceJointeL1>();
             lstEchanges = new ObservableCollection<EchangeL1>();
+
+            Numero = DateTime.Now.ToString("yyyyMMddHHmm");
+            EtatLivret = "0-Demandé";
+            DateDemande = DateTime.Now;
         }
 
 

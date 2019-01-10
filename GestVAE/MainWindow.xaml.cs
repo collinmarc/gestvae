@@ -86,10 +86,19 @@ namespace GestVAE
 
         private void gridLstLivrets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Window ofrm = null;
+            LivretVMBase obj = (LivretVMBase)gridLstLivrets.SelectedItem;
+            if (obj.TheLivret.Typestr=="LIVRET1")
+            {
+                ofrm = new frmLivret1();
+                ((frmLivret1)ofrm).setContexte(obj);
+            }
+            else
+            {
+                ofrm = new frmLivret2();
+                ((frmLivret2)ofrm).setContexte(obj);
+            }
 
-            frmLivret1 ofrm = new frmLivret1();
-            LivretVM obj = (LivretVM)gridLstLivrets.SelectedItem;
-            ofrm.setContexte(obj);
 
             ofrm.ShowDialog();
         }
@@ -115,5 +124,30 @@ namespace GestVAE
             odlg.ShowDialog();
 
         }
+
+        private void btnAddLivret1_Click(object sender, RoutedEventArgs e)
+        {
+
+            CandidatVM oCandVM = (CandidatVM)this.lbCandidats.SelectedItem;
+            Livret1VM oLivVM = oCandVM.AjoutLivret1();
+            frmLivret1 odlg = new frmLivret1();
+
+            odlg.setContexte(oLivVM);
+
+            odlg.ShowDialog();
+        }
+
+        private void btnAddLivret2_Click(object sender, RoutedEventArgs e)
+        {
+            CandidatVM oCandVM = (CandidatVM)this.lbCandidats.SelectedItem;
+            Livret2VM oLivVM = oCandVM.AjoutLivret2();
+            frmLivret2 odlg = new frmLivret2();
+
+            odlg.setContexte(oLivVM);
+
+            odlg.ShowDialog();
+        }
+
     }
 }
+

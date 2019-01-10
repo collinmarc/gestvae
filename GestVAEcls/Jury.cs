@@ -17,5 +17,15 @@ namespace GestVAEcls
         public String MotifDetail { get; set; }
         public String MotifCommentaire { get; set; }
 
+        public Jury() : base()
+        {
+            NomJury = "";
+            DateJury = DateTime.Now;
+            LieuJury = "";
+            Decision = "";
+            MotifCommentaire = "";
+            MotifDetail = "";
+            MotifGeneral = "";
+        }
     }
 }

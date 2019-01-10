@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace GestVAE
 {
     /// <summary>
-    /// Logique d'interaction pour frmLivret1.xaml
+    /// Logique d'interaction pour frmLivret2.xaml
     /// </summary>
-    public partial class frmLivret1 : Window
+    public partial class frmLivret2 : Window
     {
-        public frmLivret1()
+        public frmLivret2()
         {
             InitializeComponent();
 
@@ -32,7 +32,7 @@ namespace GestVAE
             pnlDatesEnvois.SetBinding(VisibilityProperty, "IsEnvoyeVisibility");
             pnlJury.SetBinding(VisibilityProperty, "IsRecuVisibility");
 
-            tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL1");
+            tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL2");
 
             tbNomJury.SetBinding(TextBox.TextProperty, "NomJury");
             tbLieuJury.SetBinding(TextBox.TextProperty, "LieuJury");
@@ -40,7 +40,7 @@ namespace GestVAE
             dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, new Binding("DateJury"));
 
             cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
-            cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
+            cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL2");
 
             cbxMotifDetaille.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJury");
             cbxMotifDetaille.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
@@ -69,10 +69,10 @@ namespace GestVAE
         private void btnAddPJ_Click(object sender, RoutedEventArgs e)
         {
             //Ajout d'une piève jointe
-            Livret1VM oLiv = (Livret1VM)this.DataContext;
-            oLiv.addPJL1();
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL1");
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL1Color");
+            Livret2VM oLiv = (Livret2VM)this.DataContext;
+            oLiv.addPJL2();
+            oLiv.RaisePropertyChanged("ResultatPiecesJointesL2");
+            oLiv.RaisePropertyChanged("ResultatPiecesJointesL2Color");
         }
 
         private void btnAddEchange_Click(object sender, RoutedEventArgs e)
@@ -94,8 +94,8 @@ namespace GestVAE
             }
 
             Livret1VM oLiv = (Livret1VM)this.DataContext;
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL1");
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL1Color");
+            oLiv.RaisePropertyChanged("ResultatPiecesJointesL2");
+            oLiv.RaisePropertyChanged("ResultatPiecesJointesL2Color");
 }
     }
 }

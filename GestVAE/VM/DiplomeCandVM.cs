@@ -31,7 +31,13 @@ namespace GestVAE.VM
                 if (value != oDiplome)
                 {
                     TheDiplomeCand.oDiplome = value;
-                    _ctx.DomaineCompetenceCands.RemoveRange(lstDCCands);
+                    foreach (var item in lstDCCands)
+                    {
+                        if (item.ID !=0)
+                        {
+                            _ctx.DomaineCompetenceCands.Remove(item);
+                        }
+                    }
                     TheDiplomeCand.SetDCs();
                     RaisePropertyChanged();
                     RaisePropertyChanged("NomDiplome");

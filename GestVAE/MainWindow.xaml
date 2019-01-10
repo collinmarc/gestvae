@@ -189,12 +189,17 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Numero" Binding="{Binding TheLivret.Numero}"/>
                             <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}"/>
-                            <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret}"/>
+                            <DataGridTextColumn Header="Etat" Binding="{Binding TheLivret.EtatLivret}"/>
                             <DataGridTextColumn Header="Echéance" Binding="{Binding TheLivret.DateEcheance, StringFormat='dd/MM/yyyy'}"/>
-                            <DataGridCheckBoxColumn Header="Contrat" Binding="{Binding IsContrat}"/>
                         </DataGrid.Columns>
                     </DataGrid>
- 
+                    <Button x:Name="btnAddLivret1" Grid.Row ="16" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,60,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddLivret1_Click" RenderTransformOrigin="-0.656,0.619">
+                        <Image Source="IMG/add.png" Margin="0,0,10,0" Height="17" Width="18" RenderTransformOrigin="0.528,0.5" />
+                    </Button>
+                    <Button x:Name="btnAddLivret2" Grid.Row ="16" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,40,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddLivret2_Click" RenderTransformOrigin="-0.656,0.619">
+                        <Image Source="IMG/addL2.png" Margin="0,0,10,0" Height="17" Width="18" RenderTransformOrigin="0.528,0.5" />
+                    </Button>
+
                 </Grid>
             </Grid>
 

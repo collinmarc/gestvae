@@ -22,6 +22,11 @@ namespace GestVAEcls
                 return _instance;
             }
         }
+
+        public static void Reset()
+        {
+            _instance = null;
+        }
         public Context() : base("name=CSGESTVAE")
         {
         }
@@ -31,6 +36,7 @@ namespace GestVAEcls
         public DbSet<DiplomeCand> DiplomeCands { get; set; }
         public DbSet<DomaineCompetenceCand> DomaineCompetenceCands { get; set; }
 
+        public DbSet<Recours> dbRecours { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

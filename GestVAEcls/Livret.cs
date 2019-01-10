@@ -27,6 +27,7 @@ namespace GestVAEcls
         public Boolean isEnvoiCand_AR { get; set; }
         public virtual Diplome oDiplome { get; set; }
         public virtual ObservableCollection<Jury> lstJurys { get; set; }
+
         public Livret()
         {
             EtatLivret = "";
@@ -47,6 +48,8 @@ namespace GestVAEcls
         public virtual ObservableCollection<EchangeL1> lstEchanges { get; set; }
         [Required]
         public virtual Candidat oCandidat { get; set; }
+        public Boolean IsRecours { get; set; }
+        public virtual ObservableCollection<Recours> lstRecours { get; set; }
 
         public Livret1():base()
         {
@@ -57,6 +60,7 @@ namespace GestVAEcls
             Numero = DateTime.Now.ToString("yyyyMMddHHmm");
             EtatLivret = "0-Demandé";
             DateDemande = DateTime.Now;
+            lstRecours = new ObservableCollection<Recours>();
         }
 
 
@@ -71,12 +75,15 @@ namespace GestVAEcls
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
         [Required]
         public virtual Candidat oCandidat { get; set; }
+ //       public virtual ObservableCollection<Recours> lstRecours { get; set; }
 
         public Livret2():base()
         {
             Typestr = "LIVRET2";
             lstPiecesJointes = new ObservableCollection<PieceJointeL2>();
             lstEchanges = new ObservableCollection<EchangeL2>();
+ //           lstRecours = new ObservableCollection<Recours>();
+
         }
 
     }

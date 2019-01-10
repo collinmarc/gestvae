@@ -41,5 +41,15 @@ namespace GestVAE.Properties {
                 return ((string)(this["NomDiplomeDefaut"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\V11.0;Initial Catalog=GESTVAETU;Integrated Security=True")]
+        public string CSGESTVAETU {
+            get {
+                return ((string)(this["CSGESTVAETU"]));
+            }
+        }
     }
 }

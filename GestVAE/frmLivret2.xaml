@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestVAE"
         mc:Ignorable="d"
-        Title="frmLivret2" Height="600" Width="Auto">
+        Title="Livret2" Height="905" Width="Auto">
     <Window.Resources>
         <Image x:Key="AddIco" Source="IMG/Add.png"></Image>
     </Window.Resources>
@@ -39,7 +39,8 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="lgIDDemandeEtat" Height="Auto"/>
-                <RowDefinition x:Name="lgContratTypeOrigine" Height="Auto"/>
+                <!-- on garde la ligne pour compatibilté avec Livret1-->
+                <RowDefinition x:Name="lgContratTypeOrigine" Height="0" />
                 <RowDefinition x:Name="lgDates"/>
             </Grid.RowDefinitions>
 
@@ -51,7 +52,7 @@
 
                 <StackPanel Orientation="Horizontal" >
                     <Label Content="Etat Livret :"></Label>
-                    <ComboBox Name="cbxEtatLivret" Width="172" />
+                    <ComboBox Name="cbxEtatLivret" Width="172" Margin="10" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
@@ -86,7 +87,7 @@
 
                 </StackPanel>
             </StackPanel>
-            <!-- LgContratTypeOrigine-->
+            <!-- LgContratTypeOrigine Supprimé pour Livret2
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
                 <RadioButton Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat}" GroupName="ContratLivret" Margin="10"></RadioButton>
                 <RadioButton Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention}" GroupName="ContratLivret" Margin="10"></RadioButton>
@@ -106,6 +107,7 @@
 
 
             </StackPanel>
+            -->
             <!-- LgDates-->
             <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" >
                 <StackPanel Orientation="Horizontal">
@@ -121,14 +123,14 @@
                     <CheckBox  Name="chkAccuseRecepEHESP" IsChecked="{Binding TheLivret.isEnvoiEHESP_AR}" VerticalAlignment="Center" ></CheckBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Date Reception Candidat" Width="150" ></Label>
+                    <Label Content="Date réception candidat" Width="150" ></Label>
                     <DatePicker Name="dtpReceptCandidat" Width="99" SelectedDate="{Binding Path=TheLivret.DateReceptCandidat}" />
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Name="pnlDatesEnvois" Orientation="Vertical" Grid.Row="2" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Date Envoi candidat :"></Label>
+                    <Label Content="Date envoi candidat :"></Label>
                     <DatePicker Name="dtpenvoiCandidat" SelectedDate="{Binding Path=TheLivret.DateEnvoiCandidat}" Width="122"></DatePicker>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
@@ -136,16 +138,16 @@
                     <CheckBox  Name="chkAccuseRecepCand" IsChecked="{Binding TheLivret.isEnvoiCand_AR}" VerticalAlignment="Center" ></CheckBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Date Reception EHESP"></Label>
+                    <Label Content="Date réception EHESP"></Label>
                     <DatePicker Name="dtpReceptEHESP"  SelectedDate="{Binding Path=TheLivret.DateReceptEHESP}" Width="114"></DatePicker>
                 </StackPanel>
             </StackPanel>
 
 
 
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" >
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center">
                 <Label Content="Date échéance :"/>
-                <DatePicker SelectedDate="{Binding Path=TheLivret.DateEcheance}"/>
+                <DatePicker SelectedDate="{Binding Path=TheLivret.DateEcheance}" />
             </StackPanel>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch">

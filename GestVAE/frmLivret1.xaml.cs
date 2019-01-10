@@ -24,20 +24,21 @@ namespace GestVAE
         public frmLivret1()
         {
             InitializeComponent();
-
+            //Recours oLiv;
             tbDiplome.SetBinding(TextBox.TextProperty, "NomDiplome");
             cbxEtatLivret.SetBinding(ComboBox.SelectedItemProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.ItemsSourceProperty, "LstEtatLivret");
 
             pnlDatesEnvois.SetBinding(VisibilityProperty, "IsEnvoyeVisibility");
             pnlJury.SetBinding(VisibilityProperty, "IsRecuVisibility");
+            tabJury.SetBinding(TabItem.VisibilityProperty, "IsRecuVisibility");
 
             tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL1");
 
             tbNomJury.SetBinding(TextBox.TextProperty, "NomJury");
             tbLieuJury.SetBinding(TextBox.TextProperty, "LieuJury");
 
-            dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, new Binding("DateJury"));
+            dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, "DateJury");
 
             cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
             cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
@@ -51,7 +52,35 @@ namespace GestVAE
             cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsRefuse");
 
             tbCommentaire.SetBinding(TextBox.TextProperty, "CommentaireJury");
+            chkRecours.SetBinding(CheckBox.IsCheckedProperty, "IsRecoursDemande");
 
+            // Recours
+            pnlRecours.SetBinding(VisibilityProperty, "IsRecoursDemandeVisibility");
+            TabRecours.SetBinding(TabItem.VisibilityProperty, "IsRecoursDemandeVisibility");
+
+            dtpDateDepotRecours.SetBinding(DatePicker.SelectedDateProperty, "DateDepot");
+            tbLieuJuryRecours.SetBinding(TextBox.TextProperty, "LieuJuryRecours");
+            dtpDateJuryRecours.SetBinding(DatePicker.SelectedDateProperty, "DateJuryRecours");
+
+            cbxMotifRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifRecours");
+            cbxMotifRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifRecours");
+
+            tbMotifRecoursCommentaire.SetBinding(TextBox.TextProperty, "MotifRecoursCommentaire");
+
+            cbxDecisionRecours.SetBinding(ComboBox.SelectedItemProperty, "DecisionJuryRecours");
+            cbxDecisionRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
+
+            cbxMotifGeneralRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJuryRecours");
+            cbxMotifGeneralRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
+            cbxMotifGeneralRecours.SetBinding(ComboBox.IsEnabledProperty, "IsRefuseRecours");
+
+            cbxMotifDetailleRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJuryRecours");
+            cbxMotifDetailleRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
+            cbxMotifDetailleRecours.SetBinding(ComboBox.IsEnabledProperty, "IsRefuseRecours");
+
+            tbCommentaireRecours.SetBinding(TextBox.TextProperty, "CommentaireJuryRecours");
+
+        //    cbcreerL2.SetBinding(Button.VisibilityProperty, "IsLivret1Valide");
         }
 
         public void setContexte(LivretVMBase pLivret)
@@ -97,5 +126,12 @@ namespace GestVAE
             oLiv.RaisePropertyChanged("ResultatPiecesJointesL1");
             oLiv.RaisePropertyChanged("ResultatPiecesJointesL1Color");
 }
+
+        private void dbCreerL2_Click(object sender, RoutedEventArgs e)
+        {
+            Livret1VM oLiv = (Livret1VM)this.DataContext;
+            oLiv.CreerLivret2();
+
+        }
     }
 }

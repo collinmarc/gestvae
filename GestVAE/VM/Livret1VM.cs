@@ -12,7 +12,7 @@ namespace GestVAE.VM
 {
     public class Livret1VM:LivretVMBase
     {
-
+        private Livret1 oL1 { get { return (Livret1)TheLivret; } }
         public Livret1VM(Livret pLivret):base(pLivret)
         {
         }
@@ -88,6 +88,7 @@ namespace GestVAE.VM
                     RaisePropertyChanged();
                     RaisePropertyChanged("IsEnvoyeVisibility");
                     RaisePropertyChanged("IsRecuVisibility");
+                    RaisePropertyChanged("IsLivret1Valide");
                 }
             }
         }
@@ -132,7 +133,32 @@ namespace GestVAE.VM
             }
             set { }
         }
+        public Boolean IsRefuse => DecisionJury.ToUpper().Contains("REFUS");
 
+        public Visibility IsRefuseVisibility
+        {
+            get
+            {
+                try
+                {
+                    Visibility oreturn = Visibility.Hidden;
+                    if (IsRecuVisibility == Visibility.Visible)
+                    {
+                        if (IsRefuse)
+                        {
+                            oreturn = Visibility.Visible;
+                        }
+                    }
+
+                    return oreturn;
+                }
+                catch (Exception)
+                {
+
+                    return Visibility.Hidden;
+                }
+            }
+        }
 
 
         public String ResultatPiecesJointesL1
@@ -140,8 +166,7 @@ namespace GestVAE.VM
             get {
                 try
                 {
-                    Livret1 oLiv = (Livret1)TheLivret;
-                    foreach (PieceJointe item in oLiv.lstPiecesJointes)
+                    foreach (PieceJointe item in oL1.lstPiecesJointes)
                     {
                         if (!item.IsRecu || !item.IsOK)
                         {
@@ -279,20 +304,30 @@ namespace GestVAE.VM
             }
             set { }
         }
+        public List<String> LstMotifRecours
+        {
+            get
+            {
+                List<String> oReturn = new List<String>();
+                oReturn.Add("Motif Recours1");
+                oReturn.Add("Motif Recours2");
+                oReturn.Add("Motif Recours3");
+                oReturn.Add("");
+                return oReturn;
+            }
+            set { }
+        }
 
         public void addPJL1()
         {
-            Livret1 obj = (Livret1)TheLivret;
 
-            obj.lstPiecesJointes.Add(new PieceJointeL1("..."));
+            oL1.lstPiecesJointes.Add(new PieceJointeL1("..."));
             RaisePropertyChanged("TheLivret.lstPiecesJointes");
         }
 
         public void addEchangeL1()
         {
-            Livret1 obj = (Livret1)TheLivret;
-
-            obj.lstEchanges.Add(new EchangeL1("..."));
+            oL1.lstEchanges.Add(new EchangeL1("..."));
             RaisePropertyChanged("TheLivret.lstEchanges");
         }
 
@@ -384,15 +419,31 @@ namespace GestVAE.VM
 
 
 
+        public Visibility IsLivret1Valide  {
+            get
+            {
+                Visibility oReturn = Visibility.Hidden;
+                if (IsRecuVisibility== Visibility.Visible && IsRefuseVisibility == Visibility.Hidden)
+                {
+                    oReturn = Visibility.Visible;
+                }
+                if (IsRecuVisibility == Visibility.Visible && 
+                    IsRefuseVisibility == Visibility.Visible &&
+                    !IsRefuseRecours)
+                {
+                    oReturn = Visibility.Visible;
+                }
+                return oReturn;
+            }
+
+        }
 
 
 
 
-       
 
 
-        
-        public Boolean IsRefuse => DecisionJury.ToUpper().Contains("REFUS");
+
 
         public String DecisionJury
         {
@@ -418,16 +469,36 @@ namespace GestVAE.VM
 
                     TheLivret.lstJurys[0].Decision = value;
 
-                    RaisePropertyChanged();
-                    RaisePropertyChanged("IsRefuse");
 
                     if (!IsRefuse)
                     {
                         MotifDetailJury = "";
                         MotifGeneralJury = "";
+                        IsRecoursDemande = false;
                     }
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("IsRefuseVisibility");
+                    RaisePropertyChanged("IsRecoursDemandeVisibility");
+                    RaisePropertyChanged("IsLivret1Valide");
                 }
             }
+        }
+
+        public Boolean IsRecoursDemande {
+            get { return oL1.IsRecours; }
+            set
+            {
+                if (value != IsRecoursDemande)
+                {
+                    oL1.IsRecours = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("IsRecoursDemandeVisibility");
+                }
+            }
+        }
+        public Visibility IsRecoursDemandeVisibility
+        {
+            get { return IsRecoursDemande ? Visibility.Visible : Visibility.Hidden; }
         }
         public String MotifGeneralJury
         {
@@ -512,6 +583,298 @@ namespace GestVAE.VM
                     RaisePropertyChanged();
                 }
             }
+        }
+        public EnumTypeRecours TypeRecours
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].TypeRecours;
+                }
+                else
+                {
+                    return EnumTypeRecours.Gracieux;
+                }
+            }
+            set
+            {
+                if (value != TypeRecours)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].TypeRecours = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public DateTime? DateDepot
+        {
+            get
+            {
+                if (oL1.lstRecours.Count>= 1)
+                {
+                    return oL1.lstRecours[0].DateDepot;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != DateDepot)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].DateDepot= value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String LieuJuryRecours
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].LieuJury;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != LieuJury)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].LieuJury = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateJuryRecours
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].DateJury;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != DateJuryRecours)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].DateJury = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String DecisionJuryRecours
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].Decision;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                if (value != DecisionJuryRecours)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].Decision = value;
+
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("IsRefuseRecours");
+                    RaisePropertyChanged("IsLivret1Valide");
+                }
+            }
+        }
+        public String MotifRecours
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].MotifRecours;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                if (value != MotifRecours)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].MotifRecours = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String MotifRecoursCommentaire
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].MotifRecoursCommentaire;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                if (value != MotifRecoursCommentaire)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].MotifRecoursCommentaire = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public String MotifGeneralJuryRecours
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].MotifGeneral;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                if (value != MotifGeneralJuryRecours)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].MotifGeneral = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String MotifDetailJuryRecours
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].MotifDetail;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                if (value != MotifDetailJuryRecours)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].MotifDetail = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String CommentaireJuryRecours
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].MotifCommentaire;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                if (value != CommentaireJuryRecours)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].MotifCommentaire = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public Boolean IsRefuseRecours => DecisionJuryRecours.ToUpper().Contains("REFUS");
+
+        public void CreerLivret2()
+        {
+            CandidatVM oCandVM = new CandidatVM(oL1.oCandidat);
+            oCandVM.AjoutLivret2();
         }
 
     }

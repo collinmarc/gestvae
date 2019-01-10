@@ -48,6 +48,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Candidat.cs" />
+    <Compile Include="Migrations\201901101003538_Recours.cs" />
+    <Compile Include="Migrations\201901101003538_Recours.Designer.cs">
+      <DependentUpon>201901101003538_Recours.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901101010442_Recours-Livret.cs" />
+    <Compile Include="Migrations\201901101010442_Recours-Livret.Designer.cs">
+      <DependentUpon>201901101010442_Recours-Livret.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901101017109_Recours-Livret_RQ.cs" />
+    <Compile Include="Migrations\201901101017109_Recours-Livret_RQ.Designer.cs">
+      <DependentUpon>201901101017109_Recours-Livret_RQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901101234294_Recours-Jury.cs" />
+    <Compile Include="Migrations\201901101234294_Recours-Jury.Designer.cs">
+      <DependentUpon>201901101234294_Recours-Jury.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901101335480_LivretIsRecours.cs" />
+    <Compile Include="Migrations\201901101335480_LivretIsRecours.Designer.cs">
+      <DependentUpon>201901101335480_LivretIsRecours.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901101430254_MotifRecours.cs" />
+    <Compile Include="Migrations\201901101430254_MotifRecours.Designer.cs">
+      <DependentUpon>201901101430254_MotifRecours.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Recours.cs" />
     <Compile Include="Jury.cs" />
     <Compile Include="DomaineCompetenceCand.cs" />
     <Compile Include="Context.cs" />
@@ -59,74 +84,6 @@
     <Compile Include="Migrations\201812281436295_Init.Designer.cs">
       <DependentUpon>201812281436295_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901021600491_restart.cs" />
-    <Compile Include="Migrations\201901021600491_restart.Designer.cs">
-      <DependentUpon>201901021600491_restart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901030722465_Cand-Dipl-DC.cs" />
-    <Compile Include="Migrations\201901030722465_Cand-Dipl-DC.Designer.cs">
-      <DependentUpon>201901030722465_Cand-Dipl-DC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901030725272_supprT1T2.cs" />
-    <Compile Include="Migrations\201901030725272_supprT1T2.Designer.cs">
-      <DependentUpon>201901030725272_supprT1T2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901030741106_PropCandidat.cs" />
-    <Compile Include="Migrations\201901030741106_PropCandidat.Designer.cs">
-      <DependentUpon>201901030741106_PropCandidat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901031418570_NomNaissance.cs" />
-    <Compile Include="Migrations\201901031418570_NomNaissance.Designer.cs">
-      <DependentUpon>201901031418570_NomNaissance.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901031425528_PropCandidats.cs" />
-    <Compile Include="Migrations\201901031425528_PropCandidats.Designer.cs">
-      <DependentUpon>201901031425528_PropCandidats.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901031632381_Sexe.cs" />
-    <Compile Include="Migrations\201901031632381_Sexe.Designer.cs">
-      <DependentUpon>201901031632381_Sexe.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901031650304_SexeNull.cs" />
-    <Compile Include="Migrations\201901031650304_SexeNull.Designer.cs">
-      <DependentUpon>201901031650304_SexeNull.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901081209000_Livret_PJ.cs" />
-    <Compile Include="Migrations\201901081209000_Livret_PJ.Designer.cs">
-      <DependentUpon>201901081209000_Livret_PJ.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901081301174_Livret_Echanges.cs" />
-    <Compile Include="Migrations\201901081301174_Livret_Echanges.Designer.cs">
-      <DependentUpon>201901081301174_Livret_Echanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901081303420_Livret_Echanges2.cs" />
-    <Compile Include="Migrations\201901081303420_Livret_Echanges2.Designer.cs">
-      <DependentUpon>201901081303420_Livret_Echanges2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901081501004_Jury.cs" />
-    <Compile Include="Migrations\201901081501004_Jury.Designer.cs">
-      <DependentUpon>201901081501004_Jury.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901081633163_etatLivret.cs" />
-    <Compile Include="Migrations\201901081633163_etatLivret.Designer.cs">
-      <DependentUpon>201901081633163_etatLivret.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901081652056_PJ Requiered.cs" />
-    <Compile Include="Migrations\201901081652056_PJ Requiered.Designer.cs">
-      <DependentUpon>201901081652056_PJ Requiered.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901082235416_Livret-Diplome.cs" />
-    <Compile Include="Migrations\201901082235416_Livret-Diplome.Designer.cs">
-      <DependentUpon>201901082235416_Livret-Diplome.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901090839281_NomDomaineCompetence.cs" />
-    <Compile Include="Migrations\201901090839281_NomDomaineCompetence.Designer.cs">
-      <DependentUpon>201901090839281_NomDomaineCompetence.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901092240325_AjoutDiplome.cs" />
-    <Compile Include="Migrations\201901092240325_AjoutDiplome.Designer.cs">
-      <DependentUpon>201901092240325_AjoutDiplome.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DomaineCompetence.cs" />
     <Compile Include="Echanges.cs" />
@@ -137,6 +94,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="T1.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,56 +110,23 @@
     <EmbeddedResource Include="Migrations\201812281436295_Init.resx">
       <DependentUpon>201812281436295_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901021600491_restart.resx">
-      <DependentUpon>201901021600491_restart.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901101003538_Recours.resx">
+      <DependentUpon>201901101003538_Recours.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901030722465_Cand-Dipl-DC.resx">
-      <DependentUpon>201901030722465_Cand-Dipl-DC.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901101010442_Recours-Livret.resx">
+      <DependentUpon>201901101010442_Recours-Livret.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901030725272_supprT1T2.resx">
-      <DependentUpon>201901030725272_supprT1T2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901101017109_Recours-Livret_RQ.resx">
+      <DependentUpon>201901101017109_Recours-Livret_RQ.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901030741106_PropCandidat.resx">
-      <DependentUpon>201901030741106_PropCandidat.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901101234294_Recours-Jury.resx">
+      <DependentUpon>201901101234294_Recours-Jury.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901031418570_NomNaissance.resx">
-      <DependentUpon>201901031418570_NomNaissance.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901101335480_LivretIsRecours.resx">
+      <DependentUpon>201901101335480_LivretIsRecours.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901031425528_PropCandidats.resx">
-      <DependentUpon>201901031425528_PropCandidats.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901031632381_Sexe.resx">
-      <DependentUpon>201901031632381_Sexe.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901031650304_SexeNull.resx">
-      <DependentUpon>201901031650304_SexeNull.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081209000_Livret_PJ.resx">
-      <DependentUpon>201901081209000_Livret_PJ.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081301174_Livret_Echanges.resx">
-      <DependentUpon>201901081301174_Livret_Echanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081303420_Livret_Echanges2.resx">
-      <DependentUpon>201901081303420_Livret_Echanges2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081501004_Jury.resx">
-      <DependentUpon>201901081501004_Jury.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081633163_etatLivret.resx">
-      <DependentUpon>201901081633163_etatLivret.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081652056_PJ Requiered.resx">
-      <DependentUpon>201901081652056_PJ Requiered.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901082235416_Livret-Diplome.resx">
-      <DependentUpon>201901082235416_Livret-Diplome.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901090839281_NomDomaineCompetence.resx">
-      <DependentUpon>201901090839281_NomDomaineCompetence.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901092240325_AjoutDiplome.resx">
-      <DependentUpon>201901092240325_AjoutDiplome.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901101430254_MotifRecours.resx">
+      <DependentUpon>201901101430254_MotifRecours.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

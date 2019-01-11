@@ -13,7 +13,7 @@ namespace GestVAE.VM
     public class Livret1VM:LivretVMBase
     {
         private Livret1 oL1 { get { return (Livret1)TheLivret; } }
-        public Livret1VM(Livret pLivret):base(pLivret)
+        public Livret1VM(Livret1 pLivret):base((Livret1)pLivret)
         {
         }
 

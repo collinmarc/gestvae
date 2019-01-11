@@ -33,7 +33,7 @@ namespace GestVAE
             pnlJury.SetBinding(VisibilityProperty, "IsRecuVisibility");
             tabJury.SetBinding(TabItem.VisibilityProperty, "IsRecuVisibility");
 
-            tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL1");
+            tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL2");
 
             tbNomJury.SetBinding(TextBox.TextProperty, "NomJury");
             tbLieuJury.SetBinding(TextBox.TextProperty, "LieuJury");
@@ -41,18 +41,23 @@ namespace GestVAE
             dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, "DateJury");
 
             cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
-            cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
-
+            cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL2");
+            // Refus de Validation
             cbxMotifDetaille.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJury");
             cbxMotifDetaille.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
             cbxMotifDetaille.SetBinding(ComboBox.IsEnabledProperty, "IsRefuse");
+            cbxMotifDetaille.SetBinding(ComboBox.VisibilityProperty, "IsNotValidationPartielleVisibility");
 
             cbxMotifGeneral.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJury");
             cbxMotifGeneral.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
             cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsRefuse");
+            cbxMotifGeneral.SetBinding(ComboBox.VisibilityProperty, "IsNotValidationPartielleVisibility");
 
             tbCommentaire.SetBinding(TextBox.TextProperty, "CommentaireJury");
-            chkRecours.SetBinding(CheckBox.IsCheckedProperty, "IsRecoursDemande");
+            //chkRecours.SetBinding(CheckBox.IsCheckedProperty, "IsRecoursDemande");
+            // Validation Partielle
+            dgDCLivretDecision.SetBinding(DataGrid.ItemsSourceProperty, "lstDcLivretsAValider");
+            dgDCLivretDecision.SetBinding(DataGrid.VisibilityProperty, "IsValidationPartielleVisibility");
 
             // Recours
             TabRecours.Visibility = Visibility.Hidden;
@@ -128,5 +133,18 @@ namespace GestVAE
             oLiv.RaisePropertyChanged("ResultatPiecesJointesL2Color");
 }
 
+        private void dgDCLivret_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (!manualCommit)
+            {
+                manualCommit = true;
+                dgPiecesjointes.CommitEdit(DataGridEditingUnit.Row, true);
+                manualCommit = false;
+            }
+
+            Livret2VM oLiv = (Livret2VM)this.DataContext;
+            oLiv.RaisePropertyChanged("lstDcLivretsAValider");
+
+        }
     }
 }

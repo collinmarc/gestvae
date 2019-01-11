@@ -12,8 +12,11 @@ namespace GestVAE.VM
 {
     public class Livret2VM:LivretVMBase
     {
- 
-        public Livret2VM(Livret pLivret):base(pLivret)
+        protected Livret2 TheLivret2
+        {
+            get { return (Livret2)TheLivret; }
+        }
+        public Livret2VM(Livret2 pLivret):base((Livret)pLivret)
         {
         }
 
@@ -38,6 +41,19 @@ namespace GestVAE.VM
             }
         }
 
+
+        public ObservableCollection<DCLivret> lstDcLivrets { get { return TheLivret2.lstDCLivrets; } }
+        public ObservableCollection<DCLivret> lstDcLivretsAValider {
+            get {
+                ObservableCollection<DCLivret> oReturn = new ObservableCollection<DCLivret>();
+                foreach (var item in TheLivret2.lstDCLivrets.Where(obj => obj.IsAValider ))
+                {
+                    oReturn.Add(item);
+                } 
+
+                return oReturn;
+            }
+        }
 
         public Boolean IsContrat {
             get{
@@ -133,9 +149,55 @@ namespace GestVAE.VM
             set { }
         }
 
+        public Visibility IsValidationPartielleVisibility
+        {
+            get
+            {
+                try
+                {
+                    if (DecisionJury.ToUpper().Contains("PARTIELLE"))
+                    {
+                        return Visibility.Visible;
+                    }
+                    else
+                    {
+                        return Visibility.Hidden;
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    return Visibility.Hidden;
+                }
+            }
+        }
+        public Visibility IsNotValidationPartielleVisibility
+        {
+            get
+            {
+                try
+                {
+                    if (!DecisionJury.ToUpper().Contains("PARTIELLE"))
+                    {
+                        return Visibility.Visible;
+                    }
+                    else
+                    {
+                        return Visibility.Hidden;
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    return Visibility.Hidden;
+                }
+            }
+        }
 
 
-        public String ResultatPiecesJointesL1
+        public String ResultatPiecesJointesL2
         {
             get {
                 try
@@ -158,12 +220,12 @@ namespace GestVAE.VM
             }
  
         }
-        public Brush ResultatPiecesJointesL1Color
+        public Brush ResultatPiecesJointesL2Color
         {
             get
             {
                 Brush cReturn = Brushes.Gray;
-                switch (ResultatPiecesJointesL1)
+                switch (ResultatPiecesJointesL2)
                 {
                     case "OK":
                         cReturn = Brushes.Green;
@@ -240,7 +302,7 @@ namespace GestVAE.VM
             set { }
         }
 
-        public static List<String> LstDecisionL2
+        public List<String> LstDecisionL2
         {
             get
             {
@@ -253,7 +315,21 @@ namespace GestVAE.VM
             }
             set { }
         }
-        public  List<String> LstMotifGeneral
+        public List<String> LstDecisionL2Module
+        {
+            get
+            {
+                List<String> oReturn = new List<String>();
+                oReturn.Add("Validation totale");
+//                oReturn.Add("Validation partielle");
+                oReturn.Add("Refus de validation");
+                oReturn.Add("");
+                return oReturn;
+            }
+            set { }
+        }
+    
+    public  List<String> LstMotifGeneral
         {
             get
             {
@@ -418,14 +494,16 @@ namespace GestVAE.VM
 
                     TheLivret.lstJurys[0].Decision = value;
 
-                    RaisePropertyChanged();
-                    RaisePropertyChanged("IsRefuse");
 
                     if (!IsRefuse)
                     {
                         MotifDetailJury = "";
                         MotifGeneralJury = "";
                     }
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("IsRefuse");
+                    RaisePropertyChanged("IsValidationPartielleVisibility");
+                    RaisePropertyChanged("IsNotValidationPartielleVisibility");
                 }
             }
         }

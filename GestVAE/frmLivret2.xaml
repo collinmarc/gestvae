@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestVAE"
+        xmlns:localVM="clr-namespace:GestVAE.VM"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
         mc:Ignorable="d"
         Title="Livret2" Height="650" Width="800">
@@ -51,17 +52,19 @@
                     <Label Content="Diplome :"/>
                     <TextBox x:Name="tbDiplome" />
                 </StackPanel>
-                <DataGrid x:Name="dgDCLivret"  ItemsSource="{Binding TheLivret.lstDcLivrets}" AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch">
+                <DataGrid x:Name="dgDCLivret"  
+                           ItemsSource="{Binding lstDcLivrets, UpdateSourceTrigger=PropertyChanged}" 
+                            AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" CellEditEnding="dgDCLivret_CellEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="3*"/>
-                        <DataGridCheckBoxColumn Header="A Valider" Binding="{Binding IsAValider}" Width="1*"/>
+                        <DataGridCheckBoxColumn Header="A Valider" Binding="{Binding IsAValider, UpdateSourceTrigger=LostFocus}" Width="1*"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" >
-                <Label Content="Date échéance :"/>
-                <DatePicker SelectedDate="{Binding Path=TheLivret.DateEcheance}"/>
+                <Label Content="Date échéance :" VerticalContentAlignment="Center"/>
+                <DatePicker SelectedDate="{Binding Path=TheLivret.DateEcheance}" VerticalAlignment="Center"/>
             </StackPanel>
 
         </Grid>
@@ -86,10 +89,12 @@
                     <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="3">
                         <StackPanel Orientation="Horizontal">
                             <Label>Pièces jointes :</Label>
-                            <TextBlock Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesL1Color}"/>
+                            <TextBlock Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesL2Color}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" ItemsSource="{Binding TheLivret.lstPiecesJointes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" Width="202" CellEditEnding="dgPiecesjointes_CellEditEnding" >
+                            <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
+                                      ItemsSource="{Binding TheLivret.lstPiecesJointes, UpdateSourceTrigger=PropertyChanged}" 
+                                      AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" Width="202" CellEditEnding="dgPiecesjointes_CellEditEnding" >
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Désignation" Binding="{Binding Nom}" Width="4*"/>
                                     <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
@@ -189,7 +194,7 @@
             <TabItem x:Name="tabJury" Header="Jury" Margin="0,-2,0,0">
                 <StackPanel Name="pnlJury" Orientation="Vertical"  HorizontalAlignment="Stretch">
                     <Label Content="Jury :" Foreground="#FF0078D7"/>
-                    <Grid Name="grdJury1"  ShowGridLines="True">
+                    <Grid Name="grdJury1"  ShowGridLines="False">
                         <Grid.RowDefinitions>
                             <!--Type-->
                             <RowDefinition Height="Auto"/>
@@ -218,20 +223,52 @@
                         </StackPanel>
                         <Label Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center">Décision:</Label>
                         <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="cbxDecision" HorizontalAlignment="Stretch" Margin="10"/>
+                        <!-- Si Validation Totale-->
                         <Label Grid.Row="2" Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center">Motif général:</Label>
                         <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Name="cbxMotifGeneral" HorizontalAlignment="Stretch" Margin="10"></ComboBox>
                         <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">Motif Détaillé:</Label>
                         <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="cbxMotifDetaille" HorizontalAlignment="Stretch" Margin="10,10,10,14"></ComboBox>
                         <Label Grid.Row="4" Grid.Column="0" Margin="12,0,0,0" VerticalAlignment="Center">Commentaire:</Label>
                         <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Name="tbCommentaire" HorizontalAlignment="Stretch" Margin="10" Height="22"></TextBox>
-                        <Label Grid.Row="5" Grid.Column="0" Visibility="{Binding IsRefuseVisibility}" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">Recours:</Label>
-                        <CheckBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Name="chkRecours" Margin="10" Visibility="{Binding IsRefuseVisibility}"></CheckBox>
+                        <Label Grid.Row="5" Grid.Column="0" Visibility="Hidden"  Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">Recours:</Label>
+                        <CheckBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Name="chkRecours" Margin="10" Visibility="Hidden"></CheckBox>
+                        <!-- -->
+                        <!-- Validation Partiellle-->
+                        <DataGrid x:Name="dgDCLivretDecision"
+
+                                  Grid.Row="2"
+                                  Grid.RowSpan="4"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="3"
+                                  AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch">
+                            <DataGrid.Resources>
+                                <localVM:Livret2VM x:Key="ComboItems"  />
+                            </DataGrid.Resources>
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*"/>
+                                <DataGridComboBoxColumn Header="Décision" 
+                                                        SelectedValueBinding="{Binding Decision}" 
+                                                        ItemsSource="{Binding LstDecisionL2Module,Source={StaticResource ComboItems}}" 
+                                                        Width="2*"/>
+                                <DataGridComboBoxColumn Header="Motif général" 
+                                                        SelectedItemBinding="{Binding MotifGeneral}" 
+                                                        ItemsSource="{Binding LstMotifGeneral,Source={StaticResource ComboItems}}"
+                                                        Width="1*"/>
+                                <DataGridComboBoxColumn Header="Motif détail" 
+                                                        SelectedItemBinding="{Binding MotifDetail}" 
+                                                        ItemsSource="{Binding LstMotifDetaille, 
+                                                        Source={StaticResource ComboItems}}" Width="1*"/>
+                                <DataGridTextColumn Header="Commentaire" Binding="{Binding MotifCommentaire}" Width="1*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <!-- -->
                     </Grid>
                 </StackPanel>
 
             </TabItem>
             <TabItem x:Name="TabRecours" Header="Recours" Margin="0">
-                <StackPanel Name="pnlRecours" Orientation="Vertical"  HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                <!--<StackPanel Name="pnlRecours" Orientation="Vertical"  HorizontalAlignment="Stretch" Margin="0,0,0,0">
                     <Label Content="Recours :" Foreground="#FF0078D7"/>
                     <Grid Name="grdRecours" ShowGridLines="True">
                         <Grid.ColumnDefinitions>
@@ -262,10 +299,10 @@
                             <RadioButton Name="rbTypeRecoursContentieux" GroupName="TypeRecours" 
                                  IsChecked="{Binding TypeRecours, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Contentieux}}" VerticalAlignment="Center"
                                  >Contentieux</RadioButton>
-                            <!--                        
+                            --><!--                        
                     <RadioButton Content="Homme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="15" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}"/>
                         <RadioButton Content="Femme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Height="21" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}"/>
--->
+--><!--
                         </StackPanel>
 
 
@@ -296,7 +333,7 @@
                         <TextBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Name="tbCommentaireRecours" HorizontalAlignment="Stretch" Margin="10" ></TextBox>
 
                     </Grid>
-                </StackPanel>
+                </StackPanel>-->
 
             </TabItem>
         </TabControl>

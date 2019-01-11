@@ -34,5 +34,7 @@ namespace GestVAEcls
         [Required]
         public virtual Livret2 oLivret2 { get; set; }
         public Boolean IsAValider { get; set; }
+
+        public String NomDC { get { return oDomaineCompetence.Nom; } }
     }
 }

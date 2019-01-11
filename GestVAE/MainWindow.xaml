@@ -53,18 +53,65 @@
             <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="#FF0F0000"/>
             <Grid x:Name="GridLeft" >
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="5"/>
-                    <RowDefinition/>
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <GridSplitter  HorizontalAlignment="Stretch"  Grid.Row="1"  VerticalAlignment="Stretch" Background="#FF0A0101" />
-                <StackPanel Name="pnlListCandidats" Grid.Row="2" >
-                    <ListBox x:Name="lbCandidats"  IsSynchronizedWithCurrentItem="True"  VerticalAlignment="Stretch" Height="343">
+                <GridSplitter  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Background="#FF0A0101"  RenderTransformOrigin="0.5,0.5" Grid.Row="1" >
+                    <GridSplitter.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </GridSplitter.RenderTransform>
+                </GridSplitter>
+                <StackPanel x:Name="pnlRecherche" Orientation="Vertical" Grid.Row="0" Margin="0,0,0,111">
+                    <StackPanel Orientation="Horizontal">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="129">Identifiant VAE:</Label>
+                        <TextBox Name="tbRechIdentVAE" Margin="10" Width="371" Height="18"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="129">Nom:</Label>
+                        <TextBox Name="tbRechNom" Margin="10" Width="371" Height="18"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="129">Prénom:</Label>
+                        <TextBox Name="tbRechPrénom" Margin="10" Width="371" Height="18"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" >
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="129">Ville:</Label>
+                        <TextBox Name="tbRechVille" Margin="10" Width="371" Height="18"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="129">Date réception Livret1:</Label>
+                        <Label Margin="10">entre</Label>
+                        <DatePicker Name="dpRechReceptL1Deb" Margin="10" Width="98"></DatePicker>
+                        <Label Margin="10">et le</Label>
+                        <DatePicker Name="dpRechReceptL1Fin" Margin="10" Width="98" Height="26"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left">Date réception Livret2:</Label>
+                        <Label Margin="10">entre</Label>
+                        <DatePicker Name="dpRechReceptL2Deb" Margin="10" Width="95"></DatePicker>
+                        <Label Margin="10">et le</Label>
+                        <DatePicker Name="dpRechReceptL2Fin" Margin="10" Width="95" Height="26"></DatePicker>
+                    </StackPanel>
+                    <Button Name="cbRecherche" Click="cbRecherche_Click" Margin="10">Rechercher</Button>
+
+
+                </StackPanel>
+                <StackPanel Name="pnlListCandidats" Margin="10,10,10,10" Grid.Row="2" >
+                    <ListBox x:Name="lbCandidats"  IsSynchronizedWithCurrentItem="True"  VerticalAlignment="Stretch" Height="300">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding TheCandidat.Nom}" />
+                                    <TextBlock Text=" " />
                                     <TextBlock Text="{Binding TheCandidat.Prenom}" />
+                                    <TextBlock Text=" " />
+                                    <TextBlock Text="{Binding TheCandidat.Ville}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

@@ -28,6 +28,7 @@ namespace GestVAE
         public MainWindow()
         {
             InitializeComponent();
+            tbRechIdentVAE.SetBinding(TextBox.TextProperty, "rechIdentifiantVAE");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -148,6 +149,10 @@ namespace GestVAE
             odlg.ShowDialog();
         }
 
+        private void cbRecherche_Click(object sender, RoutedEventArgs e)
+        {
+            _VM.Recherche();
+        }
     }
 }
 

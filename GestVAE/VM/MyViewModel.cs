@@ -94,6 +94,34 @@ namespace GestVAE.VM
             Context.instance.SaveChanges();
         }
 
- 
+        public String rechIdentifiantVAE { get; set; }
+        public String rechNom { get; set; }
+        public String rechPrenom { get; set; }
+        public String rechVille { get; set; }
+        public DateTime? rechDateReceptL1Deb { get; set; }
+        public DateTime? rechDateReceptL1Fin { get; set; }
+        public DateTime? rechDateReceptL2Deb { get; set; }
+        public DateTime? rechDateReceptL2Fin { get; set; }
+
+        public void Recherche()
+        {
+            IQueryable<Candidat> rq = _ctx.Candidats;
+            if (rechIdentifiantVAE != "")
+            {
+                rq = rq.Where(c => c.IdVAE.Equals(rechIdentifiantVAE));
+            }
+            _lstCandidatVM.Clear();
+            foreach (Candidat item in rq)
+            {
+                if (item.Sexe == null)
+                {
+                    item.Sexe = Sexe.H;
+                }
+               CandidatVM oCand = new CandidatVM(item);
+                _lstCandidatVM.Add(oCand);
+            }
+            RaisePropertyChanged("lstCandidatVM");
+        }
+        
     }
 }

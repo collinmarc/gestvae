@@ -97,7 +97,48 @@ namespace GestVAEcls
             }
             //           lstRecours = new ObservableCollection<Recours>();
 
-        }
 
+        }
+        /// <summary>
+        /// Valider le Livret2 (Créer ou mettre à jour le diplome du candidiat
+        /// </summary>
+        public void ValiderLivret2()
+        {
+            // Vérification du diplome 
+            DiplomeCand oDipCand = oCandidat.lstDiplomes.Where(obj => obj.oDiplome.ID == oDiplome.ID).FirstOrDefault();
+            if (oDipCand == null)
+            {
+                // Le candidat n'a pas le diplome
+                oDipCand =  oCandidat.AddDiplome(oDiplome);
+            }
+
+            if (oDipCand != null)
+            {
+                // Mise à jour des Domaines de compétences Candidat
+                foreach (var item in oDipCand.lstDCCands)
+                {
+                    //Récupération du DCCand
+                    DCLivret oDCLiv = lstDCLivrets.FirstOrDefault(dc => (dc.IsAValider && dc.oDomaineCompetence.ID == item.oDomaineCompetence.ID));
+                    if (oDCLiv != null)
+                    {
+                        if (oDCLiv.Decision.ToUpper().Contains("VALIDATION"))
+                        {
+                            item.Statut = "Validé";
+                            item.ModeObtention = "VAE";
+                            item.DateObtention = this.lstJurys[0].DateJury;
+                        }
+                        if (oDCLiv.Decision.ToUpper().Contains("REFUS"))
+                        {
+                            item.Statut = "Refusé";
+                            item.DateObtention = this.lstJurys[0].DateJury;
+                            item.ModeObtention = "VAE";
+                            item.DateObtention = this.lstJurys[0].DateJury;
+                        }
+                    }
+                }
+                oDipCand.CalculerStatut();
+
+            }
+        }//ValiderLivret2
     }
 }

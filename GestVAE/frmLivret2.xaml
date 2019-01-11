@@ -68,9 +68,9 @@
             </StackPanel>
 
         </Grid>
-        
-        <TabControl Name="TabL1" Grid.Row="2" Height="450"  >
-            <TabItem x:Name="tabL1" Header="Livret1" Margin="0">
+
+        <TabControl Name="TabL1" Grid.Row="2" Height="450" IsEnabled="{Binding IsLivretNonValidé}" >
+            <TabItem x:Name="TabLivret" Header="Livret 2" Margin="0">
                 <Grid x:Name="grdEntete" ShowGridLines="True" Margin="10" >
 
                     <Grid.ColumnDefinitions>
@@ -191,10 +191,10 @@
                 </StackPanel>
 
             </TabItem>
-            <TabItem x:Name="tabJury" Header="Jury" Margin="0,-2,0,0">
+            <TabItem x:Name="tabJury" Header="Jury" Margin="0,0,0,0">
                 <StackPanel Name="pnlJury" Orientation="Vertical"  HorizontalAlignment="Stretch">
                     <Label Content="Jury :" Foreground="#FF0078D7"/>
-                    <Grid Name="grdJury1"  ShowGridLines="False">
+                    <Grid Name="grdJury1"  ShowGridLines="True">
                         <Grid.RowDefinitions>
                             <!--Type-->
                             <RowDefinition Height="Auto"/>
@@ -264,6 +264,8 @@
                         </DataGrid>
                         <!-- -->
                     </Grid>
+                    <Button Name="dbValiderDiplome" Margin="10" HorizontalAlignment="Center" Click="dbValiderDiplome_Click">Valider  le Livret2</Button>
+
                 </StackPanel>
 
             </TabItem>
@@ -338,7 +340,7 @@
             </TabItem>
         </TabControl>
 
-        <Button Name="dbValiderDiplome" Grid.Row="3" Margin="10" >Valider  le Livret2</Button>
+        
 
         <!-- ECHANGE-->
         <!-- Jury-->

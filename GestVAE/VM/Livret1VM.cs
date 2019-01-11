@@ -89,6 +89,7 @@ namespace GestVAE.VM
                     RaisePropertyChanged("IsEnvoyeVisibility");
                     RaisePropertyChanged("IsRecuVisibility");
                     RaisePropertyChanged("IsLivret1Valide");
+                    RaisePropertyChanged("IsLivretNonValidé");
                 }
             }
         }
@@ -134,6 +135,8 @@ namespace GestVAE.VM
             set { }
         }
         public Boolean IsRefuse => DecisionJury.ToUpper().Contains("REFUS");
+        public Boolean IsLivretNonValidé => EtatLivret != "9-Validé";
+
 
         public Visibility IsRefuseVisibility
         {
@@ -215,6 +218,7 @@ namespace GestVAE.VM
                 oReturn.Add("2-Reçu");
                 oReturn.Add("3-Accepté");
                 oReturn.Add("4-Refusé");
+                oReturn.Add("9-Validé");
                 return oReturn;
             }
             set { }
@@ -874,7 +878,9 @@ namespace GestVAE.VM
         public void CreerLivret2()
         {
             CandidatVM oCandVM = new CandidatVM(oL1.oCandidat);
-            oCandVM.AjoutLivret2();
+            oCandVM.AjoutLivret2(TheLivret.oDiplome);
+            EtatLivret = "9-Validé";
+            RaisePropertyChanged("IsLivretNonValidé");
         }
 
     }

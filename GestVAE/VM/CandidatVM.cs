@@ -84,9 +84,11 @@ namespace GestVAE.VM
         {
             Diplome oDiplome = Diplome.getDiplomeParDefaut();
             Livret2 oLiv = new Livret2(oDiplome);
+            oLiv.EtatLivret = "0-Demandé";
+            oLiv.DateDemande = DateTime.Now;
             oLiv.Numero = TheCandidat.lstLivrets2.Count() + 1;
-            Livret2VM oLiv2VM = new Livret2VM(oLiv);
             TheCandidat.lstLivrets2.Add(oLiv);
+            Livret2VM oLiv2VM = new Livret2VM(oLiv);
             lstLivrets.Add(oLiv2VM);
             RaisePropertyChanged("lstLivrets");
             return oLiv2VM;
@@ -94,9 +96,11 @@ namespace GestVAE.VM
         public Livret2VM AjoutLivret2(Diplome pDiplome)
         {
             Livret2 oLiv = new Livret2(pDiplome);
+            oLiv.EtatLivret = "0-Demandé";
+            oLiv.DateDemande = DateTime.Now;
             oLiv.Numero = TheCandidat.lstLivrets2.Count() + 1;
-            Livret2VM oLiv2VM = new Livret2VM(oLiv);
             TheCandidat.lstLivrets2.Add(oLiv);
+            Livret2VM oLiv2VM = new Livret2VM(oLiv);
             lstLivrets.Add(oLiv2VM);
             RaisePropertyChanged("lstLivrets");
             return oLiv2VM;

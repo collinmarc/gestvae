@@ -89,6 +89,7 @@ namespace GestVAE
         //    cbcreerL2.SetBinding(Button.VisibilityProperty, "IsLivret1Valide");
         }
 
+        public Livret2VM oLiv { get { return (Livret2VM)this.DataContext; } }
         public void setContexte(LivretVMBase pLivret)
         {
             this.DataContext = pLivret;
@@ -104,7 +105,7 @@ namespace GestVAE
         private void btnAddPJ_Click(object sender, RoutedEventArgs e)
         {
             //Ajout d'une piève jointe
-            Livret2VM oLiv = (Livret2VM)this.DataContext;
+            
             oLiv.addPJL2();
             oLiv.RaisePropertyChanged("ResultatPiecesJointesL2");
             oLiv.RaisePropertyChanged("ResultatPiecesJointesL2Color");
@@ -113,7 +114,7 @@ namespace GestVAE
         private void btnAddEchange_Click(object sender, RoutedEventArgs e)
         {
 
-            Livret2VM oLiv = (Livret2VM)this.DataContext;
+            
             oLiv.addEchangeL2();
         }
         bool manualCommit = false;
@@ -128,7 +129,7 @@ namespace GestVAE
                 manualCommit = false;
             }
 
-            Livret1VM oLiv = (Livret1VM)this.DataContext;
+            
             oLiv.RaisePropertyChanged("ResultatPiecesJointesL2");
             oLiv.RaisePropertyChanged("ResultatPiecesJointesL2Color");
 }
@@ -142,9 +143,14 @@ namespace GestVAE
                 manualCommit = false;
             }
 
-            Livret2VM oLiv = (Livret2VM)this.DataContext;
+            
             oLiv.RaisePropertyChanged("lstDcLivretsAValider");
 
+        }
+
+        private void dbValiderDiplome_Click(object sender, RoutedEventArgs e)
+        {
+            oLiv.ValiderLivret2();
         }
     }
 }

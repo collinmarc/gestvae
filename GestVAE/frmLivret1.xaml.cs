@@ -131,6 +131,8 @@ namespace GestVAE
         {
             Livret1VM oLiv = (Livret1VM)this.DataContext;
             oLiv.CreerLivret2();
+           
+
 
         }
     }

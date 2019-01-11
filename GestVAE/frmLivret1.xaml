@@ -59,8 +59,8 @@
             </StackPanel>
 
         </Grid>
-        
-        <TabControl Name="TabL1" Grid.Row="2" Height="450"  >
+
+        <TabControl Name="TabL1" Grid.Row="2" Height="450" IsEnabled="{Binding IsLivretNonValidé}" >
             <TabItem x:Name="tabL1" Header="Livret1" Margin="0">
                 <Grid x:Name="grdEntete" ShowGridLines="True" Margin="10" >
 

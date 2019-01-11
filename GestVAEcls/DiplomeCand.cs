@@ -48,5 +48,40 @@ namespace GestVAEcls
 
         public virtual ObservableCollection<DomaineCompetenceCand> lstDCCands { get; set; }
 
+        public void CalculerStatut()
+        {
+            String statut = "??";
+            int nbValide = 0;
+            int nbRefuse = 0;
+            int nbDivers = 0;
+            nbValide = lstDCCands.Where(obj => obj.Statut == "Validé").Count();
+            nbRefuse = lstDCCands.Where(obj => obj.Statut == "Refusé").Count();
+            nbDivers = lstDCCands.Where(obj => obj.Statut == "??").Count();
+
+            if (nbDivers >0)
+            {
+                Statut = "??";
+            }
+            else
+            {
+                if (nbValide==0 && nbRefuse >0)
+                {
+                    Statut = "Refusé";
+                }
+                if (nbValide > 0 && nbRefuse == 0)
+                {
+                    Statut = "Validé";
+                }
+                if (nbValide > 0 && nbRefuse > 0)
+                {
+                    Statut = "Validé partiellement";
+                }
+
+            }
+
+
+
+        }
+
     }
 }

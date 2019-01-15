@@ -78,33 +78,40 @@ namespace GestVAE.VM
                 _lstCandidatVM.Add(oCand);
             }
         }
-         public void populate()
+        public void populate()
         {
-            for (int i = 0; i < 50; i++)
+
+            String[] tabvecteurs = new string[]
             {
-                Candidat oCan = new Candidat("Candidat" + i);
-                oCan.Ville = "Ville" + i;
-                Livret1 oL1 = new Livret1();
-                Random oRand = new Random(new Random().Next());
-                int Ddays = oRand.Next(0, 360);
-                oL1.DateDemande = DateTime.Now.AddDays(Ddays);
-                oCan.lstLivrets1.Add(oL1);
-
-                Livret2 oL2 = new Livret2();
-                Ddays = oRand.Next(10, 20);
-                oL2.DateDemande = oL1.DateDemande.Value.AddDays(Ddays);
-                oL2.EtatLivret = "4-Refusé";
-                oCan.lstLivrets2.Add(oL2);
-
-                oL2 = new Livret2();
-                Ddays = oRand.Next(10, 20);
-                oL2.DateDemande = oL1.DateDemande.Value.AddDays(Ddays);
-                oL2.EtatLivret = "2-Reçu";
-                oCan.lstLivrets2.Add(oL2);
-
-                _ctx.Candidats.Add(oCan);
-                CandidatVM oCandVM = new CandidatVM(oCan);
-                lstCandidatVM.Add(oCandVM);
+                "Ehesp (autre)",
+"site Ehesp",
+"Établissements de formation CAFDES",
+"Site établissements de formation CAFDES",
+"Organisme de formation (suite à une prestation)",
+"Directeur, RH",
+"Collègues",
+"DRASS",
+"PIC/PRC",
+"ASH",
+"Gazette des communes",
+"Direction",
+"TSA",
+"Autres",
+"Presse",
+"Salon Géront'Expo",
+"Pôle Emploi (ANPE)",
+"ASP (CNASEA)",
+"Internet (autres sites…)",
+"Non renseigné"
+            };
+            Random oRand = new Random();
+            foreach (Candidat item in _ctx.Candidats)
+            {
+                if (item.lstLivrets1.Count ==1)
+                { 
+                Livret1 oL1 = item.lstLivrets1[0];
+                oL1.OrigineDemande = tabvecteurs[oRand.Next(0, 20)];
+                }
             }
             
             RaisePropertyChanged("lstCandidatsVM");

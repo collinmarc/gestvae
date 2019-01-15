@@ -57,7 +57,7 @@ namespace GestVAE
 
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            _VM.getData();
+            _VM.populate();
         }
         private void NewCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {

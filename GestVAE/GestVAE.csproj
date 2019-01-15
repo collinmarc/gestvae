@@ -161,6 +161,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="SampleData\SampleDataSource\SampleDataSource.xsd" />
+    <None Include="STATS\Stats1.xls" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -198,5 +199,6 @@
   <ItemGroup>
     <Resource Include="IMG\LivretN.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

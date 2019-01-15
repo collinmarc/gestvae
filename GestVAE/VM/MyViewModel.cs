@@ -78,7 +78,37 @@ namespace GestVAE.VM
                 _lstCandidatVM.Add(oCand);
             }
         }
+         public void populate()
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                Candidat oCan = new Candidat("Candidat" + i);
+                oCan.Ville = "Ville" + i;
+                Livret1 oL1 = new Livret1();
+                Random oRand = new Random(new Random().Next());
+                int Ddays = oRand.Next(0, 360);
+                oL1.DateDemande = DateTime.Now.AddDays(Ddays);
+                oCan.lstLivrets1.Add(oL1);
 
+                Livret2 oL2 = new Livret2();
+                Ddays = oRand.Next(10, 20);
+                oL2.DateDemande = oL1.DateDemande.Value.AddDays(Ddays);
+                oL2.EtatLivret = "4-Refusé";
+                oCan.lstLivrets2.Add(oL2);
+
+                oL2 = new Livret2();
+                Ddays = oRand.Next(10, 20);
+                oL2.DateDemande = oL1.DateDemande.Value.AddDays(Ddays);
+                oL2.EtatLivret = "2-Reçu";
+                oCan.lstLivrets2.Add(oL2);
+
+                _ctx.Candidats.Add(oCan);
+                CandidatVM oCandVM = new CandidatVM(oCan);
+                lstCandidatVM.Add(oCandVM);
+            }
+            
+            RaisePropertyChanged("lstCandidatsVM");
+        }
         public void AddCandidat()
         {
             Candidat oCand = new Candidat("...");

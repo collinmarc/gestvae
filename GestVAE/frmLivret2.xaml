@@ -7,12 +7,18 @@
         xmlns:localVM="clr-namespace:GestVAE.VM"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
         mc:Ignorable="d"
-        Title="Livret2" Height="650" Width="800">
+        Title="Livret2" Height="650" Width="800" Icon="IMG/LivretN.ico">
     <Window.Resources>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"></local:EnumToBoleanConverter>
 
         <Image x:Key="AddIco" Source="IMG/Add.png"></Image>
     </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF82C4D8" Offset="0"/>
+            <GradientStop Color="#FF1084A6" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid x:Name ="grdLivret" ShowGridLines="true"  >
         <Grid.RowDefinitions>
             <!--Type-->
@@ -39,7 +45,7 @@
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
                 <StackPanel Orientation="Horizontal" >
                     <Label Content="Numéro Livret :"/>
-                    <TextBox x:Name="tbNumLivret" Text="{Binding TheLivret.Numero}"/>
+                    <TextBox x:Name="tbNumLivret" Text="{Binding TheLivret.Numero}" HorizontalAlignment="Stretch"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" >
@@ -69,7 +75,7 @@
 
         </Grid>
 
-        <TabControl Name="TabL1" Grid.Row="2" Height="450" IsEnabled="{Binding IsLivretNonValidé}" >
+        <TabControl Name="TabL1" Grid.Row="2" Height="450" IsEnabled="{Binding IsLivretNonValidé}" Background="{x:Null}" >
             <TabItem x:Name="TabLivret" Header="Livret 2" Margin="0">
                 <Grid x:Name="grdEntete" ShowGridLines="True" Margin="10" >
 
@@ -171,7 +177,7 @@
             <TabItem x:Name="tabEchanges" Header="Echanges" Margin="0">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                     <Label Content="Echanges :" Foreground="#FF0078D7"/>
-                    <StackPanel Orientation="Horizontal" Background="AliceBlue" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <DataGrid x:Name="dgEchanges"  ItemsSource="{Binding TheLivret.lstEchanges}" AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" Width="744">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Date" Binding="{Binding DateEch,StringFormat='dd/MM/yyyy'}" Width="1*"/>
@@ -264,7 +270,7 @@
                         </DataGrid>
                         <!-- -->
                     </Grid>
-                    <Button Name="dbValiderDiplome" Margin="10" HorizontalAlignment="Center" Click="dbValiderDiplome_Click">Valider  le Livret2</Button>
+                    <Button Name="dbValiderDiplome" Margin="10" HorizontalAlignment="Center" Click="dbValiderDiplome_Click" Style="{DynamicResource StyleBtn}">Valider  le Livret2</Button>
 
                 </StackPanel>
 
@@ -301,10 +307,12 @@
                             <RadioButton Name="rbTypeRecoursContentieux" GroupName="TypeRecours" 
                                  IsChecked="{Binding TypeRecours, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Contentieux}}" VerticalAlignment="Center"
                                  >Contentieux</RadioButton>
-                            --><!--                        
+                            -->
+                <!--                        
                     <RadioButton Content="Homme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="15" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}"/>
                         <RadioButton Content="Femme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Height="21" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}"/>
---><!--
+-->
+                <!--
                         </StackPanel>
 
 
@@ -340,7 +348,7 @@
             </TabItem>
         </TabControl>
 
-        
+
 
         <!-- ECHANGE-->
         <!-- Jury-->

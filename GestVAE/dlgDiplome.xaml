@@ -8,8 +8,14 @@
         xmlns:localCLS="clr-namespace:GestVAEcls"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplome"
         mc:Ignorable="d"
-        Title="Détail d'un diplome" Height="227.119" Width="601.516">
+        Title="Détail d'un diplome" Height="227.119" Width="601.516" Icon="IMG/diplome.ico">
     <Grid Margin="0,0,0,0">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFBCF5DB" Offset="0"/>
+                <GradientStop Color="#FF496659" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto" MinHeight="117"/>
@@ -17,11 +23,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Label Content="Nom du diplome :" />
-            <TextBox x:Name="tbNomdiplome"  Width="469" Margin="10,10,10,10"/>
+            <Label Content="Nom du diplome :" Margin="10" />
+            <TextBox x:Name="tbNomdiplome"  Width="450" Margin="10,10,10,10" />
         </StackPanel>
         <DataGrid x:Name="dgDC"  Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" 
-                  ItemsSource="{Binding lstDomainesCompetences}">
+                  ItemsSource="{Binding lstDomainesCompetences}"  Margin="10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" />
             </DataGrid.Columns>

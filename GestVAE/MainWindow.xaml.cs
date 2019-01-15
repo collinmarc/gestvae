@@ -58,8 +58,18 @@ namespace GestVAE
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _VM.getData();
-            MessageBox.Show("Données Rechargées");
         }
+        private void NewCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            _VM.populate();
+
+        }
+
         bool manualCommit = false;
         private void gridLstDiplome_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {

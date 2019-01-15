@@ -6,13 +6,19 @@
         xmlns:local="clr-namespace:GestVAE"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
         mc:Ignorable="d"
-        Title="Livret1" Height="650" Width="800">
+        Title="Livret1" Height="650" Width="800" Icon="IMG/LivretN.ico">
     <Window.Resources>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"></local:EnumToBoleanConverter>
 
         <Image x:Key="AddIco" Source="IMG/Add.png"></Image>
     </Window.Resources>
     <Grid x:Name ="grdLivret" ShowGridLines="true"  >
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFD1EEF9" Offset="0"/>
+                <GradientStop Color="#FF47565B" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <!--Type-->
             <RowDefinition Height="Auto"/>
@@ -61,13 +67,27 @@
         </Grid>
 
         <TabControl Name="TabL1" Grid.Row="2" Height="450" IsEnabled="{Binding IsLivretNonValidé}" >
+            <TabControl.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC1FBF9" Offset="0"/>
+                    <GradientStop Color="#FF08CBC2" Offset="1"/>
+                </LinearGradientBrush>
+            </TabControl.Background>
             <TabItem x:Name="tabL1" Header="Livret1" Margin="0">
-                <Grid x:Name="grdEntete" ShowGridLines="True" Margin="10" >
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFBCF5FB" Offset="0"/>
+                        <GradientStop Color="#FF15E4F9" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid x:Name="grdEntete" ShowGridLines="True" Margin="0" >
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition x:Name="cgID"/>
-                        <ColumnDefinition x:Name="cgDateDemande"/>
-                        <ColumnDefinition x:Name="cgEtat"/>
+                        <ColumnDefinition x:Name="cgID" Width="15*"/>
+                        <ColumnDefinition Width="69*"/>
+                        <ColumnDefinition Width="178*"/>
+                        <ColumnDefinition x:Name="cgDateDemande" Width="262*"/>
+                        <ColumnDefinition x:Name="cgEtat" Width="262*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition x:Name="lgIDDemandeEtat" Height="Auto"/>
@@ -77,7 +97,7 @@
 
 
 
-                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="3">
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="4">
                         <StackPanel Orientation="Horizontal">
                             <Label>Pièces jointes :</Label>
                             <TextBlock Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesL1Color}"/>
@@ -98,18 +118,18 @@
                         </StackPanel>
                     </StackPanel>
                     <!-- LgContratTypeOrigine-->
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
                         <RadioButton Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat}" GroupName="ContratLivret" Margin="10"></RadioButton>
                         <RadioButton Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention}" GroupName="ContratLivret" Margin="10"></RadioButton>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3">
                         <Label Content="Type demande :"></Label>
                         <ComboBox Name="cbxTypeDemande" 
                           SelectedItem="{Binding TheLivret.TypeDemande}" 
                           ItemsSource="{Binding LstTypeDemande}"/>
 
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="4">
                         <Label Content="Origine demande :"></Label>
                         <ComboBox Name="cbxOrigineDemande"
                           SelectedItem="{Binding TheLivret.OrigineDemande}" 
@@ -118,7 +138,7 @@
 
                     </StackPanel>
                     <!-- LgDates-->
-                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" >
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Date demande" Width="150"></Label>
                             <DatePicker Name="dtpDateDemande" SelectedDate="{Binding Path=TheLivret.DateDemande}" Width="101"></DatePicker>
@@ -137,7 +157,7 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel Name="pnlDatesEnvois" Orientation="Vertical" Grid.Row="2" Grid.Column="1">
+                    <StackPanel Name="pnlDatesEnvois" Orientation="Vertical" Grid.Row="2" Grid.Column="3">
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Date Envoi candidat :"></Label>
                             <DatePicker Name="dtpenvoiCandidat" SelectedDate="{Binding Path=TheLivret.DateEnvoiCandidat}" Width="122"></DatePicker>
@@ -157,7 +177,13 @@
                 </Grid>
 
             </TabItem>
-            <TabItem x:Name="tabEchanges" Header="Echanges" Margin="0">
+            <TabItem x:Name="tabEchanges" Header="Echanges" Margin="0" >
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FF8EAAC7" Offset="0"/>
+                        <GradientStop Color="#FF0A7FCF" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                     <Label Content="Echanges :" Foreground="#FF0078D7"/>
                     <StackPanel Orientation="Horizontal" Background="AliceBlue" HorizontalAlignment="Stretch">
@@ -181,6 +207,12 @@
 
             </TabItem>
             <TabItem x:Name="tabJury" Header="Jury" Margin="0,-2,0,0">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FF7A8EB0" Offset="0"/>
+                        <GradientStop Color="#FF083583" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
                 <StackPanel Name="pnlJury" Orientation="Vertical"  HorizontalAlignment="Stretch">
                     <Label Content="Jury :" Foreground="#FF0078D7"/>
                     <Grid Name="grdJury1"  ShowGridLines="True">
@@ -225,7 +257,19 @@
 
             </TabItem>
             <TabItem x:Name="TabRecours" Header="Recours" Margin="0">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFB5B5F3" Offset="0"/>
+                        <GradientStop Color="#FF2626F3" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
                 <StackPanel Name="pnlRecours" Orientation="Vertical"  HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFB5B5F3" Offset="0"/>
+                            <GradientStop Color="#FF2626F3" Offset="0.993"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
                     <Label Content="Recours :" Foreground="#FF0078D7"/>
                     <Grid Name="grdRecours" ShowGridLines="True">
                         <Grid.ColumnDefinitions>
@@ -246,9 +290,11 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
                             <Label Width="100" VerticalAlignment="Center" Margin="10" Content="Date de dépôt :" />
-                            <DatePicker Name="dtpDateDepotRecours" Margin="10" Width="125"/>
+                            
                         </StackPanel>
-                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                        <DatePicker Name="dtpDateDepotRecours" Margin="10" Width="125"
+                                    Grid.Row="0" Grid.Column="1"/>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
                             <Label VerticalAlignment="Center">Type de recours :</Label>
                             <RadioButton Name="rbTypeRecoursGracieux" GroupName="TypeRecours" 
                                  IsChecked="{Binding TypeRecours, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Gracieux}}" VerticalAlignment="Center"
@@ -272,11 +318,12 @@
 
                         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0">
                             <Label Width="100" VerticalAlignment="Center" Margin="10" >Date d'examen:</Label>
-                            <DatePicker  Name="dtpDateJuryRecours" HorizontalAlignment="Stretch" Margin="10" Width="125"></DatePicker>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                        <DatePicker  Grid.Row="4" Grid.Column="1" Name="dtpDateJuryRecours" HorizontalAlignment="Stretch" Margin="10" Width="125"></DatePicker>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2">
                             <Label VerticalAlignment="Center" >Lieu:</Label>
-                            <TextBox Name="tbLieuJuryRecours" HorizontalAlignment="Left" Width="475" Margin="10"></TextBox>
+                            <TextBox Name="tbLieuJuryRecours" HorizontalAlignment="Left" Width="207" Margin="10"></TextBox>
                         </StackPanel>
 
                         <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="10">Décision:</Label>
@@ -295,7 +342,7 @@
             </TabItem>
         </TabControl>
 
-        <Button Name="dbCreerL2" Grid.Row="3" Margin="10" Click="dbCreerL2_Click">Valider et créer le Livret2</Button>
+        <Button Name="dbCreerL2" Grid.Row="3" Margin="10" Click="dbCreerL2_Click" Style="{DynamicResource StyleBtn}">Valider et créer le Livret2</Button>
 
         <!-- ECHANGE-->
         <!-- Jury-->

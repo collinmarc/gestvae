@@ -8,7 +8,13 @@
         xmlns:localCLS="clr-namespace:GestVAEcls"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplomeCand"
         mc:Ignorable="d"
-        Title="Détail du diplome d'un candidat" Height="253.708" Width="530.611">
+        Title="Détail du diplome d'un candidat" Height="253.708" Width="530.611" Icon="IMG/diplome.ico">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFBCF5DB" Offset="0"/>
+            <GradientStop Color="#FF496659" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Canvas Margin="0,0,553,353">
         <Button x:Name ="btnOK" Content="OK" Canvas.Left="353" Canvas.Top="193" Width="75" Click="btnOK_Click"/>
 

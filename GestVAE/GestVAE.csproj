@@ -179,5 +179,24 @@
   <ItemGroup>
     <Resource Include="IMG\addL2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="IMG\Diplome.png" />
+    <Resource Include="IMG\diplome_318-10155.jpg" />
+    <Resource Include="IMG\logo_ehesp-2.jpg" />
+    <Resource Include="IMG\logo_ehesp-ConvertImage.ico" />
+    <Resource Include="IMG\logo_ehesp.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="IMG\diplome.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="IMG\Livret.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="IMG\LivretN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="IMG\LivretN.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

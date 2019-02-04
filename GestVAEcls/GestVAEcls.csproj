@@ -81,6 +81,15 @@
     <Compile Include="Migrations\201901102220437_DCLivret2.Designer.cs">
       <DependentUpon>201901102220437_DCLivret2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901280852241_Region.cs" />
+    <Compile Include="Migrations\201901280852241_Region.Designer.cs">
+      <DependentUpon>201901280852241_Region.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041525322_NumDiplome.cs" />
+    <Compile Include="Migrations\201902041525322_NumDiplome.Designer.cs">
+      <DependentUpon>201902041525322_NumDiplome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Region.cs" />
     <Compile Include="Recours.cs" />
     <Compile Include="Jury.cs" />
     <Compile Include="DomaineCompetenceCand.cs" />
@@ -142,6 +151,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901102220437_DCLivret2.resx">
       <DependentUpon>201901102220437_DCLivret2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901280852241_Region.resx">
+      <DependentUpon>201901280852241_Region.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041525322_NumDiplome.resx">
+      <DependentUpon>201902041525322_NumDiplome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

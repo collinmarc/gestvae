@@ -6,18 +6,24 @@
         xmlns:core="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:GestVAE"
         xmlns:localVM="clr-namespace:GestVAE.VM"
-        xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" x:Class="GestVAE.MainWindow"
+        xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" 
+        xmlns:VM="clr-namespace:GestVAE.VM" 
+    xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
+    x:Class="GestVAE.MainWindow"
         mc:Ignorable="d"
-        Title="EHESP : Gestion VAE" Height="847.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp-ConvertImage.ico" WindowStyle="ThreeDBorderWindow">
 
-    <Window.CommandBindings>
+        Title="EHESP : Gestion VAE" Height="847.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp-ConvertImage.ico" WindowStyle="ThreeDBorderWindow" FocusVisualStyle="{DynamicResource BackGround}">
+
+    <!--    <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" CanExecute="SaveCommand_CanExecute" />
         <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed" CanExecute="OpenCommand_CanExecute" />
     </Window.CommandBindings>
-
+-->
 
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"></local:EnumToBoleanConverter>
+        <local:BooleanToCursorConverter x:Key="BoolToCursor"></local:BooleanToCursorConverter>
         <Style x:Key="Label" TargetType="{x:Type Label}" BasedOn="{x:Null}">
 
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -29,6 +35,7 @@
         </Style>
         <Style x:Key="GridStyle1" TargetType="{x:Type Grid}"  >
             <Setter Property="ShowGridLines" Value="False"/>
+            <Setter Property="Background" Value="#FF90A4C1"/>
         </Style>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
@@ -36,12 +43,12 @@
 
     </Window.Resources>
 
-    <DockPanel>
-        <ToolBarTray DockPanel.Dock="Top">
+    <DockPanel     Cursor="{Binding IsBusy, Converter={StaticResource BoolToCursor}}">
+        <ToolBarTray DockPanel.Dock="Top" >
             <ToolBar>
-                <Button Name="btnSave" Command="ApplicationCommands.Save" Content="Save" />
-                <Button Name="btnRefresh" Command="ApplicationCommands.Open" Content="Refresh" />
-                <Button Name="btnNew" Command="ApplicationCommands.New" Content="Populate" />
+                <Button Name="btnSave" Command="{Binding SaveCommand}" Content="Save" />
+                <Button Name="btnRefresh" Command="{Binding RefreshCommand}" Content="Refresh" />
+                <Button Name="btnParam" Command="{Binding dlgParamCommand}" Content="Paramètres" />
             </ToolBar>
         </ToolBarTray>
 
@@ -52,7 +59,7 @@
                 <ColumnDefinition MinWidth="100"/>
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="#FF0F0000"/>
-            <Grid x:Name="GridLeft" >
+            <Grid x:Name="GridLeft" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="5"/>
@@ -60,22 +67,16 @@
                 </Grid.RowDefinitions>
                 <GridSplitter  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Background="#FF0A0101"  RenderTransformOrigin="0.5,0.5" Grid.Row="1" >
                 </GridSplitter>
-                <Grid x:Name="grdRecherche"  Grid.Row="0" Margin="0">
-                    <Grid.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="0"/>
-                            <GradientStop Color="#FFA7ABAC" Offset="1"/>
-                            <GradientStop Color="#FF0A8DA2"/>
-                        </LinearGradientBrush>
-                    </Grid.Background>
+                <Grid x:Name="grdRecherche"  Grid.Row="0" Margin="0" Style="{DynamicResource GridStyle1}">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="19*"/>
+                        <RowDefinition Height="19*"/>
+                        <RowDefinition Height="19*"/>
+                        <RowDefinition Height="19*"/>
                         <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="23*"/>
+                        <RowDefinition Height="23*"/>
+                        <RowDefinition Height="20*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -95,46 +96,42 @@
                               Name="tbRechPrénom" Margin="10" />
                     <Label  Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="129">Ville:</Label>
                     <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbRechVille" Margin="10" ></TextBox>
-                    <Label  Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                    <Label  Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" 
                             >Réception Livret1:</Label>
-                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label  Margin="10">entre le :</Label>
                         <DatePicker  Grid.Row="4" Grid.Column="2" Name="dpRechReceptL1Deb" Margin="10" Width="98"></DatePicker>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2">
                         <Label  Margin="10">et le</Label>
                         <DatePicker  Name="dpRechReceptL1Fin" Margin="10" Width="98" Height="26"></DatePicker>
                     </StackPanel>
-                    <Label  Grid.Row="5" Grid.Column="0" >Réception Livret2:</Label>
-                    <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Label  Grid.Row="6" Grid.Column="0" >Réception Livret2:</Label>
+                    <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label Margin="10"  Grid.Row="5" Grid.Column="3" >entre le :</Label>
                         <DatePicker  Grid.Row="5" Grid.Column="2" Name="dpRechReceptL2Deb" Margin="10" Width="95"></DatePicker>
 
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2">
                         <Label Margin="10" >et le :</Label>
                         <DatePicker  Name="dpRechReceptL2Fin" Margin="10" Width="95" Height="26"></DatePicker>
                     </StackPanel>
-                    <Button  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" Click="cbRecherche_Click" Margin="10">Rechercher</Button>
+                    <Button  Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" Command="{Binding RechercherCommand}" Margin="10">Rechercher</Button>
+                    <Label  Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="46" Width="85" Content="Date de &#xD;&#xA;naissance :" Margin="10,10,0,24"/>
+                    <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Margin="10,28,0,0" Grid.Row="4" VerticalAlignment="Top"/>
 
 
                 </Grid>
-                <DockPanel Margin="10" Grid.Row="2" VerticalAlignment="Stretch" LastChildFill="False">
-                    <DockPanel.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF0A8DA2" Offset="0"/>
-                            <GradientStop Color="#FFA7ABAC" Offset="1"/>
-                        </LinearGradientBrush>
-                    </DockPanel.Background>
-
-                    <ListBox x:Name="lbCandidats"  IsSynchronizedWithCurrentItem="True"  
-                                 VerticalAlignment="Stretch"  DockPanel.Dock="Top" MinHeight="100">
-                        <ListBox.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FF0A8DA2" Offset="0"/>
-                                <GradientStop Color="#FFA7ABAC" Offset="1"/>
-                            </LinearGradientBrush>
-                        </ListBox.Background>
+                <Grid Name="grdlbCandidat" VerticalAlignment="Stretch" Grid.Row="2" Style="{DynamicResource GridStyle1}"
+                      >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <ListBox x:Name="lbCandidats"    Grid.Row ="0" MinHeight="100" VerticalAlignment="Stretch" 
+                             ItemsSource="{Binding lstCandidatVM}" 
+                             SelectedItem="{Binding CurrentCandidat}" Background="{x:Null}" 
+                             IsSynchronizedWithCurrentItem="True">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -147,14 +144,24 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Button x:Name="cbAddCandidat" Content="Ajout candidat" 
+                    <!--<Button x:Name="cbAddCandidat" Content="Ajout candidat" 
                                 Height="30" Margin="10" DockPanel.Dock="Bottom"
-                                Click="cbAddCandidat_Click"  Style="{DynamicResource StyleBtn}"/>
+                                Command="{Binding AddCandidatCommand}"
+                                Style="{DynamicResource StyleBtn}"/>
+                    -->
+                    <Button x:Name="cbAddCandidat" Content="Ajout candidat" Grid.Row ="1"
+                                Height="30" Margin="10" Command="{Binding AddCandidatCommand}"
+                                />
 
-                </DockPanel>
+                </Grid>
+
+
+
+
             </Grid>
-            <Grid x:Name="GridRight" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF90A4C1" >
-                <Grid x:Name="grid1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,60" Style="{DynamicResource GridStyle1}">
+            <Grid x:Name="GridRight" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid x:Name="grdDetailCandidat" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Style="{DynamicResource GridStyle1}"
+                      DataContext="{Binding CurrentCandidat}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" MinWidth="100"/>
                         <ColumnDefinition/>
@@ -167,7 +174,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto" MinHeight="10"/>
                         <RowDefinition Height="Auto" MinHeight="10"/>
-                        <RowDefinition Height="0*"/>
+                        <RowDefinition/>
                         <RowDefinition Height="Auto" MinHeight="10"/>
                         <RowDefinition Height="Auto" MinHeight="10"/>
                         <RowDefinition Height="Auto" MinHeight="10"/>
@@ -175,9 +182,8 @@
                         <RowDefinition Height="Auto" MinHeight="26"/>
                         <RowDefinition Height="Auto" MinHeight="10"/>
                         <RowDefinition Height="Auto" MinHeight="10"/>
-                        <RowDefinition Height="Auto" MinHeight="10"/>
-                        <RowDefinition Height="Auto" MinHeight="46"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" MinHeight="36"/>
                         <RowDefinition Height="Auto" MinHeight="10"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto" MinHeight="10"/>
@@ -199,16 +205,18 @@
                     <TextBox x:Name="tbPrenom2" Grid.Row="4" Text="{Binding TheCandidat.Prenom2, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource CustTextBox}" />
                     <Label Content="Prénom3" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="58" Margin="0,1" />
                     <TextBox x:Name="tbPrenom3" Grid.Row="5" Text="{Binding TheCandidat.Prenom3, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource CustTextBox}" />
-                    <Label Content="Adresse" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="52" Margin="0,15" Grid.RowSpan="3" />
-                    <TextBox x:Name="tbAdresse" Grid.Row="6" Text="{Binding TheCandidat.Adresse, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" Margin="0,10,10,18" Style="{DynamicResource CustTextBox}" Grid.RowSpan="2" />
+                    <Label Content="Adresse" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" Height="58" Width="52" Margin="0,10,0,4" />
+                    <TextBox x:Name="tbAdresse" Grid.Row="6" Text="{Binding TheCandidat.Adresse, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" Margin="0,10,10,10" Style="{DynamicResource CustTextBox}" />
                     <Label Content="CP/Ville" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="51" Margin="0,1" />
                     <TextBox x:Name="tbCPDomicile" Grid.Row="7" Text="{Binding TheCandidat.CodePostal, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Margin="0,10,308,0" />
                     <TextBox x:Name="tbVilleDomicile" Grid.Row="7" Text="{Binding TheCandidat.Ville, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Margin="94,10,10,0" Style="{DynamicResource CustTextBox}" />
                     <Label Content="Région Domicile : " Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="106" Margin="0,8" />
-                    <ComboBox x:Name="cbxRegionDomicile" Grid.Row="8" Text="{Binding TheCandidat.Region, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" IsEditable="False" Margin="0,10,10,10">
-                        <ComboBoxItem>Bretagne</ComboBoxItem>
-                        <ComboBoxItem>Normandie</ComboBoxItem>
-                        <ComboBoxItem>Pays de Loire</ComboBoxItem>
+                    <!-- ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}},Path=DataContext.lstRegionVM}" -->
+                    <ComboBox x:Name="cbxRegionDomicile" Grid.Row="8"  Grid.Column="1" IsEditable="True" Margin="0,10,10,10" 
+                              Text="{Binding TheCandidat.Region}"
+                              ItemsSource="{Binding Path=DataContext.lstRegionVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                              DisplayMemberPath="Nom"
+                              SelectedValuePath="Nom">
                     </ComboBox>
                     <Label Content="Tel : " Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="33" Margin="0,6" />
                     <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1" Margin="0,0,10,0">
@@ -229,13 +237,7 @@
                     <Label Content="Nationnalité naissance : " Grid.Row="13" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="138" Margin="0,1" />
                     <TextBox x:Name="tbNationaliteNaissance" Grid.Row="13" Text="{Binding TheCandidat.NationaliteNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource CustTextBox}" />
                     <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="11" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,10,10,10"/>
-                    <Label Content="Région Travail : " Grid.Row="14" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="93" Margin="0,8" />
-                    <ComboBox x:Name="cbxRegionTravail" Grid.Row="14" Text="{Binding TheCandidat.RegionTravail, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" IsEditable="False"  Margin="0,10,10,10">
-                        <ComboBoxItem>Bretagne</ComboBoxItem>
-                        <ComboBoxItem>Normandie</ComboBoxItem>
-                        <ComboBoxItem>Pays de Loire</ComboBoxItem>
-                    </ComboBox>
-                    <Grid HorizontalAlignment="Left" Height="80" Margin="10,10,0,0" VerticalAlignment="Top" Width="509" Grid.ColumnSpan="2">
+                    <Grid HorizontalAlignment="Left" Height="80"  VerticalAlignment="Top" Width="509" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="41*"/>
                             <RowDefinition Height="31*"/>
@@ -255,21 +257,33 @@
                         <RadioButton Content="Homme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="15" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}"/>
                         <RadioButton Content="Femme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Height="21" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}"/>
                     </Grid>
-                    <DataGrid Name="gridLstDiplome"  Margin="0,10,50,10"  Grid.Row="15" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" ItemsSource="{Binding lstDiplomesCandVMs }" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"  MouseDoubleClick="gridLstDiplome_MouseDoubleClick">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Diplome" IsReadOnly="True"  Binding="{Binding NomDiplome}"/>
-                            <DataGridTextColumn Header="Statut" Binding="{Binding Path=StatutDiplome}"/>
-                            <DataGridTextColumn Header="Date" Binding="{Binding Path=DateObtentionDiplome, StringFormat='d'}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Button x:Name="btnAddDiplomeCand" Grid.Row ="15" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddDiplomeCand_Click">
-                        <Image Source="IMG/add.png" Margin="0,0,10,0" Height="17" Width="18" RenderTransformOrigin="0.528,0.5" />
-                    </Button>
+                    <Button x:Name="btnAddDiplomeCand" Grid.Row ="14" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,10,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                            Command="{ Binding DataContext.AjouteDiplomeCandCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="21" Width="32"/>
+                    <StackPanel Grid.Row =" 14" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" >
+                            <Label>DEIS : </Label>
+                            <CheckBox Name="chkIsDEIS" IsChecked="{Binding IsDEIS}" VerticalAlignment="Center"></CheckBox>
+                            <Label>CAFERUIS :</Label>
+                            <CheckBox Name="chkIsCAFERUIS" IsChecked="{Binding IsCAFERUIS}" VerticalAlignment="Center"></CheckBox>
+                            <Label>CAFDES :</Label>
+                            <CheckBox Name="chkIsCAFDES" IsChecked="{Binding IsCAFDES}" VerticalAlignment="Center"></CheckBox>
+                        </StackPanel>
+                        <DataGrid Name="gridLstDiplome" VerticalAlignment="Top" ItemsSource="{Binding lstDiplomesCandVMs}"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding" MouseDoubleClick="gridLstDiplome_MouseDoubleClick">
+                                                        <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nom" IsReadOnly="true" Binding="{Binding NomDiplome}"/>
+                                <DataGridTextColumn Header="Obtention" Binding="{Binding DateObtentionDiplome, StringFormat='dd/MM/yyyy'}"/>
+                                <DataGridTextColumn Header="Numero" Binding="{Binding NumeroDiplome}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Name="cbAddDiplome" 
+                                Command="{Binding DataContext.AjouteDiplomeCandCommand, 
+                            RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Click="cbAddDiplome_Click">Ajouter</Button>
 
+                    </StackPanel>
 
-                    <Image HorizontalAlignment="Left" Height="14" Margin="0,12,0,0" Grid.Row="16" VerticalAlignment="Top" Width="15" IsEnabled="False" Source="IMG/LivretN.ico"/>
-                    <TextBlock HorizontalAlignment="Left"  Grid.Row="16" Margin="20,10,0,0" TextWrapping="Wrap" Text="Livrets" VerticalAlignment="Top" Height="16" Width="63"/>
-                    <DataGrid Name="gridLstLivrets" Grid.Column="1" Margin="0,10,50,10" Grid.Row="16" VerticalAlignment="Top" ItemsSource="{Binding lstLivrets}"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstLivrets_CellEditEnding" MouseDoubleClick="gridLstLivrets_MouseDoubleClick">
+                    <Image HorizontalAlignment="Left" Height="14" Margin="0,12,0,0" Grid.Row="15" VerticalAlignment="Top" Width="15" IsEnabled="False" Source="IMG/LivretN.ico"/>
+                    <TextBlock HorizontalAlignment="Left"  Grid.Row="15" Margin="20,10,0,0" TextWrapping="Wrap" Text="Livrets" VerticalAlignment="Top" Height="16" Width="63"/>
+                    <DataGrid Name="gridLstLivrets" Grid.Column="1" Margin="0,10,50,0" Grid.Row="15" VerticalAlignment="Top" ItemsSource="{Binding lstLivrets}"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstLivrets_CellEditEnding" MouseDoubleClick="gridLstLivrets_MouseDoubleClick" Height="26">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Numero" Binding="{Binding TheLivret.Numero}"/>
                             <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}"/>
@@ -277,14 +291,16 @@
                             <DataGridTextColumn Header="Echéance" Binding="{Binding TheLivret.DateEcheance, StringFormat='dd/MM/yyyy'}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="btnAddLivret1" Grid.Row ="16" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,20,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddLivret1_Click" RenderTransformOrigin="-0.656,0.619">
+                    <Button x:Name="btnAddLivret1" Grid.Row ="15" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,20,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" RenderTransformOrigin="-0.656,0.619" 
+                            Command="{ Binding DataContext.AjouteL1Command , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="21" Width="32" >
                         <Image Source="IMG/add.png" Margin="0,0,10,0" Height="17" Width="18" RenderTransformOrigin="0.528,0.5" />
                     </Button>
-                    <Button x:Name="btnAddLivret2" Grid.Row ="16" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,0,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddLivret2_Click" RenderTransformOrigin="-0.656,0.619">
+                    <Button x:Name="btnAddLivret2" Grid.Row ="15" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,0,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right"  RenderTransformOrigin="-0.656,0.619"
+                            Command="{Binding DataContext.AjouteL2Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="21" Width="32">
                         <Image Source="IMG/addL2.png" Margin="0,0,10,0" Height="17" Width="18" RenderTransformOrigin="0.528,0.5" />
                     </Button>
-                    <Image HorizontalAlignment="Left" Height="14" Margin="0,12,0,0" Grid.Row="15" VerticalAlignment="Top" Width="15" IsEnabled="False" Source="IMG/diplome.png"/>
-                    <TextBlock HorizontalAlignment="Left"  Grid.Row="15" Margin="20,12,0,0" TextWrapping="Wrap" Text="Diplôme" VerticalAlignment="Top" Height="16" Width="63"/>
+                    <Image HorizontalAlignment="Left" Height="14" Margin="0,12,0,0" Grid.Row="14" VerticalAlignment="Center" Width="15" IsEnabled="False" Source="IMG/diplome.png"/>
+                    <TextBlock HorizontalAlignment="Left"  Grid.Row="14" Margin="20,12,0,0" TextWrapping="Wrap" Text="Diplômes" VerticalAlignment="Center" Height="16" Width="63"/>
 
                 </Grid>
             </Grid>

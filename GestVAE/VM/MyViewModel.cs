@@ -17,11 +17,63 @@ namespace GestVAE.VM
     public class MyViewModel : NotifyUIBase
     {
         private Context _ctx;
+        private bool _modelhasChanges = false;
         private ObservableCollection<CandidatVM> _lstCandidatVM;
-        
+        private ObservableCollection<RegionVM> _lstRegionVM;
+        private ObservableCollection<DiplomeVM> _lstDiplomeVM;
+        private Boolean _isBusy;
+        private CandidatVM _candidatVM;
+
+        public CandidatVM CurrentCandidat
+        {
+            get { return _candidatVM; }
+            set { _candidatVM = value;RaisePropertyChanged(); }
+        }
+
+
+        public Boolean IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                if (_isBusy != value)
+                {
+                    _isBusy = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+
         public MyViewModel()
         {
+            _ctx = Context.instance;
             _lstCandidatVM = new ObservableCollection<CandidatVM>();
+            _lstRegionVM = new ObservableCollection<RegionVM>();
+            _lstDiplomeVM = new ObservableCollection<DiplomeVM>();
+
+            _SaveCommand = new SaveCommand(o => {   saveData(); },
+                                           o => { return hasChanges(); }
+                                          );
+            _RefreshCommand = new RelayCommand<CandidatVM>(o => { getData(); } 
+                                          );
+           _PopulateCommand = new RelayCommand<CandidatVM>(o => { populate(); }
+                                          );
+            _AddCandidatCommand = new RelayCommand<CandidatVM>(o => { AddCandidat(); }
+                                           );
+            _dlgParamCommand = new RelayCommand<MyViewModel>(o => { CalldlgParam(); }
+                                           );
+            _RechercherCommand = new RelayCommand<MyViewModel>(o => { Recherche(); }
+                                           );
+            AjouteDiplomeCandCommand = new RelayCommand<MyViewModel>(o => { AjouteDiplomeCand(); }
+                                           );
+            AjouteL1Command = new RelayCommand<MyViewModel>(o => { AjouteL1(); }
+                                           );
+            AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); }
+                                           );
+            dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
+                                           );
+            getParams();
         }
         public ObservableCollection<CandidatVM> lstCandidatVM
         {
@@ -35,15 +87,80 @@ namespace GestVAE.VM
                 };
             }
         }
+        public ObservableCollection<RegionVM> lstRegionVM
+        {
+            get => _lstRegionVM;
+            set
+            {
+                if (value != _lstRegionVM)
+                {
+                    _lstRegionVM = value;
+                    RaisePropertyChanged();
+                };
+            }
+        }
+        public ObservableCollection<DiplomeVM> lstDiplomeVM
+        {
+            get => _lstDiplomeVM;
 
- 
+        }
+
+        public void saveData()
+        {
+
+            foreach (RegionVM item in lstRegionVM)
+            {
+                if (item.IsNew)
+                {
+                    _ctx.Regions.Add(item.RegionItem);
+                }
+            }
+            foreach (DiplomeVM item in lstDiplomeVM)
+            {
+                item.Commit();
+            }
+
+            foreach (CandidatVM item in lstCandidatVM)
+            {
+                item.Commit();
+            }
+            _ctx.SaveChanges();
+        }
+
 
         public void getData()
         {
+            IsBusy = true;
+            Context.Reset();
             _ctx = Context.instance;
+ 
+            _lstCandidatVM.Clear();
+            foreach (Candidat item in _ctx.Candidats)
+            {
+                if (item.Sexe == null)
+                {
+                    item.Sexe = Sexe.H;
+                }
 
+                CandidatVM oCand = new CandidatVM(item);
+                _lstCandidatVM.Add(oCand);
+            }
+            CurrentCandidat = _lstCandidatVM[0];
+
+            RaisePropertyChanged("lstCandidatVM");
+            RaisePropertyChanged("CurrentCandidat");
+
+            IsBusy = false;
+
+        }
+
+        public void getParams()
+        {
+            IsBusy = true;
+            Context.Reset();
+            _ctx = Context.instance;
             // Créatino du CAFDES si Necessaire
-             Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
+            Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
 
             if (oDipCAFDES == null)
             {
@@ -55,29 +172,26 @@ namespace GestVAE.VM
 
                 _ctx.Diplomes.Add(oDipCAFDES);
             }
- 
-            _lstCandidatVM.Clear();
-            foreach (Candidat item in _ctx.Candidats)
+
+             _lstRegionVM.Clear();
+            foreach (Region item in _ctx.Regions)
             {
-                if (item.Sexe == null)
-                {
-                    item.Sexe = Sexe.H;
-                }
-                //List<DiplomeCand> olst =  item.lstDiplomes.ToList();
-                //if (item.lstDiplomes.Count() ==0)
-                //{
-                //    DiplomeCand oDipCand = new DiplomeCand(oDipCAFDES, DateTime.Now);
-                //    oDipCand.lstDCCands[0].Statut = "REFUSE";
-                //    oDipCand.lstDCCands[1].Statut = "REFUSE";
-                //    oDipCand.lstDCCands[2].Statut = "REFUSE";
-                //    oDipCand.lstDCCands[3].Statut = "REFUSE";
-                //    item.lstDiplomes.Add(oDipCand);
-                //    //_ctx.DiplomeCands.Add(oDipCand);
-                //}
-                CandidatVM oCand = new CandidatVM(item);
-                _lstCandidatVM.Add(oCand);
+                RegionVM oItVM = new RegionVM(item);
+                _lstRegionVM.Add(oItVM);
             }
+
+            _lstDiplomeVM.Clear();
+            foreach (Diplome item in _ctx.Diplomes)
+            {
+                DiplomeVM oItVM = new DiplomeVM(item);
+                _lstDiplomeVM.Add(oItVM);
+            }
+            RaisePropertyChanged("lstRegionVM");
+ 
+            IsBusy = false;
+
         }
+
         public void populate()
         {
 
@@ -119,22 +233,65 @@ namespace GestVAE.VM
         public void AddCandidat()
         {
             Candidat oCand = new Candidat("...");
-            //_ctx.Candidats.Add(oCand);
+            _ctx.Candidats.Add(oCand);
             CandidatVM oCandVM = new CandidatVM(oCand);
             lstCandidatVM.Add(oCandVM);
-            _ctx.Candidats.Add(oCand);
-          
-
+            CurrentCandidat = oCandVM;
+            RaisePropertyChanged("lstCandidatVM");
         }
-        public void saveData()
+
+
+        private ICommand _SaveCommand;
+        public ICommand SaveCommand
         {
-            Context.instance.SaveChanges();
+            get
+            {
+                return _SaveCommand;
+            }
+        }
+       private ICommand _RefreshCommand;
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return _RefreshCommand;
+            }
         }
 
+        private ICommand _PopulateCommand;
+
+        public ICommand PopulateCommand
+        {
+            get { return _PopulateCommand; }
+        }
+
+        private ICommand _AddCandidatCommand;
+
+        public ICommand AddCandidatCommand
+        {
+            get { return _AddCandidatCommand; }
+        }
+        private ICommand _dlgParamCommand;
+
+        public ICommand dlgParamCommand
+        {
+            get { return _dlgParamCommand; }
+        }
+        private ICommand _RechercherCommand;
+
+        public ICommand RechercherCommand
+        {
+            get { return _RechercherCommand; }
+        }
+        public ICommand dlgDiplomeCommand { get; set; }
+        public ICommand AjouteDiplomeCandCommand { get; set; }
+        public ICommand AjouteL1Command { get; set; }
+        public ICommand AjouteL2Command { get; set; }
         public String rechIdentifiantVAE { get; set; }
         public String rechNom { get; set; }
         public String rechPrenom { get; set; }
         public String rechVille { get; set; }
+        public DateTime? rechDateNaissance { get; set; }
         public DateTime? rechDateReceptL1Deb { get; set; }
         public DateTime? rechDateReceptL1Fin { get; set; }
         public DateTime? rechDateReceptL2Deb { get; set; }
@@ -143,22 +300,89 @@ namespace GestVAE.VM
         public void Recherche()
         {
             IQueryable<Candidat> rq = _ctx.Candidats;
-            if (rechIdentifiantVAE != "")
+            if (!String.IsNullOrEmpty(rechIdentifiantVAE))
             {
                 rq = rq.Where(c => c.IdVAE.Equals(rechIdentifiantVAE));
+            }
+            if (!String.IsNullOrEmpty(rechNom))
+            {
+                rq = rq.Where(c => c.Nom.Equals(rechNom));
+            }
+            if (rechDateNaissance!= null)
+            {
+                rq = rq.Where(c => c.DateNaissance.Value.Equals(rechDateNaissance.Value));
+
             }
             _lstCandidatVM.Clear();
             foreach (Candidat item in rq)
             {
-                if (item.Sexe == null)
-                {
-                    item.Sexe = Sexe.H;
-                }
+
                CandidatVM oCand = new CandidatVM(item);
                 _lstCandidatVM.Add(oCand);
             }
             RaisePropertyChanged("lstCandidatVM");
         }
-        
+        public void AjouteDiplomeCand()
+        {
+            CandidatVM oCandVM = CurrentCandidat;
+            oCandVM.AjoutDiplomeCand();
+            
+
+        }
+        /// <summary>
+        /// Ajout d'un livret1 au candidat
+        /// </summary>
+        public void AjouteL1()
+        {
+            CandidatVM oCandVM = CurrentCandidat;
+            Livret1VM oLivVM = oCandVM.AjoutLivret1();
+            frmLivret1 odlg = new frmLivret1();
+
+            odlg.setContexte(oLivVM);
+
+            odlg.ShowDialog();
+        }//AjouteL1
+        /// <summary>
+        /// Ajout d'un Livret2
+        /// </summary>
+        public void AjouteL2()
+        {
+            CandidatVM oCandVM = CurrentCandidat;
+            Livret2VM oLivVM = oCandVM.AjoutLivret2();
+            frmLivret2 odlg = new frmLivret2();
+
+            odlg.setContexte(oLivVM);
+
+            odlg.ShowDialog();
+        }
+
+        public void GestionDiplome()
+        {
+            dlgDiplome odlg = new dlgDiplome();
+            DiplomeVM odiplomeVM = new DiplomeVM();
+            odlg.setContexte(odiplomeVM);
+            odlg.ShowDialog();
+
+        }
+        /// <summary>
+        ///  Appel de la fenêtre de gestion des paramètres
+        /// </summary>
+        public void CalldlgParam()
+        {
+            dlgParametre oDlg = new dlgParametre();
+            oDlg.setContexte(this);
+            oDlg.ShowDialog();
+        }
+
+        public bool hasChanges()
+        {
+            return (_ctx.ChangeTracker.HasChanges() || _modelhasChanges);
+        }
+        public void ModelHasChanges()
+        {
+            _modelhasChanges = true;
+        }
+
+
     }
 }

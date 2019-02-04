@@ -5,12 +5,16 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GestVAE.VM
 {
     public class CandidatVM:VMBase
     {
 
+        const String cstDEIS = "DEIS";
+        const String cstCAFERUIS = "CAFERUIS";
+        const String cstCAFDES = "CAFDES";
         public Candidat TheCandidat { get; set; }
         public ObservableCollection<DiplomeCandVM> lstDiplomesCandVMs { get; set; }
         public ObservableCollection<LivretVMBase> lstLivrets { get; set; }
@@ -59,6 +63,186 @@ namespace GestVAE.VM
 
         }
 
+        private DiplomeCandVM diplomeCAFDESCandidat
+        {
+            get
+            {
+                return (from oDiplomeCand in lstDiplomesCandVMs
+                        where oDiplomeCand.oDiplome.Nom == cstCAFDES
+                        select oDiplomeCand).FirstOrDefault<DiplomeCandVM>();
+            }
+        }
+        private DiplomeCandVM diplomeDEISCandidat
+        {
+            get
+            {
+                return (from oDiplomeCand in lstDiplomesCandVMs
+                        where oDiplomeCand.oDiplome.Nom == cstDEIS
+                        select oDiplomeCand).FirstOrDefault<DiplomeCandVM>();
+            }
+        }
+        private DiplomeCandVM diplomeCAFERUISCandidat
+        {
+            get
+            {
+                return (from oDiplomeCand in lstDiplomesCandVMs
+                        where oDiplomeCand.oDiplome.Nom == cstCAFERUIS
+                        select oDiplomeCand).FirstOrDefault<DiplomeCandVM>();
+            }
+        }
+        public Boolean IsDEIS
+        {
+            get
+            {
+                return (diplomeDEISCandidat != null);
+            }
+            set
+            {
+                if (value != IsDEIS)
+                {
+                    if (value)
+                    {
+                        DiplomeCandVM oDip = AjoutDiplomeCand();
+                        oDip.TheDiplomeCand.oDiplome = (from oDiplome in _ctx.Diplomes where oDiplome.Nom == cstDEIS select oDiplome).First<Diplome>();
+                    }
+                    else
+                    {
+                        DiplomeCandVM oDip = diplomeDEISCandidat;
+                        _ctx.DiplomeCands.Remove(oDip.TheDiplomeCand);
+//                        diplomeDEISCandidat.TheDiplomeCand.bDeleted = true;
+                        lstDiplomesCandVMs.Remove(oDip);
+                        
+                    }
+                }
+            }
+        }
+        public DateTime? DateObtentionDEIS
+        {
+            get
+            {
+                if (diplomeDEISCandidat != null)
+                { return diplomeDEISCandidat.DateObtentionDiplome; }
+                else
+
+                { return null; }
+            }
+            set
+            {
+                if (value != DateObtentionDEIS)
+                {
+                    diplomeDEISCandidat.DateObtentionDiplome = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String NumeroDEIS
+        {
+            get
+            {
+                if (diplomeDEISCandidat != null)
+                { return diplomeDEISCandidat.NumeroDiplome; }
+                else
+
+                { return ""; }
+            }
+            set
+            {
+                if (value != NumeroDEIS)
+                {
+                    diplomeDEISCandidat.NumeroDiplome = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public Boolean IsCAFERUIS
+        {
+            get
+            {
+                return (diplomeCAFERUISCandidat != null);
+            }
+            set
+            {
+                if (value != IsCAFERUIS)
+                {
+                    if (value)
+                    {
+                        DiplomeCandVM oDip = AjoutDiplomeCand();
+                        oDip.TheDiplomeCand.oDiplome = (from oDiplome in _ctx.Diplomes where oDiplome.Nom == cstCAFERUIS select oDiplome).First<Diplome>();
+                    }
+                    else
+                    {
+                        DiplomeCandVM oDip = diplomeCAFERUISCandidat;
+                        _ctx.DiplomeCands.Remove(oDip.TheDiplomeCand);
+                        //                        diplomeDEISCandidat.TheDiplomeCand.bDeleted = true;
+                        lstDiplomesCandVMs.Remove(oDip);
+                    }
+                }
+            }
+        }
+        public DateTime? DateObtentionCAFERUIS
+        {
+            get
+            {
+                if (diplomeCAFERUISCandidat != null)
+                { return diplomeCAFERUISCandidat.DateObtentionDiplome; }
+                else
+
+                { return null; }
+            }
+            set
+            {
+                if (value != DateObtentionCAFERUIS)
+                {
+                    diplomeCAFERUISCandidat.DateObtentionDiplome = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String NumeroCAFERUIS
+        {
+            get
+            {
+                if (diplomeCAFERUISCandidat != null)
+                { return diplomeCAFERUISCandidat.NumeroDiplome; }
+                else
+
+                { return ""; }
+            }
+            set
+            {
+                if (value != NumeroCAFERUIS)
+                {
+                    diplomeCAFERUISCandidat.NumeroDiplome = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public Boolean IsCAFDES
+        {
+            get
+            {
+                return (diplomeCAFDESCandidat != null);
+            }
+            set
+            {
+                if (value != IsCAFDES)
+                {
+                    if (value)
+                    {
+                        DiplomeCandVM oDip = AjoutDiplomeCand();
+                        oDip.TheDiplomeCand.oDiplome = (from oDiplome in _ctx.Diplomes where oDiplome.Nom == cstCAFDES select oDiplome).First<Diplome>();
+                    }
+                    else
+                    {
+                        DiplomeCandVM oDip = diplomeCAFDESCandidat;
+                        _ctx.DiplomeCands.Remove(oDip.TheDiplomeCand);
+                        //                        diplomeDEISCandidat.TheDiplomeCand.bDeleted = true;
+                        lstDiplomesCandVMs.Remove(oDip);
+                    }
+                }
+            }
+        }
+
         public DiplomeCandVM AjoutDiplomeCand()
         {
             DiplomeCand oDiplCand = TheCandidat.AddDiplome();
@@ -105,5 +289,22 @@ namespace GestVAE.VM
             RaisePropertyChanged("lstLivrets");
             return oLiv2VM;
         }
+
+        public void Commit()
+        {
+            foreach (DiplomeCandVM item in lstDiplomesCandVMs)
+            {
+                item.Commit();
+            }
+            if (_ctx.Entry<Candidat>(TheCandidat).State == System.Data.Entity.EntityState.Detached)
+            {
+                _ctx.Candidats.Add(TheCandidat);
+            }
+            if (_ctx.Entry<Candidat>(TheCandidat).State == System.Data.Entity.EntityState.Deleted)
+            {
+                _ctx.Candidats.Remove(TheCandidat);
+            }
+        }
+
     }
 }

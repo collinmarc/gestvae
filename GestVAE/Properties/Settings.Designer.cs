@@ -51,5 +51,17 @@ namespace GestVAE.Properties {
                 return ((string)(this["CSGESTVAETU"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>TEST1</string>\r\n  <string>TEST2</string>\r\n  <string>TEST3</string>\r\n</Arra" +
+            "yOfString>")]
+        public global::System.Collections.Specialized.StringCollection Lst {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Lst"]));
+            }
+        }
     }
 }

@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfHorseRace", "WpfHorseRac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wpf_EntityFramework", "C#\wpf_EntityFramework\wpf_EntityFramework.csproj", "{A282940A-5F76-4FF8-9568-8B7D14133259}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{3FFAA857-F2AD-42C0-A2C6-830623D0B2CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{A282940A-5F76-4FF8-9568-8B7D14133259}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A282940A-5F76-4FF8-9568-8B7D14133259}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A282940A-5F76-4FF8-9568-8B7D14133259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FFAA857-F2AD-42C0-A2C6-830623D0B2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FFAA857-F2AD-42C0-A2C6-830623D0B2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FFAA857-F2AD-42C0-A2C6-830623D0B2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FFAA857-F2AD-42C0-A2C6-830623D0B2CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{E7DB0618-7C6D-46AC-9F76-228A1F030A1A} = {9E62BCF9-CFAB-499E-8C90-A165C7E5B914}
 		{BB1552EF-0105-4F82-9C27-D9D8CB860589} = {9E62BCF9-CFAB-499E-8C90-A165C7E5B914}
 		{A282940A-5F76-4FF8-9568-8B7D14133259} = {9E62BCF9-CFAB-499E-8C90-A165C7E5B914}
+		{3FFAA857-F2AD-42C0-A2C6-830623D0B2CA} = {9E62BCF9-CFAB-499E-8C90-A165C7E5B914}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {820F4A43-C35A-43AB-A44A-BA1A45E3A26F}

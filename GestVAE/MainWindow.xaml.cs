@@ -24,11 +24,20 @@ namespace GestVAE
     public partial class MainWindow : Window
     {
 
-        private MyViewModel _VM;
+        public MyViewModel _VM;
         public MainWindow()
         {
             InitializeComponent();
             tbRechIdentVAE.SetBinding(TextBox.TextProperty, "rechIdentifiantVAE");
+            tbRechNom.SetBinding(TextBox.TextProperty, "rechNom");
+            tbRechPrénom.SetBinding(TextBox.TextProperty, "rechPrenom");
+            tbRechVille.SetBinding(TextBox.TextProperty, "rechVille");
+            dpRechDateNaiss.SetBinding(DatePicker.SelectedDateProperty, "rechDateNaissance");
+            dpRechReceptL1Deb.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL1Deb");
+            dpRechReceptL1Fin.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL1Fin");
+            dpRechReceptL2Deb.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL2Deb");
+            dpRechReceptL2Fin.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL2Fin");
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -36,40 +45,9 @@ namespace GestVAE
             _VM = new MyViewModel();
             _VM.getData();
             this.DataContext = _VM;
-            lbCandidats.ItemsSource = _VM.lstCandidatVM;
-           grid1.DataContext = _VM.lstCandidatVM;
+            //lbCandidats.ItemsSource = _VM.lstCandidatVM;
                 
         }
-        private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            _VM.saveData();
-            
-        }
-        private void OpenCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            _VM.populate();
-        }
-        private void NewCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            _VM.populate();
-
-        }
-
         bool manualCommit = false;
         private void gridLstDiplome_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -159,9 +137,9 @@ namespace GestVAE
             odlg.ShowDialog();
         }
 
-        private void cbRecherche_Click(object sender, RoutedEventArgs e)
+        private void cbAddDiplome_Click(object sender, RoutedEventArgs e)
         {
-            _VM.Recherche();
+
         }
     }
 }

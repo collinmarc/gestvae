@@ -37,6 +37,7 @@ namespace GestVAEcls
         public DbSet<DomaineCompetenceCand> DomaineCompetenceCands { get; set; }
 
         public DbSet<Recours> dbRecours { get; set; }
+        public DbSet<Region> Regions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -95,6 +95,21 @@ namespace GestVAE.VM
                 }
             }
         }
+        public String NumeroDiplome
+        {
+            get
+            {
+                return TheDiplomeCand.NumeroDiplome;
+            }
+            set
+            {
+                if (value != NumeroDiplome)
+                {
+                    TheDiplomeCand.NumeroDiplome = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         public ObservableCollection<DomaineCompetenceCand> lstDCCands
         {
             get
@@ -415,5 +430,29 @@ namespace GestVAE.VM
         {
             RaisePropertyChanged("LstDiplomes");
         }
+        public void Commit()
+        {
+            foreach (DomaineCompetenceCand item in lstDCCands)
+            {
+                if (_ctx.Entry<DomaineCompetenceCand>(item).State == System.Data.Entity.EntityState.Detached)
+                {
+                    _ctx.DomaineCompetenceCands.Add(item);
+                }
+                if (_ctx.Entry<DomaineCompetenceCand>(item).State == System.Data.Entity.EntityState.Deleted)
+                {
+                    _ctx.DomaineCompetenceCands.Remove(item);
+                }
+
+            }
+            if (_ctx.Entry<DiplomeCand>(TheDiplomeCand).State == System.Data.Entity.EntityState.Detached)
+            {
+                _ctx.DiplomeCands.Add(TheDiplomeCand);
+            }
+            if (_ctx.Entry<DiplomeCand>(TheDiplomeCand).State == System.Data.Entity.EntityState.Deleted)
+            {
+                _ctx.DiplomeCands.Remove(TheDiplomeCand);
+            }
+        }
+
     }
 }

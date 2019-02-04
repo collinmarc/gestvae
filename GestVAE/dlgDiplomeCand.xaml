@@ -20,13 +20,15 @@
 
 
         <Label Content="Nom du diplome :" Canvas.Left="8" Canvas.Top="6"/>
-        <ComboBox x:Name="cbxNomdiplome" Canvas.Left="145" Canvas.Top="10" Width="120" SelectionChanged="cbxNomdiplome_SelectionChanged"/>
+        <ComboBox x:Name="cbxNomdiplome"
+                  Canvas.Left="145" Canvas.Top="10" Width="120" 
+                  SelectionChanged="cbxNomdiplome_SelectionChanged"/>
         <Button x:Name="btnAddDiplome" Grid.Row ="15" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddDiplome_Click" Canvas.Left="279" Canvas.Top="10">
             <Image Source="IMG/add.png" Margin="0,0,10,0" Height="17" Width="18" RenderTransformOrigin="0.639,0.059" />
         </Button>
         <Label Content="Statut :" Canvas.Left="329" Canvas.Top="6"/>
         <ComboBox x:Name="cbxStatutdiplome" Canvas.Left="391" Canvas.Top="6" Width="120"/>
-        <DataGrid x:Name="dgDC" Height="124" Canvas.Left="10" Canvas.Top="52" Width="501" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+        <DataGrid x:Name="dgDC" Height="74" Canvas.Left="10" Canvas.Top="102" Width="501" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
                   ItemsSource="{Binding lstDCCands}"
                   CellEditEnding="dgDC_CellEditEnding">
             <DataGrid.Resources>
@@ -40,5 +42,9 @@
                 <DataGridTextColumn Header="Commentaire" Binding="{Binding Commentaire}"  />
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="Date d'obtention : " Canvas.Left="8" Canvas.Top="36"/>
+        <DatePicker Name ="dtDateObtention" Canvas.Left="145" Canvas.Top="38" />
+        <Label Content="Numéro  : " Canvas.Left="8" Canvas.Top="62"/>
+        <TextBox Name ="tbNumero" Height="23" Canvas.Left="145" TextWrapping="Wrap"  Canvas.Top="67" Width="120"/>
     </Canvas>
 </Window>

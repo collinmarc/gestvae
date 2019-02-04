@@ -37,6 +37,21 @@ namespace GestVAE.VM
                 }
             }
         }
+        public String DescriptionDiplome
+        {
+            get
+            {
+                return TheDiplome.Description;
+            }
+            set
+            {
+                if (value != DescriptionDiplome)
+                {
+                    TheDiplome.Description = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public ObservableCollection<DomaineCompetence> lstDomainesCompetences
         {
@@ -51,6 +66,10 @@ namespace GestVAE.VM
             if ( _ctx.Entry<Diplome>(TheDiplome).State== System.Data.Entity.EntityState.Detached )
             {
                 _ctx.Diplomes.Add(TheDiplome);
+            }
+            if (_ctx.Entry<Diplome>(TheDiplome).State == System.Data.Entity.EntityState.Deleted)
+            {
+                _ctx.Diplomes.Remove(TheDiplome);
             }
         }
     }

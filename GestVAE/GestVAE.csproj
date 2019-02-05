@@ -100,6 +100,7 @@
     <Compile Include="VM\Command.cs" />
     <Compile Include="VM\Converter.cs" />
     <Compile Include="VM\DiplomeVM.cs" />
+    <Compile Include="VM\ListVM.cs" />
     <Compile Include="VM\LivretVMBase.cs" />
     <Compile Include="VM\Livret2VM.cs" />
     <Compile Include="VM\Livret1VM.cs" />

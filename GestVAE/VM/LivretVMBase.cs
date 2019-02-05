@@ -25,7 +25,6 @@ namespace GestVAE.VM
         public LivretVMBase()
         {
         }
-
  
     }
 }

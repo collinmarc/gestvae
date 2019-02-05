@@ -21,6 +21,7 @@ namespace GestVAE.VM
         private ObservableCollection<CandidatVM> _lstCandidatVM;
         private ObservableCollection<RegionVM> _lstRegionVM;
         private ObservableCollection<DiplomeVM> _lstDiplomeVM;
+        private ObservableCollection<PieceJointeCategorie> _lstPieceJointeCategorie;
         private Boolean _isBusy;
         private CandidatVM _candidatVM;
         private LivretVMBase _LivretVM;
@@ -58,6 +59,7 @@ namespace GestVAE.VM
             _lstCandidatVM = new ObservableCollection<CandidatVM>();
             _lstRegionVM = new ObservableCollection<RegionVM>();
             _lstDiplomeVM = new ObservableCollection<DiplomeVM>();
+            _lstPieceJointeCategorie = new ObservableCollection<PieceJointeCategorie>();
 
             _SaveCommand = new SaveCommand(o => {   saveData(); },
                                            o => { return hasChanges(); }
@@ -84,7 +86,8 @@ namespace GestVAE.VM
                                            );
             CloseCommand = new RelayCommand<MyViewModel>(o => { CloseWindowL1(); }
                                            );
-            getParams();
+
+            //getData();
         }
         public ObservableCollection<CandidatVM> lstCandidatVM
         {
@@ -115,9 +118,24 @@ namespace GestVAE.VM
             get => _lstDiplomeVM;
 
         }
+        public ObservableCollection<PieceJointeCategorie> lstPieceJointeCategorie
+        {
+            get => _lstPieceJointeCategorie;
 
+        }
         public void saveData()
         {
+            foreach (PieceJointeCategorie item in lstPieceJointeCategorie)
+            {
+                if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Detached)
+                {
+                    _ctx.pieceJointeCategories.Add(item);
+                }
+                if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Deleted)
+                {
+                    _ctx.pieceJointeCategories.Remove(item);
+                }
+            }
 
             foreach (RegionVM item in lstRegionVM)
             {
@@ -144,7 +162,47 @@ namespace GestVAE.VM
             IsBusy = true;
             Context.Reset();
             _ctx = Context.instance;
- 
+
+            // Créatino du CAFDES si Necessaire
+            Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
+
+            if (oDipCAFDES == null)
+            {
+                oDipCAFDES = new Diplome("CAFDES");
+                oDipCAFDES.addDomainecompetence("DC1");
+                oDipCAFDES.addDomainecompetence("DC2");
+                oDipCAFDES.addDomainecompetence("DC3");
+                oDipCAFDES.addDomainecompetence("DC4");
+
+                _ctx.Diplomes.Add(oDipCAFDES);
+            }
+
+            _lstRegionVM.Clear();
+            foreach (Region item in _ctx.Regions)
+            {
+                RegionVM oItVM = new RegionVM(item);
+                _lstRegionVM.Add(oItVM);
+            }
+            RaisePropertyChanged("lstRegionVM");
+
+            _lstDiplomeVM.Clear();
+            foreach (Diplome item in _ctx.Diplomes)
+            {
+                DiplomeVM oItVM = new DiplomeVM(item);
+                _lstDiplomeVM.Add(oItVM);
+            }
+            RaisePropertyChanged("lstDiplomeVM");
+
+            _lstPieceJointeCategorie.Clear();
+            foreach (PieceJointeCategorie item in _ctx.pieceJointeCategories)
+            {
+                //DiplomeVM oItVM = new DiplomeVM(item);
+                _lstPieceJointeCategorie.Add(item);
+            }
+            RaisePropertyChanged("lstPieceJointeCategorie");
+
+
+
             _lstCandidatVM.Clear();
             foreach (Candidat item in _ctx.Candidats)
             {
@@ -161,44 +219,8 @@ namespace GestVAE.VM
             RaisePropertyChanged("lstCandidatVM");
             RaisePropertyChanged("CurrentCandidat");
 
-            IsBusy = false;
-
-        }
-
-        public void getParams()
-        {
-            IsBusy = true;
-            Context.Reset();
-            _ctx = Context.instance;
-            // Créatino du CAFDES si Necessaire
-            Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
-
-            if (oDipCAFDES == null)
-            {
-                oDipCAFDES = new Diplome("CAFDES");
-                oDipCAFDES.addDomainecompetence("DC1");
-                oDipCAFDES.addDomainecompetence("DC2");
-                oDipCAFDES.addDomainecompetence("DC3");
-                oDipCAFDES.addDomainecompetence("DC4");
-
-                _ctx.Diplomes.Add(oDipCAFDES);
-            }
-
-             _lstRegionVM.Clear();
-            foreach (Region item in _ctx.Regions)
-            {
-                RegionVM oItVM = new RegionVM(item);
-                _lstRegionVM.Add(oItVM);
-            }
-
-            _lstDiplomeVM.Clear();
-            foreach (Diplome item in _ctx.Diplomes)
-            {
-                DiplomeVM oItVM = new DiplomeVM(item);
-                _lstDiplomeVM.Add(oItVM);
-            }
-            RaisePropertyChanged("lstRegionVM");
- 
+              IsBusy = true;
+  
             IsBusy = false;
 
         }

@@ -41,6 +41,22 @@ namespace GestVAE.VM
             }
         }
 
+        public String Numero
+        {
+            get
+            {
+                return TheLivret2.Numero.ToString();
+            }
+            set
+            {
+                if (value != Numero)
+                {
+                    TheLivret2.Numero = Convert.ToInt32(value);
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
 
         public ObservableCollection<DCLivret> lstDcLivrets { get { return TheLivret2.lstDCLivrets; } }
         public ObservableCollection<DCLivret> lstDcLivretsAValider {
@@ -601,6 +617,8 @@ namespace GestVAE.VM
             RaisePropertyChanged("IsLivretValidé");
 
         }
+
+
 
     }
 }

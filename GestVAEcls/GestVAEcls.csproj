@@ -49,6 +49,11 @@
   <ItemGroup>
     <Compile Include="Candidat.cs" />
     <Compile Include="DCLivret.cs" />
+    <Compile Include="Migrations\201902051512484_PJCategorie.cs" />
+    <Compile Include="Migrations\201902051512484_PJCategorie.Designer.cs">
+      <DependentUpon>201902051512484_PJCategorie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PieceJointeBase.cs" />
     <Compile Include="Migrations\201901101003538_Recours.cs" />
     <Compile Include="Migrations\201901101003538_Recours.Designer.cs">
       <DependentUpon>201901101003538_Recours.cs</DependentUpon>
@@ -88,6 +93,10 @@
     <Compile Include="Migrations\201902041525322_NumDiplome.cs" />
     <Compile Include="Migrations\201902041525322_NumDiplome.Designer.cs">
       <DependentUpon>201902041525322_NumDiplome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902051132596_DateLimiteL1.cs" />
+    <Compile Include="Migrations\201902051132596_DateLimiteL1.Designer.cs">
+      <DependentUpon>201902051132596_DateLimiteL1.cs</DependentUpon>
     </Compile>
     <Compile Include="Region.cs" />
     <Compile Include="Recours.cs" />
@@ -157,6 +166,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902041525322_NumDiplome.resx">
       <DependentUpon>201902041525322_NumDiplome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902051132596_DateLimiteL1.resx">
+      <DependentUpon>201902051132596_DateLimiteL1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902051512484_PJCategorie.resx">
+      <DependentUpon>201902051512484_PJCategorie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

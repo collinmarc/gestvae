@@ -23,6 +23,8 @@ namespace GestVAE.VM
         private ObservableCollection<DiplomeVM> _lstDiplomeVM;
         private Boolean _isBusy;
         private CandidatVM _candidatVM;
+        private LivretVMBase _LivretVM;
+        public Action CloseAction { get; set; }
 
         public CandidatVM CurrentCandidat
         {
@@ -30,6 +32,11 @@ namespace GestVAE.VM
             set { _candidatVM = value;RaisePropertyChanged(); }
         }
 
+        public LivretVMBase CurrentLivret
+        {
+            get { return _LivretVM; }
+            set { _LivretVM = value; RaisePropertyChanged(); }
+        }
 
         public Boolean IsBusy
         {
@@ -72,6 +79,10 @@ namespace GestVAE.VM
             AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); }
                                            );
             dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
+                                           );
+            ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); }
+                                           );
+            CloseCommand = new RelayCommand<MyViewModel>(o => { CloseWindowL1(); }
                                            );
             getParams();
         }
@@ -287,6 +298,8 @@ namespace GestVAE.VM
         public ICommand AjouteDiplomeCandCommand { get; set; }
         public ICommand AjouteL1Command { get; set; }
         public ICommand AjouteL2Command { get; set; }
+        public ICommand ValideretQuitterL1Command { get; set; }
+        public ICommand CloseCommand { get; set; }
         public String rechIdentifiantVAE { get; set; }
         public String rechNom { get; set; }
         public String rechPrenom { get; set; }
@@ -334,11 +347,15 @@ namespace GestVAE.VM
         /// </summary>
         public void AjouteL1()
         {
+
             CandidatVM oCandVM = CurrentCandidat;
-            Livret1VM oLivVM = oCandVM.AjoutLivret1();
+            Livret1 oLiv = (Livret1)oCandVM.TheCandidat.CreerLivret1(Diplome.getDiplomeParDefaut());
+            Livret1VM oLivVM = new Livret1VM(oLiv);
+            this.CurrentLivret = oLivVM;
+
             frmLivret1 odlg = new frmLivret1();
 
-            odlg.setContexte(oLivVM);
+            odlg.setContexte(this);
 
             odlg.ShowDialog();
         }//AjouteL1
@@ -374,6 +391,29 @@ namespace GestVAE.VM
             oDlg.ShowDialog();
         }
 
+        public void ValideretQuitterL1()
+        {
+            Livret1VM oL1VM = (Livret1VM)CurrentLivret;
+            CurrentCandidat.lstLivrets.Add(oL1VM);
+            CurrentCandidat.TheCandidat.lstLivrets1.Add((Livret1)oL1VM.TheLivret);
+            RaisePropertyChanged("lstLivrets");
+            CloseAction();
+        }
+
+
+        public void CloseWindowL1()
+        {
+            var lstEnt = _ctx.ChangeTracker.Entries<Livret1>().Where(i=>i.Entity.ID== CurrentLivret.TheLivret.ID);
+            foreach (var oLiv in lstEnt)
+            {
+                if (oLiv.State == EntityState.Modified)
+                {
+                    oLiv.CurrentValues.SetValues(oLiv.OriginalValues);
+                }
+            }
+            CurrentCandidat.refreshlstLivrets();
+            CloseAction();
+        }
         public bool hasChanges()
         {
             return (_ctx.ChangeTracker.HasChanges() || _modelhasChanges);

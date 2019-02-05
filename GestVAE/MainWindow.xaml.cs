@@ -79,8 +79,9 @@ namespace GestVAE
             LivretVMBase obj = (LivretVMBase)gridLstLivrets.SelectedItem;
             if (obj.TheLivret.Typestr=="LIVRET1")
             {
+                _VM.CurrentLivret = obj;
                 ofrm = new frmLivret1();
-                ((frmLivret1)ofrm).setContexte(obj);
+                ((frmLivret1)ofrm).setContexte(_VM);
             }
             else
             {
@@ -112,18 +113,6 @@ namespace GestVAE
 
             odlg.ShowDialog();
 
-        }
-
-        private void btnAddLivret1_Click(object sender, RoutedEventArgs e)
-        {
-
-            CandidatVM oCandVM = (CandidatVM)this.lbCandidats.SelectedItem;
-            Livret1VM oLivVM = oCandVM.AjoutLivret1();
-            frmLivret1 odlg = new frmLivret1();
-
-            odlg.setContexte(oLivVM);
-
-            odlg.ShowDialog();
         }
 
         private void btnAddLivret2_Click(object sender, RoutedEventArgs e)

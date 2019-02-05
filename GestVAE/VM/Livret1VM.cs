@@ -38,7 +38,23 @@ namespace GestVAE.VM
             }
         }
 
+        public String Numero
+        {
+            get
+            {
+                return oL1.Numero ;
+            }
+            set
+            {
+                if (value != Numero)
+                {
+                    oL1.Numero = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
+ 
         public Boolean IsContrat {
             get{
                 return TheLivret.isContrat;
@@ -90,9 +106,58 @@ namespace GestVAE.VM
                     RaisePropertyChanged("IsRecuVisibility");
                     RaisePropertyChanged("IsLivret1Valide");
                     RaisePropertyChanged("IsLivretNonValidé");
+                    RaisePropertyChanged("IsEnvoye");
+                    RaisePropertyChanged("IsRecu");
+                    RaisePropertyChanged("IsJury");
+                    RaisePropertyChanged("IsValide");
+                    RaisePropertyChanged("IsAccepte");
+                    RaisePropertyChanged("IsRefuse");
+                    RaisePropertyChanged("IsLivretNonValidé");
                 }
             }
         }
+        private int getNumetat()
+        {
+            int nReturn = 0;
+            try
+            {
+                nReturn = Convert.ToInt32(this.EtatLivret.Substring(0, 1));
+            }
+            catch (Exception)
+            {
+                nReturn = 0;
+            }
+            return nReturn;
+        }
+        public Boolean IsEnvoye
+        {
+            get
+            {
+                return (getNumetat() >= 1);
+            }
+        }
+        public Boolean IsRecu
+        {
+            get
+            {
+                return (getNumetat() >= 2);
+            }
+        }
+        public Boolean IsJury
+        {
+            get
+            {
+                return (getNumetat() >= 4);
+            }
+        }
+        public Boolean IsValide
+        {
+            get
+            {
+                return (getNumetat() ==9);
+            }
+        }
+
         public Visibility IsEnvoyeVisibility
         {
             get

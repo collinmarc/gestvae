@@ -21,11 +21,16 @@ namespace GestVAE
     /// </summary>
     public partial class frmLivret1 : Window
     {
+
+        private Livret1VM m_oLivret;
         public frmLivret1()
         {
             InitializeComponent();
             //Recours oLiv;
             tbDiplome.SetBinding(TextBox.TextProperty, "NomDiplome");
+            tbNumLivret.SetBinding(TextBox.TextProperty, "Numero");
+
+            cbxEtatLivret.SetBinding(ComboBox.TextProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.SelectedItemProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.ItemsSourceProperty, "LstEtatLivret");
 
@@ -80,14 +85,13 @@ namespace GestVAE
 
             tbCommentaireRecours.SetBinding(TextBox.TextProperty, "CommentaireJuryRecours");
 
-        //    cbcreerL2.SetBinding(Button.VisibilityProperty, "IsLivret1Valide");
         }
 
-        public void setContexte(LivretVMBase pLivret)
+        public void setContexte(MyViewModel pViewModel)
         {
-            this.DataContext = pLivret;
-
-
+            this.DataContext = pViewModel;
+            m_oLivret = (Livret1VM) pViewModel.CurrentLivret;
+            pViewModel.CloseAction = new Action(() => this.Close());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

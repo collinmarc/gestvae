@@ -42,6 +42,8 @@ namespace GestVAEcls
     {
         public String Numero { get; set; }
         public DateTime? DateDemande { get; set; }
+        public DateTime? DateLimiteEnvoiEHESP { get; set; }
+        public DateTime? DateLimiteReceptEHESP { get; set; }
 
 
         public virtual ObservableCollection<PieceJointeL1> lstPiecesJointes { get; set; }

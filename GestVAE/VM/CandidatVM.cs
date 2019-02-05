@@ -262,17 +262,19 @@ namespace GestVAE.VM
             return oDiplomeCand;
         }
 
-        public Livret1VM AjoutLivret1()
+  
+        public void refreshlstLivrets()
         {
-            Livret1 oLiv = new Livret1();
-            oLiv.Numero = DateTime.Now.ToString("yyyyMMddHHmm");
-            Livret1VM oLivVM = new Livret1VM(oLiv);
-            TheCandidat.lstLivrets1.Add(oLiv);
-            lstLivrets.Add(oLivVM);
             RaisePropertyChanged("lstLivrets");
-            return oLivVM;
         }
-
+        public void AjoutCurrentLivret1(Livret1VM pLivret)
+        {
+            
+            TheCandidat.lstLivrets1.Add((Livret1)pLivret.TheLivret);
+            lstLivrets.Add(pLivret);
+            refreshlstLivrets();
+        }
+ 
         public Livret2VM AjoutLivret2()
         {
             Diplome oDiplome = Diplome.getDiplomeParDefaut();
@@ -283,7 +285,7 @@ namespace GestVAE.VM
             TheCandidat.lstLivrets2.Add(oLiv);
             Livret2VM oLiv2VM = new Livret2VM(oLiv);
             lstLivrets.Add(oLiv2VM);
-            RaisePropertyChanged("lstLivrets");
+            refreshlstLivrets();
             return oLiv2VM;
         }
         public Livret2VM AjoutLivret2(Diplome pDiplome)
@@ -295,7 +297,7 @@ namespace GestVAE.VM
             TheCandidat.lstLivrets2.Add(oLiv);
             Livret2VM oLiv2VM = new Livret2VM(oLiv);
             lstLivrets.Add(oLiv2VM);
-            RaisePropertyChanged("lstLivrets");
+            refreshlstLivrets();
             return oLiv2VM;
         }
 

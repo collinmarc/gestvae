@@ -73,5 +73,14 @@ namespace GestVAEcls
             return oReturn;
         }
 
+
+        public Livret CreerLivret1(Diplome pDiplome)
+        {
+            Livret oReturn = null;
+
+            oReturn = new Livret1();
+            oReturn.oDiplome = pDiplome;
+            return oReturn;
+        }
     }
 }

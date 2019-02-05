@@ -9,19 +9,22 @@ namespace GestVAEcls
 {
     public abstract class PieceJointe : GestVAE
     {
-        public String Nom { get; set; }
+        public String Categorie{ get; set; }
+        public String Libelle { get; set; }
         public Boolean IsRecu { get; set; }
         public Boolean IsOK { get; set; }
 
         public PieceJointe()
         {
-            Nom = "";
+            Categorie = "";
+            Libelle = "";
             IsRecu = false;
             IsOK = false;
         }
-        public PieceJointe(String pNom) : this()
+        public PieceJointe(String pCategorie, String pLibelle) : this()
         {
-            Nom = pNom;
+            Categorie = pCategorie;
+            Libelle = pLibelle;
         }
     }
 
@@ -31,7 +34,7 @@ namespace GestVAEcls
 
         public virtual Livret1 oLivret { get; set; }
 
-        public PieceJointeL1(String pNom):base(pNom)
+        public PieceJointeL1(String pCategorie, String pLibelle):base(pCategorie, pLibelle)
         {
         }
 
@@ -48,8 +51,9 @@ namespace GestVAEcls
         public PieceJointeL2() : base()
         {
         }
-        public PieceJointeL2(String pNom) : base(pNom)
+        public PieceJointeL2(String pCategorie, String pLibelle) : base(pCategorie, pLibelle)
         {
         }
+
     }
 }

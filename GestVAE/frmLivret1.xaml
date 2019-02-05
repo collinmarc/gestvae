@@ -29,8 +29,6 @@
             <RowDefinition Height="Auto"/>
             <!-- Bouttons -->
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="LIVRET1" Grid.Row="0" FontSize="36" HorizontalAlignment="Center" >
@@ -120,15 +118,7 @@
 
         </Grid>
 
-        <TabControl Name="TabL1" Grid.Row="2" IsEnabled="{Binding IsLivretNonValidé}" HorizontalAlignment="Right" Width="792" RenderTransformOrigin="0.5,0.5" Margin="0,93,0,0" >
-            <TabControl.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.2"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TabControl.RenderTransform>
+        <TabControl Name="TabL1" Grid.Row="2" IsEnabled="{Binding IsLivretNonValidé}" HorizontalAlignment="Right" Margin="10" >
             <TabControl.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFC1FBF9" Offset="0"/>
@@ -142,71 +132,37 @@
                         <GradientStop Color="#FF15E4F9" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <Grid x:Name="grdEntete" ShowGridLines="True" Margin="0" >
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition x:Name="cgID" Width="15*"/>
-                        <ColumnDefinition Width="69*"/>
-                        <ColumnDefinition Width="178*"/>
-                        <ColumnDefinition x:Name="cgDateDemande" Width="262*"/>
-                        <ColumnDefinition x:Name="cgEtat" Width="262*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition x:Name="lgIDDemandeEtat" Height="Auto"/>
-                        <RowDefinition x:Name="lgContratTypeOrigine" Height="Auto"/>
-                        <RowDefinition x:Name="lgDates"/>
-                    </Grid.RowDefinitions>
+                
 
 
-
-                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="4">
+                    <StackPanel Orientation="Vertical" >
                         <StackPanel Orientation="Horizontal">
                             <Label>Pièces jointes :</Label>
                             <TextBlock Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesL1Color}"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" ItemsSource="{Binding TheLivret.lstPiecesJointes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" Width="202" CellEditEnding="dgPiecesjointes_CellEditEnding" >
+                            <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
+                                      ItemsSource="{Binding TheLivret.lstPiecesJointes, UpdateSourceTrigger=PropertyChanged}" 
+                                      AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" 
+                                      Margin="10" RowHeaderWidth="0" 
+                                      CellEditEnding="dgPiecesjointes_CellEditEnding" >
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Désignation" Binding="{Binding Nom}" Width="4*"/>
+                                    <DataGridComboBoxColumn Header="Catégorie" SelectedItemBinding="{Binding Categorie}" ItemsSource="{Binding lstCategoriePJ}" Width="3*"/>
+                                    <DataGridComboBoxColumn Header="Libellé" SelectedItemBinding="{Binding Libelle}" ItemsSource="{Binding lstLibellePJ}" Width="3*"/>
                                     <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
                                     <DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>
                                 </DataGrid.Columns>
 
                             </DataGrid>
-                            <Button x:Name="btnAddPJ" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddPJ_Click">
-                                <Image Source="IMG/add.png" Margin="0,0,10,0" />
+                            <Button x:Name="btnAddPJ" BorderThickness="0"  Margin="10">
+                            Ajouter
                             </Button>
 
-                        </StackPanel>
                     </StackPanel>
                     <!-- LgContratTypeOrigine-->
                     <!-- LgDates-->
-                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Accusé de réception" Width="150"></Label>
-                            <CheckBox  Name="chkAccuseRecepEHESP" IsChecked="{Binding TheLivret.isEnvoiEHESP_AR}" VerticalAlignment="Center" ></CheckBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Date Reception Candidat" Width="150" ></Label>
-                            <DatePicker Name="dtpReceptCandidat" Width="99" SelectedDate="{Binding Path=TheLivret.DateReceptCandidat}" />
-                        </StackPanel>
-                    </StackPanel>
-
-                    <StackPanel Name="pnlDatesEnvois" Orientation="Vertical" Grid.Row="2" Grid.Column="3">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Date Envoi candidat :"></Label>
-                            <DatePicker Name="dtpenvoiCandidat" SelectedDate="{Binding Path=TheLivret.DateEnvoiCandidat}" Width="122"></DatePicker>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Accusé de réception" Width="150"></Label>
-                            <CheckBox  Name="chkAccuseRecepCand" IsChecked="{Binding TheLivret.isEnvoiCand_AR}" VerticalAlignment="Center" ></CheckBox>
-                        </StackPanel>
-
-                    </StackPanel>
+          
 
 
-
-                </Grid>
 
             </TabItem>
             <TabItem x:Name="tabEchanges" Header="Echanges" Margin="0" >
@@ -373,11 +329,11 @@
 
             </TabItem>
         </TabControl>
-
-        <Button Name="dbCreerL2" Grid.Row="3" Margin="10" Click="dbCreerL2_Click" Style="{DynamicResource StyleBtn}" IsCancel="True">Valider et créer le Livret2</Button>
-        <Button Name="cbValider" Grid.Row="4" Margin="10" Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True">Valider et Quitter</Button>
-        <Button Name="cbQuitter" Grid.Row="5" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True">Quitter</Button>
-
+        <UniformGrid Grid.Row="3" >
+            <Button Name="dbCreerL2"  Margin="10" Click="dbCreerL2_Click" Style="{DynamicResource StyleBtn}" IsCancel="True">Valider et créer le Livret2</Button>
+            <Button Name="cbValider"  Margin="10" Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True">Valider et Quitter</Button>
+            <Button Name="cbQuitter" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True">Quitter</Button>
+        </UniformGrid>
         <!-- ECHANGE-->
         <!-- Jury-->
         <!--Recours -->

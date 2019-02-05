@@ -390,7 +390,7 @@ namespace GestVAE.VM
         public void addPJL1()
         {
 
-            oL1.lstPiecesJointes.Add(new PieceJointeL1("..."));
+            oL1.lstPiecesJointes.Add(new PieceJointeL1("...","..."));
             RaisePropertyChanged("TheLivret.lstPiecesJointes");
         }
 

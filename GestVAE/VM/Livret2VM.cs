@@ -377,7 +377,7 @@ namespace GestVAE.VM
         {
             Livret2 obj = (Livret2)TheLivret;
 
-            obj.lstPiecesJointes.Add(new PieceJointeL2("..."));
+            obj.lstPiecesJointes.Add(new PieceJointeL2("...","..."));
             RaisePropertyChanged("TheLivret.lstPiecesJointes");
         }
 

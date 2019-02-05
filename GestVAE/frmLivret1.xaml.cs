@@ -34,8 +34,7 @@ namespace GestVAE
             cbxEtatLivret.SetBinding(ComboBox.SelectedItemProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.ItemsSourceProperty, "LstEtatLivret");
 
-            pnlDatesEnvois.SetBinding(VisibilityProperty, "IsEnvoyeVisibility");
-            pnlJury.SetBinding(VisibilityProperty, "IsRecuVisibility");
+                        pnlJury.SetBinding(VisibilityProperty, "IsRecuVisibility");
             tabJury.SetBinding(TabItem.VisibilityProperty, "IsRecuVisibility");
 
             tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL1");

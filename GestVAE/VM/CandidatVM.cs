@@ -102,8 +102,8 @@ namespace GestVAE.VM
                 {
                     if (value)
                     {
-                        DiplomeCandVM oDip = AjoutDiplomeCand();
-                        oDip.TheDiplomeCand.oDiplome = (from oDiplome in _ctx.Diplomes where oDiplome.Nom == cstDEIS select oDiplome).First<Diplome>();
+                        Diplome oDiplome = (from o in _ctx.Diplomes where o.Nom == cstDEIS select o).FirstOrDefault<Diplome>();
+                        DiplomeCandVM oDip = AjoutDiplomeCand(oDiplome);
                     }
                     else
                     {
@@ -166,8 +166,9 @@ namespace GestVAE.VM
                 {
                     if (value)
                     {
-                        DiplomeCandVM oDip = AjoutDiplomeCand();
-                        oDip.TheDiplomeCand.oDiplome = (from oDiplome in _ctx.Diplomes where oDiplome.Nom == cstCAFERUIS select oDiplome).First<Diplome>();
+
+                        Diplome oDiplome = (from o in _ctx.Diplomes where o.Nom == cstCAFERUIS select o).FirstOrDefault<Diplome>();
+                        DiplomeCandVM oDip = AjoutDiplomeCand(oDiplome);
                     }
                     else
                     {
@@ -229,8 +230,8 @@ namespace GestVAE.VM
                 {
                     if (value)
                     {
-                        DiplomeCandVM oDip = AjoutDiplomeCand();
-                        oDip.TheDiplomeCand.oDiplome = (from oDiplome in _ctx.Diplomes where oDiplome.Nom == cstCAFDES select oDiplome).First<Diplome>();
+                         Diplome oDiplome = (from o in _ctx.Diplomes where o.Nom == cstCAFDES select o).FirstOrDefault<Diplome>();
+                        DiplomeCandVM oDip = AjoutDiplomeCand(oDiplome);
                     }
                     else
                     {
@@ -252,6 +253,14 @@ namespace GestVAE.VM
             return oDiplomeCand;
         }
 
+        public DiplomeCandVM AjoutDiplomeCand(Diplome pDiplome)
+        {
+            DiplomeCand oDiplCand = TheCandidat.AddDiplome(pDiplome);
+            DiplomeCandVM oDiplomeCand = new DiplomeCandVM(oDiplCand);
+            lstDiplomesCandVMs.Add(oDiplomeCand);
+            RaisePropertyChanged("lstDiplomesCandVMs");
+            return oDiplomeCand;
+        }
 
         public Livret1VM AjoutLivret1()
         {

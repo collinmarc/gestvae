@@ -9,6 +9,9 @@
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplomeCand"
         mc:Ignorable="d"
         Title="Détail du diplome d'un candidat" Height="253.708" Width="530.611" Icon="IMG/diplome.ico">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FFBCF5DB" Offset="0"/>
@@ -34,6 +37,9 @@
             <DataGrid.Resources>
                 <localVM:DiplomeCandVM x:Key="ComboItems"  />
             </DataGrid.Resources>
+            <DataGrid.Visibility>
+                <Binding Converter="{StaticResource BooleanToVisibilityConverter}" Path="IsDCCands"/>
+            </DataGrid.Visibility>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding NomDomaineCompetence}" IsReadOnly="true" />
                 <DataGridComboBoxColumn Header="Statut" SelectedItemBinding="{Binding Statut}" ItemsSource="{Binding LstStatutModule, Source={StaticResource ComboItems}}"/>

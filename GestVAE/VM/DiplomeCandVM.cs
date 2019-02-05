@@ -110,6 +110,14 @@ namespace GestVAE.VM
                 }
             }
         }
+
+        public Boolean IsDCCands
+        {
+            get
+            {
+                return (lstDCCands.Count > 0);
+            }
+        }
         public ObservableCollection<DomaineCompetenceCand> lstDCCands
         {
             get

@@ -239,7 +239,7 @@ namespace GestVAE.VM
             get {
                 try
                 {
-                    foreach (PieceJointe item in oL1.lstPiecesJointes)
+                    foreach (PieceJointeLivretVM item in lstPieceJointe)
                     {
                         if (!item.IsRecu || !item.IsOK)
                         {

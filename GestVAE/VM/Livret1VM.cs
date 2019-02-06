@@ -70,8 +70,7 @@ namespace GestVAE.VM
                 if (value != IsContrat)
                 {
                     TheLivret.isContrat = value;
-                    RaisePropertyChanged("IsContrat");
- //                   RaisePropertyChanged("IsConvention");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -81,8 +80,7 @@ namespace GestVAE.VM
                 if (value != IsConvention)
                 {
                     TheLivret.isContrat= !value;
- //                   RaisePropertyChanged("IsContrat");
-                    RaisePropertyChanged("IsConvention");
+                    RaisePropertyChanged();
                 }
 }
         }
@@ -288,7 +286,7 @@ namespace GestVAE.VM
                 oReturn.Add("2-Reçu");
                 oReturn.Add("3-Accepté");
                 oReturn.Add("4-Refusé");
-                oReturn.Add("9-Validé");
+                oReturn.Add("9-Fermé");
                 return oReturn;
             }
             set { }
@@ -414,7 +412,87 @@ namespace GestVAE.VM
             RaisePropertyChanged("TheLivret.lstEchanges");
         }
 
-
+        public DateTime? DateDemande
+        {
+            get { return oL1.DateDemande; }
+            set
+            {
+                if (value != DateDemande)
+                {
+                    oL1.DateDemande = value;
+                    RaisePropertyChanged();
+                    if ( ! IsRecu)
+                    {
+                        DateLimiteEnvoiEHESP = DateDemande.Value.AddDays(Properties.Settings.Default.DelaiEnvoiL1);
+                    }
+                }
+            }
+        }
+        public DateTime? DateLimiteEnvoiEHESP
+        {
+            get { return oL1.DateLimiteEnvoiEHESP; }
+            set
+            {
+                if (value != DateLimiteEnvoiEHESP)
+                {
+                    oL1.DateLimiteEnvoiEHESP = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateEnvoiEHESP
+        {
+            get { return oL1.DateEnvoiEHESP; }
+            set
+            {
+                if (value != DateEnvoiEHESP)
+                {
+                    oL1.DateEnvoiEHESP = value;
+                    RaisePropertyChanged();
+                    DateLimiteReceptEHESP = DateEnvoiEHESP.Value.AddDays(Properties.Settings.Default.DelaiReceptionL1);
+                }
+            }
+        }
+        public DateTime? DateLimiteReceptEHESP
+        {
+            get { return oL1.DateLimiteReceptEHESP; }
+            set
+            {
+                if (value != DateLimiteReceptEHESP)
+                {
+                    oL1.DateLimiteReceptEHESP = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateReceptEHESP
+        {
+            get { return oL1.DateReceptEHESP; }
+            set
+            {
+                if (value != DateReceptEHESP)
+                {
+                    oL1.DateReceptEHESP = value;
+                    RaisePropertyChanged();
+                    if (IsRecu)
+                    {
+                        DateLimiteJury = DateReceptEHESP.Value.AddDays(Properties.Settings.Default.DelaiJuryL1);
+                    }
+                }
+            }
+        }
+        public DateTime? DateLimiteJury
+        {
+            get { return oL1.DateLimiteJury; }
+            set
+            {
+                if (value != DateLimiteJury)
+                {
+                    oL1.DateLimiteJury = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         public String NomJury {
             get
             {

@@ -64,25 +64,29 @@
                 <StackPanel Orientation="Horizontal" >
                     <Label Content="Date demande candidat :" Width="150"></Label>
                     <DatePicker Name="dtpDateDemande" 
-                            SelectedDate="{Binding Path=TheLivret.DateDemande}" 
+                            SelectedDate="{Binding Path=DateDemande}" 
                             Width="100" Height="29"></DatePicker>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Date limite envoi EHESP : " Width="150"/>
-                    <DatePicker Name="dtpLimiteenvoiEHESP" SelectedDate="{Binding Path=TheLivret.DateLimiteEnvoiEHESP}" Width="100" Height="29"></DatePicker>
+                    <DatePicker Name="dtpLimiteenvoiEHESP" SelectedDate="{Binding DateLimiteEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29"></DatePicker>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Date envoi EHESP : " Width="150" Visibility="{Binding Visibility, ElementName=dtpenvoiEHESP}" ></Label>
-                    <DatePicker Name="dtpenvoiEHESP" SelectedDate="{Binding Path=TheLivret.DateEnvoiEHESP}" Width="100" Height="29" Visibility="{Binding IsEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
+                    <DatePicker Name="dtpenvoiEHESP" SelectedDate="{Binding DateEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Visibility="{Binding IsEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Date limite récept. EHESP :" Width="150" Visibility="{Binding Visibility, ElementName=dtpLimiteReceptEHESP}" ></Label>
-                    <DatePicker Name="dtpLimiteReceptEHESP" SelectedDate="{Binding Path=TheLivret.DateLimiteEnvoiEHESP}" Width="100" Height="29" Visibility="{Binding IsEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
+                    <DatePicker Name="dtpLimiteReceptEHESP" SelectedDate="{Binding DateLimiteReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Visibility="{Binding IsEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Date réception EHESP : " Width="150" Visibility="{Binding Visibility, ElementName=dtpReceptEHESP}"></Label>
-                    <DatePicker Name="dtpReceptEHESP"  SelectedDate="{Binding Path=TheLivret.DateReceptEHESP}" Width="100" Height="29" Visibility="{Binding IsRecu, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
+                    <DatePicker Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Visibility="{Binding IsRecu, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Date Limite Jury : " Width="150" Visibility="{Binding Visibility, ElementName=dtpReceptEHESP}"></Label>
+                    <DatePicker Name="dtpLimiteJury"  SelectedDate="{Binding DateLimiteJury, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Visibility="{Binding IsRecu, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
                 </StackPanel>
 
             </StackPanel>
@@ -120,22 +124,7 @@
         </Grid>
 
         <TabControl Name="TabL1" Grid.Row="2" IsEnabled="{Binding IsLivretNonValidé}" HorizontalAlignment="Right" Margin="10" >
-            <TabControl.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFC1FBF9" Offset="0"/>
-                    <GradientStop Color="#FF08CBC2" Offset="1"/>
-                </LinearGradientBrush>
-            </TabControl.Background>
             <TabItem x:Name="tabL1" Header="Livret1" Margin="0">
-                <TabItem.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFBCF5FB" Offset="0"/>
-                        <GradientStop Color="#FF15E4F9" Offset="1"/>
-                    </LinearGradientBrush>
-                </TabItem.Background>
-                
-
-
                     <StackPanel Orientation="Vertical" >
                         <StackPanel Orientation="Horizontal">
                             <Label>Pièces jointes :</Label>
@@ -222,14 +211,8 @@
                 </StackPanel>
 
             </TabItem>
-            <TabItem x:Name="tabJury" Header="Jury" Margin="0,-2,0,0">
-                <TabItem.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FF7A8EB0" Offset="0"/>
-                        <GradientStop Color="#FF083583" Offset="1"/>
-                    </LinearGradientBrush>
-                </TabItem.Background>
-                <StackPanel Name="pnlJury" Orientation="Vertical"  HorizontalAlignment="Stretch">
+            <TabItem x:Name="tabJury" Header="Jury" Margin="0,0,0,0">
+                <StackPanel Name="pnlJury" Orientation="Vertical">
                     <Label Content="Jury :" Foreground="#FF0078D7"/>
                     <Grid Name="grdJury1"  ShowGridLines="True">
                         <Grid.RowDefinitions>

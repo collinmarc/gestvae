@@ -44,6 +44,8 @@ namespace GestVAEcls
         public DateTime? DateDemande { get; set; }
         public DateTime? DateLimiteEnvoiEHESP { get; set; }
         public DateTime? DateLimiteReceptEHESP { get; set; }
+        public DateTime? DateLimiteJury { get; set; }
+        public DateTime? DateValidite { get; set; }
 
 
         public virtual ObservableCollection<PieceJointeL1> lstPiecesJointes { get; set; }

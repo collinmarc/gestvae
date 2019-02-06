@@ -54,13 +54,37 @@ namespace GestVAE.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>TEST1</string>\r\n  <string>TEST2</string>\r\n  <string>TEST3</string>\r\n</Arra" +
-            "yOfString>")]
-        public global::System.Collections.Specialized.StringCollection Lst {
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int DelaiEnvoiL1 {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Lst"]));
+                return ((int)(this["DelaiEnvoiL1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int DelaiReceptionL1 {
+            get {
+                return ((int)(this["DelaiReceptionL1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int DelaiJuryL1 {
+            get {
+                return ((int)(this["DelaiJuryL1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("900")]
+        public int DelaiValidite {
+            get {
+                return ((int)(this["DelaiValidite"]));
             }
         }
     }

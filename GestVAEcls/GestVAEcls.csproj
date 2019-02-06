@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201902052130505_PJ.Designer.cs">
       <DependentUpon>201902052130505_PJ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902061602208_L1Dates.cs" />
+    <Compile Include="Migrations\201902061602208_L1Dates.Designer.cs">
+      <DependentUpon>201902061602208_L1Dates.cs</DependentUpon>
+    </Compile>
     <Compile Include="PieceJointeBase.cs" />
     <Compile Include="Migrations\201901101003538_Recours.cs" />
     <Compile Include="Migrations\201901101003538_Recours.Designer.cs">
@@ -179,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902052130505_PJ.resx">
       <DependentUpon>201902052130505_PJ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061602208_L1Dates.resx">
+      <DependentUpon>201902061602208_L1Dates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

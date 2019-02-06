@@ -80,6 +80,8 @@ namespace GestVAE.VM
                                            );
             AjoutePJL1Command = new RelayCommand<MyViewModel>(o => { AjoutePJL1(); }
                                            );
+            DeletePJL1Command = new RelayCommand<MyViewModel>(o => { DeletePJL1(); }
+                                           );
             AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); }
                                            );
             dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
@@ -322,6 +324,7 @@ namespace GestVAE.VM
         public ICommand AjouteDiplomeCandCommand { get; set; }
         public ICommand AjouteL1Command { get; set; }
         public ICommand AjoutePJL1Command { get; set; }
+        public ICommand DeletePJL1Command { get; set; }
         public ICommand AjouteL2Command { get; set; }
         public ICommand ValideretQuitterL1Command { get; set; }
         public ICommand CloseCommand { get; set; }
@@ -389,6 +392,12 @@ namespace GestVAE.VM
             CandidatVM oCandVM = CurrentCandidat;
             Livret1VM oLiv = (Livret1VM) CurrentLivret;
             oLiv.AjoutePJ();
+        }
+        public void DeletePJL1()
+        {
+            CandidatVM oCandVM = CurrentCandidat;
+            Livret1VM oLiv = (Livret1VM)CurrentLivret;
+            oLiv.DeletePJ();
         }
 
         /// <summary>

@@ -15,6 +15,7 @@ namespace GestVAE.VM
         public Livret TheLivret { get; set; }
         //public ObservableCollection<PieceJointeL1> lstPiecesJointes;
         public ObservableCollection<PieceJointeLivretVM> lstPieceJointe { get; set; }
+        public PieceJointeLivretVM selectedPJ { get; set; }
 
         public LivretVMBase(Livret pLivret)
         {

@@ -976,6 +976,13 @@ namespace GestVAE.VM
             oL1.lstPiecesJointes.Add((PieceJointeL1)opjVM.ThePiecejointe);
             RaisePropertyChanged("lstPieceJointe");
         }
+        public void DeletePJ()
+        {
+            _ctx.Entry<PieceJointeL1>((PieceJointeL1)selectedPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
+            //oL1.lstPiecesJointes.Remove((PieceJointeL1)selectedPJ.ThePiecejointe);
+            lstPieceJointe.Remove(selectedPJ);
+            RaisePropertyChanged("lstPieceJointe");
+        }
 
 
     }

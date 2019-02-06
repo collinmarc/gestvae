@@ -143,14 +143,18 @@
                         </StackPanel>
                         <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
                                     ItemsSource="{Binding lstPieceJointe, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding selectedPJ}"
                                     AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"
                                     Margin="10" RowHeaderWidth="0" 
                                     CellEditEnding="dgPiecesjointes_CellEditEnding" >
                             <DataGrid.Resources>
                                 <localVM:BindingProxy x:Key="proxy" Data="{Binding}" />
                             </DataGrid.Resources>
+                            <DataGrid.InputBindings>
+                            <KeyBinding Key="Delete" Command="{Binding VM.DeletePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
+                            </DataGrid.InputBindings>
 
-                            <DataGrid.Columns>
+                        <DataGrid.Columns>
                                 <DataGridComboBoxColumn Header="Catégorie" 
                                                         SelectedItemBinding="{Binding Categorie}" 
                                                         ItemsSource="{Binding Data.lstCategoriePJL1 , Source={StaticResource proxy}}"

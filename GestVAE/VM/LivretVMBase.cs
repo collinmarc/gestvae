@@ -14,17 +14,27 @@ namespace GestVAE.VM
     {
         public Livret TheLivret { get; set; }
         //public ObservableCollection<PieceJointeL1> lstPiecesJointes;
+        public ObservableCollection<PieceJointeLivretVM> lstPieceJointe { get; set; }
 
         public LivretVMBase(Livret pLivret)
         {
             TheLivret = pLivret;
-            //lstPiecesJointes = new ObservableCollection<PieceJointeL1>();
+            lstPieceJointe = new ObservableCollection<PieceJointeLivretVM>();
         }
-
 
         public LivretVMBase()
         {
         }
- 
+
+        public String Typestr
+        {
+            get
+            {
+                return TheLivret.Typestr;
+            }
+        }
+
+        public virtual void Commit() { }
+
     }
 }

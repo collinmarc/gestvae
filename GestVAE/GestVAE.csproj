@@ -95,10 +95,12 @@
     <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="VM\BindingProxy.cs" />
     <Compile Include="VM\DiplomeCandVM.cs" />
     <Compile Include="VM\CandidatVM.cs" />
     <Compile Include="VM\Command.cs" />
     <Compile Include="VM\Converter.cs" />
+    <Compile Include="VM\PieceJointeLivretVM.cs" />
     <Compile Include="VM\DiplomeVM.cs" />
     <Compile Include="VM\ListVM.cs" />
     <Compile Include="VM\LivretVMBase.cs" />

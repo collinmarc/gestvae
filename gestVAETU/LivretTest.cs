@@ -73,7 +73,7 @@ namespace GestVAETU
             oL1.Numero = "20190115001";
 
             PieceJointeL1 oPJ = new PieceJointeL1();
-            oPJ.Nom = "CNI";
+            oPJ.Libelle = "CNI";
             oPJ.IsRecu = true;
             oPJ.IsOK = false;
             oL1.lstPiecesJointes.Add(oPJ);
@@ -90,7 +90,7 @@ namespace GestVAETU
             oL1 = oCand.lstLivrets1[0];
             PieceJointeL1 oPJ2 = oL1.lstPiecesJointes[0];
 
-            Assert.AreEqual(oPJ.Nom, oPJ2.Nom);
+            Assert.AreEqual(oPJ.Libelle, oPJ2.Libelle);
             Assert.AreEqual(oPJ.IsRecu, oPJ2.IsRecu);
             Assert.AreEqual(oPJ.IsOK, oPJ2.IsOK);
 

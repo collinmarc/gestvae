@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestVAE"
+        xmlns:localVM="clr-namespace:GestVAE.VM"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
         mc:Ignorable="d"
         Title="Gestion du Livret 1" Height="650" Width="800" Icon="IMG/LivretN.ico">
@@ -140,20 +141,43 @@
                             <Label>Pièces jointes :</Label>
                             <TextBlock Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesL1Color}"/>
                         </StackPanel>
-                            <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
-                                      ItemsSource="{Binding TheLivret.lstPiecesJointes, UpdateSourceTrigger=PropertyChanged}" 
-                                      AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" 
-                                      Margin="10" RowHeaderWidth="0" 
-                                      CellEditEnding="dgPiecesjointes_CellEditEnding" >
-                                <DataGrid.Columns>
-                                    <DataGridComboBoxColumn Header="Catégorie" SelectedItemBinding="{Binding Categorie}" ItemsSource="{Binding lstCategoriePJ}" Width="3*"/>
-                                    <DataGridComboBoxColumn Header="Libellé" SelectedItemBinding="{Binding Libelle}" ItemsSource="{Binding lstLibellePJ}" Width="3*"/>
-                                    <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
-                                    <DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>
-                                </DataGrid.Columns>
+                        <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
+                                    ItemsSource="{Binding lstPieceJointe, UpdateSourceTrigger=PropertyChanged}" 
+                                    AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"
+                                    Margin="10" RowHeaderWidth="0" 
+                                    CellEditEnding="dgPiecesjointes_CellEditEnding" >
+                            <DataGrid.Resources>
+                                <localVM:BindingProxy x:Key="proxy" Data="{Binding}" />
+                            </DataGrid.Resources>
 
-                            </DataGrid>
-                            <Button x:Name="btnAddPJ" BorderThickness="0"  Margin="10">
+                            <DataGrid.Columns>
+                                <DataGridComboBoxColumn Header="Catégorie" 
+                                                        SelectedItemBinding="{Binding Categorie}" 
+                                                        ItemsSource="{Binding Data.lstCategoriePJL1 , Source={StaticResource proxy}}"
+                                                        Width="3*"/>
+                                <DataGridComboBoxColumn Header="Libellé" 
+                                                        SelectedItemBinding="{Binding Libelle}" 
+                                                        Width="3*">
+                                <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
+                                    <DataGridComboBoxColumn.ElementStyle>
+                                        <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding Path=lstLibellePJ}" />
+                                        </Style>
+                                    </DataGridComboBoxColumn.ElementStyle>
+                                    <DataGridComboBoxColumn.EditingElementStyle>
+                                        <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding Path=lstLibellePJ}" />
+                                        </Style>
+                                    </DataGridComboBoxColumn.EditingElementStyle>
+
+                                </DataGridComboBoxColumn>
+                                <!--ItemsSource="{Binding Data.lstLibellePJL1 ,Source={StaticResource proxy}}"-->
+                                <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
+                                <DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+                    <Button x:Name="btnAddPJ" BorderThickness="0"  Margin="10" Command="{Binding VM.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}">
                             Ajouter
                             </Button>
 

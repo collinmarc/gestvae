@@ -21,7 +21,13 @@ namespace GestVAE
     /// </summary>
     public partial class frmLivret1 : Window
     {
+        public MyViewModel VM {
+            get
+            {
+                return (MyViewModel)DataContext;
+            }
 
+        }
         private Livret1VM m_oLivret;
         public frmLivret1()
         {
@@ -98,14 +104,6 @@ namespace GestVAE
 
         }
 
-        private void btnAddPJ_Click(object sender, RoutedEventArgs e)
-        {
-            //Ajout d'une piève jointe
-            Livret1VM oLiv = (Livret1VM)this.DataContext;
-            oLiv.addPJL1();
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL1");
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL1Color");
-        }
 
         private void btnAddEchange_Click(object sender, RoutedEventArgs e)
         {
@@ -125,7 +123,7 @@ namespace GestVAE
                 manualCommit = false;
             }
 
-            Livret1VM oLiv = (Livret1VM)this.DataContext;
+            Livret1VM oLiv = (Livret1VM) VM.CurrentLivret;
             oLiv.RaisePropertyChanged("ResultatPiecesJointesL1");
             oLiv.RaisePropertyChanged("ResultatPiecesJointesL1Color");
 }
@@ -136,6 +134,11 @@ namespace GestVAE
             oLiv.CreerLivret2();
            
 
+
+        }
+
+        private void dgPiecesjointes_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
 
         }
     }

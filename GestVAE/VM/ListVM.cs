@@ -12,7 +12,6 @@ namespace GestVAE.VM
 
         public ObservableCollection<String> lstL1L2 { get; set; }
 
-
         public ListVM()
         {
             lstL1L2 = new ObservableCollection<String>();

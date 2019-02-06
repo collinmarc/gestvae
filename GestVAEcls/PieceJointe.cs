@@ -42,6 +42,7 @@ namespace GestVAEcls
         public PieceJointeL1() : base()
         {
         }
+
     }
     public class PieceJointeL2 : PieceJointe
     {

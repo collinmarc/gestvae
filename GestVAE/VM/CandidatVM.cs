@@ -315,6 +315,33 @@ namespace GestVAE.VM
             {
                 _ctx.Candidats.Remove(TheCandidat);
             }
+            foreach (LivretVMBase item in lstLivrets)
+            {
+                if (item.Typestr == "LIVRET1")
+                {
+                    if (_ctx.Entry<Livret1>((Livret1)item.TheLivret).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        TheCandidat.lstLivrets1.Add((Livret1)item.TheLivret);
+                    }
+                    if (_ctx.Entry<Livret1>((Livret1)item.TheLivret).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        TheCandidat.lstLivrets1.Remove((Livret1)item.TheLivret);
+                    }
+                }
+                if (item.Typestr == "LIVRET2")
+                {
+                    if (_ctx.Entry<Livret2>((Livret2)item.TheLivret).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        TheCandidat.lstLivrets2.Add((Livret2)item.TheLivret);
+                    }
+                    if (_ctx.Entry<Livret2>((Livret2)item.TheLivret).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        TheCandidat.lstLivrets2.Remove((Livret2)item.TheLivret);
+                    }
+                }
+
+                item.Commit();
+            }
         }
 
     }

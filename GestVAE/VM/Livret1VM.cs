@@ -13,8 +13,13 @@ namespace GestVAE.VM
     public class Livret1VM:LivretVMBase
     {
         private Livret1 oL1 { get { return (Livret1)TheLivret; } }
-        public Livret1VM(Livret1 pLivret):base((Livret1)pLivret)
+        public Livret1VM(Livret1 pLivret):base(pLivret)
         {
+
+            foreach (PieceJointeL1 opj in pLivret.lstPiecesJointes)
+            {
+                lstPieceJointe.Add(new PieceJointeLivretVM(opj));
+            }
         }
 
 
@@ -347,7 +352,21 @@ namespace GestVAE.VM
             }
             set { }
         }
-        public  List<String> LstMotifGeneral
+
+        /// <summary>
+        /// Liste des Catégories de pièces jointes pour le Livret1
+        /// </summary>
+        public List<String> lstCategoriePJL1
+        {
+            get
+            {
+                return (from item in _ctx.pieceJointeCategories
+                        where item.Livret == "L1"
+                        select item.Categorie).ToList<String>();
+            }
+        }
+
+        public List<String> LstMotifGeneral
         {
             get
             {
@@ -387,13 +406,8 @@ namespace GestVAE.VM
             set { }
         }
 
-        public void addPJL1()
-        {
-
-            oL1.lstPiecesJointes.Add(new PieceJointeL1("...","..."));
-            RaisePropertyChanged("TheLivret.lstPiecesJointes");
-        }
-
+ 
+ 
         public void addEchangeL1()
         {
             oL1.lstEchanges.Add(new EchangeL1("..."));
@@ -947,6 +961,22 @@ namespace GestVAE.VM
             EtatLivret = "9-Validé";
             RaisePropertyChanged("IsLivretNonValidé");
         }
+
+        public override void Commit()
+        {
+        }
+
+        public void AjoutePJ()
+        {
+            String str = this.lstCategoriePJL1[0];
+            PieceJointeLivretVM opjVM = new PieceJointeLivretVM();
+            opjVM.Categorie = str;
+            opjVM.Libelle = opjVM.lstLibellePJ[0];
+            lstPieceJointe.Add(opjVM);
+            oL1.lstPiecesJointes.Add((PieceJointeL1)opjVM.ThePiecejointe);
+            RaisePropertyChanged("lstPieceJointe");
+        }
+
 
     }
 }

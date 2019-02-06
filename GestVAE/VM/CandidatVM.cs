@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace GestVAE.VM
 {
@@ -18,6 +19,14 @@ namespace GestVAE.VM
         public Candidat TheCandidat { get; set; }
         public ObservableCollection<DiplomeCandVM> lstDiplomesCandVMs { get; set; }
         public ObservableCollection<LivretVMBase> lstLivrets { get; set; }
+
+        private LivretVMBase _LivretVM;
+        public LivretVMBase CurrentLivret
+        {
+            get { return _LivretVM; }
+            set { _LivretVM = value; RaisePropertyChanged(); }
+        }
+
         public CandidatVM(Candidat pCandidat)
         {
             TheCandidat = pCandidat;
@@ -38,6 +47,10 @@ namespace GestVAE.VM
                 Livret2VM oLivret = new Livret2VM(item);
                 lstLivrets.Add(oLivret);
             }
+
+            DeleteLivretCommand = new RelayCommand<MyViewModel>(o => { DeleteLivret(); });
+
+
 
         }
         public CandidatVM()
@@ -343,6 +356,32 @@ namespace GestVAE.VM
                 item.Commit();
             }
         }
+
+         public ICommand DeleteLivretCommand { get; set; }
+                                        
+
+        /// <summary>
+        /// Suppression du Livert Courant
+        /// </summary>
+        public void DeleteLivret()
+        {
+
+            LivretVMBase pLiv = CurrentLivret;
+            if (pLiv.Typestr == "LIVRET1")
+            {
+                // Set to be Deleted
+                _ctx.Entry<Livret1>((Livret1)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
+            }
+            if (pLiv.Typestr == "LIVRET2")
+            {
+                // Set to be Deleted
+                _ctx.Entry<Livret2>((Livret2)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
+            }
+            lstLivrets.Remove(pLiv);
+            RaisePropertyChanged("lstLivrets");
+
+        }//        public void DeleteLivret()
+
 
     }
 }

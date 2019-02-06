@@ -24,7 +24,14 @@ namespace GestVAE
     public partial class MainWindow : Window
     {
 
-        public MyViewModel _VM;
+        public MyViewModel VM
+        {
+            get
+            {
+                return (MyViewModel)DataContext;
+            }
+
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -42,7 +49,7 @@ namespace GestVAE
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _VM = new MyViewModel();
+            MyViewModel _VM = new MyViewModel();
             _VM.getData();
             this.DataContext = _VM;
             //lbCandidats.ItemsSource = _VM.lstCandidatVM;
@@ -76,17 +83,15 @@ namespace GestVAE
         private void gridLstLivrets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Window ofrm = null;
-            LivretVMBase obj = (LivretVMBase)gridLstLivrets.SelectedItem;
-            if (obj.TheLivret.Typestr=="LIVRET1")
+            if (VM.CurrentCandidat.CurrentLivret.Typestr=="LIVRET1")
             {
-                _VM.CurrentLivret = obj;
                 ofrm = new frmLivret1();
-                ((frmLivret1)ofrm).setContexte(_VM);
+                ((frmLivret1)ofrm).setContexte(VM);
             }
             else
             {
                 ofrm = new frmLivret2();
-                ((frmLivret2)ofrm).setContexte(obj);
+                ((frmLivret2)ofrm).setContexte(VM.CurrentCandidat.CurrentLivret);
             }
 
 
@@ -95,7 +100,7 @@ namespace GestVAE
 
         private void cbAddCandidat_Click(object sender, RoutedEventArgs e)
         {
-            _VM.AddCandidat();
+            VM.AddCandidat();
         }
 
         /// <summary>

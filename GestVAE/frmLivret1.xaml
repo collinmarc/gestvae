@@ -14,7 +14,7 @@
 
         <Image x:Key="AddIco" Source="IMG/Add.png"/>
     </Window.Resources>
-    <Grid x:Name ="grdLivret" DataContext="{Binding CurrentLivret}"  ShowGridLines="true"  >
+    <Grid x:Name ="grdLivret" DataContext="{Binding CurrentCandidat.CurrentLivret}"  ShowGridLines="true"  >
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFD1EEF9" Offset="0"/>
@@ -151,7 +151,7 @@
                                 <localVM:BindingProxy x:Key="proxy" Data="{Binding}" />
                             </DataGrid.Resources>
                             <DataGrid.InputBindings>
-                            <KeyBinding Key="Delete" Command="{Binding VM.DeletePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
+                                <KeyBinding Key="Delete" Command="{Binding VM.DeletePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
                             </DataGrid.InputBindings>
 
                         <DataGrid.Columns>

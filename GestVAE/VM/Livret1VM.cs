@@ -964,20 +964,37 @@ namespace GestVAE.VM
 
         public override void Commit()
         {
+            // Validation des PiècesJointes L1
+            foreach (PieceJointeLivretVM item in lstPieceJointe)
+            {
+                PieceJointeL1 oPJ = (PieceJointeL1)item.ThePiecejointe;
+                if (_ctx.Entry<PieceJointeL1>(oPJ).State == System.Data.Entity.EntityState.Detached)
+                {
+                    oL1.lstPiecesJointes.Add(oPJ);
+                }
+                //if (_ctx.Entry<PieceJointeL1>(oPJ).State == System.Data.Entity.EntityState.Deleted)
+                //{
+                //    oL1.lstPiecesJointes.Remove(oPJ);
+                //}
+            }
+
         }
 
         public void AjoutePJ()
         {
-            String str = this.lstCategoriePJL1[0];
+            // Récupération de la première catégorie
+            String strCat = this.lstCategoriePJL1[0];
             PieceJointeLivretVM opjVM = new PieceJointeLivretVM();
-            opjVM.Categorie = str;
+            opjVM.Categorie = strCat;
+            // Récupération du libellé
             opjVM.Libelle = opjVM.lstLibellePJ[0];
+            // Ajout dans la collection
             lstPieceJointe.Add(opjVM);
-            oL1.lstPiecesJointes.Add((PieceJointeL1)opjVM.ThePiecejointe);
             RaisePropertyChanged("lstPieceJointe");
         }
         public void DeletePJ()
         {
+            // Set to be Deleted
             _ctx.Entry<PieceJointeL1>((PieceJointeL1)selectedPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
             //oL1.lstPiecesJointes.Remove((PieceJointeL1)selectedPJ.ThePiecejointe);
             lstPieceJointe.Remove(selectedPJ);

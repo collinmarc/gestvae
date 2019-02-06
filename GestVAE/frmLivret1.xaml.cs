@@ -95,7 +95,7 @@ namespace GestVAE
         public void setContexte(MyViewModel pViewModel)
         {
             this.DataContext = pViewModel;
-            m_oLivret = (Livret1VM) pViewModel.CurrentLivret;
+            m_oLivret = (Livret1VM) pViewModel.CurrentCandidat.CurrentLivret;
             pViewModel.CloseAction = new Action(() => this.Close());
         }
 
@@ -123,10 +123,9 @@ namespace GestVAE
                 manualCommit = false;
             }
 
-            Livret1VM oLiv = (Livret1VM) VM.CurrentLivret;
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL1");
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL1Color");
-}
+            m_oLivret.RaisePropertyChanged("ResultatPiecesJointesL1");
+            m_oLivret.RaisePropertyChanged("ResultatPiecesJointesL1Color");
+        }
 
         private void dbCreerL2_Click(object sender, RoutedEventArgs e)
         {

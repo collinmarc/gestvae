@@ -24,7 +24,6 @@ namespace GestVAE.VM
         private ObservableCollection<PieceJointeCategorie> _lstPieceJointeCategorie;
         private Boolean _isBusy;
         private CandidatVM _candidatVM;
-        private LivretVMBase _LivretVM;
         public Action CloseAction { get; set; }
 
         public CandidatVM CurrentCandidat
@@ -33,11 +32,6 @@ namespace GestVAE.VM
             set { _candidatVM = value;RaisePropertyChanged(); }
         }
 
-        public LivretVMBase CurrentLivret
-        {
-            get { return _LivretVM; }
-            set { _LivretVM = value; RaisePropertyChanged(); }
-        }
 
         public Boolean IsBusy
         {
@@ -370,6 +364,7 @@ namespace GestVAE.VM
             
 
         }
+
         /// <summary>
         /// Ajout d'un livret1 au candidat
         /// </summary>
@@ -379,7 +374,7 @@ namespace GestVAE.VM
             CandidatVM oCandVM = CurrentCandidat;
             Livret1 oLiv = (Livret1)oCandVM.TheCandidat.CreerLivret1(Diplome.getDiplomeParDefaut());
             Livret1VM oLivVM = new Livret1VM(oLiv);
-            this.CurrentLivret = oLivVM;
+            CurrentCandidat.CurrentLivret = oLivVM;
 
             frmLivret1 odlg = new frmLivret1();
 
@@ -389,14 +384,12 @@ namespace GestVAE.VM
         }//AjouteL1
         public void AjoutePJL1()
         {
-            CandidatVM oCandVM = CurrentCandidat;
-            Livret1VM oLiv = (Livret1VM) CurrentLivret;
+            Livret1VM oLiv = (Livret1VM) CurrentCandidat.CurrentLivret;
             oLiv.AjoutePJ();
         }
         public void DeletePJL1()
         {
-            CandidatVM oCandVM = CurrentCandidat;
-            Livret1VM oLiv = (Livret1VM)CurrentLivret;
+            Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
             oLiv.DeletePJ();
         }
 
@@ -434,9 +427,16 @@ namespace GestVAE.VM
 
         public void ValideretQuitterL1()
         {
-            Livret1VM oL1VM = (Livret1VM)CurrentLivret;
-            CurrentCandidat.lstLivrets.Add(oL1VM);
-            CurrentCandidat.TheCandidat.lstLivrets1.Add((Livret1)oL1VM.TheLivret);
+            Livret1VM oL1VM = (Livret1VM)CurrentCandidat.CurrentLivret;
+            // Validation du conenu du Livret
+            oL1VM.Commit();
+            // Si le livret est Nouveau => Ajout dans la Collection des Livrets
+            if (_ctx.Entry<Livret1>((Livret1)oL1VM.TheLivret).State == System.Data.Entity.EntityState.Detached)
+            {
+                CurrentCandidat.TheCandidat.lstLivrets1.Add((Livret1)oL1VM.TheLivret);
+                CurrentCandidat.lstLivrets.Add(CurrentCandidat.CurrentLivret);
+            }
+
             RaisePropertyChanged("lstLivrets");
             CloseAction();
         }
@@ -444,7 +444,7 @@ namespace GestVAE.VM
 
         public void CloseWindowL1()
         {
-            var lstEnt = _ctx.ChangeTracker.Entries<Livret1>().Where(i=>i.Entity.ID== CurrentLivret.TheLivret.ID);
+            var lstEnt = _ctx.ChangeTracker.Entries<Livret1>().Where(i=>i.Entity.ID== CurrentCandidat.CurrentLivret.TheLivret.ID);
             foreach (var oLiv in lstEnt)
             {
                 if (oLiv.State == EntityState.Modified)

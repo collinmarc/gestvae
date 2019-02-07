@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace GestVAE.VM
 {
-    public class Livret1VM:LivretVMBase
+   public class Livret1VM:LivretVMBase
     {
         private Livret1 oL1 { get { return (Livret1)TheLivret; } }
         public Livret1VM(Livret1 pLivret):base(pLivret)
@@ -105,17 +105,14 @@ namespace GestVAE.VM
                 { 
                     TheLivret.EtatLivret = value;
                     RaisePropertyChanged();
-                    RaisePropertyChanged("IsEnvoyeVisibility");
-                    RaisePropertyChanged("IsRecuVisibility");
-                    RaisePropertyChanged("IsLivret1Valide");
-                    RaisePropertyChanged("IsLivretNonValidé");
-                    RaisePropertyChanged("IsEnvoye");
-                    RaisePropertyChanged("IsRecu");
-                    RaisePropertyChanged("IsJury");
-                    RaisePropertyChanged("IsValide");
-                    RaisePropertyChanged("IsAccepte");
-                    RaisePropertyChanged("IsRefuse");
-                    RaisePropertyChanged("IsLivretNonValidé");
+                    RaisePropertyChanged("IsEtatEnvoye");
+                    RaisePropertyChanged("IsEtatRecu");
+                    RaisePropertyChanged("IsEtatRecuComplet");
+                    RaisePropertyChanged("IsEtatRecuIncomplet");
+                    RaisePropertyChanged("IsEtatRefuse");
+                    RaisePropertyChanged("IsEtatRecours");
+                    RaisePropertyChanged("IsEtatAccepte");
+                    RaisePropertyChanged("IsEtatFerme");
                 }
             }
         }
@@ -124,7 +121,7 @@ namespace GestVAE.VM
             int nReturn = 0;
             try
             {
-                nReturn = Convert.ToInt32(this.EtatLivret.Substring(0, 1));
+                nReturn = Convert.ToInt32(this.EtatLivret.Split('-')[0]);
             }
             catch (Exception)
             {
@@ -132,20 +129,93 @@ namespace GestVAE.VM
             }
             return nReturn;
         }
-        public Boolean IsEnvoye
+        private int getNumDecisionJury()
+        {
+            int nReturn = 0;
+            try
+            {
+                nReturn = Convert.ToInt32(this.DecisionJury.Split('-')[0]);
+            }
+            catch (Exception)
+            {
+                nReturn = 0;
+            }
+            return nReturn;
+        }
+        public Boolean IsEtatDemande
         {
             get
             {
-                return (getNumetat() >= 1);
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_DEMANDE);
             }
         }
-        public Boolean IsRecu
+        public Boolean IsEtatEnvoye
         {
             get
             {
-                return (getNumetat() >= 2);
+                return (getNumetat() >= (int) MyEnums.EtatL1.ETAT_L1_ENVOYE);
             }
         }
+        public Boolean IsEtatRecuIncomplet
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET &&
+                    getNumetat() < (int)MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            }
+        }
+        public Boolean IsEtatRecu
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET);
+            }
+        }
+        public Boolean IsEtatRecuComplet
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            }
+        }
+        public Boolean IsEtatRefuse
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_REFUSE) &&
+                        (getNumetat() < (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE); 
+            }
+        }
+        public Boolean IsEtatRecours
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECOURS) &&
+                        (getNumetat() < (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE); 
+            }
+        }
+        public Boolean IsEtatAccepte
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+            }
+        }
+        public Boolean IsEtatFerme
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_FERME);
+            }
+        }
+        public Boolean IsEtatNonFerme
+        {
+            get
+            {
+                return (!IsEtatFerme);
+            }
+        }
+
         public Boolean IsJury
         {
             get
@@ -160,77 +230,6 @@ namespace GestVAE.VM
                 return (getNumetat() ==9);
             }
         }
-
-        public Visibility IsEnvoyeVisibility
-        {
-            get
-            {
-                if (this.EtatLivret.StartsWith("0"))
-                {
-                    return Visibility.Hidden;
-                }
-                else
-                {
-                    return Visibility.Visible;
-                }
-            }
-            set { }
-        }
-
-        public Visibility IsRecuVisibility
-        {
-            get
-            {
-                try
-                {
-                    int n = Convert.ToInt32(this.EtatLivret.Substring(0,1));
-                    if (n<2)
-                    {
-                        return Visibility.Hidden;
-                    }
-                    else
-                    {
-                        return Visibility.Visible;
-                    }
-
-                }
-                catch (Exception)
-                {
-
-                    return Visibility.Hidden;
-                }
-            }
-            set { }
-        }
-        public Boolean IsRefuse => DecisionJury.ToUpper().Contains("REFUS");
-        public Boolean IsLivretNonValidé => EtatLivret != "9-Validé";
-
-
-        public Visibility IsRefuseVisibility
-        {
-            get
-            {
-                try
-                {
-                    Visibility oreturn = Visibility.Hidden;
-                    if (IsRecuVisibility == Visibility.Visible)
-                    {
-                        if (IsRefuse)
-                        {
-                            oreturn = Visibility.Visible;
-                        }
-                    }
-
-                    return oreturn;
-                }
-                catch (Exception)
-                {
-
-                    return Visibility.Hidden;
-                }
-            }
-        }
-
 
         public String ResultatPiecesJointesL1
         {
@@ -281,12 +280,14 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add("0-Demandé");
-                oReturn.Add("1-Envoyé");
-                oReturn.Add("2-Reçu");
-                oReturn.Add("3-Accepté");
-                oReturn.Add("4-Refusé");
-                oReturn.Add("9-Fermé");
+                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatL1.ETAT_L1_DEMANDE));
+                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
+                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
+                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
+                oReturn.Add(String.Format("{0:D}-Refusé", MyEnums.EtatL1.ETAT_L1_REFUSE ));
+                oReturn.Add(String.Format("{0:D}-Recours", MyEnums.EtatL1.ETAT_L1_RECOURS ));
+                oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE ));
+                oReturn.Add(String.Format("{0:D}-Fermé", MyEnums.EtatL1.ETAT_L1_FERME ));
                 return oReturn;
             }
             set { }
@@ -342,10 +343,8 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add("Validation totale");
-               // oReturn.Add("Validation partielle");
-                oReturn.Add("Refus de validation");
-                oReturn.Add("");
+                oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE));
                 return oReturn;
             }
             set { }
@@ -421,7 +420,7 @@ namespace GestVAE.VM
                 {
                     oL1.DateDemande = value;
                     RaisePropertyChanged();
-                    if ( ! IsRecu)
+                    if ( ! IsEtatRecu)
                     {
                         DateLimiteEnvoiEHESP = DateDemande.Value.AddDays(Properties.Settings.Default.DelaiEnvoiL1);
                     }
@@ -474,13 +473,38 @@ namespace GestVAE.VM
                 {
                     oL1.DateReceptEHESP = value;
                     RaisePropertyChanged();
-                    if (IsRecu)
+                }
+            }
+        }
+        public DateTime? DateReceptEHESPComplet
+        {
+            get { return oL1.DateReceptEHESPComplet; }
+            set
+            {
+                if (value != DateReceptEHESPComplet)
+                {
+                    oL1.DateReceptEHESPComplet = value;
+                    RaisePropertyChanged();
+                    if (IsEtatRecu)
                     {
-                        DateLimiteJury = DateReceptEHESP.Value.AddDays(Properties.Settings.Default.DelaiJuryL1);
+                        DateLimiteJury = DateReceptEHESPComplet.Value.AddDays(Properties.Settings.Default.DelaiJuryL1);
                     }
                 }
             }
         }
+        public DateTime? DateValidite
+        {
+            get { return oL1.DateValidite; }
+            set
+            {
+                if (value != DateValidite)
+                {
+                    oL1.DateValidite = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public DateTime? DateLimiteJury
         {
             get { return oL1.DateLimiteJury; }
@@ -571,34 +595,96 @@ namespace GestVAE.VM
                     }
 
                     TheLivret.lstJurys[0].DateJury = value;
+                    DateLimiteRecours = value.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
 
                     RaisePropertyChanged();
                 }
             }
         }
-
-
-
-
-        public Visibility IsLivret1Valide  {
+        public DateTime? HeureJury
+        {
             get
             {
-                Visibility oReturn = Visibility.Hidden;
-                if (IsRecuVisibility== Visibility.Visible && IsRefuseVisibility == Visibility.Hidden)
+                if (TheLivret.lstJurys.Count >= 1)
                 {
-                    oReturn = Visibility.Visible;
+                    return TheLivret.lstJurys[0].HeureJury;
                 }
-                if (IsRecuVisibility == Visibility.Visible && 
-                    IsRefuseVisibility == Visibility.Visible &&
-                    !IsRefuseRecours)
+                else
                 {
-                    oReturn = Visibility.Visible;
+                    return null;
                 }
-                return oReturn;
             }
+            set
+            {
+                if (value != HeureJury)
+                {
+                    if (TheLivret.lstJurys.Count == 0)
+                    {
+                        TheLivret.lstJurys.Add(new Jury());
+                    }
 
+                    TheLivret.lstJurys[0].HeureJury= value;
+
+                    RaisePropertyChanged();
+                }
+            }
         }
+        public DateTime? HeureConvoc
+        {
+            get
+            {
+                if (TheLivret.lstJurys.Count >= 1)
+                {
+                    return TheLivret.lstJurys[0].HeureConvoc;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != HeureConvoc)
+                {
+                    if (TheLivret.lstJurys.Count == 0)
+                    {
+                        TheLivret.lstJurys.Add(new Jury());
+                    }
 
+                    TheLivret.lstJurys[0].HeureConvoc = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateLimiteRecours
+        {
+            get
+            {
+                if (TheLivret.lstJurys.Count >= 1)
+                {
+                    return TheLivret.lstJurys[0].DateLimiteRecours;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != DateLimiteRecours)
+                {
+                    if (TheLivret.lstJurys.Count == 0)
+                    {
+                        TheLivret.lstJurys.Add(new Jury());
+                    }
+
+                    TheLivret.lstJurys[0].DateLimiteRecours = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
 
 
@@ -631,20 +717,41 @@ namespace GestVAE.VM
                     TheLivret.lstJurys[0].Decision = value;
 
 
-                    if (!IsRefuse)
+                    if (!IsEtatRefuse)
                     {
                         MotifDetailJury = "";
                         MotifGeneralJury = "";
                         IsRecoursDemande = false;
                     }
+                    setEtatLivret();
                     RaisePropertyChanged();
-                    RaisePropertyChanged("IsRefuseVisibility");
-                    RaisePropertyChanged("IsRecoursDemandeVisibility");
-                    RaisePropertyChanged("IsLivret1Valide");
                 }
             }
         }
 
+        public Boolean IsDecisionJuryFavorable()
+        {
+            return (getNumDecisionJury() < (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+        }
+        public Boolean IsDecisionJuryDefavorable()
+        {
+            return (getNumDecisionJury() >= (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+        }
+        private void setEtatLivret()
+        {
+            String strEtat = EtatLivret;
+            String strKey = "";
+            if ( IsDecisionJuryFavorable() )
+            {
+                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+            }
+            if (IsDecisionJuryDefavorable())
+            {
+                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
+            }
+            strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
+            EtatLivret = strEtat;
+        }
         public Boolean IsRecoursDemande {
             get { return oL1.IsRecours; }
             set
@@ -653,13 +760,8 @@ namespace GestVAE.VM
                 {
                     oL1.IsRecours = value;
                     RaisePropertyChanged();
-                    RaisePropertyChanged("IsRecoursDemandeVisibility");
                 }
             }
-        }
-        public Visibility IsRecoursDemandeVisibility
-        {
-            get { return IsRecoursDemande ? Visibility.Visible : Visibility.Hidden; }
         }
         public String MotifGeneralJury
         {

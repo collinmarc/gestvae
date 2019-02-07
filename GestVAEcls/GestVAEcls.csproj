@@ -61,6 +61,14 @@
     <Compile Include="Migrations\201902061602208_L1Dates.Designer.cs">
       <DependentUpon>201902061602208_L1Dates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902071321503_DatesL1.cs" />
+    <Compile Include="Migrations\201902071321503_DatesL1.Designer.cs">
+      <DependentUpon>201902071321503_DatesL1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902071331258_DatesL1-Jurys.cs" />
+    <Compile Include="Migrations\201902071331258_DatesL1-Jurys.Designer.cs">
+      <DependentUpon>201902071331258_DatesL1-Jurys.cs</DependentUpon>
+    </Compile>
     <Compile Include="PieceJointeBase.cs" />
     <Compile Include="Migrations\201901101003538_Recours.cs" />
     <Compile Include="Migrations\201901101003538_Recours.Designer.cs">
@@ -186,6 +194,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902061602208_L1Dates.resx">
       <DependentUpon>201902061602208_L1Dates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902071321503_DatesL1.resx">
+      <DependentUpon>201902071321503_DatesL1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902071331258_DatesL1-Jurys.resx">
+      <DependentUpon>201902071331258_DatesL1-Jurys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

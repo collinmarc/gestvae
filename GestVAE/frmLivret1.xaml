@@ -1,4 +1,4 @@
-﻿<Window x:Name="window" x:Class="GestVAE.frmLivret1"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:GestVAE"
         xmlns:localVM="clr-namespace:GestVAE.VM"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="window" x:Class="GestVAE.frmLivret1" 
         mc:Ignorable="d"
         Title="Gestion du Livret 1" Height="650" Width="800" Icon="IMG/LivretN.ico">
     <Window.Resources>
@@ -43,8 +44,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid Name="grdEntete2"  Grid.Row="0" Grid.Column="0">
+            <Grid x:Name="grdEntete2"  Grid.Row="0" Grid.Column="0">
                 <Grid.RowDefinitions>
+                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -55,59 +57,71 @@
                 </Grid.ColumnDefinitions>
                 <Label Content="Numéro Livret :" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbNumLivret"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
-                <Label Content="Etat Livret :" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"></Label>
-                <ComboBox Name="cbxEtatLivret" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                <Label Content="Etat Livret :" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbxEtatLivret" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
                 <Label Content="Diplome :" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbDiplome" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+
+                <Label Content="Date Validité : "  Grid.Row="3" Grid.Column="0" Width="150" Visibility="{Binding Visibility, ElementName=dtpValidite}" VerticalContentAlignment="Center"/>
+                <DatePicker x:Name="dtpValidite"   Grid.Row="3" Grid.Column="1" SelectedDate="{Binding DateValidite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
+                                Visibility="{Binding IsEtatAccepte, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
             </Grid>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal" >
-                    <Label Content="Date demande candidat :" Width="150"></Label>
-                    <DatePicker Name="dtpDateDemande" 
-                            SelectedDate="{Binding Path=DateDemande}" 
-                            Width="100" Height="29"></DatePicker>
+                    <Label Content="Date demande candidat :" Width="150"/>
+                    <DatePicker x:Name="dtpDateDemande" 
+                            SelectedDate="{Binding DateDemande}" 
+                            Width="100" Height="29"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"  Visibility="{Binding IsEtatDemande, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date limite envoi EHESP : " Width="150"/>
-                    <DatePicker Name="dtpLimiteenvoiEHESP" SelectedDate="{Binding DateLimiteEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29"></DatePicker>
+                    <DatePicker x:Name="dtpLimiteenvoiEHESP" 
+                                SelectedDate="{Binding DateLimiteEnvoiEHESP}" 
+                                Width="100" Height="29"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Date envoi EHESP : " Width="150" Visibility="{Binding Visibility, ElementName=dtpenvoiEHESP}" ></Label>
-                    <DatePicker Name="dtpenvoiEHESP" SelectedDate="{Binding DateEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Visibility="{Binding IsEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Label Content="Date envoi EHESP : " Width="150" />
+                    <DatePicker x:Name="dtpenvoiEHESP" SelectedDate="{Binding DateEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
+                                />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Date limite récept. EHESP :" Width="150" Visibility="{Binding Visibility, ElementName=dtpLimiteReceptEHESP}" ></Label>
-                    <DatePicker Name="dtpLimiteReceptEHESP" SelectedDate="{Binding DateLimiteReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Visibility="{Binding IsEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Label Content="Date limite récept. :" Width="150"  />
+                    <DatePicker x:Name="dtpLimiteReceptEHESP" SelectedDate="{Binding DateLimiteReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" />
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Date réception EHESP : " Width="150" Visibility="{Binding Visibility, ElementName=dtpReceptEHESP}"></Label>
-                    <DatePicker Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Visibility="{Binding IsRecu, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Label Content="Date 1ere réception : " Width="150" />
+                    <DatePicker x:Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
+                                />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Date Limite Jury : " Width="150" Visibility="{Binding Visibility, ElementName=dtpReceptEHESP}"></Label>
-                    <DatePicker Name="dtpLimiteJury"  SelectedDate="{Binding DateLimiteJury, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Visibility="{Binding IsRecu, Converter={StaticResource BooleanToVisibilityConverter}}"></DatePicker>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Label Content="Date réception complet : " Width="150" />
+                    <DatePicker x:Name="dtpReceptComplet"  SelectedDate="{Binding DateReceptEHESPComplet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Label Content="Date Limite Jury : " Width="150" />
+                    <DatePicker x:Name="dtpLimiteJury"  SelectedDate="{Binding DateLimiteJury, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" />
                 </StackPanel>
 
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2">
                 <StackPanel Orientation="Horizontal" >
-                    <RadioButton Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat}" GroupName="ContratLivret" Margin="10"></RadioButton>
-                    <RadioButton Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention}" GroupName="ContratLivret" Margin="10"></RadioButton>
+                    <RadioButton x:Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat}" GroupName="ContratLivret" Margin="10"/>
+                    <RadioButton x:Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention}" GroupName="ContratLivret" Margin="10"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Type demande :"></Label>
-                    <ComboBox Name="cbxTypeDemande" 
+                    <Label Content="Type demande :"/>
+                    <ComboBox x:Name="cbxTypeDemande" 
                           SelectedItem="{Binding TheLivret.TypeDemande}" 
                           ItemsSource="{Binding LstTypeDemande}"/>
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Origine demande :"></Label>
-                    <ComboBox Name="cbxOrigineDemande"
+                    <Label Content="Origine demande :"/>
+                    <ComboBox x:Name="cbxOrigineDemande"
                           SelectedItem="{Binding TheLivret.OrigineDemande}" 
-                          ItemsSource="{Binding LstOrigineDemande}">
-                    </ComboBox>
+                          ItemsSource="{Binding LstOrigineDemande}"/>
                 </StackPanel>
 
 
@@ -115,69 +129,66 @@
             </StackPanel>
 
 
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
-
-
-            </StackPanel>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" />
 
         </Grid>
 
-        <TabControl Name="TabL1" Grid.Row="2" IsEnabled="{Binding IsLivretNonValidé}" HorizontalAlignment="Right" Margin="10" >
+        <TabControl x:Name="TabL1" Grid.Row="2" 
+                    IsEnabled="{Binding IsEtatNonFerme}" 
+                    HorizontalAlignment="Stretch" Margin="10" >
             <TabItem x:Name="tabL1" Header="Livret1" Margin="0">
-                    <StackPanel Orientation="Vertical" >
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Pièces jointes :</Label>
-                            <TextBlock Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesL1Color}"/>
-                        </StackPanel>
-                        <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
+                <StackPanel Orientation="Vertical" >
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Pièces jointes :"/>
+                        <TextBlock x:Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesL1Color}"/>
+                    </StackPanel>
+                    <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
                                     ItemsSource="{Binding lstPieceJointe, UpdateSourceTrigger=PropertyChanged}" 
                                     SelectedItem="{Binding selectedPJ}"
                                     AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"
                                     Margin="10" RowHeaderWidth="0" 
                                     CellEditEnding="dgPiecesjointes_CellEditEnding" >
-                            <DataGrid.Resources>
-                                <localVM:BindingProxy x:Key="proxy" Data="{Binding}" />
-                            </DataGrid.Resources>
-                            <DataGrid.InputBindings>
-                                <KeyBinding Key="Delete" Command="{Binding VM.DeletePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
-                            </DataGrid.InputBindings>
+                        <DataGrid.Resources>
+                            <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
+                        </DataGrid.Resources>
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Delete" Command="{Binding VM.DeletePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
+                        </DataGrid.InputBindings>
 
                         <DataGrid.Columns>
-                                <DataGridComboBoxColumn Header="Catégorie" 
+                            <DataGridComboBoxColumn Header="Catégorie" 
                                                         SelectedItemBinding="{Binding Categorie}" 
-                                                        ItemsSource="{Binding Data.lstCategoriePJL1 , Source={StaticResource proxy}}"
+                                                        ItemsSource="{Binding Data.lstCategoriePJL1, Source={StaticResource proxy}}"
                                                         Width="3*"/>
-                                <DataGridComboBoxColumn Header="Libellé" 
+                            <DataGridComboBoxColumn Header="Libellé" 
                                                         SelectedItemBinding="{Binding Libelle}" 
                                                         Width="3*">
                                 <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
-                                    <DataGridComboBoxColumn.ElementStyle>
-                                        <Style TargetType="ComboBox">
-                                        <Setter Property="ItemsSource" Value="{Binding Path=lstLibellePJ}" />
-                                        </Style>
-                                    </DataGridComboBoxColumn.ElementStyle>
-                                    <DataGridComboBoxColumn.EditingElementStyle>
-                                        <Style TargetType="ComboBox">
-                                        <Setter Property="ItemsSource" Value="{Binding Path=lstLibellePJ}" />
-                                        </Style>
-                                    </DataGridComboBoxColumn.EditingElementStyle>
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding lstLibellePJ}" />
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding lstLibellePJ}" />
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
 
-                                </DataGridComboBoxColumn>
-                                <!--ItemsSource="{Binding Data.lstLibellePJL1 ,Source={StaticResource proxy}}"-->
-                                <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
-                                <DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>
-                            </DataGrid.Columns>
+                            </DataGridComboBoxColumn>
+                            <!--ItemsSource="{Binding Data.lstLibellePJL1 ,Source={StaticResource proxy}}"-->
+                            <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
+                            <DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>
+                        </DataGrid.Columns>
 
-                        </DataGrid>
-                    <Button x:Name="btnAddPJ" BorderThickness="0"  Margin="10" Command="{Binding VM.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}">
-                            Ajouter
-                            </Button>
+                    </DataGrid>
+                    <Button x:Name="btnAddPJ" BorderThickness="0"  Margin="10" Command="{Binding VM.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" Content="Ajouter"/>
 
-                    </StackPanel>
-                    <!-- LgContratTypeOrigine-->
-                    <!-- LgDates-->
-          
+                </StackPanel>
+                <!-- LgContratTypeOrigine-->
+                <!-- LgDates-->
+
 
 
 
@@ -194,10 +205,10 @@
                     <StackPanel Orientation="Horizontal" Background="AliceBlue" HorizontalAlignment="Stretch">
                         <DataGrid x:Name="dgEchanges"  ItemsSource="{Binding TheLivret.lstEchanges}" AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" Width="744">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Date" Binding="{Binding DateEch,StringFormat='dd/MM/yyyy'}" Width="1*"/>
+                                <DataGridTextColumn Header="Date" Binding="{Binding DateEch, StringFormat=dd/MM/yyyy}" Width="1*"/>
                                 <DataGridTextColumn Header="Motif" Binding="{Binding MotifEch}" Width="*"/>
-                                <DataGridTextColumn Header="Echéance" Binding="{Binding DateEcheanceEch,StringFormat='dd/MM/yyyy'}" Width="1*"/>
-                                <DataGridTextColumn Header="Réception" Binding="{Binding DateReceptionEch,StringFormat='dd/MM/yyyy'}" Width="1*"/>
+                                <DataGridTextColumn Header="Echéance" Binding="{Binding DateEcheanceEch, StringFormat=dd/MM/yyyy}" Width="1*"/>
+                                <DataGridTextColumn Header="Réception" Binding="{Binding DateReceptionEch, StringFormat=dd/MM/yyyy}" Width="1*"/>
                                 <DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="0.5*"/>
                                 <DataGridTextColumn Header="Commentaire" Binding="{Binding CommentaireEch}" Width="2*"/>
                             </DataGrid.Columns>
@@ -211,10 +222,12 @@
                 </StackPanel>
 
             </TabItem>
-            <TabItem x:Name="tabJury" Header="Jury" Margin="0,0,0,0">
-                <StackPanel Name="pnlJury" Orientation="Vertical">
+            <TabItem x:Name="tabJury" Header="Jury" 
+                    Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}"
+                     >
+                <StackPanel x:Name="pnlJury" Orientation="Vertical">
                     <Label Content="Jury :" Foreground="#FF0078D7"/>
-                    <Grid Name="grdJury1"  ShowGridLines="True">
+                    <Grid x:Name="grdJury1"  ShowGridLines="True" HorizontalAlignment="Stretch">
                         <Grid.RowDefinitions>
                             <!--Type-->
                             <RowDefinition Height="Auto"/>
@@ -230,39 +243,58 @@
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                            <Label Margin="10,0,0,0" VerticalAlignment="Center">Nom:</Label>
-                            <TextBox Name="tbNomJury" HorizontalAlignment="Stretch" Width="197" Margin="10"></TextBox>
+                            <Label VerticalAlignment="Center" Content="Date :"/>
+                            <DatePicker x:Name="dtpDateJury" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" Width="100"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-                            <Label>Date:</Label>
-                            <DatePicker Name="dtpDateJury" HorizontalAlignment="Left" Margin="0,10"></DatePicker>
+                        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+                            <StackPanel Orientation="Horizontal" >
+                                <Label VerticalAlignment="Center" Width="120" Content="Heure Jury :" />
+                                <xctk:TimePicker Name="tpHeureJury" VerticalAlignment="Center" Margin="10" TimeInterval="0:30:0" ShowButtonSpinner="False"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <Label VerticalAlignment="Center" Width="120" Content="Heure convocation :" />
+                                <xctk:TimePicker Name="tpHeureConvoc" VerticalAlignment="Center" Margin="10" ShowButtonSpinner="False"/>
+                            </StackPanel>
+
                         </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
-                            <Label VerticalAlignment="Center">Lieu:</Label>
-                            <TextBox Name="tbLieuJury" HorizontalAlignment="Left" Width="220" Margin="10"></TextBox>
+                            <Label VerticalAlignment="Center" Content="Lieu :"/>
+                            <TextBox x:Name="tbLieuJury" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
                         </StackPanel>
-                        <Label Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center">Décision:</Label>
-                        <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="cbxDecision" HorizontalAlignment="Stretch" Margin="10"/>
-                        <Label Grid.Row="2" Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center">Motif général:</Label>
-                        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Name="cbxMotifGeneral" HorizontalAlignment="Stretch" Margin="10"></ComboBox>
-                        <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">Motif Détaillé:</Label>
-                        <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="cbxMotifDetaille" HorizontalAlignment="Stretch" Margin="10,10,10,14"></ComboBox>
-                        <Label Grid.Row="4" Grid.Column="0" Margin="12,0,0,0" VerticalAlignment="Center">Commentaire:</Label>
-                        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Name="tbCommentaire" HorizontalAlignment="Stretch" Margin="10" Height="22"></TextBox>
-                        <Label Grid.Row="5" Grid.Column="0" Visibility="{Binding IsRefuseVisibility}" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">Recours:</Label>
-                        <CheckBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Name="chkRecours" Margin="10" Visibility="{Binding IsRefuseVisibility}"></CheckBox>
+                        <Label Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center" Content="Décision :"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="cbxDecision" HorizontalAlignment="Stretch" Margin="10"/>
+                        <Label Grid.Row="2" Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center" Content="Motif général :"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="cbxMotifGeneral" HorizontalAlignment="Stretch" Margin="10"/>
+                        <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0" Content="Motif détaillé :"/>
+                        <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifDetaille" HorizontalAlignment="Stretch" Margin="10,10,10,14"/>
+                        <Label Grid.Row="4" Grid.Column="0" Margin="12,0,0,0" VerticalAlignment="Center" Content="Commentaire :"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" x:Name="tbCommentaire" HorizontalAlignment="Stretch" Margin="10" Height="22"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="0" Visibility="{Binding IsEtatRefuse, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Label  Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Recours :"/>
+                            <CheckBox x:Name="chkRecours" Margin="10" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Visibility="{Binding IsEtatRefuse, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Label VerticalAlignment="Center" Content="Date limite :"/>
+                            <DatePicker x:Name="dtpDateLimiteRecours" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" Width="100"
+                                      />
+                        </StackPanel>
+
+
                     </Grid>
                 </StackPanel>
 
             </TabItem>
-            <TabItem x:Name="TabRecours" Header="Recours" Margin="0">
+            <TabItem x:Name="TabRecours" Header="Recours"
+                     Visibility="{Binding IsEtatRefuse, Converter={StaticResource BooleanToVisibilityConverter}}" Height="22" VerticalAlignment="Bottom"
+>
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFB5B5F3" Offset="0"/>
                         <GradientStop Color="#FF2626F3" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <StackPanel Name="pnlRecours" Orientation="Vertical"  HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                <StackPanel x:Name="pnlRecours" Orientation="Vertical"  HorizontalAlignment="Stretch" Margin="0,0,0,0">
                     <StackPanel.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFB5B5F3" Offset="0"/>
@@ -270,7 +302,7 @@
                         </LinearGradientBrush>
                     </StackPanel.Background>
                     <Label Content="Recours :" Foreground="#FF0078D7"/>
-                    <Grid Name="grdRecours" ShowGridLines="True">
+                    <Grid x:Name="grdRecours" ShowGridLines="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -291,16 +323,18 @@
                             <Label Width="100" VerticalAlignment="Center" Margin="10" Content="Date de dépôt :" />
 
                         </StackPanel>
-                        <DatePicker Name="dtpDateDepotRecours" Margin="10" Width="125"
+                        <DatePicker x:Name="dtpDateDepotRecours" Margin="10" Width="125"
                                     Grid.Row="0" Grid.Column="1"/>
                         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
-                            <Label VerticalAlignment="Center">Type de recours :</Label>
-                            <RadioButton Name="rbTypeRecoursGracieux" GroupName="TypeRecours" 
-                                 IsChecked="{Binding TypeRecours, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Gracieux}}" VerticalAlignment="Center"
-                                 >Gracieux</RadioButton>
-                            <RadioButton Name="rbTypeRecoursContentieux" GroupName="TypeRecours" 
-                                 IsChecked="{Binding TypeRecours, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Contentieux}}" VerticalAlignment="Center"
-                                 >Contentieux</RadioButton>
+                            <Label VerticalAlignment="Center" Content="Type de recours :"/>
+                            <RadioButton x:Name="rbTypeRecoursGracieux" GroupName="TypeRecours" 
+                                 IsChecked="{Binding TypeRecours, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Gracieux}, Converter={StaticResource EnumToBoleanConverter}}" VerticalAlignment="Center"
+                                 Content="Gracieux"
+                                 />
+                            <RadioButton x:Name="rbTypeRecoursContentieux" GroupName="TypeRecours" 
+                                 IsChecked="{Binding TypeRecours, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Contentieux}, Converter={StaticResource EnumToBoleanConverter}}" VerticalAlignment="Center"
+                                 Content="Contentieux"
+                                 />
                             <!--                        
                     <RadioButton Content="Homme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="15" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}"/>
                         <RadioButton Content="Femme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Height="21" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}"/>
@@ -308,32 +342,32 @@
                         </StackPanel>
 
 
-                        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="10" >Motif du recours :</Label>
-                        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Name="cbxMotifRecours" HorizontalAlignment="Stretch" Margin="10"></ComboBox>
+                        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif du recours :" />
+                        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifRecours" HorizontalAlignment="Stretch" Margin="10"/>
 
 
-                        <Label Grid.Row="3" Grid.Column="0" Margin="10" VerticalAlignment="Center" >Motif du recours :</Label>
-                        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch" Margin="10"></TextBox>
+                        <Label Grid.Row="3" Grid.Column="0" Margin="10" VerticalAlignment="Center" Content="Motif du recours :" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch" Margin="10"/>
 
                         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0">
-                            <Label Width="100" VerticalAlignment="Center" Margin="10" >Date d'examen:</Label>
+                            <Label Width="100" VerticalAlignment="Center" Margin="10" Content="Date d'examen:" />
                         </StackPanel>
-                        <DatePicker  Grid.Row="4" Grid.Column="1" Name="dtpDateJuryRecours" HorizontalAlignment="Stretch" Margin="10" Width="125"></DatePicker>
+                        <DatePicker  Grid.Row="4" Grid.Column="1" x:Name="dtpDateJuryRecours" HorizontalAlignment="Stretch" Margin="10" Width="125"/>
 
                         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2">
-                            <Label VerticalAlignment="Center" >Lieu:</Label>
-                            <TextBox Name="tbLieuJuryRecours" HorizontalAlignment="Left" Width="207" Margin="10"></TextBox>
+                            <Label VerticalAlignment="Center" Content="Lieu:" />
+                            <TextBox x:Name="tbLieuJuryRecours" HorizontalAlignment="Left" Width="207" Margin="10"/>
                         </StackPanel>
 
-                        <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="10">Décision:</Label>
-                        <ComboBox  Grid.Row="5" Grid.Column="1" Name="cbxDecisionRecours" Grid.ColumnSpan="2" Margin="10"/>
+                        <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Décision:"/>
+                        <ComboBox  Grid.Row="5" Grid.Column="1" x:Name="cbxDecisionRecours" Grid.ColumnSpan="2" Margin="10"/>
 
-                        <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="10">Motif général:</Label>
-                        <ComboBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="cbxMotifGeneralRecours" HorizontalAlignment="Stretch" Margin="10" ></ComboBox>
-                        <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="10" >Motif Détaillé:</Label>
-                        <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Name="cbxMotifDetailleRecours" HorizontalAlignment="Stretch" Margin="10"></ComboBox>
-                        <Label Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Margin="10" >Commentaire:</Label>
-                        <TextBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Name="tbCommentaireRecours" HorizontalAlignment="Stretch" Margin="10" ></TextBox>
+                        <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif général:"/>
+                        <ComboBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifGeneralRecours" HorizontalAlignment="Stretch" Margin="10" />
+                        <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif Détaillé:" />
+                        <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifDetailleRecours" HorizontalAlignment="Stretch" Margin="10"/>
+                        <Label Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Commentaire:" />
+                        <TextBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbCommentaireRecours" HorizontalAlignment="Stretch" Margin="10" />
 
                     </Grid>
                 </StackPanel>
@@ -341,9 +375,9 @@
             </TabItem>
         </TabControl>
         <UniformGrid Grid.Row="3" >
-            <Button Name="dbCreerL2"  Margin="10" Click="dbCreerL2_Click" Style="{DynamicResource StyleBtn}" IsCancel="True">Valider et créer le Livret2</Button>
-            <Button Name="cbValider"  Margin="10" Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True">Valider et Quitter</Button>
-            <Button Name="cbQuitter" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True">Quitter</Button>
+            <Button x:Name="dbCreerL2"  Margin="10" Click="dbCreerL2_Click" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et créer le Livret2"/>
+            <Button x:Name="cbValider"  Margin="10" Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et Quitter"/>
+            <Button x:Name="cbQuitter" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Quitter"/>
         </UniformGrid>
         <!-- ECHANGE-->
         <!-- Jury-->

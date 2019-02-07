@@ -87,5 +87,14 @@ namespace GestVAE.Properties {
                 return ((int)(this["DelaiValidite"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int DelaiDepotRecours {
+            get {
+                return ((int)(this["DelaiDepotRecours"]));
+            }
+        }
     }
 }

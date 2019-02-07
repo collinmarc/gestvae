@@ -374,6 +374,8 @@ namespace GestVAE.VM
             CandidatVM oCandVM = CurrentCandidat;
             Livret1 oLiv = (Livret1)oCandVM.TheCandidat.CreerLivret1(Diplome.getDiplomeParDefaut());
             Livret1VM oLivVM = new Livret1VM(oLiv);
+            oLivVM.EtatLivret = oLivVM.LstEtatLivret[0];
+            oLivVM.DateDemande = DateTime.Now;
             CurrentCandidat.CurrentLivret = oLivVM;
 
             frmLivret1 odlg = new frmLivret1();

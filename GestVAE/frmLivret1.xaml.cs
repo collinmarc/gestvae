@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace GestVAE
 {
@@ -40,33 +41,31 @@ namespace GestVAE
             cbxEtatLivret.SetBinding(ComboBox.SelectedItemProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.ItemsSourceProperty, "LstEtatLivret");
 
-                        pnlJury.SetBinding(VisibilityProperty, "IsRecuVisibility");
-            tabJury.SetBinding(TabItem.VisibilityProperty, "IsRecuVisibility");
 
             tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL1");
 
-            tbNomJury.SetBinding(TextBox.TextProperty, "NomJury");
-            tbLieuJury.SetBinding(TextBox.TextProperty, "LieuJury");
 
             dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, "DateJury");
+            tpHeureConvoc.SetBinding(TimePicker.ValueProperty, "HeureConvoc");
+            tpHeureJury.SetBinding(TimePicker.ValueProperty, "HeureJury");
+            tbLieuJury.SetBinding(TextBox.TextProperty, "LieuJury");
 
             cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
             cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
 
             cbxMotifDetaille.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJury");
             cbxMotifDetaille.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
-            cbxMotifDetaille.SetBinding(ComboBox.IsEnabledProperty, "IsRefuse");
+            cbxMotifDetaille.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
             cbxMotifGeneral.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJury");
             cbxMotifGeneral.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
-            cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsRefuse");
+            cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
             tbCommentaire.SetBinding(TextBox.TextProperty, "CommentaireJury");
             chkRecours.SetBinding(CheckBox.IsCheckedProperty, "IsRecoursDemande");
+            dtpDateLimiteRecours.SetBinding(DatePicker.SelectedDateProperty, "DateLimiteRecours");
 
             // Recours
-            pnlRecours.SetBinding(VisibilityProperty, "IsRecoursDemandeVisibility");
-            TabRecours.SetBinding(TabItem.VisibilityProperty, "IsRecoursDemandeVisibility");
 
             dtpDateDepotRecours.SetBinding(DatePicker.SelectedDateProperty, "DateDepot");
             tbLieuJuryRecours.SetBinding(TextBox.TextProperty, "LieuJuryRecours");
@@ -82,13 +81,14 @@ namespace GestVAE
 
             cbxMotifGeneralRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJuryRecours");
             cbxMotifGeneralRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
-            cbxMotifGeneralRecours.SetBinding(ComboBox.IsEnabledProperty, "IsRefuseRecours");
+            cbxMotifGeneralRecours.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
             cbxMotifDetailleRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJuryRecours");
             cbxMotifDetailleRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
-            cbxMotifDetailleRecours.SetBinding(ComboBox.IsEnabledProperty, "IsRefuseRecours");
+            cbxMotifDetailleRecours.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
             tbCommentaireRecours.SetBinding(TextBox.TextProperty, "CommentaireJuryRecours");
+
 
         }
 

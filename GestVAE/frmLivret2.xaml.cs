@@ -45,12 +45,12 @@ namespace GestVAE
             // Refus de Validation
             cbxMotifDetaille.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJury");
             cbxMotifDetaille.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
-            cbxMotifDetaille.SetBinding(ComboBox.IsEnabledProperty, "IsRefuse");
+            cbxMotifDetaille.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
             cbxMotifDetaille.SetBinding(ComboBox.VisibilityProperty, "IsNotValidationPartielleVisibility");
 
             cbxMotifGeneral.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJury");
             cbxMotifGeneral.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
-            cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsRefuse");
+            cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
             cbxMotifGeneral.SetBinding(ComboBox.VisibilityProperty, "IsNotValidationPartielleVisibility");
 
             tbCommentaire.SetBinding(TextBox.TextProperty, "CommentaireJury");

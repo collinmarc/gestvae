@@ -135,6 +135,11 @@ namespace GestVAE
         {
 
         }
+
+        private void btnAddLivret1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 

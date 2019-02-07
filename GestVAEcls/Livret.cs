@@ -22,9 +22,7 @@ namespace GestVAEcls
         public DateTime? DateEnvoiEHESP { get; set; }
         public DateTime? DateEnvoiCandidat { get; set; }
         public DateTime? DateReceptEHESP { get; set; }
-        public DateTime? DateReceptCandidat { get; set; }
-        public Boolean isEnvoiEHESP_AR { get; set; }
-        public Boolean isEnvoiCand_AR { get; set; }
+        public DateTime? DateReceptEHESPComplet { get; set; }
         public virtual Diplome oDiplome { get; set; }
         public virtual ObservableCollection<Jury> lstJurys { get; set; }
 
@@ -62,8 +60,6 @@ namespace GestVAEcls
             lstEchanges = new ObservableCollection<EchangeL1>();
 
             Numero = DateTime.Now.ToString("yyyyMMddHHmm");
-            EtatLivret = "0-Demandé";
-            DateDemande = DateTime.Now;
             lstRecours = new ObservableCollection<Recours>();
         }
 

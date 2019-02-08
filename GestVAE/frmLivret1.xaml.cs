@@ -79,13 +79,13 @@ namespace GestVAE
             cbxDecisionRecours.SetBinding(ComboBox.SelectedItemProperty, "DecisionJuryRecours");
             cbxDecisionRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
 
-            cbxMotifGeneralRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJuryRecours");
-            cbxMotifGeneralRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
-            cbxMotifGeneralRecours.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
+            //cbxMotifGeneralRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJuryRecours");
+            //cbxMotifGeneralRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
+            //cbxMotifGeneralRecours.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
-            cbxMotifDetailleRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJuryRecours");
-            cbxMotifDetailleRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
-            cbxMotifDetailleRecours.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
+            //cbxMotifDetailleRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJuryRecours");
+            //cbxMotifDetailleRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
+            //cbxMotifDetailleRecours.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
             tbCommentaireRecours.SetBinding(TextBox.TextProperty, "CommentaireJuryRecours");
 

@@ -25,6 +25,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Région : " Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
         <DataGrid Name="dgRegion" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding lstRegionVM}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
@@ -73,7 +74,25 @@
             </DataGrid>
         </StackPanel>
 
-        <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="3"  IsCancel="True" HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="10"/>
+        <TextBlock Text="Motif refus L1 : " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
+            <DataGrid Name="dgMotifGL1"  ItemsSource="{Binding lstMotifGL1}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
+                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="Motif" Binding="{Binding Libelle}" CanUserResize="False" SortDirection="Ascending" Width="3*"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+            <Label>Motifs détaillés</Label>
+            <DataGrid Name="dgMotifDL1" ItemsSource="{Binding SelectedItem.lstMotifDetaille, ElementName=dgMotifGL1}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" Margin="10,0,10,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Libelle" Binding="{Binding Libelle}" SortDirection="Ascending" Width="1*"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </StackPanel>
+
+
+        <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="4"  IsCancel="True" HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="10"/>
 
     </Grid>
 </Window>

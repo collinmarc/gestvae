@@ -265,9 +265,22 @@
                         <Label Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center" Content="Décision :"/>
                         <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="cbxDecision" HorizontalAlignment="Stretch" Margin="10"/>
                         <Label Grid.Row="2" Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center" Content="Motif général :"/>
-                        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="cbxMotifGeneral" HorizontalAlignment="Stretch" Margin="10"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="cbxMotifGeneral" HorizontalAlignment="Stretch" Margin="10" 
+                                  ItemsSource="{Binding VM.lstMotifGL1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
+                                  DisplayMemberPath="Libelle"
+                                  SelectedValuePath="Libelle"
+                                  SelectedValue="{Binding MotifGeneralJury}"
+                                  />
                         <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0" Content="Motif détaillé :"/>
-                        <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifDetaille" HorizontalAlignment="Stretch" Margin="10,10,10,14"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="2">
+                            <TextBox Text="{Binding MotifDetailJury}"></TextBox>
+                        <ComboBox  x:Name="cbxMotifDetaille" HorizontalAlignment="Stretch" Margin="10,10,10,14" 
+                                  ItemsSource="{Binding SelectedItem.lstMotifDetaille, ElementName=cbxMotifGeneral}"
+                                  DisplayMemberPath="Libelle"
+                                  SelectedValuePath="Libelle"
+                                  SelectedValue="{Binding MotifDetailJury}"
+                                  />
+                        </StackPanel>
                         <Label Grid.Row="4" Grid.Column="0" Margin="12,0,0,0" VerticalAlignment="Center" Content="Commentaire :"/>
                         <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" x:Name="tbCommentaire" HorizontalAlignment="Stretch" Margin="10" Height="22"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="0" Visibility="{Binding IsEtatRefuse, Converter={StaticResource BooleanToVisibilityConverter}}">

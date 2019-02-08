@@ -37,7 +37,7 @@ namespace GestVAE
             tbDiplome.SetBinding(TextBox.TextProperty, "NomDiplome");
             tbNumLivret.SetBinding(TextBox.TextProperty, "Numero");
 
-            cbxEtatLivret.SetBinding(ComboBox.TextProperty, "EtatLivret");
+           // cbxEtatLivret.SetBinding(ComboBox.TextProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.SelectedItemProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.ItemsSourceProperty, "LstEtatLivret");
 
@@ -53,13 +53,13 @@ namespace GestVAE
             cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
             cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
 
-            cbxMotifDetaille.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJury");
-            cbxMotifDetaille.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
-            cbxMotifDetaille.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
+         //   cbxMotifDetaille.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJury");
+  //          cbxMotifDetaille.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
+        //    cbxMotifDetaille.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
-            cbxMotifGeneral.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJury");
-            cbxMotifGeneral.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
-            cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
+          //  cbxMotifGeneral.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJury");
+//            cbxMotifGeneral.SetBinding(ComboBox.ItemsSourceProperty, "lstMotifGL1");
+           // cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
             tbCommentaire.SetBinding(TextBox.TextProperty, "CommentaireJury");
             chkRecours.SetBinding(CheckBox.IsCheckedProperty, "IsRecoursDemande");

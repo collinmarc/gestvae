@@ -22,6 +22,7 @@ namespace GestVAE.VM
         private ObservableCollection<RegionVM> _lstRegionVM;
         private ObservableCollection<DiplomeVM> _lstDiplomeVM;
         private ObservableCollection<PieceJointeCategorie> _lstPieceJointeCategorie;
+        private ObservableCollection<MotifGeneralL1> _lstMotifGL1;
         private Boolean _isBusy;
         private CandidatVM _candidatVM;
         public Action CloseAction { get; set; }
@@ -54,6 +55,7 @@ namespace GestVAE.VM
             _lstRegionVM = new ObservableCollection<RegionVM>();
             _lstDiplomeVM = new ObservableCollection<DiplomeVM>();
             _lstPieceJointeCategorie = new ObservableCollection<PieceJointeCategorie>();
+            _lstMotifGL1 = new ObservableCollection<MotifGeneralL1>();
 
             _SaveCommand = new SaveCommand(o => {   saveData(); },
                                            o => { return hasChanges(); }
@@ -121,6 +123,11 @@ namespace GestVAE.VM
             get => _lstPieceJointeCategorie;
 
         }
+        public ObservableCollection<MotifGeneralL1> lstMotifGL1
+        {
+            get => _lstMotifGL1;
+
+        }
         public void saveData()
         {
             foreach (PieceJointeCategorie item in lstPieceJointeCategorie)
@@ -132,6 +139,17 @@ namespace GestVAE.VM
                 if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Deleted)
                 {
                     _ctx.pieceJointeCategories.Remove(item);
+                }
+            }
+            foreach (MotifGeneralL1 item in lstMotifGL1)
+            {
+                if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Detached)
+                {
+                    _ctx.dbMotifGeneralL1.Add(item);
+                }
+                if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Deleted)
+                {
+                    _ctx.dbMotifGeneralL1.Remove(item);
                 }
             }
 
@@ -199,6 +217,12 @@ namespace GestVAE.VM
             }
             RaisePropertyChanged("lstPieceJointeCategorie");
 
+            _lstMotifGL1.Clear();
+            foreach (MotifGeneralL1 item in _ctx.dbMotifGeneralL1)
+            {
+                _lstMotifGL1.Add(item);
+            }
+            RaisePropertyChanged("lstMotifGL1");
 
 
             _lstCandidatVM.Clear();

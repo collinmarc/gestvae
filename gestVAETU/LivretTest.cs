@@ -123,5 +123,33 @@ namespace GestVAETU
             Assert.AreEqual(oECH2.IsOK, oECH.IsOK);
 
         }
+        [TestMethod]
+        public void TestJury()
+        {
+            int nId = 0;
+            nId = oCand.ID;
+            Livret1 oL1 = new Livret1();
+            oL1.Numero = "20190115001";
+            oCand.lstLivrets1.Add(oL1);
+
+            Jury oJ = new Jury();
+            oJ.MotifGeneral = "MotifG";
+            oJ.MotifDetail = "MotifD";
+            oL1.lstJurys.Add(oJ);
+
+            ctx.SaveChanges();
+
+            ctx = Context.instance;
+            oCand = ctx.Candidats.Find(nId);
+            Assert.AreEqual(1, oCand.lstLivrets1.Count);
+
+            oL1 = oCand.lstLivrets1[0];
+            Jury oJ2 = oL1.lstJurys[0];
+
+            Assert.AreEqual(oJ.MotifGeneral, oJ2.MotifGeneral);
+            //            Assert.AreEqual(oECH2.DateEch, oECH.DateEch);
+            Assert.AreEqual(oJ.MotifDetail, oJ2.MotifDetail);
+
+        }
     }
-}
+    }

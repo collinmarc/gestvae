@@ -13,109 +13,64 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace GestVAE
 {
     /// <summary>
-    /// Logique d'interaction pour frmLivret1.xaml
+    /// Logique d'interaction pour frmLivret2.xaml
     /// </summary>
     public partial class frmLivret2 : Window
     {
+        public MyViewModel VM
+        {
+            get
+            {
+                return (MyViewModel)DataContext;
+            }
+
+        }
+        private Livret2VM m_oLivret;
         public frmLivret2()
         {
             InitializeComponent();
             //Recours oLiv;
             tbDiplome.SetBinding(TextBox.TextProperty, "NomDiplome");
+            tbNumLivret.SetBinding(TextBox.TextProperty, "Numero");
+
+            // cbxEtatLivret.SetBinding(ComboBox.TextProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.SelectedItemProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.ItemsSourceProperty, "LstEtatLivret");
 
-            pnlDatesEnvois.SetBinding(VisibilityProperty, "IsEnvoyeVisibility");
-            pnlJury.SetBinding(VisibilityProperty, "IsRecuVisibility");
-            tabJury.SetBinding(TabItem.VisibilityProperty, "IsRecuVisibility");
+            ckIsClos.SetBinding(CheckBox.IsCheckedProperty, "IsLivretClos");
 
-            tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL2");
 
-            tbNomJury.SetBinding(TextBox.TextProperty, "NomJury");
-            tbLieuJury.SetBinding(TextBox.TextProperty, "LieuJury");
+            tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointes");
+
 
             dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, "DateJury");
+            tpHeureConvoc.SetBinding(TimePicker.ValueProperty, "HeureConvoc");
+            tpHeureJury.SetBinding(TimePicker.ValueProperty, "HeureJury");
+            tbLieuJury.SetBinding(TextBox.TextProperty, "LieuJury");
 
             cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
             cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL2");
-            // Refus de Validation
-            cbxMotifDetaille.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJury");
-            cbxMotifDetaille.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
-            cbxMotifDetaille.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
-            cbxMotifDetaille.SetBinding(ComboBox.VisibilityProperty, "IsNotValidationPartielleVisibility");
 
-            cbxMotifGeneral.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJury");
-            cbxMotifGeneral.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
-            cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
-            cbxMotifGeneral.SetBinding(ComboBox.VisibilityProperty, "IsNotValidationPartielleVisibility");
-
-            tbCommentaire.SetBinding(TextBox.TextProperty, "CommentaireJury");
-            //chkRecours.SetBinding(CheckBox.IsCheckedProperty, "IsRecoursDemande");
-            // Validation Partielle
-            dgDCLivretDecision.SetBinding(DataGrid.ItemsSourceProperty, "lstDcLivretsAValider");
-            dgDCLivretDecision.SetBinding(DataGrid.VisibilityProperty, "IsValidationPartielleVisibility");
-
-            // Recours
-            TabRecours.Visibility = Visibility.Hidden;
-            //pnlRecours.SetBinding(VisibilityProperty, "IsRecoursDemandeVisibility");
-            //TabRecours.SetBinding(TabItem.VisibilityProperty, "IsRecoursDemandeVisibility");
-
-            //dtpDateDepotRecours.SetBinding(DatePicker.SelectedDateProperty, "DateDepot");
-            //tbLieuJuryRecours.SetBinding(TextBox.TextProperty, "LieuJuryRecours");
-            //dtpDateJuryRecours.SetBinding(DatePicker.SelectedDateProperty, "DateJuryRecours");
-
-            //cbxMotifRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifRecours");
-            //cbxMotifRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifRecours");
-
-            //tbMotifRecoursCommentaire.SetBinding(TextBox.TextProperty, "MotifRecoursCommentaire");
-
-            //cbxDecisionRecours.SetBinding(ComboBox.SelectedItemProperty, "DecisionJuryRecours");
-            //cbxDecisionRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
-
-            //cbxMotifGeneralRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifGeneralJuryRecours");
-            //cbxMotifGeneralRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifGeneral");
-            //cbxMotifGeneralRecours.SetBinding(ComboBox.IsEnabledProperty, "IsRefuseRecours");
-
-            //cbxMotifDetailleRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJuryRecours");
-            //cbxMotifDetailleRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
-            //cbxMotifDetailleRecours.SetBinding(ComboBox.IsEnabledProperty, "IsRefuseRecours");
-
-            //tbCommentaireRecours.SetBinding(TextBox.TextProperty, "CommentaireJuryRecours");
-
-        //    cbcreerL2.SetBinding(Button.VisibilityProperty, "IsLivret1Valide");
         }
 
-        public Livret2VM oLiv { get { return (Livret2VM)this.DataContext; } }
-        public void setContexte(LivretVMBase pLivret)
+        public void setContexte(MyViewModel pViewModel)
         {
-            this.DataContext = pLivret;
-
-
+            this.DataContext = pViewModel;
+            m_oLivret = (Livret2VM)pViewModel.CurrentCandidat.CurrentLivret;
+            pViewModel.CloseAction = new Action(() => this.Close());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAddPJ_Click(object sender, RoutedEventArgs e)
-        {
-            //Ajout d'une piève jointe
-            
-            oLiv.addPJL2();
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL2");
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL2Color");
-        }
 
         private void btnAddEchange_Click(object sender, RoutedEventArgs e)
         {
 
-            
-            oLiv.addEchangeL2();
+            Livret1VM oLiv = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            oLiv.addEchangeL1();
         }
         bool manualCommit = false;
 
@@ -129,28 +84,13 @@ namespace GestVAE
                 manualCommit = false;
             }
 
-            
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL2");
-            oLiv.RaisePropertyChanged("ResultatPiecesJointesL2Color");
-}
+            m_oLivret.RaisePropertyChanged("ResultatPiecesJointes");
+            m_oLivret.RaisePropertyChanged("ResultatPiecesJointesColor");
+        }
 
         private void dgDCLivret_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            if (!manualCommit)
-            {
-                manualCommit = true;
-                dgPiecesjointes.CommitEdit(DataGridEditingUnit.Row, true);
-                manualCommit = false;
-            }
 
-            
-            oLiv.RaisePropertyChanged("lstDcLivretsAValider");
-
-        }
-
-        private void dbValiderDiplome_Click(object sender, RoutedEventArgs e)
-        {
-            oLiv.ValiderLivret2();
         }
     }
 }

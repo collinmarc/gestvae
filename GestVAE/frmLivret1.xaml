@@ -161,7 +161,7 @@
 
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Pièces jointes :"/>
-                        <TextBlock x:Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesL1Color}"/>
+                        <TextBlock x:Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesColor}"/>
                     </StackPanel>
                     <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
                                     ItemsSource="{Binding lstPieceJointe, UpdateSourceTrigger=PropertyChanged}" 
@@ -179,7 +179,7 @@
                         <DataGrid.Columns>
                             <DataGridComboBoxColumn Header="Catégorie" 
                                                         SelectedItemBinding="{Binding Categorie}" 
-                                                        ItemsSource="{Binding Data.lstCategoriePJL1, Source={StaticResource proxy}}"
+                                                        ItemsSource="{Binding Data.lstCategoriePJ, Source={StaticResource proxy}}"
                                                         Width="3*"/>
                             <DataGridComboBoxColumn Header="Libellé" 
                                                         SelectedItemBinding="{Binding Libelle}" 
@@ -203,7 +203,7 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
-                    <Button x:Name="btnAddPJ" BorderThickness="0"  Margin="10" Command="{Binding VM.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" Content="Ajouter"/>
+                    <Button x:Name="btnAddPJ" BorderThickness="0"  Margin="10" Command="{Binding DataContext.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" Content="Ajouter"/>
 
                 </StackPanel>
             </TabItem>
@@ -402,8 +402,12 @@
             </TabItem>
         </TabControl>
         <UniformGrid Grid.Row="3" >
-            <Button x:Name="dbCreerL2"  Margin="10" Command="{Binding DataContext.CloturerL1etCreerL2Command, ElementName=window}" IsCancel="True" Content="Valider et créer le Livret2"/>
-            <Button x:Name="cbValider"  Margin="10" Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et Quitter"/>
+            <Button x:Name="dbCreerL2"  Margin="10"  IsCancel="True" Content="Valider et créer le Livret2" Style="{DynamicResource StyleBtn}"
+                    IsEnabled="{Binding IsLivretNonClos}"
+                    Command="{Binding DataContext.CloturerL1etCreerL2Command, ElementName=window}"/>
+            <Button x:Name="cbValider"  Margin="10" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et Quitter"
+                    IsEnabled="{Binding IsLivretNonClos}"
+                    Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}"/>
             <Button x:Name="cbQuitter" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Quitter"/>
         </UniformGrid>
         <!-- ECHANGE-->

@@ -40,6 +40,7 @@ namespace GestVAEcls
         public DbSet<Region> Regions { get; set; }
         public DbSet<PieceJointeCategorie> pieceJointeCategories { get; set; }
         public DbSet<MotifGeneralL1> dbMotifGeneralL1 { get; set; }
+        public DbSet<MotifGeneralL2> dbMotifGeneralL2 { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -36,5 +36,6 @@ namespace GestVAEcls
         public Boolean IsAValider { get; set; }
 
         public String NomDC { get { return oDomaineCompetence.Nom; } }
+        public String Statut { get; set; }
     }
 }

@@ -292,11 +292,17 @@ namespace GestVAE.VM
         {
             Diplome oDiplome = Diplome.getDiplomeParDefaut();
             Livret2 oLiv = new Livret2(oDiplome);
-            oLiv.EtatLivret = "0-Demandé";
-            oLiv.DateDemande = DateTime.Now;
-            oLiv.Numero = TheCandidat.lstLivrets2.Count() + 1;
             TheCandidat.lstLivrets2.Add(oLiv);
             Livret2VM oLiv2VM = new Livret2VM(oLiv);
+            oLiv2VM.DateDemande = DateTime.Now;
+            oLiv2VM.Numero = Convert.ToString(TheCandidat.lstLivrets2.Count() + 1);
+            // Récupération du diplome du candidat (si présent)
+            DiplomeCand oDiplomeCandidat =  TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oDiplome.ID).FirstOrDefault();
+            if (oDiplomeCandidat != null)
+            {
+                oLiv.InitDCLivrets(oDiplomeCandidat);
+            }
+
             lstLivrets.Add(oLiv2VM);
             refreshlstLivrets();
             return oLiv2VM;
@@ -306,7 +312,7 @@ namespace GestVAE.VM
             Livret2 oLiv = new Livret2(pDiplome);
             oLiv.EtatLivret = "0-Demandé";
             oLiv.DateDemande = DateTime.Now;
-            oLiv.Numero = TheCandidat.lstLivrets2.Count() + 1;
+            oLiv.Numero = Convert.ToString(TheCandidat.lstLivrets2.Count() + 1);
             TheCandidat.lstLivrets2.Add(oLiv);
             Livret2VM oLiv2VM = new Livret2VM(oLiv);
             lstLivrets.Add(oLiv2VM);

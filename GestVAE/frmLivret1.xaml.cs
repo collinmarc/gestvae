@@ -44,7 +44,7 @@ namespace GestVAE
             ckIsClos.SetBinding(CheckBox.IsCheckedProperty, "IsLivretClos");
 
 
-            tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL1");
+            tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointes");
 
 
             dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, "DateJury");
@@ -120,8 +120,8 @@ namespace GestVAE
                 manualCommit = false;
             }
 
-            m_oLivret.RaisePropertyChanged("ResultatPiecesJointesL1");
-            m_oLivret.RaisePropertyChanged("ResultatPiecesJointesL1Color");
+            m_oLivret.RaisePropertyChanged("ResultatPiecesJointes");
+            m_oLivret.RaisePropertyChanged("ResultatPiecesJointesColor");
         }
 
     }

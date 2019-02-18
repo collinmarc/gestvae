@@ -82,5 +82,6 @@ namespace GestVAEcls
             oReturn.oDiplome = pDiplome;
             return oReturn;
         }
+ 
     }
 }

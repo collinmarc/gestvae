@@ -18,7 +18,7 @@ namespace GestVAE.VM
 
             foreach (PieceJointeL1 opj in pLivret.lstPiecesJointes)
             {
-                lstPieceJointe.Add(new PieceJointeLivretVM(opj));
+                lstPieceJointe.Add(new PieceJointeLivretVM(opj, "L1"));
             }
         }
 
@@ -245,7 +245,7 @@ namespace GestVAE.VM
             }
         }
 
-        public String ResultatPiecesJointesL1
+        public String ResultatPiecesJointes
         {
             get {
                 try
@@ -267,12 +267,12 @@ namespace GestVAE.VM
             }
 
         }
-        public Brush ResultatPiecesJointesL1Color
+        public Brush ResultatPiecesJointesColor
         {
             get
             {
                 Brush cReturn = Brushes.Gray;
-                switch (ResultatPiecesJointesL1)
+                switch (ResultatPiecesJointes)
                 {
                     case "OK":
                         cReturn = Brushes.Green;
@@ -366,7 +366,7 @@ namespace GestVAE.VM
         /// <summary>
         /// Liste des Catégories de pièces jointes pour le Livret1
         /// </summary>
-        public List<String> lstCategoriePJL1
+        public override List<String> lstCategoriePJ
         {
             get
             {
@@ -375,48 +375,6 @@ namespace GestVAE.VM
                         select item.Categorie).ToList<String>();
             }
         }
-
-        public List<String> LstMotifGeneral
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Motif General1");
-                oReturn.Add("Motif General2");
-                oReturn.Add("Motif General3");
-                oReturn.Add("");
-                return oReturn;
-            }
-            set { }
-        }
-        public List<String> LstMotifDetaille
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Motif DEtaille1");
-                oReturn.Add("Motif Detaille2");
-                oReturn.Add("Motif Detailee3");
-                oReturn.Add("");
-                return oReturn;
-            }
-            set { }
-        }
-        public List<String> LstMotifRecours
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Motif Recours1");
-                oReturn.Add("Motif Recours2");
-                oReturn.Add("Motif Recours3");
-                oReturn.Add("");
-                return oReturn;
-            }
-            set { }
-        }
-
-
 
         public void addEchangeL1()
         {
@@ -1173,14 +1131,13 @@ namespace GestVAE.VM
 
         public Boolean IsRefuseRecours => DecisionJuryRecours.ToUpper().Contains("REFUS");
 
-        public void CreerLivret2()
+        public void ClotureretCreerLivret2()
         {
 
-
+            // CloturerLivret1
+            IsLivretClos = true;
             CandidatVM oCandVM = new CandidatVM(oL1.oCandidat);
             oCandVM.AjoutLivret2(TheLivret.oDiplome);
-            EtatLivret = "9-Validé";
-            RaisePropertyChanged("IsLivretNonValidé");
         }
 
         public override void Commit()
@@ -1201,26 +1158,6 @@ namespace GestVAE.VM
 
         }
 
-        public void AjoutePJ()
-        {
-            // Récupération de la première catégorie
-            String strCat = this.lstCategoriePJL1[0];
-            PieceJointeLivretVM opjVM = new PieceJointeLivretVM();
-            opjVM.Categorie = strCat;
-            // Récupération du libellé
-            opjVM.Libelle = opjVM.lstLibellePJ[0];
-            // Ajout dans la collection
-            lstPieceJointe.Add(opjVM);
-            RaisePropertyChanged("lstPieceJointe");
-        }
-        public void DeletePJ()
-        {
-            // Set to be Deleted
-            _ctx.Entry<PieceJointeL1>((PieceJointeL1)selectedPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
-            //oL1.lstPiecesJointes.Remove((PieceJointeL1)selectedPJ.ThePiecejointe);
-            lstPieceJointe.Remove(selectedPJ);
-            RaisePropertyChanged("lstPieceJointe");
-        }
 
 
     }

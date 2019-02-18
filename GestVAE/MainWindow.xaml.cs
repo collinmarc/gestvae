@@ -91,55 +91,14 @@ namespace GestVAE
             else
             {
                 ofrm = new frmLivret2();
-                ((frmLivret2)ofrm).setContexte(VM.CurrentCandidat.CurrentLivret);
+                ((frmLivret2)ofrm).setContexte(VM);
             }
 
 
             ofrm.ShowDialog();
         }
 
-        private void cbAddCandidat_Click(object sender, RoutedEventArgs e)
-        {
-            VM.AddCandidat();
-        }
-
-        /// <summary>
-        /// Ajout d'un diplome au Candidat
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddDiplomeCand_Click(object sender, RoutedEventArgs e)
-        {
-            CandidatVM oCandVM = (CandidatVM)this.lbCandidats.SelectedItem;
-            DiplomeCandVM oDipCandVM= oCandVM.AjoutDiplomeCand();
-            dlgDiplomeCand odlg = new dlgDiplomeCand();
-            
-            odlg.setContexte(oDipCandVM);
-
-            odlg.ShowDialog();
-
-        }
-
-        private void btnAddLivret2_Click(object sender, RoutedEventArgs e)
-        {
-            CandidatVM oCandVM = (CandidatVM)this.lbCandidats.SelectedItem;
-            Livret2VM oLivVM = oCandVM.AjoutLivret2();
-            frmLivret2 odlg = new frmLivret2();
-
-            odlg.setContexte(oLivVM);
-
-            odlg.ShowDialog();
-        }
-
-        private void cbAddDiplome_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAddLivret1_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+ 
     }
 }
 

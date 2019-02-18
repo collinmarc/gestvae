@@ -8,7 +8,7 @@
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" 
         x:Class="GestVAE.dlgParametre"
         mc:Ignorable="d"
-        Title="Paramètres de l'application"  Icon="IMG/diplome.ico" MinHeight="110">
+        Title="Paramètres de l'application"  Icon="IMG/diplome.ico" MinHeight="110" Height="592" SizeToContent="Height" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FFBCF5DB" Offset="0"/>
@@ -21,6 +21,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -91,8 +92,24 @@
             </DataGrid>
         </StackPanel>
 
+        <TextBlock Text="Motif refus L2 : " Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
+            <DataGrid Name="dgMotifGL2"  ItemsSource="{Binding lstMotifGL2}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Motif" Binding="{Binding Libelle}" CanUserResize="False" SortDirection="Ascending" Width="3*"/>
+                </DataGrid.Columns>
 
-        <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="4"  IsCancel="True" HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="10"/>
+            </DataGrid>
+            <Label>Motifs détaillés</Label>
+            <DataGrid Name="dgMotifDL2" ItemsSource="{Binding SelectedItem.lstMotifDetaille, ElementName=dgMotifGL2}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" Margin="10,0,10,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Libelle" Binding="{Binding Libelle}" SortDirection="Ascending" Width="1*"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </StackPanel>
+
+        <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="5"  IsCancel="True" HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="10"/>
 
     </Grid>
 </Window>

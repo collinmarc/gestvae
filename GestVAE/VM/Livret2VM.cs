@@ -10,19 +10,30 @@ using System.Windows.Media;
 
 namespace GestVAE.VM
 {
-    public class Livret2VM:LivretVMBase
+    public class Livret2VM : LivretVMBase
     {
-        protected Livret2 TheLivret2
+        private Livret2 oL2 { get { return (Livret2)TheLivret; } }
+        public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
+        public DCLivretVM selectedDCLivret { get; set; }
+        public Livret2VM(Livret2 pLivret) : base(pLivret)
         {
-            get { return (Livret2)TheLivret; }
-        }
-        public Livret2VM(Livret2 pLivret):base((Livret)pLivret)
-        {
+            lstDCLivret = new ObservableCollection<DCLivretVM>();
+
+            foreach (PieceJointeL2 opj in pLivret.lstPiecesJointes)
+            {
+                lstPieceJointe.Add(new PieceJointeLivretVM(opj, "L2"));
+            }
+
+            foreach (DCLivret oDCL in pLivret.lstDCLivrets)
+            {
+                lstDCLivret.Add(new DCLivretVM(oDCL));
+            }
         }
 
 
-        public Livret2VM():base()
+        public Livret2VM() : base()
         {
+            lstDCLivret = new ObservableCollection<DCLivretVM>();
         }
 
         public String NomDiplome
@@ -45,34 +56,23 @@ namespace GestVAE.VM
         {
             get
             {
-                return TheLivret2.Numero.ToString();
+                return oL2.Numero;
             }
             set
             {
                 if (value != Numero)
                 {
-                    TheLivret2.Numero = Convert.ToInt32(value);
+                    oL2.Numero = value;
                     RaisePropertyChanged();
                 }
             }
         }
 
 
-        public ObservableCollection<DCLivret> lstDcLivrets { get { return TheLivret2.lstDCLivrets; } }
-        public ObservableCollection<DCLivret> lstDcLivretsAValider {
-            get {
-                ObservableCollection<DCLivret> oReturn = new ObservableCollection<DCLivret>();
-                foreach (var item in TheLivret2.lstDCLivrets.Where(obj => obj.IsAValider ))
-                {
-                    oReturn.Add(item);
-                } 
-
-                return oReturn;
-            }
-        }
-
-        public Boolean IsContrat {
-            get{
+        public Boolean IsContrat
+        {
+            get
+            {
                 return TheLivret.isContrat;
             }
 
@@ -81,25 +81,46 @@ namespace GestVAE.VM
                 if (value != IsContrat)
                 {
                     TheLivret.isContrat = value;
-                    RaisePropertyChanged("IsContrat");
- //                   RaisePropertyChanged("IsConvention");
+                    RaisePropertyChanged();
                 }
             }
         }
-        public Boolean IsConvention {
+        public Boolean IsConvention
+        {
             get { return !TheLivret.isContrat; }
-            set {
+            set
+            {
                 if (value != IsConvention)
                 {
-                    TheLivret.isContrat= !value;
- //                   RaisePropertyChanged("IsContrat");
-                    RaisePropertyChanged("IsConvention");
+                    TheLivret.isContrat = !value;
+                    RaisePropertyChanged();
                 }
-}
+            }
         }
 
-        public String EtatLivret {
-            get {
+        public Boolean IsLivretClos
+        {
+            get { return TheLivret.isClos; }
+            set
+            {
+                if (value != IsLivretClos)
+                {
+                    TheLivret.isClos = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("IsLivretNonClos");
+                }
+            }
+        }
+        public Boolean IsLivretNonClos
+        {
+            get { return !IsLivretClos; }
+            set { IsLivretClos = !value; }
+        }
+
+        public String EtatLivret
+        {
+            get
+            {
                 try
                 {
                     return TheLivret.EtatLivret;
@@ -115,111 +136,110 @@ namespace GestVAE.VM
             set
             {
                 if (value != EtatLivret)
-                { 
+                {
                     TheLivret.EtatLivret = value;
+                    if (IsLivretClos)
+                    {
+
+                    }
                     RaisePropertyChanged();
-                    RaisePropertyChanged("IsEnvoyeVisibility");
-                    RaisePropertyChanged("IsRecuVisibility");
-                    RaisePropertyChanged("IsLivretNonValidé");
+                    RaisePropertyChanged("IsEtatEnvoye");
+                    RaisePropertyChanged("IsEtatRecu");
+                    RaisePropertyChanged("IsEtatRecuComplet");
+                    RaisePropertyChanged("IsEtatRecuIncomplet");
+                    RaisePropertyChanged("IsEtatRefuse");
+                    RaisePropertyChanged("IsEtatRecours");
+                    RaisePropertyChanged("IsEtatAccepte");
+                    RaisePropertyChanged("IsEtatFerme");
                 }
             }
         }
-        public Visibility IsEnvoyeVisibility
+        private int getNumetat()
+        {
+            int nReturn = 0;
+            try
+            {
+                nReturn = Convert.ToInt32(this.EtatLivret.Split('-')[0]);
+            }
+            catch (Exception)
+            {
+                nReturn = 0;
+            }
+            return nReturn;
+        }
+        private int getNumDecisionJury()
+        {
+            int nReturn = 0;
+            try
+            {
+                nReturn = Convert.ToInt32(this.DecisionJury.Split('-')[0]);
+            }
+            catch (Exception)
+            {
+                nReturn = 0;
+            }
+            return nReturn;
+        }
+        public Boolean IsEtatDemande
         {
             get
             {
-                if (this.EtatLivret.StartsWith("0"))
-                {
-                    return Visibility.Hidden;
-                }
-                else
-                {
-                    return Visibility.Visible;
-                }
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_DEMANDE);
             }
-            set { }
+        }
+        public Boolean IsEtatEnvoye
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ENVOYE);
+            }
+        }
+        public Boolean IsEtatRecuIncomplet
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET &&
+                    getNumetat() < (int)MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            }
+        }
+        public Boolean IsEtatRecu
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET);
+            }
+        }
+        public Boolean IsEtatRecuComplet
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            }
+        }
+        public Boolean IsEtatRefuse
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_REFUSE) &&
+                        (getNumetat() < (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+            }
+        }
+        public Boolean IsEtatAccepte
+        {
+            get
+            {
+                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+            }
         }
 
-        public Visibility IsRecuVisibility
+
+        public String ResultatPiecesJointes
         {
             get
             {
                 try
                 {
-                    int n = Convert.ToInt32(this.EtatLivret.Substring(0,1));
-                    if (n<2)
-                    {
-                        return Visibility.Hidden;
-                    }
-                    else
-                    {
-                        return Visibility.Visible;
-                    }
-
-                }
-                catch (Exception)
-                {
-
-                    return Visibility.Hidden;
-                }
-            }
-            set { }
-        }
-
-        public Visibility IsValidationPartielleVisibility
-        {
-            get
-            {
-                try
-                {
-                    if (DecisionJury.ToUpper().Contains("PARTIELLE"))
-                    {
-                        return Visibility.Visible;
-                    }
-                    else
-                    {
-                        return Visibility.Hidden;
-                    }
-
-                }
-                catch (Exception)
-                {
-
-                    return Visibility.Hidden;
-                }
-            }
-        }
-        public Visibility IsNotValidationPartielleVisibility
-        {
-            get
-            {
-                try
-                {
-                    if (!DecisionJury.ToUpper().Contains("PARTIELLE"))
-                    {
-                        return Visibility.Visible;
-                    }
-                    else
-                    {
-                        return Visibility.Hidden;
-                    }
-
-                }
-                catch (Exception)
-                {
-
-                    return Visibility.Hidden;
-                }
-            }
-        }
-
-
-        public String ResultatPiecesJointesL2
-        {
-            get {
-                try
-                {
-                    foreach (PieceJointe item in TheLivret2.lstPiecesJointes)
+                    foreach (PieceJointeLivretVM item in lstPieceJointe)
                     {
                         if (!item.IsRecu || !item.IsOK)
                         {
@@ -234,14 +254,14 @@ namespace GestVAE.VM
                     return "ERREUR";
                 }
             }
- 
+
         }
-        public Brush ResultatPiecesJointesL2Color
+        public Brush ResultatPiecesJointesColor
         {
             get
             {
                 Brush cReturn = Brushes.Gray;
-                switch (ResultatPiecesJointesL2)
+                switch (ResultatPiecesJointes)
                 {
                     case "OK":
                         cReturn = Brushes.Green;
@@ -263,12 +283,13 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add("0-Demandé");
-                oReturn.Add("1-Envoyé");
-                oReturn.Add("2-Reçu");
-                oReturn.Add("3-Accepté");
-                oReturn.Add("4-Refusé");
-                oReturn.Add("9-Validé");
+                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatL1.ETAT_L1_DEMANDE));
+                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
+                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
+                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
+                oReturn.Add(String.Format("{0:D}-Refusé", MyEnums.EtatL1.ETAT_L1_REFUSE));
+//                oReturn.Add(String.Format("{0:D}-Recours", MyEnums.EtatL1.ETAT_L1_RECOURS));
+                oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
                 return oReturn;
             }
             set { }
@@ -319,78 +340,126 @@ namespace GestVAE.VM
             set { }
         }
 
-        public List<String> LstDecisionL2
+        public static List<String> LstDecisionL2
         {
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add("Validation totale");
-                oReturn.Add("Validation partielle");
-                oReturn.Add("Refus de validation");
-                oReturn.Add("");
-                return oReturn;
-            }
-            set { }
-        }
-        public List<String> LstDecisionL2Module
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Validation totale");
-//                oReturn.Add("Validation partielle");
-                oReturn.Add("Refus de validation");
-                oReturn.Add("");
-                return oReturn;
-            }
-            set { }
-        }
-    
-    public  List<String> LstMotifGeneral
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Motif General1");
-                oReturn.Add("Motif General2");
-                oReturn.Add("Motif General3");
-                oReturn.Add("");
-                return oReturn;
-            }
-            set { }
-        }
-        public  List<String> LstMotifDetaille
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Motif DEtaille1");
-                oReturn.Add("Motif Detaille2");
-                oReturn.Add("Motif Detailee3");
-                oReturn.Add("");
+                oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
                 return oReturn;
             }
             set { }
         }
 
-        public void addPJL2()
+        public  List<String> LstDecisionL2Module
         {
-            Livret2 obj = (Livret2)TheLivret;
-
-            obj.lstPiecesJointes.Add(new PieceJointeL2("...","..."));
-            RaisePropertyChanged("TheLivret.lstPiecesJointes");
+            get
+            {
+                List<String> oReturn = new List<String>();
+                oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
+                return oReturn;
+            }
+            set { }
         }
 
-        public void addEchangeL2()
+        public DateTime? DateDemande
         {
-            Livret2 obj = (Livret2)TheLivret;
-
-            obj.lstEchanges.Add(new EchangeL2("..."));
-            RaisePropertyChanged("TheLivret.lstEchanges");
+            get { return oL2.DateDemande; }
+            set
+            {
+                if (value != DateDemande)
+                {
+                    oL2.DateDemande = value;
+                    RaisePropertyChanged();
+                    if (!IsEtatRecu)
+                    {
+                    }
+                }
+            }
+        }
+         public DateTime? DateEnvoiEHESP
+        {
+            get { return oL2.DateEnvoiEHESP; }
+            set
+            {
+                if (value != DateEnvoiEHESP)
+                {
+                    oL2.DateEnvoiEHESP = value;
+                    RaisePropertyChanged();
+                    DateLimiteReceptEHESP = DateEnvoiEHESP.Value.AddDays(Properties.Settings.Default.DelaiReceptionL1);
+                }
+            }
+        }
+        public DateTime? DateLimiteReceptEHESP
+        {
+            get { return oL2.DateLimiteReceptEHESP; }
+            set
+            {
+                if (value != DateLimiteReceptEHESP)
+                {
+                    oL2.DateLimiteReceptEHESP = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateReceptEHESP
+        {
+            get { return oL2.DateReceptEHESP; }
+            set
+            {
+                if (value != DateReceptEHESP)
+                {
+                    oL2.DateReceptEHESP = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateReceptEHESPComplet
+        {
+            get { return oL2.DateReceptEHESPComplet; }
+            set
+            {
+                if (value != DateReceptEHESPComplet)
+                {
+                    oL2.DateReceptEHESPComplet = value;
+                    RaisePropertyChanged();
+                    if (IsEtatRecu)
+                    {
+                        DateLimiteJury = DateReceptEHESPComplet.Value.AddDays(Properties.Settings.Default.DelaiJuryL1);
+                    }
+                }
+            }
+        }
+        public DateTime? DateValidite
+        {
+            get { return oL2.DateValidite; }
+            set
+            {
+                if (value != DateValidite)
+                {
+                    oL2.DateValidite = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
 
-
-        public String NomJury {
+        public DateTime? DateLimiteJury
+        {
+            get { return oL2.DateLimiteJury; }
+            set
+            {
+                if (value != DateLimiteJury)
+                {
+                    oL2.DateLimiteJury = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String NomJury
+        {
             get
             {
                 if (TheLivret.lstJurys.Count >= 1)
@@ -411,7 +480,7 @@ namespace GestVAE.VM
                         TheLivret.lstJurys.Add(new Jury());
                     }
 
-                    TheLivret.lstJurys[0].NomJury= value;
+                    TheLivret.lstJurys[0].NomJury = value;
 
                     RaisePropertyChanged();
                 }
@@ -439,7 +508,7 @@ namespace GestVAE.VM
                         TheLivret.lstJurys.Add(new Jury());
                     }
 
-                    TheLivret.lstJurys[0].LieuJury= value;
+                    TheLivret.lstJurys[0].LieuJury = value;
 
                     RaisePropertyChanged();
                 }
@@ -468,6 +537,91 @@ namespace GestVAE.VM
                     }
 
                     TheLivret.lstJurys[0].DateJury = value;
+                    DateLimiteRecours = value.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? HeureJury
+        {
+            get
+            {
+                if (TheLivret.lstJurys.Count >= 1)
+                {
+                    return TheLivret.lstJurys[0].HeureJury;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != HeureJury)
+                {
+                    if (TheLivret.lstJurys.Count == 0)
+                    {
+                        TheLivret.lstJurys.Add(new Jury());
+                    }
+
+                    TheLivret.lstJurys[0].HeureJury = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? HeureConvoc
+        {
+            get
+            {
+                if (TheLivret.lstJurys.Count >= 1)
+                {
+                    return TheLivret.lstJurys[0].HeureConvoc;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != HeureConvoc)
+                {
+                    if (TheLivret.lstJurys.Count == 0)
+                    {
+                        TheLivret.lstJurys.Add(new Jury());
+                    }
+
+                    TheLivret.lstJurys[0].HeureConvoc = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateLimiteRecours
+        {
+            get
+            {
+                if (TheLivret.lstJurys.Count >= 1)
+                {
+                    return TheLivret.lstJurys[0].DateLimiteRecours;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != DateLimiteRecours)
+                {
+                    if (TheLivret.lstJurys.Count == 0)
+                    {
+                        TheLivret.lstJurys.Add(new Jury());
+                    }
+
+                    TheLivret.lstJurys[0].DateLimiteRecours = value;
 
                     RaisePropertyChanged();
                 }
@@ -479,14 +633,6 @@ namespace GestVAE.VM
 
 
 
-
-
-
-
-
-
-        public Boolean IsRefuse => DecisionJury.ToUpper().Contains("REFUS");
-        public Boolean IsLivretNonValidé => EtatLivret!="9-Validé";
 
         public String DecisionJury
         {
@@ -512,17 +658,53 @@ namespace GestVAE.VM
 
                     TheLivret.lstJurys[0].Decision = value;
 
-
-                    if (!IsRefuse)
-                    {
-                        MotifDetailJury = "";
-                        MotifGeneralJury = "";
-                    }
+                    setEtatLivret();
                     RaisePropertyChanged();
-                    RaisePropertyChanged("IsRefuse");
-                    RaisePropertyChanged("IsValidationPartielleVisibility");
-                    RaisePropertyChanged("IsNotValidationPartielleVisibility");
+                    RaisePropertyChanged("IsDecisionJuryFavorable");
+                    RaisePropertyChanged("IsDecisionJuryDefavorable");
+                    RaisePropertyChanged("IsDecisionJuryPartielle");
                 }
+            }
+        }
+
+        public Boolean IsDecisionJuryFavorable
+        {
+            get
+            {
+                return (getNumDecisionJury() < (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            }
+        }
+        public Boolean IsDecisionJuryDefavorable
+        {
+            get
+            {
+                return ((getNumDecisionJury() >= (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE) &&
+                        (getNumDecisionJury() < (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
+            }
+        }
+        public Boolean IsDecisionJuryPartielle
+        {
+            get
+            {
+                return ((getNumDecisionJury() >= (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
+            }
+        }
+
+        private void setEtatLivret()
+        {
+            String strEtat = EtatLivret;
+            String strKey = "";
+            if (IsDecisionJuryFavorable || IsDecisionJuryPartielle)
+            {
+                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
+                EtatLivret = strEtat;
+            }
+            if (IsDecisionJuryDefavorable)
+            {
+                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
+                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
+                EtatLivret = strEtat;
             }
         }
         public String MotifGeneralJury
@@ -610,15 +792,52 @@ namespace GestVAE.VM
             }
         }
 
-        public void ValiderLivret2()
+
+
+        public override void Commit()
         {
-            TheLivret2.ValiderLivret2();
-            EtatLivret = "9-Validé";
-            RaisePropertyChanged("IsLivretValidé");
+            // Validation des PiècesJointes L2
+            foreach (PieceJointeLivretVM item in lstPieceJointe)
+            {
+                if (item.strLivret == "L2")
+                {
+                    PieceJointeL2 oPJ = (PieceJointeL2)item.ThePiecejointe;
+                    if (_ctx.Entry<PieceJointeL2>(oPJ).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        oL2.lstPiecesJointes.Add(oPJ);
+                    }
+                }
+            }
 
         }
 
 
+        public List<DCLivretVM> lstDCLivretAValider
+        {
+            get
+            {
+                return lstDCLivret.Where(i => i.IsAValider == true).ToList<DCLivretVM>();
+            }
+        }
+        public override  List<String> lstCategoriePJ
+        {
+            get
+                {
+                return (from item in _ctx.pieceJointeCategories
+                        where item.Livret == "L2"
+                        select item.Categorie).ToList<String>();
+            }
+        }
 
+        public List<String> LstMotifGL2
+        {
+            get
+            {
+                return (from item in _ctx.dbMotifGeneralL2
+                        select item.Libelle).ToList<String>();
+            }
+        }
+
+ 
     }
 }

@@ -79,8 +79,12 @@ namespace GestVAEcls
     public class Livret2 : Livret
     {
 
-        public int Numero { get; set; }
+        public String Numero { get; set; }
         public DateTime? DateDemande { get; set; }
+        public DateTime? DateLimiteEnvoiEHESP { get; set; }
+        public DateTime? DateLimiteReceptEHESP { get; set; }
+        public DateTime? DateLimiteJury { get; set; }
+        public DateTime? DateValidite { get; set; }
 
         public virtual ObservableCollection<PieceJointeL2> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
@@ -101,14 +105,29 @@ namespace GestVAEcls
         public Livret2(Diplome pDipl) : this()
         {
             oDiplome = pDipl;
+
             foreach (DomaineCompetence item in oDiplome.lstDomainesCompetences)
             {
                 DCLivret oDCLivret = new DCLivret(item);
                 lstDCLivrets.Add(oDCLivret);
             }
-            //           lstRecours = new ObservableCollection<Recours>();
 
 
+        }
+        /// <summary>
+        /// initialisation des stattus des domaindes de compétences du Livret
+        /// </summary>
+        /// <param name="pdiplomeCand"></param>
+        public void InitDCLivrets(DiplomeCand pdiplomeCand )
+        {
+            foreach (DomaineCompetenceCand oDCCand in pdiplomeCand.lstDCCands)
+            {
+                DCLivret oDC = lstDCLivrets.Where(i => i.NomDC == oDCCand.NomDomaineCompetence).FirstOrDefault();
+                if (oDC != null)
+                {
+                    oDC.Statut = oDCCand.Statut;
+                }
+            }
         }
         /// <summary>
         /// Valider le Livret2 (Créer ou mettre à jour le diplome du candidiat

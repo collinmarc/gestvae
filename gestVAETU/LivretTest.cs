@@ -20,7 +20,7 @@ namespace GestVAETU
             oCand.lstLivrets1.Add(oL1);
 
             Livret2 oL2 = new Livret2();
-            oL2.Numero = 1;
+            oL2.Numero = "1";
             oL2.OrigineDemande = "LIVRET2";
             oCand.lstLivrets2.Add(oL2);
 

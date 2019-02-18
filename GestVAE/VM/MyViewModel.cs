@@ -23,6 +23,7 @@ namespace GestVAE.VM
         private ObservableCollection<DiplomeVM> _lstDiplomeVM;
         private ObservableCollection<PieceJointeCategorie> _lstPieceJointeCategorie;
         private ObservableCollection<MotifGeneralL1> _lstMotifGL1;
+        private ObservableCollection<MotifGeneralL2> _lstMotifGL2;
         private Boolean _isBusy;
         private CandidatVM _candidatVM;
         public Action CloseAction { get; set; }
@@ -56,6 +57,7 @@ namespace GestVAE.VM
             _lstDiplomeVM = new ObservableCollection<DiplomeVM>();
             _lstPieceJointeCategorie = new ObservableCollection<PieceJointeCategorie>();
             _lstMotifGL1 = new ObservableCollection<MotifGeneralL1>();
+            _lstMotifGL2 = new ObservableCollection<MotifGeneralL2>();
 
             _SaveCommand = new SaveCommand(o => { saveData(); },
                                            o => { return hasChanges(); }
@@ -76,13 +78,17 @@ namespace GestVAE.VM
                                            );
             AjoutePJL1Command = new RelayCommand<MyViewModel>(o => { AjoutePJL1(); }
                                            );
-            DeletePJL1Command = new RelayCommand<MyViewModel>(o => { DeletePJL1(); }
+            AjoutePJL2Command = new RelayCommand<MyViewModel>(o => { AjoutePJL2(); }
+                                           );
+            DeletePJL1Command = new RelayCommand<MyViewModel>(o => { DeletePJ(); }
                                            );
             AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); }
                                            );
             dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
                                            );
             ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); }
+                                           );
+            ValideretQuitterL2Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL2(); }
                                            );
             CloturerL1etCreerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL1etCreerL2(); }
                                            );
@@ -130,6 +136,10 @@ namespace GestVAE.VM
             get => _lstMotifGL1;
 
         }
+        public ObservableCollection<MotifGeneralL2> lstMotifGL2
+        {
+            get => _lstMotifGL2;
+        }
         public void saveData()
         {
             foreach (PieceJointeCategorie item in lstPieceJointeCategorie)
@@ -152,6 +162,18 @@ namespace GestVAE.VM
                 if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Deleted)
                 {
                     _ctx.dbMotifGeneralL1.Remove(item);
+                }
+            }
+
+            foreach (MotifGeneralL2 item in lstMotifGL2)
+            {
+                if (_ctx.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Detached)
+                {
+                    _ctx.dbMotifGeneralL2.Add(item);
+                }
+                if (_ctx.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Deleted)
+                {
+                    _ctx.dbMotifGeneralL2.Remove(item);
                 }
             }
 
@@ -225,6 +247,14 @@ namespace GestVAE.VM
                 _lstMotifGL1.Add(item);
             }
             RaisePropertyChanged("lstMotifGL1");
+
+            _lstMotifGL2.Clear();
+            foreach (MotifGeneralL2 item in _ctx.dbMotifGeneralL2)
+            {
+                _lstMotifGL2.Add(item);
+            }
+            RaisePropertyChanged("lstMotifGL2");
+
 
 
             _lstCandidatVM.Clear();
@@ -344,9 +374,11 @@ namespace GestVAE.VM
         public ICommand AjouteDiplomeCandCommand { get; set; }
         public ICommand AjouteL1Command { get; set; }
         public ICommand AjoutePJL1Command { get; set; }
+        public ICommand AjoutePJL2Command { get; set; }
         public ICommand DeletePJL1Command { get; set; }
         public ICommand AjouteL2Command { get; set; }
         public ICommand ValideretQuitterL1Command { get; set; }
+        public ICommand ValideretQuitterL2Command { get; set; }
         public ICommand CloturerL1etCreerL2Command { get; set; }
         public ICommand CloseCommand { get; set; }
         public String rechIdentifiantVAE { get; set; }
@@ -414,9 +446,14 @@ namespace GestVAE.VM
         public void AjoutePJL1()
         {
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
-            oLiv.AjoutePJ();
+            oLiv.AjoutePJ("L1");
         }
-        public void DeletePJL1()
+        public void AjoutePJL2()
+        {
+            Livret2VM oLiv = (Livret2VM)CurrentCandidat.CurrentLivret;
+            oLiv.AjoutePJ("L2");
+        }
+        public void DeletePJ()
         {
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
             oLiv.DeletePJ();
@@ -428,10 +465,15 @@ namespace GestVAE.VM
         public void AjouteL2()
         {
             CandidatVM oCandVM = CurrentCandidat;
-            Livret2VM oLivVM = oCandVM.AjoutLivret2();
+            Livret2VM oLivVM= CurrentCandidat.AjoutLivret2();
+
+            oLivVM.EtatLivret = oLivVM.LstEtatLivret[1];
+            oLivVM.DateDemande = DateTime.Now;
+            CurrentCandidat.CurrentLivret = oLivVM;
+
             frmLivret2 odlg = new frmLivret2();
 
-            odlg.setContexte(oLivVM);
+            odlg.setContexte(this);
 
             odlg.ShowDialog();
         }
@@ -439,7 +481,8 @@ namespace GestVAE.VM
         public void CloturerL1etCreerL2()
             {
               Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
-              oLiv.CreerLivret2();
+              oLiv.ClotureretCreerLivret2();
+            CloseCommand.Execute(this);
             }
 
 
@@ -477,6 +520,20 @@ namespace GestVAE.VM
             CloseAction();
         }
 
+        public void ValideretQuitterL2()
+        {
+            Livret2VM oL2VM = (Livret2VM)CurrentCandidat.CurrentLivret;
+            // Validation du conenu du Livret
+            oL2VM.Commit();
+            // Si le livret est Nouveau => Ajout dans la Collection des Livrets
+            if (_ctx.Entry<Livret2>((Livret2)oL2VM.TheLivret).State == System.Data.Entity.EntityState.Detached)
+            {
+                CurrentCandidat.TheCandidat.lstLivrets2.Add((Livret2)oL2VM.TheLivret);
+                CurrentCandidat.lstLivrets.Add(CurrentCandidat.CurrentLivret);
+            }
+            CurrentCandidat.refreshlstLivrets();
+            CloseAction();
+        }
 
         public void CloseWindowL1()
         {

@@ -11,15 +11,26 @@ namespace GestVAE.VM
     public class PieceJointeLivretVM : VMBase
     {
         public PieceJointe ThePiecejointe;
+        public String strLivret { get; set; }
 
-        public PieceJointeLivretVM()
+        public PieceJointeLivretVM(String pLivret)
         {
-            ThePiecejointe = new PieceJointeL1("...", "...");
+            if (pLivret == "L1")
+            {
+                ThePiecejointe = new PieceJointeL1("...", "...");
+            }
+            else
+            {
+                ThePiecejointe = new PieceJointeL2("...", "...");
+
+            }
+            strLivret = pLivret;
         }
 
-        public PieceJointeLivretVM(PieceJointe pPieceJointe)
+        public PieceJointeLivretVM(PieceJointe pPieceJointe, String pLivret)
         {
             ThePiecejointe = pPieceJointe;
+            strLivret = pLivret;
         }
 
         public String Categorie
@@ -93,7 +104,7 @@ namespace GestVAE.VM
             {
                 List<String> oReturn = new List<String>();
                 PieceJointeCategorie oPJCat= (from item in _ctx.pieceJointeCategories
-                        where item.Categorie == Categorie 
+                        where item.Categorie == Categorie && item.Livret == strLivret
                         select item).FirstOrDefault<PieceJointeCategorie>();
                 if (oPJCat != null)
                 {

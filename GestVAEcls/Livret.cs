@@ -85,10 +85,10 @@ namespace GestVAEcls
         public DateTime? DateLimiteReceptEHESP { get; set; }
         public DateTime? DateLimiteJury { get; set; }
         public DateTime? DateValidite { get; set; }
-
         public virtual ObservableCollection<PieceJointeL2> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
         public virtual ObservableCollection<DCLivret> lstDCLivrets { get; set; }
+        public virtual ObservableCollection<MembreJury> lstMembreJurys { get; set; }
         [Required]
         public virtual Candidat oCandidat { get; set; }
  //       public virtual ObservableCollection<Recours> lstRecours { get; set; }

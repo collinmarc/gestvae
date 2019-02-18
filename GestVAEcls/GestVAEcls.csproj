@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Candidat.cs" />
     <Compile Include="DCLivret.cs" />
+    <Compile Include="MembreJury.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
     <Compile Include="Migrations\201902051512484_PJCategorie.cs" />

@@ -15,6 +15,12 @@ namespace GestVAE.VM
         private Livret2 oL2 { get { return (Livret2)TheLivret; } }
         public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
         public DCLivretVM selectedDCLivret { get; set; }
+        public ObservableCollection<MembreJury> lstMembreJury{
+            get
+            {
+                return oL2.lstMembreJurys;
+            }
+        }
         public Livret2VM(Livret2 pLivret) : base(pLivret)
         {
             lstDCLivret = new ObservableCollection<DCLivretVM>();

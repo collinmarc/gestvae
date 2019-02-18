@@ -41,6 +41,8 @@ namespace GestVAE
             cbxEtatLivret.SetBinding(ComboBox.SelectedItemProperty, "EtatLivret");
             cbxEtatLivret.SetBinding(ComboBox.ItemsSourceProperty, "LstEtatLivret");
 
+            ckIsClos.SetBinding(CheckBox.IsCheckedProperty, "IsLivretClos");
+
 
             tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointesL1");
 
@@ -99,16 +101,11 @@ namespace GestVAE
             pViewModel.CloseAction = new Action(() => this.Close());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
+ 
         private void btnAddEchange_Click(object sender, RoutedEventArgs e)
         {
 
-            Livret1VM oLiv = (Livret1VM)this.DataContext;
+            Livret1VM oLiv = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
             oLiv.addEchangeL1();
         }
         bool manualCommit = false;
@@ -127,18 +124,5 @@ namespace GestVAE
             m_oLivret.RaisePropertyChanged("ResultatPiecesJointesL1Color");
         }
 
-        private void dbCreerL2_Click(object sender, RoutedEventArgs e)
-        {
-            Livret1VM oLiv = (Livret1VM)this.DataContext;
-            oLiv.CreerLivret2();
-           
-
-
-        }
-
-        private void dgPiecesjointes_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
-
-        }
     }
 }

@@ -85,6 +85,25 @@ namespace GestVAE.VM
             }
         }
 
+        public Boolean IsLivretClos
+        {
+            get { return TheLivret.isClos; }
+            set
+            {
+                if (value != IsLivretClos)
+                {
+                    TheLivret.isClos = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("IsLivretNonClos");
+                }
+            }
+        }
+        public Boolean IsLivretNonClos
+        {
+            get { return !IsLivretClos; }
+            set { IsLivretClos = !value;}
+        }
+
         public String EtatLivret {
             get {
                 try
@@ -104,6 +123,10 @@ namespace GestVAE.VM
                 if (value != EtatLivret)
                 {
                     TheLivret.EtatLivret = value;
+                    if (IsLivretClos)
+                    {
+
+                    }
                     RaisePropertyChanged();
                     RaisePropertyChanged("IsEtatEnvoye");
                     RaisePropertyChanged("IsEtatRecu");
@@ -206,20 +229,6 @@ namespace GestVAE.VM
                 return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
             }
         }
-        public Boolean IsEtatFerme
-        {
-            get
-            {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_FERME);
-            }
-        }
-        public Boolean IsEtatNonFerme
-        {
-            get
-            {
-                return (!IsEtatFerme);
-            }
-        }
 
         public Boolean IsJury
         {
@@ -292,7 +301,6 @@ namespace GestVAE.VM
                 oReturn.Add(String.Format("{0:D}-Refusé", MyEnums.EtatL1.ETAT_L1_REFUSE));
                 oReturn.Add(String.Format("{0:D}-Recours", MyEnums.EtatL1.ETAT_L1_RECOURS));
                 oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
-                oReturn.Add(String.Format("{0:D}-Fermé", MyEnums.EtatL1.ETAT_L1_FERME));
                 return oReturn;
             }
             set { }
@@ -1167,6 +1175,8 @@ namespace GestVAE.VM
 
         public void CreerLivret2()
         {
+
+
             CandidatVM oCandVM = new CandidatVM(oL1.oCandidat);
             oCandVM.AjoutLivret2(TheLivret.oDiplome);
             EtatLivret = "9-Validé";

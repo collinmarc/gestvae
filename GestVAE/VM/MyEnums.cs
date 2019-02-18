@@ -18,7 +18,7 @@ namespace GestVAE.VM
             ETAT_L1_REFUSE = 50,
             ETAT_L1_RECOURS = 60,
             ETAT_L1_ACCEPTE = 70,
-            ETAT_L1_FERME = 90
+            ETAT_L1_CLOTURER = 90
         }
         public enum DecisionJuryL1
         {

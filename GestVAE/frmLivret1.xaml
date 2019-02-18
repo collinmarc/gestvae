@@ -59,15 +59,16 @@
                 <TextBox x:Name="tbNumLivret"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
                 <Label Content="Etat Livret :" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cbxEtatLivret" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
-                <Label Content="Diplome :" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="tbDiplome" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                <Label Content="Livret CLOTURE :" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox x:Name="ckIsClos" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="Diplome :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox x:Name="tbDiplome" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
-                <Label Content="Date Validité : "  Grid.Row="3" Grid.Column="0"  Visibility="{Binding Visibility, ElementName=dtpValidite}" VerticalContentAlignment="Center"/>
-                <DatePicker x:Name="dtpValidite"   Grid.Row="3" Grid.Column="1" SelectedDate="{Binding DateValidite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="29" 
-                                Visibility="{Binding IsEtatAccepte, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Left"/>
+               
 
             </Grid>
-            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" 
+                        IsEnabled="{Binding IsLivretNonClos}" >
                 <StackPanel Orientation="Horizontal" >
                     <Label Content="Date demande candidat :" Width="150"/>
                     <DatePicker x:Name="dtpDateDemande" 
@@ -92,7 +93,8 @@
 
 
             </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2">
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" 
+                        IsEnabled="{Binding IsLivretNonClos}" >
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date 1ere réception : " Width="150" />
                     <DatePicker x:Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
@@ -105,6 +107,12 @@
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date Limite Jury : " Width="150" />
                     <DatePicker x:Name="dtpLimiteJury"  SelectedDate="{Binding DateLimiteJury, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatAccepte, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Label Content="Date Validité : "  Width="150"  VerticalContentAlignment="Center"/>
+                    <DatePicker x:Name="dtpValidite"     HorizontalAlignment="Left"
+                            SelectedDate="{Binding DateValidite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="29" Width="100"
+                            />
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="3">
@@ -119,10 +127,10 @@
         </Grid>
 
         <TabControl x:Name="TabL1" Grid.Row="2" 
-                    IsEnabled="{Binding IsEtatNonFerme}" 
+                    
                     HorizontalAlignment="Stretch" Margin="10" >
             <TabItem x:Name="tabL1" Header="Livret1" Margin="0">
-                <StackPanel Orientation="Vertical" >
+                <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretNonClos}" >
                     <StackPanel Orientation="Horizontal" >
                         <RadioButton x:Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat}" GroupName="ContratLivret" Margin="10"/>
                         <RadioButton x:Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
@@ -206,7 +214,7 @@
                         <GradientStop Color="#FF0A7FCF" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretNonClos}" >
                     <Label Content="Echanges :" Foreground="#FF0078D7"/>
                     <StackPanel Orientation="Horizontal" Background="AliceBlue" HorizontalAlignment="Stretch">
                         <DataGrid x:Name="dgEchanges"  ItemsSource="{Binding TheLivret.lstEchanges}" AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" Width="744">
@@ -231,7 +239,7 @@
             <TabItem x:Name="tabJury" Header="Jury" 
                     Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}"
                      >
-                    <Grid x:Name="grdJury1"  ShowGridLines="False" HorizontalAlignment="Stretch">
+                <Grid x:Name="grdJury1"  ShowGridLines="False" HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretNonClos}" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -359,9 +367,7 @@
                             <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Center" Content="Commentaire :" />
                             <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch" Margin="10"/>
 
-                            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
-                                <Label Width="100" VerticalAlignment="Center" Margin="10" Content="Date d'examen:" />
-                            </StackPanel>
+                            <Label VerticalAlignment="Center" Margin="10" Grid.Row="3" Grid.Column="0" Content="Date d'examen  du recours: " />
                             <DatePicker  Grid.Row="3" Grid.Column="1" x:Name="dtpDateJuryRecours" HorizontalAlignment="Left" Margin="10" Width="125"/>
 
                             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2">
@@ -369,16 +375,16 @@
                                 <TextBox x:Name="tbLieuJuryRecours" HorizontalAlignment="Left" Width="207" Margin="10"/>
                             </StackPanel>
 
-                            <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Décision:"/>
+                            <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Décision du jury de recours :"/>
                         <ComboBox  Grid.Row="4" Grid.Column="1" x:Name="cbxDecisionRecours" Grid.ColumnSpan="2" Margin="10"></ComboBox>
 
-                            <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif général:"/>
+                            <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif général :"/>
                             <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifGeneralRecours" HorizontalAlignment="Stretch" Margin="10"
                                   ItemsSource="{Binding VM.lstMotifGL1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
                                   DisplayMemberPath="Libelle"
                                   SelectedValuePath="Libelle"
                                   SelectedValue="{Binding MotifGeneralJuryRecours}"/>
-                            <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif Détaillé:" />
+                            <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif détaillé :" />
                             <ComboBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifDetailleRecours" HorizontalAlignment="Stretch" Margin="10"
                                     ItemsSource="{Binding SelectedItem.lstMotifDetaille, ElementName=cbxMotifGeneralRecours}"
                                     DisplayMemberPath="Libelle"
@@ -396,7 +402,7 @@
             </TabItem>
         </TabControl>
         <UniformGrid Grid.Row="3" >
-            <Button x:Name="dbCreerL2"  Margin="10" Click="dbCreerL2_Click" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et créer le Livret2"/>
+            <Button x:Name="dbCreerL2"  Margin="10" Command="{Binding DataContext.CloturerL1etCreerL2Command, ElementName=window}" IsCancel="True" Content="Valider et créer le Livret2"/>
             <Button x:Name="cbValider"  Margin="10" Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et Quitter"/>
             <Button x:Name="cbQuitter" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Quitter"/>
         </UniformGrid>

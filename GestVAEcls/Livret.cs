@@ -18,16 +18,27 @@ namespace GestVAEcls
         public String TypeDemande { get; set; }
         public String OrigineDemande { get; set; }
 
-        public String EtatLivret { get; set; }
+        private String _EtatLivret;
+        public String EtatLivret {
+            get { return _EtatLivret; }
+            set {
+                if (value != _EtatLivret)
+                    {
+                    _EtatLivret = value;
+                    }
+                }
+        }
         public DateTime? DateEnvoiEHESP { get; set; }
         public DateTime? DateEnvoiCandidat { get; set; }
         public DateTime? DateReceptEHESP { get; set; }
         public DateTime? DateReceptEHESPComplet { get; set; }
         public virtual Diplome oDiplome { get; set; }
         public virtual ObservableCollection<Jury> lstJurys { get; set; }
+        public Boolean isClos { get; set; }
 
         public Livret()
         {
+            isClos = false;
             EtatLivret = "";
             Typestr = "";
             lstJurys = new ObservableCollection<Jury>();

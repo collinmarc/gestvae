@@ -15,10 +15,11 @@ namespace GestVAE.VM
         private Livret2 oL2 { get { return (Livret2)TheLivret; } }
         public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
         public DCLivretVM selectedDCLivret { get; set; }
-        public ObservableCollection<MembreJury> lstMembreJury{
+        private ObservableCollection<MembreJuryVM> _lstMembreJuryVM;
+        public ObservableCollection<MembreJuryVM> lstMembreJury{
             get
             {
-                return oL2.lstMembreJurys;
+                return _lstMembreJuryVM;
             }
         }
         public Livret2VM(Livret2 pLivret) : base(pLivret)
@@ -34,6 +35,13 @@ namespace GestVAE.VM
             {
                 lstDCLivret.Add(new DCLivretVM(oDCL));
             }
+
+            _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
+            foreach (MembreJury oItem in pLivret.lstMembreJurys)
+            {
+                lstMembreJury.Add(new MembreJuryVM(oItem));
+            }
+
         }
 
 
@@ -811,6 +819,20 @@ namespace GestVAE.VM
                     if (_ctx.Entry<PieceJointeL2>(oPJ).State == System.Data.Entity.EntityState.Detached)
                     {
                         oL2.lstPiecesJointes.Add(oPJ);
+                    }
+                }
+            }
+            foreach (MembreJuryVM item in lstMembreJury)
+            {
+                {
+                    MembreJury oPJ = item.MembreJuryItem;
+                    if (_ctx.Entry<MembreJury>(oPJ).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        oL2.lstMembreJurys.Add(oPJ);
+                    }
+                    if (_ctx.Entry<MembreJury>(oPJ).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        oL2.lstMembreJurys.Remove(oPJ);
                     }
                 }
             }

@@ -312,12 +312,30 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="3"
                                   AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="True" Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch">
+                        <DataGrid.Resources>
+                            <VM:BindingProxy x:Key="proxy" Data="{Binding VM, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
+                        </DataGrid.Resources>
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="1*"/>
-                            <DataGridTextColumn Header="College" Binding="{Binding College}" Width="1*"/>
-                            <DataGridTextColumn Header="Origine" Binding="{Binding Origine}" Width="1*"/>
-                            <DataGridTextColumn Header="Région" Binding="{Binding Region}" Width="1*"/>
+                            <DataGridComboBoxColumn Header="College" 
+                                                        SelectedValueBinding="{Binding College}"
+                                                        SelectedValuePath="Nom"
+                                                        ItemsSource="{Binding Data.lstParamCollege ,Source={StaticResource proxy}}"
+                                                            DisplayMemberPath="Nom"
+                                                    Width="2*"/>
+                            <DataGridComboBoxColumn Header="Origine" 
+                                                        SelectedValueBinding="{Binding Origine}" 
+                                                        SelectedValuePath="Nom"
+                                                        ItemsSource="{Binding Data.lstParamOrigine ,Source={StaticResource proxy}}"
+                                                             DisplayMemberPath="Nom"
+                                                    Width="2*"/>
+                            <DataGridComboBoxColumn Header="Région" 
+                                                 SelectedValueBinding="{Binding Region}" 
+                                                 SelectedValuePath="Nom"
+                                                 ItemsSource="{Binding Data.lstRegionVM ,Source={StaticResource proxy}}"
+                                                             DisplayMemberPath="Nom"
+                                                    Width="2*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -332,7 +350,7 @@
                                   Grid.Row="3"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="3"
-                                  AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch">
+                                  AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10,11,10,9" RowHeaderWidth="0" HorizontalAlignment="Stretch">
                         <DataGrid.Resources>
                             <localVM:Livret2VM x:Key="ComboItems"  />
                             <VM:BindingProxy x:Key="proxy" Data="{Binding}" />

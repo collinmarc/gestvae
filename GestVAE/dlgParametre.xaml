@@ -8,13 +8,8 @@
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" 
         x:Class="GestVAE.dlgParametre"
         mc:Ignorable="d"
-        Title="Paramètres de l'application"  Icon="IMG/diplome.ico" MinHeight="110" Height="592" SizeToContent="Height" WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFBCF5DB" Offset="0"/>
-            <GradientStop Color="#FF496659" Offset="1"/>
-        </LinearGradientBrush>
-    </Window.Background>
+        Title="Paramètres de l'application"  Icon="IMG/diplome.ico" MinHeight="110" Height="600" Width="800"  WindowStartupLocation="CenterScreen">
+    <ScrollViewer >
     <Grid ShowGridLines="True" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -26,8 +21,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
         <TextBlock Text="Région : " Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
         <DataGrid Name="dgRegion" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding lstRegionVM}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
             <DataGrid.Columns>
@@ -37,7 +34,7 @@
         </DataGrid>
         <TextBlock Text="Diplome : " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-            <DataGrid Name="dgDiplome"  ItemsSource="{Binding lstDiplomeVM}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
+            <DataGrid Name="dgDiplome"  ItemsSource="{Binding lstDiplomeVM}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" Margin="10">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nom" Binding="{Binding NomDiplome}" CanUserResize="False" SortDirection="Ascending" Width="1*"/>
                     <DataGridTextColumn Header="Descrption" Binding="{Binding DescriptionDiplome}" CanUserResize="False" SortDirection="Ascending" Width="3*"/>
@@ -109,7 +106,25 @@
             </DataGrid>
         </StackPanel>
 
-        <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="5"  IsCancel="True" HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="10"/>
+            <TextBlock Text="Collège : " Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <DataGrid Name="dgCollege" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding lstParamCollege}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Collège" Binding="{Binding Nom}" CanUserResize="False" SortDirection="Ascending" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock Text="Origine : " Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <DataGrid Name="dgOrigine" Grid.Row="6" Grid.Column="1" ItemsSource="{Binding lstParamOrigine}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Origine" Binding="{Binding Nom}" CanUserResize="False" SortDirection="Ascending" Width="*"/>
+                </DataGrid.Columns>
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Delete"  />
+                </DataGrid.InputBindings>
+
+            </DataGrid>
+            <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="7"  IsCancel="True" HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="10"/>
 
     </Grid>
+    </ScrollViewer>
 </Window>

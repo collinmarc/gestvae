@@ -38,6 +38,8 @@ namespace GestVAEcls
 
         public DbSet<Recours> dbRecours { get; set; }
         public DbSet<Region> Regions { get; set; }
+        public DbSet<ParamCollege> dbParamCollege { get; set; }
+        public DbSet<ParamOrigine> dbParamOrigine { get; set; }
         public DbSet<PieceJointeCategorie> pieceJointeCategories { get; set; }
         public DbSet<MotifGeneralL1> dbMotifGeneralL1 { get; set; }
         public DbSet<MotifGeneralL2> dbMotifGeneralL2 { get; set; }

@@ -117,6 +117,8 @@
     <Compile Include="Migrations\201902051132596_DateLimiteL1.Designer.cs">
       <DependentUpon>201902051132596_DateLimiteL1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ParamCollege.cs" />
+    <Compile Include="ParamOrigine.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Recours.cs" />
     <Compile Include="Jury.cs" />

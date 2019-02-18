@@ -27,6 +27,8 @@ namespace GestVAE.VM
         private Boolean _isBusy;
         private CandidatVM _candidatVM;
         public Action CloseAction { get; set; }
+        public ObservableCollection<ParamCollege> lstParamCollege { get; set; }
+        public ObservableCollection<ParamOrigine> lstParamOrigine { get; set; }
 
         public CandidatVM CurrentCandidat
         {
@@ -58,6 +60,8 @@ namespace GestVAE.VM
             _lstPieceJointeCategorie = new ObservableCollection<PieceJointeCategorie>();
             _lstMotifGL1 = new ObservableCollection<MotifGeneralL1>();
             _lstMotifGL2 = new ObservableCollection<MotifGeneralL2>();
+            lstParamCollege = new ObservableCollection<ParamCollege>();
+            lstParamOrigine = new ObservableCollection<ParamOrigine>();
 
             _SaveCommand = new SaveCommand(o => { saveData(); },
                                            o => { return hasChanges(); }
@@ -193,6 +197,28 @@ namespace GestVAE.VM
             {
                 item.Commit();
             }
+            foreach (ParamOrigine item in lstParamOrigine)
+            {
+                if (_ctx.Entry<ParamOrigine>(item).State == System.Data.Entity.EntityState.Detached)
+                {
+                    _ctx.dbParamOrigine.Add(item);
+                }
+                if (_ctx.Entry<ParamOrigine>(item).State == System.Data.Entity.EntityState.Deleted)
+                {
+                    _ctx.dbParamOrigine.Remove(item);
+                }
+            }
+            foreach (ParamCollege item in lstParamCollege)
+            {
+                if (_ctx.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Detached)
+                {
+                    _ctx.dbParamCollege.Add(item);
+                }
+                if (_ctx.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Deleted)
+                {
+                    _ctx.dbParamCollege.Remove(item);
+                }
+            }
             _ctx.SaveChanges();
         }
 
@@ -255,6 +281,16 @@ namespace GestVAE.VM
             }
             RaisePropertyChanged("lstMotifGL2");
 
+            lstParamCollege.Clear();
+            foreach (ParamCollege item in _ctx.dbParamCollege)
+            {
+                lstParamCollege.Add(item);
+            }
+            lstParamOrigine.Clear();
+            foreach (ParamOrigine item in _ctx.dbParamOrigine)
+            {
+                lstParamOrigine.Add(item);
+            }
 
 
             _lstCandidatVM.Clear();
@@ -270,10 +306,12 @@ namespace GestVAE.VM
             }
             CurrentCandidat = _lstCandidatVM[0];
 
+            
+
+
             RaisePropertyChanged("lstCandidatVM");
             RaisePropertyChanged("CurrentCandidat");
 
-            IsBusy = true;
 
             IsBusy = false;
 

@@ -132,6 +132,7 @@
     <Compile Include="VM\Livret1VM.cs" />
     <Compile Include="VM\MyViewModel.cs" />
     <Compile Include="VM\NotifyUIBase.cs" />
+    <Compile Include="VM\MembreJuryVM.cs" />
     <Compile Include="VM\RegionVM.cs" />
     <Compile Include="VM\VMBase.cs" />
     <Page Include="dlgDiplome.xaml">

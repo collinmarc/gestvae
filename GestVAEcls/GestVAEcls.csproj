@@ -50,73 +50,14 @@
     <Compile Include="Candidat.cs" />
     <Compile Include="DCLivret.cs" />
     <Compile Include="MembreJury.cs" />
+    <Compile Include="Migrations\201902192127516_Init3.cs" />
+    <Compile Include="Migrations\201902192127516_Init3.Designer.cs">
+      <DependentUpon>201902192127516_Init3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
-    <Compile Include="Migrations\201902051512484_PJCategorie.cs" />
-    <Compile Include="Migrations\201902051512484_PJCategorie.Designer.cs">
-      <DependentUpon>201902051512484_PJCategorie.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902052130505_PJ.cs" />
-    <Compile Include="Migrations\201902052130505_PJ.Designer.cs">
-      <DependentUpon>201902052130505_PJ.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902061602208_L1Dates.cs" />
-    <Compile Include="Migrations\201902061602208_L1Dates.Designer.cs">
-      <DependentUpon>201902061602208_L1Dates.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902071321503_DatesL1.cs" />
-    <Compile Include="Migrations\201902071321503_DatesL1.Designer.cs">
-      <DependentUpon>201902071321503_DatesL1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902071331258_DatesL1-Jurys.cs" />
-    <Compile Include="Migrations\201902071331258_DatesL1-Jurys.Designer.cs">
-      <DependentUpon>201902071331258_DatesL1-Jurys.cs</DependentUpon>
-    </Compile>
     <Compile Include="PieceJointeBase.cs" />
-    <Compile Include="Migrations\201901101003538_Recours.cs" />
-    <Compile Include="Migrations\201901101003538_Recours.Designer.cs">
-      <DependentUpon>201901101003538_Recours.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901101010442_Recours-Livret.cs" />
-    <Compile Include="Migrations\201901101010442_Recours-Livret.Designer.cs">
-      <DependentUpon>201901101010442_Recours-Livret.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901101017109_Recours-Livret_RQ.cs" />
-    <Compile Include="Migrations\201901101017109_Recours-Livret_RQ.Designer.cs">
-      <DependentUpon>201901101017109_Recours-Livret_RQ.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901101234294_Recours-Jury.cs" />
-    <Compile Include="Migrations\201901101234294_Recours-Jury.Designer.cs">
-      <DependentUpon>201901101234294_Recours-Jury.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901101335480_LivretIsRecours.cs" />
-    <Compile Include="Migrations\201901101335480_LivretIsRecours.Designer.cs">
-      <DependentUpon>201901101335480_LivretIsRecours.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901101430254_MotifRecours.cs" />
-    <Compile Include="Migrations\201901101430254_MotifRecours.Designer.cs">
-      <DependentUpon>201901101430254_MotifRecours.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901102204555_DCLivret.cs" />
-    <Compile Include="Migrations\201901102204555_DCLivret.Designer.cs">
-      <DependentUpon>201901102204555_DCLivret.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901102220437_DCLivret2.cs" />
-    <Compile Include="Migrations\201901102220437_DCLivret2.Designer.cs">
-      <DependentUpon>201901102220437_DCLivret2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901280852241_Region.cs" />
-    <Compile Include="Migrations\201901280852241_Region.Designer.cs">
-      <DependentUpon>201901280852241_Region.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902041525322_NumDiplome.cs" />
-    <Compile Include="Migrations\201902041525322_NumDiplome.Designer.cs">
-      <DependentUpon>201902041525322_NumDiplome.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902051132596_DateLimiteL1.cs" />
-    <Compile Include="Migrations\201902051132596_DateLimiteL1.Designer.cs">
-      <DependentUpon>201902051132596_DateLimiteL1.cs</DependentUpon>
-    </Compile>
     <Compile Include="ParamCollege.cs" />
     <Compile Include="ParamOrigine.cs" />
     <Compile Include="Region.cs" />
@@ -128,11 +69,6 @@
     <Compile Include="DiplomeCand.cs" />
     <Compile Include="GestVAE.cs" />
     <Compile Include="Livret.cs" />
-    <Compile Include="Migrations\201812281436295_Init.cs" />
-    <Compile Include="Migrations\201812281436295_Init.Designer.cs">
-      <DependentUpon>201812281436295_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DomaineCompetence.cs" />
     <Compile Include="Echanges.cs" />
     <Compile Include="PieceJointe.cs" />
@@ -155,60 +91,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812281436295_Init.resx">
-      <DependentUpon>201812281436295_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901101003538_Recours.resx">
-      <DependentUpon>201901101003538_Recours.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901101010442_Recours-Livret.resx">
-      <DependentUpon>201901101010442_Recours-Livret.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901101017109_Recours-Livret_RQ.resx">
-      <DependentUpon>201901101017109_Recours-Livret_RQ.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901101234294_Recours-Jury.resx">
-      <DependentUpon>201901101234294_Recours-Jury.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901101335480_LivretIsRecours.resx">
-      <DependentUpon>201901101335480_LivretIsRecours.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901101430254_MotifRecours.resx">
-      <DependentUpon>201901101430254_MotifRecours.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901102204555_DCLivret.resx">
-      <DependentUpon>201901102204555_DCLivret.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901102220437_DCLivret2.resx">
-      <DependentUpon>201901102220437_DCLivret2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901280852241_Region.resx">
-      <DependentUpon>201901280852241_Region.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902041525322_NumDiplome.resx">
-      <DependentUpon>201902041525322_NumDiplome.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902051132596_DateLimiteL1.resx">
-      <DependentUpon>201902051132596_DateLimiteL1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902051512484_PJCategorie.resx">
-      <DependentUpon>201902051512484_PJCategorie.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902052130505_PJ.resx">
-      <DependentUpon>201902052130505_PJ.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902061602208_L1Dates.resx">
-      <DependentUpon>201902061602208_L1Dates.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902071321503_DatesL1.resx">
-      <DependentUpon>201902071321503_DatesL1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902071331258_DatesL1-Jurys.resx">
-      <DependentUpon>201902071331258_DatesL1-Jurys.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
+    <EmbeddedResource Include="Migrations\201902192127516_Init3.resx">
+      <DependentUpon>201902192127516_Init3.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

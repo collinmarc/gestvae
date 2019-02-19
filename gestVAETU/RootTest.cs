@@ -22,12 +22,21 @@ namespace GestVAETU
             //using (ctx = Context.instance)
             //{
                 ;
-                //ctx.DomaineCompetenceCands.RemoveRange(ctx.DomaineCompetenceCands.ToList<DomaineCompetenceCand>());
-                //ctx.DiplomeCands.RemoveRange(ctx.DiplomeCands.ToList<DiplomeCand>());
-                //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-                //ctx.DomainesCompetences.RemoveRange(ctx.DomainesCompetences.ToList<DomaineCompetence>());
-                ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-                ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
+            //ctx.DomaineCompetenceCands.RemoveRange(ctx.DomaineCompetenceCands.ToList<DomaineCompetenceCand>());
+            //ctx.DiplomeCands.RemoveRange(ctx.DiplomeCands.ToList<DiplomeCand>());
+            //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
+            //ctx.DomainesCompetences.RemoveRange(ctx.DomainesCompetences.ToList<DomaineCompetence>());
+            //foreach(Candidat oCand in ctx.Candidats)
+            //{
+            //    ctx.Entry<Candidat>(oCand).State = System.Data.Entity.EntityState.Deleted;
+            //}
+            ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
+            //foreach (Diplome oItem in ctx.Diplomes)
+            //{
+            //    ctx.Entry<Diplome>(oItem).State = System.Data.Entity.EntityState.Deleted;
+            //}
+            ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
+//            ctx.DeleteOnCascade();
                 ctx.SaveChanges();
             //}
 

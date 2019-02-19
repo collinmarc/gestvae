@@ -20,6 +20,10 @@ namespace GestVAEcls
         public String MotifDetail { get; set; }
         public String MotifCommentaire { get; set; }
 
+        public virtual Livret1 oLivret1 { get; set; }
+        public virtual Livret2 oLivret2 { get; set; }
+
+
         public Jury() : base()
         {
             NomJury = "";

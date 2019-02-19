@@ -31,6 +31,7 @@ namespace GestVAEcls
         public String MotifDetail { get; set; }
         public String MotifCommentaire { get; set; }
         public virtual DomaineCompetence oDomaineCompetence{ get; set; }
+
         [Required]
         public virtual Livret2 oLivret2 { get; set; }
         public Boolean IsAValider { get; set; }

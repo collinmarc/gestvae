@@ -101,6 +101,74 @@ namespace GestVAEcls
 
         }
 
+        public void DeleteOnCascade()
 
+        {
+            foreach (Candidat oCand in Candidats)
+            {
+                if (Entry<Candidat>(oCand).State == System.Data.Entity.EntityState.Deleted)
+                {
+                    foreach (Livret1 oLiv in oCand.lstLivrets1)
+                    {
+                        Entry<Livret1>(oLiv).State = System.Data.Entity.EntityState.Deleted;
+                    }
+                    foreach (Livret2 oLiv in oCand.lstLivrets2)
+                    {
+                        Entry<Livret2>(oLiv).State = System.Data.Entity.EntityState.Deleted;
+                    }
+                }
+
+                foreach (Livret1 oLiv in oCand.lstLivrets1)
+                {
+                    if (Entry<Livret1>(oLiv).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        foreach (Jury oItem in oLiv.lstJurys)
+                        {
+                            Entry<Jury>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                        }
+
+                        foreach (Echange oItem in oLiv.lstEchanges)
+                        {
+                            Entry<Echange>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                        }
+                        foreach (PieceJointe oItem in oLiv.lstPiecesJointes)
+                        {
+                            Entry<PieceJointe>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                        }
+                        foreach (Recours oItem in oLiv.lstRecours)
+                        {
+                            Entry<Recours>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                        }
+                    }
+                }
+                foreach (Livret2 oLiv in oCand.lstLivrets2)
+                {
+                    if (Entry<Livret2>(oLiv).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        foreach (Jury oItem in oLiv.lstJurys)
+                        {
+                            Entry<Jury>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                        }
+
+                        foreach (Echange oItem in oLiv.lstEchanges)
+                        {
+                            Entry<Echange>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                        }
+                        foreach (PieceJointe oItem in oLiv.lstPiecesJointes)
+                        {
+                            Entry<PieceJointe>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                        }
+                        foreach (DCLivret oItem in oLiv.lstDCLivrets)
+                        {
+                            Entry<DCLivret>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                        }
+                        foreach (MembreJury oItem in oLiv.lstMembreJurys)
+                        {
+                            Entry<MembreJury>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

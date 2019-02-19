@@ -7,18 +7,18 @@ namespace GestVAEcls.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class PJ : IMigrationMetadata
+    public sealed partial class Init3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PJ));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init3));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902052130505_PJ"; }
+            get { return "201902192127516_Init3"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

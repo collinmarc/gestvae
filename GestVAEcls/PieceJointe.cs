@@ -31,7 +31,6 @@ namespace GestVAEcls
     public class PieceJointeL1 : PieceJointe
     {
         [Required]
-
         public virtual Livret1 oLivret { get; set; }
 
         public PieceJointeL1(String pCategorie, String pLibelle):base(pCategorie, pLibelle)

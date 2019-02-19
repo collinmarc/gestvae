@@ -57,11 +57,14 @@ namespace GestVAE.VM
 
         public void DeletePJ()
         {
-            // Set to be Deleted
-            _ctx.Entry<PieceJointeL1>((PieceJointeL1)selectedPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
-            //oL1.lstPiecesJointes.Remove((PieceJointeL1)selectedPJ.ThePiecejointe);
-            lstPieceJointe.Remove(selectedPJ);
-            RaisePropertyChanged("lstPieceJointe");
+            if (_ctx.Entry<PieceJointeL1>((PieceJointeL1)selectedPJ.ThePiecejointe).State != System.Data.Entity.EntityState.Detached)
+            {
+                // Set to be Deleted
+                _ctx.Entry<PieceJointeL1>((PieceJointeL1)selectedPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
+            }
+                //oL1.lstPiecesJointes.Remove((PieceJointeL1)selectedPJ.ThePiecejointe);
+                lstPieceJointe.Remove(selectedPJ);
+                RaisePropertyChanged("lstPieceJointe");
         }
 
     }

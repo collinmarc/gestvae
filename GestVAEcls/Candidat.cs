@@ -11,6 +11,7 @@ namespace GestVAEcls
     public enum Sexe { F, H };
     public class Candidat : GestVAE
     {
+        public String Civilite { get; set; }
         public String Nom { get; set; }
         public String Prenom { get; set; }
         public String Prenom2 { get; set; }
@@ -28,6 +29,7 @@ namespace GestVAEcls
         public String CodePostal { get; set; }
         public String Ville { get; set; }
         public String Region { get; set; }
+        public String Pays { get; set; }
         public String RegionTravail { get; set; }
         public String CPTravail { get; set; }
         public String VilleTravail { get; set; }

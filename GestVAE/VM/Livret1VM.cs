@@ -476,6 +476,47 @@ namespace GestVAE.VM
             }
         }
 
+        public DateTime? Date1ereDemandePieceManquantes
+        {
+            get { return oL1.Date1ereDemandePieceManquantes; }
+            set
+            {
+                if (value != Date1ereDemandePieceManquantes)
+                {
+                    oL1.Date1ereDemandePieceManquantes = value;
+                    RaisePropertyChanged();
+
+                }
+            }
+        }
+        public DateTime? Date2emeDemandePieceManquantes
+        {
+            get { return oL1.Date2emeDemandePieceManquantes; }
+            set
+            {
+                if (value != Date2emeDemandePieceManquantes)
+                {
+                    oL1.Date2emeDemandePieceManquantes = value;
+                    RaisePropertyChanged();
+
+                }
+            }
+        }
+        public DateTime? DateDemandePieceManquantesRetour
+        {
+            get { return oL1.DateDemandePieceManquantesRetour; }
+            set
+            {
+                if (value != DateDemandePieceManquantesRetour)
+                {
+                    oL1.DateDemandePieceManquantesRetour = value;
+                    RaisePropertyChanged();
+
+                }
+            }
+        }
+
+
         public DateTime? DateLimiteJury
         {
             get { return oL1.DateLimiteJury; }
@@ -1131,13 +1172,12 @@ namespace GestVAE.VM
 
         public Boolean IsRefuseRecours => DecisionJuryRecours.ToUpper().Contains("REFUS");
 
-        public void ClotureretCreerLivret2()
+        public void ClotureretCreerLivret2(CandidatVM pCandidat)
         {
 
             // CloturerLivret1
             IsLivretClos = true;
-            CandidatVM oCandVM = new CandidatVM(oL1.oCandidat);
-            oCandVM.AjoutLivret2(TheLivret.oDiplome);
+            pCandidat.AjoutLivret2(TheLivret.oDiplome);
         }
 
         public override void Commit()

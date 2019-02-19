@@ -111,6 +111,42 @@ namespace GestVAE.VM
                 }
             }
         }
+        public Boolean IsAttestationOK
+        {
+            get { return oL2.IsAttestationOK; }
+            set
+            {
+                if (value != IsAttestationOK)
+                {
+                    oL2.IsAttestationOK = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public Boolean IsCNIOK
+        {
+            get { return oL2.IsCNIOK; }
+            set
+            {
+                if (value != IsCNIOK)
+                {
+                    oL2.IsCNIOK = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public Boolean IsDispenseArt2
+        {
+            get { return oL2.IsDispenseArt2; }
+            set
+            {
+                if (value != IsDispenseArt2)
+                {
+                    oL2.IsDispenseArt2 = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public Boolean IsLivretClos
         {
@@ -394,7 +430,7 @@ namespace GestVAE.VM
                 }
             }
         }
-         public DateTime? DateEnvoiEHESP
+        public DateTime? DateEnvoiEHESP
         {
             get { return oL2.DateEnvoiEHESP; }
             set
@@ -404,6 +440,18 @@ namespace GestVAE.VM
                     oL2.DateEnvoiEHESP = value;
                     RaisePropertyChanged();
                     DateLimiteReceptEHESP = DateEnvoiEHESP.Value.AddDays(Properties.Settings.Default.DelaiReceptionL1);
+                }
+            }
+        }
+        public DateTime? DateEnvoiCandidat
+        {
+            get { return oL2.DateEnvoiCandidat; }
+            set
+            {
+                if (value != DateEnvoiCandidat)
+                {
+                    oL2.DateEnvoiCandidat = value;
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -460,6 +508,42 @@ namespace GestVAE.VM
             }
         }
 
+        public DateTime? DatePrevJury1
+        {
+            get { return oL2.DatePrevJury1; }
+            set
+            {
+                if (value != DatePrevJury1)
+                {
+                    oL2.DatePrevJury1 = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DatePrevJury2
+        {
+            get { return oL2.DatePrevJury2; }
+            set
+            {
+                if (value != DatePrevJury2)
+                {
+                    oL2.DatePrevJury2 = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String SessionJury
+        {
+            get { return oL2.SessionJury; }
+            set
+            {
+                if (value != SessionJury)
+                {
+                    oL2.SessionJury = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         public DateTime? DateLimiteJury
         {
             get { return oL2.DateLimiteJury; }

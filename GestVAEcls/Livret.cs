@@ -55,8 +55,9 @@ namespace GestVAEcls
         public DateTime? DateLimiteReceptEHESP { get; set; }
         public DateTime? DateLimiteJury { get; set; }
         public DateTime? DateValidite { get; set; }
-
-
+        public DateTime? Date1ereDemandePieceManquantes { get; set; }
+        public DateTime? Date2emeDemandePieceManquantes { get; set; }
+        public DateTime? DateDemandePieceManquantesRetour { get; set; }
         public virtual ObservableCollection<PieceJointeL1> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL1> lstEchanges { get; set; }
         [Required]
@@ -83,8 +84,14 @@ namespace GestVAEcls
         public DateTime? DateDemande { get; set; }
         public DateTime? DateLimiteEnvoiEHESP { get; set; }
         public DateTime? DateLimiteReceptEHESP { get; set; }
+        public DateTime? DatePrevJury1 { get; set; }
+        public DateTime? DatePrevJury2 { get; set; }
+        public String SessionJury { get; set; }
         public DateTime? DateLimiteJury { get; set; }
         public DateTime? DateValidite { get; set; }
+        public Boolean IsAttestationOK { get; set; }
+        public Boolean IsCNIOK { get; set; }
+        public Boolean IsDispenseArt2 { get; set; }
         public virtual ObservableCollection<PieceJointeL2> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
         public virtual ObservableCollection<DCLivret> lstDCLivrets { get; set; }
@@ -99,6 +106,7 @@ namespace GestVAEcls
             lstPiecesJointes = new ObservableCollection<PieceJointeL2>();
             lstEchanges = new ObservableCollection<EchangeL2>();
             lstDCLivrets = new ObservableCollection<DCLivret>();
+            lstMembreJurys = new ObservableCollection<MembreJury>();
             //           lstRecours = new ObservableCollection<Recours>();
 
         }
@@ -126,6 +134,9 @@ namespace GestVAEcls
                 if (oDC != null)
                 {
                     oDC.Statut = oDCCand.Statut;
+                    oDC.ModeObtention = oDCCand.ModeObtention;
+                    oDC.DateObtention = oDCCand.DateObtention;
+                    oDC.Commentaire = oDCCand.Commentaire;
                 }
             }
         }

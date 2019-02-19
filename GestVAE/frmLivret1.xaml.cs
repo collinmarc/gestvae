@@ -73,8 +73,7 @@ namespace GestVAE
             tbLieuJuryRecours.SetBinding(TextBox.TextProperty, "LieuJuryRecours");
             dtpDateJuryRecours.SetBinding(DatePicker.SelectedDateProperty, "DateJuryRecours");
 
-            cbxMotifRecours.SetBinding(ComboBox.SelectedItemProperty, "MotifRecours");
-            cbxMotifRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifRecours");
+            tbMotifRecours.SetBinding(TextBox.TextProperty, "MotifRecours");
 
             tbMotifRecoursCommentaire.SetBinding(TextBox.TextProperty, "MotifRecoursCommentaire");
 

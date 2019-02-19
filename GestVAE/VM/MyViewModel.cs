@@ -519,7 +519,7 @@ namespace GestVAE.VM
         public void CloturerL1etCreerL2()
             {
               Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
-              oLiv.ClotureretCreerLivret2();
+              oLiv.ClotureretCreerLivret2(CurrentCandidat);
             CloseCommand.Execute(this);
             }
 

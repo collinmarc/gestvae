@@ -76,6 +76,13 @@ namespace GestVAE.VM
 
         }
 
+
+        public String Civivilte
+        {
+            get { return TheCandidat.Civilite; }
+            set { TheCandidat.Civilite = value; RaisePropertyChanged(); }
+        }
+
         private DiplomeCandVM diplomeCAFDESCandidat
         {
             get

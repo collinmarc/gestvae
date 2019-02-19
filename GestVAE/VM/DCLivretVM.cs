@@ -36,6 +36,27 @@ namespace GestVAE.VM
                 return TheDCLivret.Statut;
             }
         }
+        public String ModeObtention
+        {
+            get
+            {
+                return TheDCLivret.ModeObtention;
+            }
+        }
+        public DateTime? DateObtention
+        {
+            get
+            {
+                return TheDCLivret.DateObtention;
+            }
+        }
+        public String Commentaire
+        {
+            get
+            {
+                return TheDCLivret.Commentaire;
+            }
+        }
         public String Decision
         {
             get

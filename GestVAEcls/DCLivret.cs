@@ -37,5 +37,9 @@ namespace GestVAEcls
 
         public String NomDC { get { return oDomaineCompetence.Nom; } }
         public String Statut { get; set; }
+        public DateTime? DateObtention { get; set; }
+        public String ModeObtention { get; set; }
+        public String Commentaire { get; set; }
+
     }
 }

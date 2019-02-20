@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public class Diplome:GestVAE
+    public class Diplome:GestVAEBase
     {
 
         public Diplome()

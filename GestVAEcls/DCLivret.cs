@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public class DCLivret:GestVAE
+    public class DCLivret:GestVAEBase
     {
         public DCLivret() : base()
         {

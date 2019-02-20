@@ -12,12 +12,12 @@ namespace GestVAE.VM
     {
         public Diplome TheDiplome;
 
-        public DiplomeVM()
+        public DiplomeVM():base()
         {
             TheDiplome = new Diplome();
         }
 
-        public DiplomeVM(Diplome pDiplome)
+        public DiplomeVM(Diplome pDiplome):base(pDiplome)
         {
             TheDiplome = pDiplome;
         }

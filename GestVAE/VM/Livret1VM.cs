@@ -25,6 +25,12 @@ namespace GestVAE.VM
 
         public Livret1VM() : base()
         {
+            Livret oReturn = null;
+
+            oReturn = new Livret1();
+            oReturn.oDiplome = Diplome.getDiplomeParDefaut();
+            TheItem = oReturn;
+
         }
 
         public String NomDiplome
@@ -1177,7 +1183,8 @@ namespace GestVAE.VM
 
             // CloturerLivret1
             IsLivretClos = true;
-            pCandidat.AjoutLivret2(TheLivret.oDiplome);
+            Livret2VM oLiv = new Livret2VM(TheLivret.oDiplome);
+            pCandidat.AjoutLivret2(oLiv);
         }
 
         public override void Commit()

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public class T1 : GestVAE
+    public class T1 : GestVAEBase
 
 
     {
@@ -18,7 +18,7 @@ namespace GestVAEcls
         }
         public virtual ICollection<T2> lstT2 { get; set; }
     }
-    public class T2 : GestVAE
+    public class T2 : GestVAEBase
     {
 
         public virtual T1 oT1 { get; set; }

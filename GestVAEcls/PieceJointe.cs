@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public abstract class PieceJointe : GestVAE
+    public abstract class PieceJointe : GestVAEBase
     {
         public String Categorie{ get; set; }
         public String Libelle { get; set; }

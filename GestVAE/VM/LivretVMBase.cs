@@ -12,19 +12,24 @@ namespace GestVAE.VM
 {
     public abstract class LivretVMBase:VMBase
     {
-        public Livret TheLivret { get; set; }
+        public Livret TheLivret {
+            get
+            {
+                return (Livret)TheItem;
+            }
+        }
         //public ObservableCollection<PieceJointeL1> lstPiecesJointes;
         public ObservableCollection<PieceJointeLivretVM> lstPieceJointe { get; set; }
         public PieceJointeLivretVM selectedPJ { get; set; }
 
-        public LivretVMBase(Livret pLivret)
+        public LivretVMBase(Livret pLivret):base(pLivret)
         {
-            TheLivret = pLivret;
             lstPieceJointe = new ObservableCollection<PieceJointeLivretVM>();
         }
 
-        public LivretVMBase()
+        public LivretVMBase():base()
         {
+            lstPieceJointe = new ObservableCollection<PieceJointeLivretVM>();
         }
 
         public String Typestr

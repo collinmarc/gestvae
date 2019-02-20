@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public class MotifGeneralL2 : GestVAE
+    public class MotifGeneralL2 : GestVAEBase
     {
         public String Libelle { get; set; }
 
@@ -21,7 +21,7 @@ namespace GestVAEcls
         public virtual ObservableCollection<MotifDetailleL2> lstMotifDetaille { get; set; }
 
     }
-    public class MotifDetailleL2 : GestVAE
+    public class MotifDetailleL2 : GestVAEBase
     {
         [Required]
         public virtual MotifGeneralL2 MotifGL2 { get; set; }

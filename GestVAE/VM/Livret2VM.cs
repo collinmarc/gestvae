@@ -25,6 +25,7 @@ namespace GestVAE.VM
         public Livret2VM(Livret2 pLivret) : base(pLivret)
         {
             lstDCLivret = new ObservableCollection<DCLivretVM>();
+            _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
 
             foreach (PieceJointeL2 opj in pLivret.lstPiecesJointes)
             {
@@ -36,7 +37,6 @@ namespace GestVAE.VM
                 lstDCLivret.Add(new DCLivretVM(oDCL));
             }
 
-            _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
             foreach (MembreJury oItem in pLivret.lstMembreJurys)
             {
                 lstMembreJury.Add(new MembreJuryVM(oItem));
@@ -47,6 +47,23 @@ namespace GestVAE.VM
 
         public Livret2VM() : base()
         {
+            Livret oReturn = null;
+
+            oReturn = new Livret2();
+            oReturn.oDiplome = Diplome.getDiplomeParDefaut();
+            TheItem = oReturn;
+
+            lstDCLivret = new ObservableCollection<DCLivretVM>();
+            _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
+        }
+        public Livret2VM(Diplome pDip) : base()
+        {
+            Livret oReturn = null;
+
+            oReturn = new Livret2();
+            oReturn.oDiplome = pDip;
+            TheItem = oReturn;
+
             lstDCLivret = new ObservableCollection<DCLivretVM>();
         }
 

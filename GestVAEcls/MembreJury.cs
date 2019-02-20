@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public class MembreJury: GestVAE
+    public class MembreJury: GestVAEBase
     {
         public String Nom { get; set; }
         public String College { get; set; }

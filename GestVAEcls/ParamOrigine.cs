@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public  class ParamOrigine : GestVAE
+    public  class ParamOrigine : GestVAEBase
     {
         public String Nom { get; set; }
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace GestVAE.VM
             set { _LivretVM = value; RaisePropertyChanged(); }
         }
 
-        public CandidatVM(Candidat pCandidat)
+        public CandidatVM(Candidat pCandidat):base(pCandidat)
         {
             TheCandidat = pCandidat;
             lstDiplomesCandVMs = new ObservableCollection<DiplomeCandVM>();
@@ -53,7 +54,7 @@ namespace GestVAE.VM
 
 
         }
-        public CandidatVM()
+        public CandidatVM():base()
         {
             TheCandidat = new Candidat();
             lstDiplomesCandVMs = new ObservableCollection<DiplomeCandVM>();
@@ -287,7 +288,7 @@ namespace GestVAE.VM
         {
             RaisePropertyChanged("lstLivrets");
         }
-        public void AjoutCurrentLivret1(Livret1VM pLivret)
+        public void AjouLivret1(Livret1VM pLivret)
         {
             
             TheCandidat.lstLivrets1.Add((Livret1)pLivret.TheLivret);
@@ -295,36 +296,12 @@ namespace GestVAE.VM
             refreshlstLivrets();
         }
  
-        public Livret2VM AjoutLivret2()
+        public void AjoutLivret2(Livret2VM pLivret)
         {
-            Diplome oDiplome = Diplome.getDiplomeParDefaut();
-            Livret2 oLiv = new Livret2(oDiplome);
-            TheCandidat.lstLivrets2.Add(oLiv);
-            Livret2VM oLiv2VM = new Livret2VM(oLiv);
-            oLiv2VM.DateDemande = DateTime.Now;
-            oLiv2VM.Numero = Convert.ToString(TheCandidat.lstLivrets2.Count() + 1);
-            // Récupération du diplome du candidat (si présent)
-            DiplomeCand oDiplomeCandidat =  TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oDiplome.ID).FirstOrDefault();
-            if (oDiplomeCandidat != null)
-            {
-                oLiv.InitDCLivrets(oDiplomeCandidat);
-            }
+            TheCandidat.lstLivrets2.Add((Livret2)pLivret.TheLivret);
+            lstLivrets.Add(pLivret);
+            refreshlstLivrets();
 
-            lstLivrets.Add(oLiv2VM);
-            refreshlstLivrets();
-            return oLiv2VM;
-        }
-        public Livret2VM AjoutLivret2(Diplome pDiplome)
-        {
-            Livret2 oLiv = new Livret2(pDiplome);
-            oLiv.EtatLivret = "0-Demandé";
-            oLiv.DateDemande = DateTime.Now;
-            oLiv.Numero = Convert.ToString(TheCandidat.lstLivrets2.Count() + 1);
-            TheCandidat.lstLivrets2.Add(oLiv);
-            Livret2VM oLiv2VM = new Livret2VM(oLiv);
-            lstLivrets.Add(oLiv2VM);
-            refreshlstLivrets();
-            return oLiv2VM;
         }
 
         public void Commit()
@@ -380,16 +357,16 @@ namespace GestVAE.VM
         {
 
             LivretVMBase pLiv = CurrentLivret;
-            if (pLiv.Typestr == "LIVRET1")
+            if (!pLiv.IsNew)
             {
-                // Set to be Deleted
-                _ctx.Entry<Livret1>((Livret1)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
+                    _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
             }
-            if (pLiv.Typestr == "LIVRET2")
+            else
             {
-                // Set to be Deleted
-                _ctx.Entry<Livret2>((Livret2)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
+                    // Detache l'entity
+                    _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Detached;
             }
+            CurrentLivret.IsDeleted = true;
             lstLivrets.Remove(pLiv);
             RaisePropertyChanged("lstLivrets");
 

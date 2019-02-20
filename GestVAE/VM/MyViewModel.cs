@@ -146,6 +146,10 @@ namespace GestVAE.VM
         }
         public void saveData()
         {
+            foreach (CandidatVM item in lstCandidatVM)
+            {
+                item.Commit();
+            }
             foreach (PieceJointeCategorie item in lstPieceJointeCategorie)
             {
                 if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Detached)
@@ -469,18 +473,41 @@ namespace GestVAE.VM
         {
 
             CandidatVM oCandVM = CurrentCandidat;
-            Livret1 oLiv = (Livret1)oCandVM.TheCandidat.CreerLivret1(Diplome.getDiplomeParDefaut());
-            Livret1VM oLivVM = new Livret1VM(oLiv);
+            Livret1VM oLivVM = new Livret1VM();
             oLivVM.EtatLivret = oLivVM.LstEtatLivret[0];
             oLivVM.DateDemande = DateTime.Now;
             CurrentCandidat.CurrentLivret = oLivVM;
 
             frmLivret1 odlg = new frmLivret1();
-
             odlg.setContexte(this);
-
             odlg.ShowDialog();
         }//AjouteL1
+         /// <summary>
+         /// Ajout d'un Livret2
+         /// </summary>
+        public void AjouteL2()
+        {
+            CandidatVM oCandVM = CurrentCandidat;
+            Livret2VM oLivVM = new Livret2VM();
+
+            oLivVM.EtatLivret = oLivVM.LstEtatLivret[1];
+            oLivVM.DateDemande = DateTime.Now;
+            oLivVM.Numero = Convert.ToString(CurrentCandidat.lstLivrets.Count() + 1);
+            
+            // Récupération du diplome du candidat (si présent)
+            DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
+            if (oDiplomeCandidat != null)
+            {
+                ((Livret2)oLivVM.TheLivret).InitDCLivrets(oDiplomeCandidat);
+            }
+
+            CurrentCandidat.CurrentLivret = oLivVM;
+
+            frmLivret2 odlg = new frmLivret2();
+            odlg.setContexte(this);
+            odlg.ShowDialog();
+
+        }
         public void AjoutePJL1()
         {
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
@@ -497,24 +524,7 @@ namespace GestVAE.VM
             oLiv.DeletePJ();
         }
 
-        /// <summary>
-        /// Ajout d'un Livret2
-        /// </summary>
-        public void AjouteL2()
-        {
-            CandidatVM oCandVM = CurrentCandidat;
-            Livret2VM oLivVM= CurrentCandidat.AjoutLivret2();
 
-            oLivVM.EtatLivret = oLivVM.LstEtatLivret[1];
-            oLivVM.DateDemande = DateTime.Now;
-            CurrentCandidat.CurrentLivret = oLivVM;
-
-            frmLivret2 odlg = new frmLivret2();
-
-            odlg.setContexte(this);
-
-            odlg.ShowDialog();
-        }
 
         public void CloturerL1etCreerL2()
             {
@@ -548,13 +558,11 @@ namespace GestVAE.VM
             // Validation du conenu du Livret
             oL1VM.Commit();
             // Si le livret est Nouveau => Ajout dans la Collection des Livrets
-            if (_ctx.Entry<Livret1>((Livret1)oL1VM.TheLivret).State == System.Data.Entity.EntityState.Detached)
+            if (oL1VM.IsNew)
             {
-                CurrentCandidat.TheCandidat.lstLivrets1.Add((Livret1)oL1VM.TheLivret);
-                CurrentCandidat.lstLivrets.Add(CurrentCandidat.CurrentLivret);
+                CurrentCandidat.AjouLivret1(oL1VM);
             }
-
-            RaisePropertyChanged("lstLivrets");
+//            _ctx.Histos.Add(new Histo("AjoutCandidat"));
             CloseAction();
         }
 
@@ -564,12 +572,10 @@ namespace GestVAE.VM
             // Validation du conenu du Livret
             oL2VM.Commit();
             // Si le livret est Nouveau => Ajout dans la Collection des Livrets
-            if (_ctx.Entry<Livret2>((Livret2)oL2VM.TheLivret).State == System.Data.Entity.EntityState.Detached)
+            if (oL2VM.IsNew)
             {
-                CurrentCandidat.TheCandidat.lstLivrets2.Add((Livret2)oL2VM.TheLivret);
-                CurrentCandidat.lstLivrets.Add(CurrentCandidat.CurrentLivret);
+                CurrentCandidat.AjoutLivret2(oL2VM);
             }
-            CurrentCandidat.refreshlstLivrets();
             CloseAction();
         }
 

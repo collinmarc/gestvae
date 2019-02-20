@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public  class Region : GestVAE
+    public  class Region : GestVAEBase
     {
         public String Nom { get; set; }
 

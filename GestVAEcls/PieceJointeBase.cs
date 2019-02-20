@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public class PieceJointeCategorie : GestVAE
+    public class PieceJointeCategorie : GestVAEBase
     {
         public String Livret { get; set; }
         public String Categorie { get; set; }
@@ -23,7 +23,7 @@ namespace GestVAEcls
         public virtual ObservableCollection<PieceJointeItem> lstPJItems { get; set; }
 
     }
-    public class PieceJointeItem : GestVAE
+    public class PieceJointeItem : GestVAEBase
     {
         [Required]
         public virtual PieceJointeCategorie CategoriePJ { get; set; }

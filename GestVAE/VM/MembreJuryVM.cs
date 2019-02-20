@@ -10,13 +10,13 @@ namespace GestVAE.VM
     public class MembreJuryVM: VMBase
     {
         private MembreJury TheMembreJury;
-        public MembreJuryVM(GestVAEcls.MembreJury pMembre)
+        public MembreJuryVM(GestVAEcls.MembreJury pMembre):base(pMembre)
         {
             TheMembreJury = pMembre;
             IsNew = false;
         }
 
-        public MembreJuryVM()
+        public MembreJuryVM():base()
         {
             TheMembreJury = new MembreJury();
             IsNew = true;

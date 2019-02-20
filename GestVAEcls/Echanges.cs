@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public abstract class Echange : GestVAE
+    public abstract class Echange : GestVAEBase
     {
         public DateTime? DateEch { get; set; }
         public String MotifEch { get; set; }

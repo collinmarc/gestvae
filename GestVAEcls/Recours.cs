@@ -13,7 +13,7 @@ namespace GestVAEcls
         Contentieux
 
     }
-    public class Recours: GestVAE
+    public class Recours: GestVAEBase
     {
         
         public DateTime? DateDepot{ get; set; }

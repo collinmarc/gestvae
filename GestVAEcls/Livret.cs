@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public abstract class Livret : GestVAE
+    public abstract class Livret : GestVAEBase
     {
         public DateTime? DateEcheance { get; set; }
         [NotMapped]

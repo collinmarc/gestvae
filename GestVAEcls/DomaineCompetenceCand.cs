@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public class DomaineCompetenceCand:GestVAE
+    public class DomaineCompetenceCand:GestVAEBase
     {
 
         public DomaineCompetenceCand() : base()

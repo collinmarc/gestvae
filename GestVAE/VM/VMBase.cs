@@ -12,6 +12,7 @@ namespace GestVAE.VM
 
         protected Context _ctx = Context.instance;
         private bool isNew = true;
+        public GestVAEBase TheItem { get; set; }
         public bool IsNew
         {
             get { return isNew; }
@@ -43,5 +44,19 @@ namespace GestVAE.VM
                 RaisePropertyChanged();
             }
         }  
+
+        public  VMBase()
+        {
+            IsNew = true;
+            IsDeleted = false;
+            IsSelected = false;
+        }
+        public VMBase(GestVAEBase pItem)
+        {
+            IsNew = false;
+            IsDeleted = false;
+            IsSelected = false;
+            TheItem = pItem;
+        }
     }
 }

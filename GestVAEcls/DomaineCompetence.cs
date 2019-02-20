@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public class DomaineCompetence:GestVAE
+    public class DomaineCompetence:GestVAEBase
     {
 
         public DomaineCompetence():base()

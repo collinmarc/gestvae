@@ -12,12 +12,12 @@ namespace GestVAE.VM
     {
         public DCLivret TheDCLivret;
 
-        public DCLivretVM()
+        public DCLivretVM():base()
         {
             TheDCLivret = new DCLivret();
         }
 
-        public DCLivretVM(DCLivret pDCLivret)
+        public DCLivretVM(DCLivret pDCLivret):base(pDCLivret)
         {
             TheDCLivret = pDCLivret;
         }

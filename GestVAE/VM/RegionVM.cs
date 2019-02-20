@@ -10,13 +10,13 @@ namespace GestVAE.VM
     public class RegionVM: VMBase
     {
         private Region TheRegion;
-        public RegionVM(GestVAEcls.Region pRegion)
+        public RegionVM(GestVAEcls.Region pRegion):base(pRegion)
         {
             TheRegion = pRegion;
             IsNew = false;
         }
 
-        public RegionVM()
+        public RegionVM():base()
         {
             TheRegion = new Region();
             IsNew = true;

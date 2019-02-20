@@ -13,7 +13,7 @@ namespace GestVAE.VM
         public PieceJointe ThePiecejointe;
         public String strLivret { get; set; }
 
-        public PieceJointeLivretVM(String pLivret)
+        public PieceJointeLivretVM(String pLivret):base()
         {
             if (pLivret == "L1")
             {
@@ -27,7 +27,7 @@ namespace GestVAE.VM
             strLivret = pLivret;
         }
 
-        public PieceJointeLivretVM(PieceJointe pPieceJointe, String pLivret)
+        public PieceJointeLivretVM(PieceJointe pPieceJointe, String pLivret):base(pPieceJointe)
         {
             ThePiecejointe = pPieceJointe;
             strLivret = pLivret;

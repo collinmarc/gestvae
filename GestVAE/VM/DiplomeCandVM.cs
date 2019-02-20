@@ -11,13 +11,13 @@ namespace GestVAE.VM
     public class DiplomeCandVM:VMBase
     {
         public DiplomeCand TheDiplomeCand { get; set; }
-        public DiplomeCandVM(DiplomeCand pDiplomeCand)
+        public DiplomeCandVM(DiplomeCand pDiplomeCand):base(pDiplomeCand)
         {
             TheDiplomeCand = pDiplomeCand;
         }
 
 
-        public DiplomeCandVM()
+        public DiplomeCandVM():base()
         {
         }
         public Diplome oDiplome

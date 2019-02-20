@@ -9,7 +9,7 @@ namespace GestVAEcls
 {
 
     public enum Sexe { F, H };
-    public class Candidat : GestVAE
+    public class Candidat : GestVAEBase
     {
         public String Civilite { get; set; }
         public String Nom { get; set; }

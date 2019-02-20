@@ -131,13 +131,15 @@ namespace GestVAEcls
             foreach (DomaineCompetenceCand oDCCand in pdiplomeCand.lstDCCands)
             {
                 DCLivret oDC = lstDCLivrets.Where(i => i.NomDC == oDCCand.NomDomaineCompetence).FirstOrDefault();
-                if (oDC != null)
+                if (oDC == null)
                 {
-                    oDC.Statut = oDCCand.Statut;
-                    oDC.ModeObtention = oDCCand.ModeObtention;
-                    oDC.DateObtention = oDCCand.DateObtention;
-                    oDC.Commentaire = oDCCand.Commentaire;
+                    oDC = new DCLivret(oDCCand.oDomaineCompetence);
+                    lstDCLivrets.Add(oDC);
                 }
+                oDC.Statut = oDCCand.Statut;
+                oDC.ModeObtention = oDCCand.ModeObtention;
+                oDC.DateObtention = oDCCand.DateObtention;
+                oDC.Commentaire = oDCCand.Commentaire;
             }
         }
         /// <summary>
@@ -162,19 +164,16 @@ namespace GestVAEcls
                     DCLivret oDCLiv = lstDCLivrets.FirstOrDefault(dc => (dc.IsAValider && dc.oDomaineCompetence.ID == item.oDomaineCompetence.ID));
                     if (oDCLiv != null)
                     {
-                        if (oDCLiv.Decision.ToUpper().Contains("VALIDATION"))
+                        if (oDCLiv.Decision.ToUpper().StartsWith("10-"))
                         {
                             item.Statut = "Validé";
-                            item.ModeObtention = "VAE";
-                            item.DateObtention = this.lstJurys[0].DateJury;
                         }
-                        if (oDCLiv.Decision.ToUpper().Contains("REFUS"))
+                        if (oDCLiv.Decision.ToUpper().StartsWith("20-"))
                         {
                             item.Statut = "Refusé";
-                            item.DateObtention = this.lstJurys[0].DateJury;
-                            item.ModeObtention = "VAE";
-                            item.DateObtention = this.lstJurys[0].DateJury;
                         }
+                        item.ModeObtention = "VAE";
+                        item.DateObtention = this.lstJurys[0].DateJury;
                     }
                 }
                 oDipCand.CalculerStatut();

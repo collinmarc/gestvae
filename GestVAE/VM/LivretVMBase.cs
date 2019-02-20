@@ -41,11 +41,11 @@ namespace GestVAE.VM
         }
 
         public virtual void Commit() { }
-        public void AjoutePJ(String pLivret)
+        public void AjoutePJ(String pstrLivret)
         {
             // Récupération de la première catégorie
             String strCat = lstCategoriePJ[0];
-            PieceJointeLivretVM opjVM = new PieceJointeLivretVM(pLivret);
+            PieceJointeLivretVM opjVM = new PieceJointeLivretVM(pstrLivret);
             opjVM.Categorie = strCat;
             // Récupération du libellé
             if (opjVM.lstLibellePJ.Count > 0)
@@ -61,15 +61,16 @@ namespace GestVAE.VM
         { get; }
 
         public void DeletePJ()
+
         {
-            if (_ctx.Entry<PieceJointeL1>((PieceJointeL1)selectedPJ.ThePiecejointe).State != System.Data.Entity.EntityState.Detached)
+            PieceJointeLivretVM oPJ = selectedPJ;
+            if (!oPJ.IsNew)
             {
-                // Set to be Deleted
-                _ctx.Entry<PieceJointeL1>((PieceJointeL1)selectedPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
+                _ctx.Entry<PieceJointe>(oPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
+
             }
-                //oL1.lstPiecesJointes.Remove((PieceJointeL1)selectedPJ.ThePiecejointe);
-                lstPieceJointe.Remove(selectedPJ);
-                RaisePropertyChanged("lstPieceJointe");
+            lstPieceJointe.Remove(selectedPJ);
+            RaisePropertyChanged("lstPieceJointe");
         }
 
     }

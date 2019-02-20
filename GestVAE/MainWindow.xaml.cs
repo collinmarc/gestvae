@@ -36,6 +36,7 @@ namespace GestVAE
         {
             InitializeComponent();
             tbRechIdentVAE.SetBinding(TextBox.TextProperty, "rechIdentifiantVAE");
+            tbRechIdentSISCOLE.SetBinding(TextBox.TextProperty, "rechIdentifiantSISCOLE");
             tbRechNom.SetBinding(TextBox.TextProperty, "rechNom");
             tbRechPrénom.SetBinding(TextBox.TextProperty, "rechPrenom");
             tbRechVille.SetBinding(TextBox.TextProperty, "rechVille");

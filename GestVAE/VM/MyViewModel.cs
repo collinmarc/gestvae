@@ -84,7 +84,7 @@ namespace GestVAE.VM
                                            );
             AjoutePJL2Command = new RelayCommand<MyViewModel>(o => { AjoutePJL2(); }
                                            );
-            DeletePJL1Command = new RelayCommand<MyViewModel>(o => { DeletePJ(); }
+            DeletePJCommand = new RelayCommand<MyViewModel>(o => { DeletePJ(); }
                                            );
             AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); }
                                            );
@@ -98,7 +98,11 @@ namespace GestVAE.VM
                                            );
             CloseCommand = new RelayCommand<MyViewModel>(o => { CloseWindowL1(); }
                                            );
+            DeleteCandidatCommand = new RelayCommand<MyViewModel>(o => { DeleteCandidat(); }
+                                           );
 
+            CloturerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL2(); }
+                                           );
             //getData();
         }
         public ObservableCollection<CandidatVM> lstCandidatVM
@@ -310,7 +314,7 @@ namespace GestVAE.VM
             }
             CurrentCandidat = _lstCandidatVM[0];
 
-            
+
 
 
             RaisePropertyChanged("lstCandidatVM");
@@ -417,13 +421,16 @@ namespace GestVAE.VM
         public ICommand AjouteL1Command { get; set; }
         public ICommand AjoutePJL1Command { get; set; }
         public ICommand AjoutePJL2Command { get; set; }
-        public ICommand DeletePJL1Command { get; set; }
+        public ICommand DeletePJCommand { get; set; }
         public ICommand AjouteL2Command { get; set; }
         public ICommand ValideretQuitterL1Command { get; set; }
         public ICommand ValideretQuitterL2Command { get; set; }
         public ICommand CloturerL1etCreerL2Command { get; set; }
+        public ICommand CloturerL2Command { get; set; }
         public ICommand CloseCommand { get; set; }
+        public ICommand DeleteCandidatCommand { get; set; }
         public String rechIdentifiantVAE { get; set; }
+        public String rechIdentifiantSISCOLE { get; set; }
         public String rechNom { get; set; }
         public String rechPrenom { get; set; }
         public String rechVille { get; set; }
@@ -439,6 +446,10 @@ namespace GestVAE.VM
             if (!String.IsNullOrEmpty(rechIdentifiantVAE))
             {
                 rq = rq.Where(c => c.IdVAE.Equals(rechIdentifiantVAE));
+            }
+            if (!String.IsNullOrEmpty(rechIdentifiantSISCOLE))
+            {
+                rq = rq.Where(c => c.IdSiscole.Equals(rechIdentifiantSISCOLE));
             }
             if (!String.IsNullOrEmpty(rechNom))
             {
@@ -456,7 +467,16 @@ namespace GestVAE.VM
                 CandidatVM oCand = new CandidatVM(item);
                 _lstCandidatVM.Add(oCand);
             }
+            if (_lstCandidatVM.Count > 0)
+            { 
+                CurrentCandidat = _lstCandidatVM[0];
+            }
+            else
+            {
+                CurrentCandidat =null;
+            }
             RaisePropertyChanged("lstCandidatVM");
+            RaisePropertyChanged("CurrentCandidat");
         }
         public void AjouteDiplomeCand()
         {
@@ -499,6 +519,11 @@ namespace GestVAE.VM
             if (oDiplomeCandidat != null)
             {
                 ((Livret2)oLivVM.TheLivret).InitDCLivrets(oDiplomeCandidat);
+                foreach (DCLivret oDCL in ((Livret2)oLivVM.TheLivret).lstDCLivrets)
+                {
+                    oLivVM.lstDCLivret.Add(new DCLivretVM(oDCL));
+                }
+
             }
 
             CurrentCandidat.CurrentLivret = oLivVM;
@@ -520,7 +545,7 @@ namespace GestVAE.VM
         }
         public void DeletePJ()
         {
-            Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
+            LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
             oLiv.DeletePJ();
         }
 
@@ -533,6 +558,11 @@ namespace GestVAE.VM
             CloseCommand.Execute(this);
             }
 
+        public void CloturerL2()
+        {
+            Livret2VM oLiv = (Livret2VM)CurrentCandidat.CurrentLivret;
+            oLiv.Cloturer();
+        }
 
         public void GestionDiplome()
         {
@@ -599,6 +629,16 @@ namespace GestVAE.VM
         public void ModelHasChanges()
         {
             _modelhasChanges = true;
+        }
+
+        public void DeleteCandidat()
+        {
+            if (CurrentCandidat != null)
+            {
+                _ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
+                lstCandidatVM.Remove(CurrentCandidat);
+            }
+   
         }
 
     }

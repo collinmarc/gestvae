@@ -426,7 +426,7 @@ namespace GestVAE.VM
             {
                 List<String> oReturn = new List<String>();
                 oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
-                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE));
                 return oReturn;
             }
             set { }
@@ -965,6 +965,12 @@ namespace GestVAE.VM
                 return (from item in _ctx.dbMotifGeneralL2
                         select item.Libelle).ToList<String>();
             }
+        }
+
+        public void Cloturer()
+        {
+            IsLivretClos = true;
+            oL2.ValiderLivret2();
         }
 
  

@@ -56,6 +56,7 @@ namespace GestVAE
             cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
             cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL2");
 
+            tabEchanges.Visibility = Visibility.Hidden;
         }
 
         public void setContexte(MyViewModel pViewModel)

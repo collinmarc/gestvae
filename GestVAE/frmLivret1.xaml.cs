@@ -90,7 +90,7 @@ namespace GestVAE
 
             tbCommentaireRecours.SetBinding(TextBox.TextProperty, "CommentaireJuryRecours");
 
-
+            tabEchanges.Visibility = Visibility.Hidden;
         }
 
         public void setContexte(MyViewModel pViewModel)

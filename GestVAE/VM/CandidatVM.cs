@@ -78,11 +78,34 @@ namespace GestVAE.VM
         }
 
 
-        public String Civivilte
+        public String Civilite
         {
             get { return TheCandidat.Civilite; }
             set { TheCandidat.Civilite = value; RaisePropertyChanged(); }
         }
+        public String Nom
+        {
+            get { return TheCandidat.Nom; }
+            set { TheCandidat.Nom = value; RaisePropertyChanged(); }
+        }
+
+        public String Prenom
+        {
+            get { return TheCandidat.Prenom; }
+            set { TheCandidat.Prenom = value; RaisePropertyChanged(); }
+        }
+
+        public String Ville
+        {
+            get { return TheCandidat.Ville; }
+            set { TheCandidat.Ville = value; RaisePropertyChanged(); }
+        }
+        public String IdSiscole
+        {
+            get { return TheCandidat.IdSiscole; }
+            set { TheCandidat.IdSiscole = value; RaisePropertyChanged(); }
+        }
+
 
         private DiplomeCandVM diplomeCAFDESCandidat
         {
@@ -290,17 +313,25 @@ namespace GestVAE.VM
         }
         public void AjouLivret1(Livret1VM pLivret)
         {
-            
-            TheCandidat.lstLivrets1.Add((Livret1)pLivret.TheLivret);
-            lstLivrets.Add(pLivret);
-            refreshlstLivrets();
+            DbEntityEntry oEntity = _ctx.Entry(pLivret.TheLivret);
+            if (oEntity.State == System.Data.Entity.EntityState.Detached)
+            {
+
+                TheCandidat.lstLivrets1.Add((Livret1)pLivret.TheLivret);
+                lstLivrets.Add(pLivret);
+                refreshlstLivrets();
+            }
         }
  
         public void AjoutLivret2(Livret2VM pLivret)
         {
-            TheCandidat.lstLivrets2.Add((Livret2)pLivret.TheLivret);
-            lstLivrets.Add(pLivret);
-            refreshlstLivrets();
+           DbEntityEntry oEntity = _ctx.Entry(pLivret.TheLivret);
+            if (oEntity.State == System.Data.Entity.EntityState.Detached)
+            {
+                TheCandidat.lstLivrets2.Add((Livret2)pLivret.TheLivret);
+                lstLivrets.Add(pLivret);
+                refreshlstLivrets();
+            }
 
         }
 

@@ -1197,10 +1197,6 @@ namespace GestVAE.VM
                 {
                     oL1.lstPiecesJointes.Add(oPJ);
                 }
-                //if (_ctx.Entry<PieceJointeL1>(oPJ).State == System.Data.Entity.EntityState.Deleted)
-                //{
-                //    oL1.lstPiecesJointes.Remove(oPJ);
-                //}
             }
 
         }

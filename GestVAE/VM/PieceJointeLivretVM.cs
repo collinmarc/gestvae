@@ -13,18 +13,18 @@ namespace GestVAE.VM
         public PieceJointe ThePiecejointe;
         public String strLivret { get; set; }
 
-        public PieceJointeLivretVM(String pLivret):base()
+        public PieceJointeLivretVM(String pstrLivret):base()
         {
-            if (pLivret == "L1")
+            if (pstrLivret == "L1")
             {
-                ThePiecejointe = new PieceJointeL1("...", "...");
+                ThePiecejointe = new PieceJointeL1();
             }
             else
             {
-                ThePiecejointe = new PieceJointeL2("...", "...");
+                ThePiecejointe = new PieceJointeL2();
 
             }
-            strLivret = pLivret;
+            strLivret = pstrLivret;
         }
 
         public PieceJointeLivretVM(PieceJointe pPieceJointe, String pLivret):base(pPieceJointe)

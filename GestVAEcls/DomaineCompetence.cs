@@ -24,7 +24,8 @@ namespace GestVAEcls
         [Index]
         public int Numero { get; set; }
         public String Nom { get; set; }
-
+        public virtual int Diplome_ID { get; set; }
+        [ForeignKey("Diplome_ID")]
         [Required]
         public virtual Diplome oDiplome { get; set; }
        //public virtual ObservableCollection<DomaineCompetenceCand> lstDCCands { get; set; }

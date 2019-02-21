@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201902201520044_ForeignKey.Designer.cs">
       <DependentUpon>201902201520044_ForeignKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902210728218_FK2.cs" />
+    <Compile Include="Migrations\201902210728218_FK2.Designer.cs">
+      <DependentUpon>201902210728218_FK2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -103,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902201520044_ForeignKey.resx">
       <DependentUpon>201902201520044_ForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902210728218_FK2.resx">
+      <DependentUpon>201902210728218_FK2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

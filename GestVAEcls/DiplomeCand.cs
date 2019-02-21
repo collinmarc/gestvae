@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,8 +40,12 @@ namespace GestVAEcls
 
         }
 
+        public virtual int Candidat_ID { get; set; }
+        [ForeignKey("Candidat_ID")]
         [Required]
         public virtual Candidat oCandidat { get; set; }
+        public virtual int Diplome_ID { get; set; }
+        [ForeignKey("Diplome_ID")]
         [Required]
         public virtual Diplome oDiplome { get; set; }
         public String Statut { get; set; }

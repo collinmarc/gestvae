@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace GestVAEcls
     }
     public class MotifDetailleL2 : GestVAEBase
     {
+        public virtual int MotifGL2_ID { get; set; }
+        [ForeignKey("MotifGL2_ID")]
         [Required]
         public virtual MotifGeneralL2 MotifGL2 { get; set; }
         public String Libelle { get; set; }

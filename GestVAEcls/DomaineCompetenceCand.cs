@@ -24,9 +24,13 @@ namespace GestVAEcls
             oDomaineCompetence = pDC;
             this.Statut = "??";
         }
+        public virtual int Diplome_ID { get; set; }
+        [ForeignKey("Diplome_ID")]
         [Required]
         public virtual DiplomeCand oDiplomeCand { get; set; }
-  
+
+        public virtual int? DomaineCompetence_ID { get; set; }
+        [ForeignKey("DomaineCompetence_ID")]
         public virtual DomaineCompetence oDomaineCompetence { get; set; }
         public String Statut { get; set; }
         public DateTime? DateObtention { get; set; }

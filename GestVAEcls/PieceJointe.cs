@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,8 @@ namespace GestVAEcls
 
     public class PieceJointeL1 : PieceJointe
     {
+        public virtual int Livret1_ID { get; set; }
+        [ForeignKey("Livret1_ID")]
         [Required]
         public virtual Livret1 oLivret { get; set; }
 
@@ -45,6 +48,9 @@ namespace GestVAEcls
     }
     public class PieceJointeL2 : PieceJointe
     {
+        public virtual int Livret2_ID { get; set; }
+        [ForeignKey("Livret2_ID")]
+
         [Required]
         public virtual Livret2 oLivret { get; set; }
 

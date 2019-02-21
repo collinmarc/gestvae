@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,9 @@ namespace GestVAEcls
     }
     public class PieceJointeItem : GestVAEBase
     {
+        public virtual int Categorie_ID { get; set; }
+        [ForeignKey("Categorie_ID")]
+
         [Required]
         public virtual PieceJointeCategorie CategoriePJ { get; set; }
         public String Libelle { get; set; }

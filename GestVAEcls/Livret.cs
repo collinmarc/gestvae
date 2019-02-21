@@ -60,6 +60,8 @@ namespace GestVAEcls
         public DateTime? DateDemandePieceManquantesRetour { get; set; }
         public virtual ObservableCollection<PieceJointeL1> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL1> lstEchanges { get; set; }
+        public virtual int Candidat_ID { get; set; }
+        [ForeignKey("Candidat_ID")]
         [Required]
         public virtual Candidat oCandidat { get; set; }
         public Boolean IsRecours { get; set; }
@@ -96,6 +98,8 @@ namespace GestVAEcls
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
         public virtual ObservableCollection<DCLivret> lstDCLivrets { get; set; }
         public virtual ObservableCollection<MembreJury> lstMembreJurys { get; set; }
+        public virtual int Candidat_ID { get; set; }
+        [ForeignKey("Candidat_ID")]
         [Required]
         public virtual Candidat oCandidat { get; set; }
  //       public virtual ObservableCollection<Recours> lstRecours { get; set; }

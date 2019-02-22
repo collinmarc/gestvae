@@ -15,7 +15,6 @@ namespace GestVAE.VM
         private Livret1 oL1 { get { return (Livret1)TheLivret; } }
         public Livret1VM(Livret1 pLivret) : base(pLivret)
         {
-
             foreach (PieceJointeL1 opj in pLivret.lstPiecesJointes)
             {
                 lstPieceJointe.Add(new PieceJointeLivretVM(opj, "L1"));
@@ -30,6 +29,7 @@ namespace GestVAE.VM
             oReturn = new Livret1();
             oReturn.oDiplome = Diplome.getDiplomeParDefaut();
             TheItem = oReturn;
+
 
         }
 
@@ -293,68 +293,6 @@ namespace GestVAE.VM
                 return cReturn;
             }
 
-        }
-
-        public List<String> LstEtatLivret
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatL1.ETAT_L1_DEMANDE));
-                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
-                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
-                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
-                oReturn.Add(String.Format("{0:D}-Refusé", MyEnums.EtatL1.ETAT_L1_REFUSE));
-                oReturn.Add(String.Format("{0:D}-Recours", MyEnums.EtatL1.ETAT_L1_RECOURS));
-                oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
-                return oReturn;
-            }
-            set { }
-        }
-        public List<String> LstTypeDemande
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Courrier");
-                oReturn.Add("Téléphone");
-                oReturn.Add("Mail");
-                oReturn.Add("Retrait au secretariat VAE");
-                oReturn.Add("Fax");
-                oReturn.Add("Non Renseigné");
-                return oReturn;
-            }
-            set { }
-        }
-
-        public List<String> LstOrigineDemande
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Ehesp(autre)");
-                oReturn.Add("site Ehesp");
-                oReturn.Add("Établissements de formation CAFDES");
-                oReturn.Add("Site établissements de formation CAFDES");
-                oReturn.Add("Organisme de formation(suite à une prestation)");
-                oReturn.Add("Directeur, RH");
-                oReturn.Add("Collègues");
-                oReturn.Add("DRASS");
-                oReturn.Add("PIC / PRC");
-                oReturn.Add("ASH");
-                oReturn.Add("Gazette des communes");
-                oReturn.Add("Direction");
-                oReturn.Add("TSA");
-                oReturn.Add("Autres");
-                oReturn.Add("Presse");
-                oReturn.Add("Salon Géront'Expo");
-                oReturn.Add("Pôle Emploi(ANPE)");
-                oReturn.Add("ASP(CNASEA)");
-                oReturn.Add("Internet(autres sites…)");
-                oReturn.Add("Non renseigné");
-                return oReturn;
-            }
-            set { }
         }
 
         public static List<String> LstDecisionL1
@@ -1178,15 +1116,7 @@ namespace GestVAE.VM
 
         public Boolean IsRefuseRecours => DecisionJuryRecours.ToUpper().Contains("REFUS");
 
-        public void ClotureretCreerLivret2(CandidatVM pCandidat)
-        {
-
-            // CloturerLivret1
-            IsLivretClos = true;
-            Livret2VM oLiv = new Livret2VM(TheLivret.oDiplome);
-            pCandidat.AjoutLivret2(oLiv);
-        }
-
+ 
         public override void Commit()
         {
             // Validation des PiècesJointes L1

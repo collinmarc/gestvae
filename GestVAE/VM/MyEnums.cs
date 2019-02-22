@@ -11,6 +11,7 @@ namespace GestVAE.VM
 
         public enum EtatL1
         {
+            ETAT_L1_SANS_SUITE = 05,
             ETAT_L1_DEMANDE = 10,
             ETAT_L1_ENVOYE = 20,
             ETAT_L1_RECU_INCOMPLET = 30,

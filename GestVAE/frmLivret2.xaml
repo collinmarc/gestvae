@@ -61,9 +61,11 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Numéro Livret :" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="tbNumLivret"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBox x:Name="tbNumLivret"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="1,4,-1,4"/>
                 <Label Content="Etat Livret :" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-                <ComboBox x:Name="cbxEtatLivret" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbxEtatLivret" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
+                          SelectedItem="{Binding EtatLivret}" ItemsSource="{Binding VM.lstCandidatVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}"
+                          />
                 <Label Content="Livret CLOTURE :" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
                 <CheckBox x:Name="ckIsClos" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Label Content="Diplome :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
@@ -87,6 +89,11 @@
             </Grid>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" 
                         IsEnabled="{Binding IsLivretNonClos}" >
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Numéro de passage :" Width ="150"></Label>
+                    <xctk:IntegerUpDown   Width="100" Value="{Binding NumPassage}" Margin="0,5"/>
+
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" >
                     <Label Content="Date création livret :" Width="150"/>
                     <DatePicker x:Name="dtpDateDemande" 
@@ -159,6 +166,7 @@
                     <StackPanel Orientation="Horizontal" >
                         <RadioButton x:Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat}" GroupName="ContratLivret" Margin="10"/>
                         <RadioButton x:Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+
                     </StackPanel>
                     <Grid x:Name="grdTypeOrigine" >
                         <Grid.RowDefinitions>

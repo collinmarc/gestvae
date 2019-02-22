@@ -74,7 +74,7 @@ namespace GestVAEcls
             lstPiecesJointes = new ObservableCollection<PieceJointeL1>();
             lstEchanges = new ObservableCollection<EchangeL1>();
 
-            Numero = DateTime.Now.ToString("yyyyMMddHHmm");
+            Numero = DateTime.Now.ToString("L1yyyyMMddHHmm");
             lstRecours = new ObservableCollection<Recours>();
         }
 
@@ -84,6 +84,7 @@ namespace GestVAEcls
     {
 
         public String Numero { get; set; }
+        public Int32 NumPassage { get; set; }
         public DateTime? DateDemande { get; set; }
         public DateTime? DateLimiteEnvoiEHESP { get; set; }
         public DateTime? DateLimiteReceptEHESP { get; set; }
@@ -117,7 +118,8 @@ namespace GestVAEcls
             lstDCLivrets = new ObservableCollection<DCLivret>();
             lstMembreJurys = new ObservableCollection<MembreJury>();
             //           lstRecours = new ObservableCollection<Recours>();
-
+            Numero = DateTime.Now.ToString("L2yyyyMMddHHmm");
+            NumPassage = 1;
         }
         public Livret2(Diplome pDipl) : this()
         {

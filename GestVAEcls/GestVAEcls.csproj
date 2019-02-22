@@ -74,6 +74,14 @@
     <Compile Include="Migrations\201902220756398_FK DiplomeCand.Designer.cs">
       <DependentUpon>201902220756398_FK DiplomeCand.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902221146001_L2 numPassage.cs" />
+    <Compile Include="Migrations\201902221146001_L2 numPassage.Designer.cs">
+      <DependentUpon>201902221146001_L2 numPassage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902221653393_testEnum.cs" />
+    <Compile Include="Migrations\201902221653393_testEnum.Designer.cs">
+      <DependentUpon>201902221653393_testEnum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -131,6 +139,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902220756398_FK DiplomeCand.resx">
       <DependentUpon>201902220756398_FK DiplomeCand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902221146001_L2 numPassage.resx">
+      <DependentUpon>201902221146001_L2 numPassage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902221653393_testEnum.resx">
+      <DependentUpon>201902221653393_testEnum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

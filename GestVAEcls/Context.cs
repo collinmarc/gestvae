@@ -44,6 +44,9 @@ namespace GestVAEcls
         public DbSet<MotifGeneralL1> dbMotifGeneralL1 { get; set; }
         public DbSet<MotifGeneralL2> dbMotifGeneralL2 { get; set; }
 
+        //TST
+        public DbSet<Department> Departments { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

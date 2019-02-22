@@ -69,14 +69,15 @@
                 </GridSplitter>
                 <Grid x:Name="grdRecherche"  Grid.Row="0" Margin="0" Style="{DynamicResource GridStyle1}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="19*"/>
+                        <RowDefinition Height="14*"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="19*"/>
-                        <RowDefinition Height="19*"/>
-                        <RowDefinition Height="19*"/>
-                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="14*"/>
+                        <RowDefinition Height="14*"/>
+                        <RowDefinition Height="21*"/>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="16*"/>
                         <RowDefinition Height="23*"/>
-                        <RowDefinition Height="23*"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="20*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -86,43 +87,51 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="26" Width="129">Identifiant VAE:</Label>
-                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Margin="10" 
+                    <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"   >Identifiant VAE:</Label>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5" 
                              Name="tbRechIdentVAE" HorizontalAlignment="Stretch"/>
-                    <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Height="26" Width="129">Identifiant SISCOLE:</Label>
-                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="10" 
+                    <Label Grid.Row="0" Grid.Column="3" >SISCOLE :</Label>
+                    <TextBox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="4" Margin="5" 
                              Name="tbRechIdentSISCOLE" HorizontalAlignment="Stretch"/>
-                    <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="129">Nom:</Label>
-                    <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Margin="10"
+                    <Label Grid.Row="1" Grid.Column="0" >Nom:</Label>
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="5"
                              Name="tbRechNom" />
-                    <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="129">Prénom:</Label>
-                    <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" 
-                              Name="tbRechPrénom" Margin="10" />
-                    <Label  Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="26" Width="129">Ville:</Label>
-                    <TextBox  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" Name="tbRechVille" Margin="10" ></TextBox>
-                    <Label  Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" 
-                            >Réception Livret1:</Label>
-                    <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
-                        <Label  Margin="10">entre le :</Label>
-                        <DatePicker  Grid.Row="4" Grid.Column="2" Name="dpRechReceptL1Deb" Margin="10" Width="98"></DatePicker>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2">
-                        <Label  Margin="10">et le</Label>
-                        <DatePicker  Name="dpRechReceptL1Fin" Margin="10" Width="98" Height="26"></DatePicker>
-                    </StackPanel>
-                    <Label  Grid.Row="7" Grid.Column="0" >Réception Livret2:</Label>
-                    <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">
-                        <Label Margin="10"  Grid.Row="5" Grid.Column="3" >entre le :</Label>
-                        <DatePicker  Grid.Row="5" Grid.Column="2" Name="dpRechReceptL2Deb" Margin="10" Width="95"></DatePicker>
+                    <Label Grid.Row="2" Grid.Column="0" >Prénom:</Label>
+                    <TextBox  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" 
+                              Name="tbRechPrénom" Margin="5" />
+                    <Label  Grid.Row="3" Grid.Column="0" >Ville:</Label>
+                    <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbRechVille" Margin="5" ></TextBox>
 
+                    <Label  Grid.Row="4" Grid.Column="0"  Content="Date de &#xD;&#xA;naissance :" />
+                    <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center"/>
+
+                    <Label  Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                            >Réception Livret1:</Label>
+                    <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Label  VerticalAlignment="Center">entre le :</Label>
+                        <DatePicker  Name="dpRechReceptL1Deb" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2">
+                        <Label  VerticalAlignment="Center">et le :</Label>
+                        <DatePicker  Name="dpRechReceptL1Fin" Margin="5" Width="100" Height="26"></DatePicker>
+                    </StackPanel>
+                    <Label  Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" >Etat Livret1 :</Label>
+                    <ComboBox Grid.Row="6" Grid.Column="1" Name="cbxEtatL1" Margin="5" Grid.ColumnSpan="2"
+                              SelectedItem="{Binding rechEtatL1}" ItemsSource="{Binding LstEtatLivret1}" IsEditable="True"></ComboBox>
+                    <Label  Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">Réception Livret2:</Label>
+                    <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Label VerticalAlignment="Center" >entre le :</Label>
+                        <DatePicker  Name="dpRechReceptL2Deb" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2">
                         <Label Margin="10" >et le :</Label>
-                        <DatePicker  Name="dpRechReceptL2Fin" Margin="10" Width="95" Height="26"></DatePicker>
+                        <DatePicker  Name="dpRechReceptL2Fin" Margin="5" Width="100" ></DatePicker>
                     </StackPanel>
-                    <Button  Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" Command="{Binding RechercherCommand}" Margin="10">Rechercher</Button>
-                    <Label  Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="46" Width="85" Content="Date de &#xD;&#xA;naissance :" Margin="10,10,0,24"/>
-                    <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Margin="10,28,0,0" Grid.Row="5" VerticalAlignment="Top"/>
+                    <Label  Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" >Etat Livret2 :</Label>
+                    <ComboBox Grid.Row="8" Grid.Column="1" Name="cbxEtatL2" Margin="5" Grid.ColumnSpan="2"
+                              SelectedItem="{Binding rechEtatL2}" ItemsSource="{Binding LstEtatLivret2}" IsEditable="True"></ComboBox>
+                    
+                    <Button  Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" Command="{Binding RechercherCommand}" Margin="10">Rechercher</Button>
 
 
                 </Grid>

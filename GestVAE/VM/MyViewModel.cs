@@ -148,6 +148,39 @@ namespace GestVAE.VM
         {
             get => _lstMotifGL2;
         }
+        public List<String> LstEtatLivret1
+        {
+            get
+            {
+                List<String> oReturn = new List<String>();
+                oReturn.Add(String.Format("{0:D}-Sans_Suite", MyEnums.EtatL1.ETAT_L1_SANS_SUITE));
+                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatL1.ETAT_L1_DEMANDE));
+                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
+                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
+                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
+                oReturn.Add(String.Format("{0:D}-Refusé", MyEnums.EtatL1.ETAT_L1_REFUSE));
+                oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
+                return oReturn;
+            }
+            set { }
+        }
+        public List<String> LstEtatLivret2
+        {
+            get
+            {
+                List<String> oReturn = new List<String>();
+                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatL1.ETAT_L1_DEMANDE));
+                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
+                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
+                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
+                oReturn.Add(String.Format("{0:D}-Refusé", MyEnums.EtatL1.ETAT_L1_REFUSE));
+                //                oReturn.Add(String.Format("{0:D}-Recours", MyEnums.EtatL1.ETAT_L1_RECOURS));
+                oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
+                return oReturn;
+            }
+            set { }
+        }
+
         public void saveData()
         {
             foreach (CandidatVM item in lstCandidatVM)
@@ -439,10 +472,14 @@ namespace GestVAE.VM
         public DateTime? rechDateReceptL1Fin { get; set; }
         public DateTime? rechDateReceptL2Deb { get; set; }
         public DateTime? rechDateReceptL2Fin { get; set; }
+        public String rechEtatL1 { get; set; }
+        public String rechEtatL2 { get; set; }
 
         public void Recherche()
         {
-            IQueryable<Candidat> rq = _ctx.Candidats;
+            IQueryable<Candidat> rq;
+
+            rq = _ctx.Candidats;
             if (!String.IsNullOrEmpty(rechIdentifiantVAE))
             {
                 rq = rq.Where(c => c.IdVAE.Equals(rechIdentifiantVAE));
@@ -453,11 +490,68 @@ namespace GestVAE.VM
             }
             if (!String.IsNullOrEmpty(rechNom))
             {
-                rq = rq.Where(c => c.Nom.Equals(rechNom));
+                if (rechNom.Contains("%"))
+                {
+                    rq = rq.Where(c => c.Nom.Contains(rechNom.Replace("%","")));
+                }
+                else
+                {
+                    rq = rq.Where(c => c.Nom.Equals(rechNom));
+                }
+            }
+            if (!String.IsNullOrEmpty(rechPrenom))
+            {
+                if (rechPrenom.Contains("%"))
+                {
+                    rq = rq.Where(c => c.Prenom.Contains(rechPrenom.Replace("%", "")));
+                }
+                else
+                {
+                    rq = rq.Where(c => c.Prenom.Equals(rechPrenom));
+                }
+            }
+            if (!String.IsNullOrEmpty(rechVille))
+            {
+                if (rechPrenom.Contains("%"))
+                {
+                    rq = rq.Where(c => c.Ville.Contains(rechVille.Replace("%", "")));
+                }
+                else
+                {
+                    rq = rq.Where(c => c.Ville.Contains(rechVille));
+                }
             }
             if (rechDateNaissance != null)
             {
                 rq = rq.Where(c => c.DateNaissance.Value.Equals(rechDateNaissance.Value));
+
+            }
+            if (!String.IsNullOrEmpty(rechEtatL1))
+            {
+                rq = rq.Where(c => c.lstLivrets1.Where(L1=>L1.EtatLivret==rechEtatL1).Count()>0);
+
+            }
+            if (!String.IsNullOrEmpty(rechEtatL2))
+            {
+                rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.EtatLivret == rechEtatL2).Count() > 0);
+
+            }
+            if (rechDateReceptL1Deb != null)
+            {
+                rq = rq.Where(c => c.lstLivrets1.Where(L1 => L1.DateReceptEHESP >= rechDateReceptL1Deb).Count() > 0);
+            }
+            if (rechDateReceptL1Fin != null)
+            {
+                rq = rq.Where(c => c.lstLivrets1.Where(L1 => L1.DateReceptEHESP <= rechDateReceptL1Fin).Count() > 0);
+
+            }
+            if (rechDateReceptL2Deb != null)
+            {
+                rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.DateReceptEHESP >= rechDateReceptL2Deb).Count() > 0);
+            }
+            if (rechDateReceptL2Fin != null)
+            {
+                rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.DateReceptEHESP <= rechDateReceptL2Fin).Count() > 0);
 
             }
             _lstCandidatVM.Clear();
@@ -494,7 +588,7 @@ namespace GestVAE.VM
 
             CandidatVM oCandVM = CurrentCandidat;
             Livret1VM oLivVM = new Livret1VM();
-            oLivVM.EtatLivret = oLivVM.LstEtatLivret[0];
+            oLivVM.EtatLivret = LstEtatLivret1[1];
             oLivVM.DateDemande = DateTime.Now;
             CurrentCandidat.CurrentLivret = oLivVM;
 
@@ -510,10 +604,13 @@ namespace GestVAE.VM
             CandidatVM oCandVM = CurrentCandidat;
             Livret2VM oLivVM = new Livret2VM();
 
-            oLivVM.EtatLivret = oLivVM.LstEtatLivret[1];
+            oLivVM.EtatLivret = LstEtatLivret2[1];
             oLivVM.DateDemande = DateTime.Now;
-            oLivVM.Numero = Convert.ToString(CurrentCandidat.lstLivrets.Count() + 1);
-            
+            if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Count() > 0)
+            { 
+                    int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Select(l => ((Livret2VM)l).NumPassage).Max();
+                oLivVM.NumPassage = nbL2 + 1;
+            }
             // Récupération du diplome du candidat (si présent)
             DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
             if (oDiplomeCandidat != null)
@@ -554,8 +651,12 @@ namespace GestVAE.VM
         public void CloturerL1etCreerL2()
             {
               Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
-              oLiv.ClotureretCreerLivret2(CurrentCandidat);
-            CloseCommand.Execute(this);
+            // CloturerLivret1
+            oLiv.IsLivretClos = true;
+            Livret2VM oLiv2 = new Livret2VM(oLiv.TheLivret.oDiplome);
+            oLiv2.EtatLivret = LstEtatLivret2[1];
+            CurrentCandidat.AjoutLivret2(oLiv2);
+            CloseAction();
             }
 
         public void CloturerL2()

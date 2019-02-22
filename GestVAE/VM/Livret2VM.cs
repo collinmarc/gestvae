@@ -22,7 +22,7 @@ namespace GestVAE.VM
                 return _lstMembreJuryVM;
             }
         }
-        public Livret2VM(Livret2 pLivret) : base(pLivret)
+        public Livret2VM(Livret2 pLivret) :  base(pLivret)
         {
             lstDCLivret = new ObservableCollection<DCLivretVM>();
             _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
@@ -56,15 +56,9 @@ namespace GestVAE.VM
             lstDCLivret = new ObservableCollection<DCLivretVM>();
             _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
         }
-        public Livret2VM(Diplome pDip) : base()
+        public Livret2VM(Diplome pDip) : this()
         {
-            Livret oReturn = null;
-
-            oReturn = new Livret2();
-            oReturn.oDiplome = pDip;
-            TheItem = oReturn;
-
-            lstDCLivret = new ObservableCollection<DCLivretVM>();
+            TheLivret.oDiplome = pDip;
         }
 
         public String NomDiplome
@@ -94,6 +88,22 @@ namespace GestVAE.VM
                 if (value != Numero)
                 {
                     oL2.Numero = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public Int32 NumPassage
+        {
+            get
+            {
+                return oL2.NumPassage;
+            }
+            set
+            {
+                if (value != NumPassage)
+                {
+                    oL2.NumPassage = value;
                     RaisePropertyChanged();
                 }
             }
@@ -343,68 +353,6 @@ namespace GestVAE.VM
                 return cReturn;
             }
 
-        }
-
-        public List<String> LstEtatLivret
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatL1.ETAT_L1_DEMANDE));
-                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
-                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
-                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
-                oReturn.Add(String.Format("{0:D}-Refusé", MyEnums.EtatL1.ETAT_L1_REFUSE));
-//                oReturn.Add(String.Format("{0:D}-Recours", MyEnums.EtatL1.ETAT_L1_RECOURS));
-                oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
-                return oReturn;
-            }
-            set { }
-        }
-        public List<String> LstTypeDemande
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Courrier");
-                oReturn.Add("Téléphone");
-                oReturn.Add("Mail");
-                oReturn.Add("Retrait au secretariat VAE");
-                oReturn.Add("Fax");
-                oReturn.Add("Non Renseigné");
-                return oReturn;
-            }
-            set { }
-        }
-
-        public List<String> LstOrigineDemande
-        {
-            get
-            {
-                List<String> oReturn = new List<String>();
-                oReturn.Add("Ehesp(autre)");
-                oReturn.Add("site Ehesp");
-                oReturn.Add("Établissements de formation CAFDES");
-                oReturn.Add("Site établissements de formation CAFDES");
-                oReturn.Add("Organisme de formation(suite à une prestation)");
-                oReturn.Add("Directeur, RH");
-                oReturn.Add("Collègues");
-                oReturn.Add("DRASS");
-                oReturn.Add("PIC / PRC");
-                oReturn.Add("ASH");
-                oReturn.Add("Gazette des communes");
-                oReturn.Add("Direction");
-                oReturn.Add("TSA");
-                oReturn.Add("Autres");
-                oReturn.Add("Presse");
-                oReturn.Add("Salon Géront'Expo");
-                oReturn.Add("Pôle Emploi(ANPE)");
-                oReturn.Add("ASP(CNASEA)");
-                oReturn.Add("Internet(autres sites…)");
-                oReturn.Add("Non renseigné");
-                return oReturn;
-            }
-            set { }
         }
 
         public static List<String> LstDecisionL2
@@ -759,7 +707,7 @@ namespace GestVAE.VM
                 }
                 else
                 {
-                    return "";
+                    return null;
                 }
             }
             set
@@ -772,12 +720,33 @@ namespace GestVAE.VM
                     }
 
                     TheLivret.lstJurys[0].Decision = value;
-
-                    setEtatLivret();
+                    if (LstEtatLivret != null)
+                    {
+                        setEtatLivret();
+                        if (IsDecisionJuryFavorable)
+                        {
+                            String strKey = String.Format("{0:D}", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+                            String decisionModule = LstDecisionL2Module.Find(x => x.StartsWith(strKey));
+                            foreach (DCLivretVM oDC in lstDCLivret.Where(dc => dc.IsAValider))
+                            {
+                                oDC.Decision = decisionModule;
+                            }
+                        }
+                    }
+                    if (IsDecisionJuryDefavorable)
+                        {
+                            String strKey = String.Format("{0:D}", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+                            String decisionModule = LstDecisionL2Module.Find(x => x.StartsWith(strKey));
+                            foreach (DCLivretVM oDC in lstDCLivret.Where(dc => dc.IsAValider))
+                            {
+                                oDC.Decision = decisionModule;
+                            }
+                    }
                     RaisePropertyChanged();
                     RaisePropertyChanged("IsDecisionJuryFavorable");
                     RaisePropertyChanged("IsDecisionJuryDefavorable");
                     RaisePropertyChanged("IsDecisionJuryPartielle");
+                    RaisePropertyChanged("lstDCLivretAValider");
                 }
             }
         }
@@ -804,7 +773,6 @@ namespace GestVAE.VM
                 return ((getNumDecisionJury() >= (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
             }
         }
-
         private void setEtatLivret()
         {
             String strEtat = EtatLivret;

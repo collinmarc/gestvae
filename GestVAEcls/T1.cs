@@ -23,4 +23,19 @@ namespace GestVAEcls
 
         public virtual T1 oT1 { get; set; }
     }
+
+    public enum DepartmentNames
+    {
+        English,
+        Math,
+        Economics
+    }
+
+    public partial class Department
+    {
+        public int DepartmentID { get; set; }
+        public DepartmentNames Name { get; set; }
+        public decimal Budget { get; set; }
+    }
+ 
 }

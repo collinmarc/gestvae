@@ -72,6 +72,7 @@ namespace GestVAE.VM
             lstPieceJointe.Remove(selectedPJ);
             RaisePropertyChanged("lstPieceJointe");
         }
+        public List<String> LstEtatLivret { get; set; }
 
     }
 }

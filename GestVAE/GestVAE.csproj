@@ -104,9 +104,6 @@
     <Compile Include="dlgDiplomeCand.xaml.cs">
       <DependentUpon>dlgDiplomeCand.xaml</DependentUpon>
     </Compile>
-    <None Include="frmLivret2 - Copier.xaml.cs">
-      <DependentUpon>frmLivret2 - Copier.xaml</DependentUpon>
-    </None>
     <Compile Include="frmLivret2.xaml.cs">
       <DependentUpon>frmLivret2.xaml</DependentUpon>
     </Compile>
@@ -121,7 +118,6 @@
     <Compile Include="VM\CandidatVM.cs" />
     <Compile Include="VM\Command.cs" />
     <Compile Include="VM\Converter.cs" />
-    <Compile Include="VM\Livret2VM - Copier.cs" />
     <Compile Include="VM\MyEnums.cs" />
     <Compile Include="VM\DCLivretVM.cs" />
     <Compile Include="VM\PieceJointeLivretVM.cs" />
@@ -147,10 +143,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <None Include="frmLivret2 - Copier.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
     <Page Include="frmLivret2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

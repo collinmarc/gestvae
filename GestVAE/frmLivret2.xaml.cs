@@ -63,6 +63,8 @@ namespace GestVAE
         {
             this.DataContext = pViewModel;
             m_oLivret = (Livret2VM)pViewModel.CurrentCandidat.CurrentLivret;
+            // Mise a jour de la liste des Etat pour faire fonctionner le Set Etat
+            m_oLivret.LstEtatLivret = pViewModel.LstEtatLivret2;
             pViewModel.CloseAction = new Action(() => this.Close());
         }
 

@@ -25,7 +25,7 @@ namespace GestVAE.VM
         public LivretVMBase CurrentLivret
         {
             get { return _LivretVM; }
-            set { _LivretVM = value; RaisePropertyChanged(); }
+            set { _LivretVM = value; }
         }
 
         public CandidatVM(Candidat pCandidat):base(pCandidat)

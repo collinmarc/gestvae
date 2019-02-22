@@ -159,16 +159,33 @@
                     </Grid>
 
 
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Pièces jointes :"/>
-                        <TextBlock x:Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesColor}"/>
-                        <Label Content="Date 1ere demande :"/>
-                        <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}"></DatePicker>
-                        <Label Content="Date 2eme demande :"/>
-                        <DatePicker Name="dtpDate2emeDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}"></DatePicker>
-                        <Label Content="Date de retour demandée :"/>
-                        <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemandePieceManquantesRetour}"></DatePicker>
-                    </StackPanel>
+                    <UniformGrid Columns="3" Margin="10">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Pièces jointes :"/>
+                            <TextBlock x:Name="tbPieceJointes"  Foreground="{Binding ResultatPiecesJointesColor}" Margin="10"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Date 1ere demande   :"/>
+                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}"></DatePicker>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Date 2eme demande :"/>
+                                <DatePicker Name="dtpDate2emeDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}"></DatePicker>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+
+                                <Label Name="lblDateRetourPM" Content="Date de retour demandée :"/>
+                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemandePieceManquantesRetour}"></DatePicker>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Name="lblDateReceptPM" Content="Date réception :" Width="153"/>
+                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes}"></DatePicker>
+                            </StackPanel>
+                        </StackPanel>
+                    </UniformGrid>
                     <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
                                     ItemsSource="{Binding lstPieceJointe, UpdateSourceTrigger=PropertyChanged}" 
                                     SelectedItem="{Binding selectedPJ}"
@@ -219,7 +236,8 @@
                 <Grid x:Name="grdJury1"  ShowGridLines="False" HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretNonClos}" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -266,42 +284,46 @@
 
                     </Grid>
 
-                    <Label Grid.Row="1" Grid.Column="0" Margin="10,8,0,8" VerticalAlignment="Center" Content="Décision :" Height="26"/>
-                    <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxDecision" HorizontalAlignment="Stretch" Margin="10"/>
-                    <Label Grid.Row="2" Grid.Column="0" Margin="10,8,0,8" VerticalAlignment="Center" Content="Motif général :" Height="26"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifGeneral" HorizontalAlignment="Stretch" Margin="10" 
-                                  ItemsSource="{Binding VM.lstMotifGL1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
+                    <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Décision :"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxDecision" HorizontalAlignment="Stretch" />
+                    <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Motif général :"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifGeneral" HorizontalAlignment="Stretch"                                   ItemsSource="{Binding VM.lstMotifGL1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
                                   DisplayMemberPath="Libelle"
                                   SelectedValuePath="Libelle"
                                   SelectedValue="{Binding MotifGeneralJury}"
                                   />
-                    <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="10,10,0,10" Content="Motif détaillé :" Height="26"/>
-                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="2">
-                        <ComboBox  x:Name="cbxMotifDetaille" HorizontalAlignment="Stretch" Margin="10,10,10,14" 
-                                  ItemsSource="{Binding SelectedItem.lstMotifDetaille, ElementName=cbxMotifGeneral}"
-                                  DisplayMemberPath="Libelle"
-                                  SelectedValuePath="Libelle"
-                                  SelectedValue="{Binding MotifDetailJury}"
-                                  />
-                    </StackPanel>
-                    <Label Grid.Row="4" Grid.Column="0" Margin="12,8,0,8" VerticalAlignment="Center" Content="Commentaire :" Height="26"/>
-                    <TextBox Grid.Row="4" Grid.Column="1 " Grid.ColumnSpan="2" x:Name="tbCommentaire" HorizontalAlignment="Stretch" Margin="10"/>
-                    <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="0" 
-                                    Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Label  Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Recours :"/>
-                        <CheckBox x:Name="chkRecours" Margin="10" VerticalAlignment="Center" IsChecked="True"/>
-                        <Label VerticalAlignment="Center" Content="  Date limite :"/>
-                        <DatePicker x:Name="dtpDateLimiteRecours" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" Width="100"
-                                      />
-                    </StackPanel>
+                    <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Motif détaillé :" Height="26"/>
+                    <ComboBox  Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="2" x:Name="cbxMotifDetaille" HorizontalAlignment="Stretch" 
+                                ItemsSource="{Binding SelectedItem.lstMotifDetaille, ElementName=cbxMotifGeneral}"
+                                DisplayMemberPath="Libelle"
+                                SelectedValuePath="Libelle"
+                                SelectedValue="{Binding MotifDetailJury}"
+                                />
+                    <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Content="Commentaire :" Height="26"/>
+                    <TextBox Grid.Row="4" Grid.Column="1 " Grid.ColumnSpan="2" x:Name="tbCommentaire" HorizontalAlignment="Stretch"/>
+                    <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Content="Date de notification :" Height="25" />
+                    <DatePicker Grid.Row="5" Grid.Column="1" x:Name="dtpDateNotificationJury" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"
+                                SelectedDate="{Binding DateNotificationJury}"></DatePicker>
 
-
-                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
-                        <Label Width="100" VerticalAlignment="Center" Margin="10" Content="Date de dépôt :"  />
-                        <DatePicker x:Name="dtpDateDepotRecours" Margin="10" Width="125" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="0" 
+                                    Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center">
+                        <Label  Content="Recours :"/>
+                        <CheckBox x:Name="chkRecours" IsChecked="True" VerticalAlignment="Center"/>
+                        <Label VerticalAlignment="Center" Content="Date limite de depot :" Margin="10,0,0,0"/>
+                        <DatePicker x:Name="dtpDateLimiteRecours" VerticalAlignment="Center" Width="100"/>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="5" Grid.Column="2" Orientation="Horizontal" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
+                    <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
+                        <StackPanel Orientation="Horizontal" >
+                            <Label Width="169" VerticalAlignment="Center" Content="Date de dépôt du recours :"  />
+                            <DatePicker x:Name="dtpDateDepotRecours" Width="125" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label VerticalAlignment="Center" Content="Date limite de jury de recours:"  />
+                            <DatePicker x:Name="dtpDateLimiteJuryRecours" Width="125" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
                         <Label VerticalAlignment="Center" Content="Type de recours :"/>
                         <RadioButton x:Name="rbTypeRecoursGracieux" GroupName="TypeRecours" 
                                  IsChecked="{Binding TypeRecours, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Gracieux}, Converter={StaticResource EnumToBoleanConverter}}" VerticalAlignment="Center"
@@ -314,13 +336,14 @@
                     </StackPanel>
 
 
-                    <Grid x:Name="grdRecours" ShowGridLines="False" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}" Grid.RowSpan="3">
+                    <Grid x:Name="grdRecours" ShowGridLines="False" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}" Grid.RowSpan="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="0*" />
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
@@ -328,8 +351,8 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="0*" />
                         </Grid.RowDefinitions>
                         <!--                        
                     <RadioButton Content="Homme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="15" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}"/>
@@ -337,40 +360,43 @@
 -->
 
 
-                        <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif du recours :" />
-                        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecours" HorizontalAlignment="Stretch" Margin="10"/>
+                        <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"  Content="Motif du recours :" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecours" HorizontalAlignment="Stretch" />
 
 
-                        <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Center" Content="Commentaire :" />
-                        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch" Margin="10"/>
+                        <Label Grid.Row="2" Grid.Column="0"  VerticalAlignment="Center" Content="Commentaire :" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch"/>
 
-                        <Label VerticalAlignment="Center" Margin="10" Grid.Row="3" Grid.Column="0" Content="Date d'examen  du recours: " />
-                        <DatePicker  Grid.Row="3" Grid.Column="1" x:Name="dtpDateJuryRecours" HorizontalAlignment="Left" Margin="10" Width="125"/>
+                        <Label VerticalAlignment="Center"  Grid.Row="3" Grid.Column="0" Content="Date d'examen  du recours: " />
+                        <DatePicker  Grid.Row="3" Grid.Column="1" x:Name="dtpDateJuryRecours" HorizontalAlignment="Left" Width="125"/>
 
                         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2">
                             <Label VerticalAlignment="Center" Content="Lieu:" />
-                            <TextBox x:Name="tbLieuJuryRecours" HorizontalAlignment="Left" Width="207" Margin="10"/>
+                            <TextBox x:Name="tbLieuJuryRecours" HorizontalAlignment="Left" Width="207" />
                         </StackPanel>
 
-                        <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Décision du jury de recours :"/>
-                        <ComboBox  Grid.Row="4" Grid.Column="1" x:Name="cbxDecisionRecours" Grid.ColumnSpan="2" Margin="10"/>
+                        <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Content="Décision du jury de recours :"/>
+                        <ComboBox  Grid.Row="4" Grid.Column="1" x:Name="cbxDecisionRecours" Grid.ColumnSpan="2" />
 
-                        <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif général :"/>
-                        <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifGeneralRecours" HorizontalAlignment="Stretch" Margin="10"
+                        <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Content="Motif général :"/>
+                        <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifGeneralRecours" HorizontalAlignment="Stretch" 
                                   ItemsSource="{Binding VM.lstMotifGL1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
                                   DisplayMemberPath="Libelle"
                                   SelectedValuePath="Libelle"
                                   SelectedValue="{Binding MotifGeneralJuryRecours}"/>
-                        <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Motif détaillé :" />
-                        <ComboBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifDetailleRecours" HorizontalAlignment="Stretch" Margin="10"
+                        <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Content="Motif détaillé :" />
+                        <ComboBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxMotifDetailleRecours" HorizontalAlignment="Stretch"
                                     ItemsSource="{Binding SelectedItem.lstMotifDetaille, ElementName=cbxMotifGeneralRecours}"
                                     DisplayMemberPath="Libelle"
                                     SelectedValuePath="Libelle"
                                     SelectedValue="{Binding MotifDetailJuryRecours}"
-/>
-                        <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="10" Content="Commentaire:" />
-                        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbCommentaireRecours" HorizontalAlignment="Stretch" Margin="10" />
+                        />
+                        <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Content="Commentaire:" />
+                        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbCommentaireRecours" HorizontalAlignment="Stretch"/>
 
+                        <Label Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Content="Date de notification recours:"/>
+                        <DatePicker Grid.Row="8" Grid.Column="1" x:Name="dtpDateNotificationJuryRecours" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"
+                                SelectedDate="{Binding DateNotificationJuryRecours}"></DatePicker>
                     </Grid>
 
 

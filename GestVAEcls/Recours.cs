@@ -22,6 +22,7 @@ namespace GestVAEcls
         public String MotifRecours { get; set; }
         public String MotifRecoursCommentaire { get; set; }
         public String NomJury { get; set; }
+        public DateTime? DateLimiteJury { get; set; }
         public DateTime? DateJury { get; set; }
         public String LieuJury { get; set; }
         public String Decision { get; set; }

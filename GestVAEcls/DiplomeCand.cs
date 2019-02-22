@@ -56,7 +56,6 @@ namespace GestVAEcls
 
         public void CalculerStatut()
         {
-            String statut = "??";
             int nbValide = 0;
             int nbRefuse = 0;
             int nbDivers = 0;

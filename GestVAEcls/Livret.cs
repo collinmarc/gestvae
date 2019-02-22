@@ -58,6 +58,7 @@ namespace GestVAEcls
         public DateTime? Date1ereDemandePieceManquantes { get; set; }
         public DateTime? Date2emeDemandePieceManquantes { get; set; }
         public DateTime? DateDemandePieceManquantesRetour { get; set; }
+        public DateTime? DateReceptionPiecesManquantes { get; set; }
         public virtual ObservableCollection<PieceJointeL1> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL1> lstEchanges { get; set; }
         public virtual int Candidat_ID { get; set; }
@@ -86,6 +87,10 @@ namespace GestVAEcls
         public DateTime? DateDemande { get; set; }
         public DateTime? DateLimiteEnvoiEHESP { get; set; }
         public DateTime? DateLimiteReceptEHESP { get; set; }
+        public DateTime? Date1ereDemandePieceManquantes { get; set; }
+        public DateTime? Date2emeDemandePieceManquantes { get; set; }
+        public DateTime? DateDemandePieceManquantesRetour { get; set; }
+        public DateTime? DateReceptionPiecesManquantes { get; set; }
         public DateTime? DatePrevJury1 { get; set; }
         public DateTime? DatePrevJury2 { get; set; }
         public String SessionJury { get; set; }

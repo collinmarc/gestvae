@@ -184,14 +184,33 @@
                     </Grid>
 
 
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Pièces jointes :"/>
-                        <TextBlock x:Name="tbPieceJointes" VerticalAlignment="Center" Foreground="{Binding ResultatPiecesJointesColor}"/>
-                        <Label Content="Attestation sur l'honneur OK :"/>
-                        <CheckBox x:Name="ckIsAttestationOK" IsChecked="{Binding IsAttestationOK}" VerticalAlignment="Center"></CheckBox>
-                        <Label Content="CNI valide :"/>
-                        <CheckBox x:Name="ckIsCNIOK" IsChecked="{Binding IsCNIOK}" VerticalAlignment="Center"></CheckBox>
-                    </StackPanel>
+                    <UniformGrid Columns="3" Margin="10">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Pièces jointes :"/>
+                            <TextBlock x:Name="tbPieceJointes"  Foreground="{Binding ResultatPiecesJointesColor}" Margin="10"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Date 1ere demande   :"/>
+                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}"></DatePicker>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Date 2eme demande :"/>
+                                <DatePicker Name="dtpDate2emeDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}"></DatePicker>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+
+                                <Label Name="lblDateRetourPM" Content="Date de retour demandée :"/>
+                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemandePieceManquantesRetour}"></DatePicker>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Name="lblDateReceptPM" Content="Date réception :" Width="153"/>
+                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes}"></DatePicker>
+                            </StackPanel>
+                        </StackPanel>
+                    </UniformGrid>
                     <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
                                     ItemsSource="{Binding lstPieceJointe, UpdateSourceTrigger=PropertyChanged}" 
                                     SelectedItem="{Binding selectedPJ}"
@@ -345,6 +364,12 @@
                         <Label Content="Date de validité:" VerticalAlignment="Center"/>
                         <DatePicker x:Name="dtpDateValidite" Margin="0" VerticalAlignment="Center"
                                     SelectedDate="{Binding DateValidite}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2">
+                        <Label VerticalAlignment="Center" Content="  Date de notification :"/>
+                        <DatePicker x:Name="dtpDateNotificationJury" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" Width="100"
+                                SelectedDate="{Binding DateNotificationJury}"></DatePicker>
+
                     </StackPanel>
 
                     <DataGrid x:Name="dgDCLivretDecision"

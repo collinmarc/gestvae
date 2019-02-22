@@ -29,6 +29,8 @@ namespace GestVAEcls
         [ForeignKey("Livret2_ID")]
         public virtual Livret2 oLivret2 { get; set; }
 
+        public DateTime? DateNotificationJury { get; set; }
+        public DateTime? DateNotificationJuryRecours { get; set; }
 
         public Jury() : base()
         {

@@ -62,6 +62,18 @@
     <Compile Include="Migrations\201902210728218_FK2.Designer.cs">
       <DependentUpon>201902210728218_FK2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902220739483_MAJ-DOCS.cs" />
+    <Compile Include="Migrations\201902220739483_MAJ-DOCS.Designer.cs">
+      <DependentUpon>201902220739483_MAJ-DOCS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902220755191_MAJ-NonClos.cs" />
+    <Compile Include="Migrations\201902220755191_MAJ-NonClos.Designer.cs">
+      <DependentUpon>201902220755191_MAJ-NonClos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902220756398_FK DiplomeCand.cs" />
+    <Compile Include="Migrations\201902220756398_FK DiplomeCand.Designer.cs">
+      <DependentUpon>201902220756398_FK DiplomeCand.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -110,6 +122,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902210728218_FK2.resx">
       <DependentUpon>201902210728218_FK2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902220739483_MAJ-DOCS.resx">
+      <DependentUpon>201902220739483_MAJ-DOCS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902220755191_MAJ-NonClos.resx">
+      <DependentUpon>201902220755191_MAJ-NonClos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902220756398_FK DiplomeCand.resx">
+      <DependentUpon>201902220756398_FK DiplomeCand.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

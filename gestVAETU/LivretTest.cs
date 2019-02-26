@@ -14,14 +14,13 @@ namespace GestVAETU
             nId = oCand.ID;
             Livret1 oL1 = new Livret1();
             oL1.Numero ="20190115001";
-            oL1.OrigineDemande = "COURIER";
+            oL1.VecteurInformation = "COURIER";
             oL1.TypeDemande = "Courrier";
 
             oCand.lstLivrets1.Add(oL1);
 
             Livret2 oL2 = new Livret2();
             oL2.Numero = "1";
-            oL2.OrigineDemande = "LIVRET2";
             oCand.lstLivrets2.Add(oL2);
 
             ctx.SaveChanges();
@@ -43,7 +42,7 @@ namespace GestVAETU
             oL1.Numero = "20190115001";
             oL1.isContrat = false;
             oL1.TypeDemande = "Courrier";
-            oL1.OrigineDemande = "site Ehesp";
+            oL1.VecteurInformation = "site Ehesp";
             oL1.EtatLivret = "0-Demandé";
 
             oCand.lstLivrets1.Add(oL1);
@@ -59,7 +58,7 @@ namespace GestVAETU
             Assert.AreEqual(oL1.Numero, oL2.Numero);
             Assert.AreEqual(oL1.isContrat, oL2.isContrat);
             Assert.AreEqual(oL1.TypeDemande, oL2.TypeDemande);
-            Assert.AreEqual(oL1.OrigineDemande, oL2.OrigineDemande);
+            Assert.AreEqual(oL1.VecteurInformation, oL2.VecteurInformation);
             Assert.AreEqual(oL1.EtatLivret, oL2.EtatLivret);
 
 

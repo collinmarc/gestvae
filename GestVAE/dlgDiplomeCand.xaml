@@ -8,7 +8,7 @@
         xmlns:localCLS="clr-namespace:GestVAEcls"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplomeCand"
         mc:Ignorable="d"
-        Title="Détail du diplome d'un candidat" Height="253.708" Width="530.611" Icon="IMG/diplome.ico">
+        Title="Détail du diplome d'un candidat" Height="386" Width="600" Icon="IMG/diplome.ico">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
@@ -19,7 +19,7 @@
         </LinearGradientBrush>
     </Window.Background>
     <Canvas Margin="0,0,553,353">
-        <Button x:Name ="btnOK" Content="OK" Canvas.Left="353" Canvas.Top="193" Width="75" Click="btnOK_Click"/>
+        <Button x:Name ="btnOK" Content="OK" Canvas.Left="357" Canvas.Top="286" Width="75" Click="btnOK_Click"/>
 
 
         <Label Content="Nom du diplome :" Canvas.Left="8" Canvas.Top="6"/>
@@ -31,7 +31,7 @@
         </Button>
         <Label Content="Statut :" Canvas.Left="329" Canvas.Top="6"/>
         <ComboBox x:Name="cbxStatutdiplome" Canvas.Left="391" Canvas.Top="6" Width="120"/>
-        <DataGrid x:Name="dgDC" Height="74" Canvas.Left="10" Canvas.Top="102" Width="501" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+        <DataGrid x:Name="dgDC" Height="170" Canvas.Left="10" Canvas.Top="102" Width="501" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
                   ItemsSource="{Binding lstDCCands}"
                   CellEditEnding="dgDC_CellEditEnding">
             <DataGrid.Resources>

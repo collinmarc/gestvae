@@ -20,6 +20,7 @@ namespace GestVAE.VM
         public Candidat TheCandidat { get; set; }
         public ObservableCollection<DiplomeCandVM> lstDiplomesCandVMs { get; set; }
         public ObservableCollection<LivretVMBase> lstLivrets { get; set; }
+        public DiplomeCandVM CurrentDiplomeCand { get; set; }
 
         private LivretVMBase _LivretVM;
         public LivretVMBase CurrentLivret
@@ -388,6 +389,7 @@ namespace GestVAE.VM
         {
 
             LivretVMBase pLiv = CurrentLivret;
+            pLiv.ClearDCs();
             if (!pLiv.IsNew)
             {
                     _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;

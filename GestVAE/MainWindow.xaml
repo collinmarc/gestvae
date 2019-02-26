@@ -280,12 +280,19 @@
                                 <Label>CAFDES :</Label>
                                 <CheckBox Name="chkIsCAFDES" IsChecked="{Binding IsCAFDES}" VerticalAlignment="Center"></CheckBox>
                             </StackPanel>
-                            <DataGrid Name="gridLstDiplome" VerticalAlignment="Top" ItemsSource="{Binding lstDiplomesCandVMs}"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding" MouseDoubleClick="gridLstDiplome_MouseDoubleClick" Margin="0,0,10,0">
+                            <DataGrid Name="gridLstDiplome" VerticalAlignment="Top" 
+                                      ItemsSource="{Binding lstDiplomesCandVMs}" 
+                                      SelectedItem="{Binding CurrentDiplomeCand}"
+                                      AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding" MouseDoubleClick="gridLstDiplome_MouseDoubleClick" Margin="0,0,10,0">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Nom" IsReadOnly="true" Binding="{Binding NomDiplome}"/>
                                     <DataGridTextColumn Header="Obtention" Binding="{Binding DateObtentionDiplome, StringFormat='dd/MM/yyyy'}"/>
                                     <DataGridTextColumn Header="Numero" Binding="{Binding NumeroDiplome}"/>
                                 </DataGrid.Columns>
+                                <DataGrid.InputBindings>
+                                    <KeyBinding Key="Delete" Command="{Binding  DataContext.DeleteDiplomeCandCommand, ElementName=window}" />
+                                </DataGrid.InputBindings>
+
                             </DataGrid>
                             <Button Name="cbAddDiplome" 
                                 Command="{Binding DataContext.AjouteDiplomeCandCommand, 

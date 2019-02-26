@@ -390,7 +390,6 @@ namespace GestVAE.VM
                 oReturn.Add("Validé");
                 oReturn.Add("Refusé");
                 oReturn.Add("En cours");
-                oReturn.Add("??");
                 return oReturn;
             }
             set { }
@@ -403,7 +402,7 @@ namespace GestVAE.VM
                 oReturn.Add("Validé");
                 oReturn.Add("Validé Partiellement");
                 oReturn.Add("Refusé");
-                oReturn.Add("??");
+                oReturn.Add("");
                 return oReturn;
             }
             set { }

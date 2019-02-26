@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -170,6 +171,18 @@ namespace GestVAE.VM
                 if (value != IsDispenseArt2)
                 {
                     oL2.IsDispenseArt2 = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public Boolean IsOuvertureApresRecours
+        {
+            get { return oL2.IsOuvertureApresRecours; }
+            set
+            {
+                if (value != IsOuvertureApresRecours)
+                {
+                    oL2.IsOuvertureApresRecours = value;
                     RaisePropertyChanged();
                 }
             }
@@ -493,6 +506,86 @@ namespace GestVAE.VM
                 if (value != DatePrevJury2)
                 {
                     oL2.DatePrevJury2 = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? Date1ereDemandePieceManquantes
+        {
+            get { return oL2.Date1ereDemandePieceManquantes; }
+            set
+            {
+                if (value != Date1ereDemandePieceManquantes)
+                {
+                    oL2.Date1ereDemandePieceManquantes = value;
+                    RaisePropertyChanged();
+
+                }
+            }
+        }
+        public DateTime? Date2emeDemandePieceManquantes
+        {
+            get { return oL2.Date2emeDemandePieceManquantes; }
+            set
+            {
+                if (value != Date2emeDemandePieceManquantes)
+                {
+                    oL2.Date2emeDemandePieceManquantes = value;
+                    RaisePropertyChanged();
+
+                }
+            }
+        }
+        public DateTime? DateDemandePieceManquantesRetour
+        {
+            get { return oL2.DateDemandePieceManquantesRetour; }
+            set
+            {
+                if (value != DateDemandePieceManquantesRetour)
+                {
+                    oL2.DateDemandePieceManquantesRetour = value;
+                    RaisePropertyChanged();
+
+                }
+            }
+        }
+        public DateTime? DateReceptionPiecesManquantes
+        {
+            get { return oL2.DateReceptionPiecesManquantes; }
+            set
+            {
+                if (value != DateReceptionPiecesManquantes)
+                {
+                    oL2.DateReceptionPiecesManquantes = value;
+                    RaisePropertyChanged();
+
+                }
+            }
+        }
+        public DateTime? DateNotificationJury
+        {
+            get
+            {
+                if (TheLivret.lstJurys.Count >= 1)
+                {
+                    return TheLivret.lstJurys[0].DateNotificationJury;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != DateNotificationJury)
+                {
+                    if (TheLivret.lstJurys.Count == 0)
+                    {
+                        TheLivret.lstJurys.Add(new Jury());
+                    }
+
+                    TheLivret.lstJurys[0].DateNotificationJury = value;
+
                     RaisePropertyChanged();
                 }
             }
@@ -941,6 +1034,21 @@ namespace GestVAE.VM
             oL2.ValiderLivret2();
         }
 
+        public override void ClearDCs()
+        {
+            foreach (DCLivretVM oItem in lstDCLivret)
+            {
+                if (oItem.IsNew)
+                {
+                    _ctx.Entry<DCLivret>((DCLivret)oItem.TheDCLivret).State = System.Data.Entity.EntityState.Detached;
+                }
+                else
+                {
+                    _ctx.Entry<DCLivret>((DCLivret)oItem.TheDCLivret).State = System.Data.Entity.EntityState.Deleted;
+                }
+
+            }
  
+        }
     }
 }

@@ -148,13 +148,15 @@
 
                         <Label Content="Type demande :" Grid.Row="0" Grid.Column="0"/>
                         <ComboBox x:Name="cbxTypeDemande" Grid.Row="0" Grid.Column="1" 
-                          SelectedItem="{Binding TheLivret.TypeDemande}" 
-                          ItemsSource="{Binding LstTypeDemande}"/>
+                          SelectedValue="{Binding TypeDemande}" 
+                          ItemsSource="{Binding DataContext.lstParamTypeDemande, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
+                                  SelectedValuePath="Nom" DisplayMemberPath="Nom"/>
 
-                        <Label Content="Origine demande :" Grid.Row="0" Grid.Column="2"/>
-                        <ComboBox x:Name="cbxOrigineDemande" Grid.Row="0" Grid.Column="3"
-                          SelectedItem="{Binding TheLivret.OrigineDemande}" 
-                          ItemsSource="{Binding LstOrigineDemande}"/>
+                        <Label Content="Vecteur d'information :" Grid.Row="0" Grid.Column="2"/>
+                        <ComboBox x:Name="cbxVecteurInformation" Grid.Row="0" Grid.Column="3"
+                          SelectedValue="{Binding VecteurInformation}" 
+                          ItemsSource="{Binding VM.lstParamVecteurInformation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
+                                  SelectedValuePath="Nom" DisplayMemberPath="Nom"/>
 
                     </Grid>
 

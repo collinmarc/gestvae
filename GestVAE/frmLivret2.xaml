@@ -100,6 +100,10 @@
                             SelectedDate="{Binding DateDemande}" 
                             Width="100" Height="29"/>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Ouverture après recours :" VerticalAlignment="Center"/>
+                    <CheckBox x:Name="ckIsOuvertureApresRecours" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
                 <!--
                 <StackPanel Orientation="Horizontal"  Visibility="Hidden">
                     <Label Content="Date limite envoi EHESP : " Width="150"/>
@@ -163,11 +167,7 @@
                     HorizontalAlignment="Stretch" Margin="10" >
             <TabItem x:Name="tabLivret" Header="Livret" Margin="0">
                 <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretNonClos}" >
-                    <StackPanel Orientation="Horizontal" >
-                        <RadioButton x:Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat}" GroupName="ContratLivret" Margin="10"/>
-                        <RadioButton x:Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
-
-                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" />
                     <Grid x:Name="grdTypeOrigine" >
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -178,16 +178,6 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-
-                        <Label Content="Type demande :" Grid.Row="0" Grid.Column="0"/>
-                        <ComboBox x:Name="cbxTypeDemande" Grid.Row="0" Grid.Column="1" 
-                          SelectedItem="{Binding TheLivret.TypeDemande}" 
-                          ItemsSource="{Binding LstTypeDemande}"/>
-
-                        <Label Content="Origine demande :" Grid.Row="0" Grid.Column="2"/>
-                        <ComboBox x:Name="cbxOrigineDemande" Grid.Row="0" Grid.Column="3"
-                          SelectedItem="{Binding TheLivret.OrigineDemande}" 
-                          ItemsSource="{Binding LstOrigineDemande}"/>
 
                     </Grid>
 

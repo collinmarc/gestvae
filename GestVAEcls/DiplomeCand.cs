@@ -61,11 +61,11 @@ namespace GestVAEcls
             int nbDivers = 0;
             nbValide = lstDCCands.Where(obj => obj.Statut == "Validé").Count();
             nbRefuse = lstDCCands.Where(obj => obj.Statut == "Refusé").Count();
-            nbDivers = lstDCCands.Where(obj => obj.Statut == "??").Count();
+            nbDivers = lstDCCands.Where(obj => obj.Statut == "En cours").Count();
 
             if (nbDivers >0)
             {
-                Statut = "??";
+                Statut = "En cours";
             }
             else
             {

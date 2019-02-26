@@ -43,7 +43,7 @@ namespace GestVAE
             cbxEtatLivret.SetBinding(ComboBox.ItemsSourceProperty, "LstEtatLivret");
 
             ckIsClos.SetBinding(CheckBox.IsCheckedProperty, "IsLivretClos");
-
+            ckIsOuvertureApresRecours.SetBinding(CheckBox.IsCheckedProperty, "IsOuvertureApresRecours");
 
             tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointes");
 

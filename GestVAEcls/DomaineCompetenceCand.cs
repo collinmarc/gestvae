@@ -22,7 +22,7 @@ namespace GestVAEcls
         {
            
             oDomaineCompetence = pDC;
-            this.Statut = "??";
+            this.Statut = "En cours";
         }
         public virtual int Diplome_ID { get; set; }
         [ForeignKey("Diplome_ID")]

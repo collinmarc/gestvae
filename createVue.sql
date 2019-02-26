@@ -349,26 +349,29 @@ GO
 CREATE VIEW [dbo].[RQ_L1_STAT]
 AS
 SELECT        dbo.Livret1.DateDemande, dbo.Livret1.TypeDemande, YEAR(dbo.Livret1.DateDemande) AS ANNEE, DATENAME(month, dbo.Livret1.DateDemande) AS MOIS, DATENAME(day, dbo.Livret1.DateDemande) AS JOUR, 
-                         FLOOR(DATENAME(day, dbo.Livret1.DateDemande) / 16) + 1 AS QUINZAINE, DATENAME(quarter, dbo.Livret1.DateDemande) AS TRIMESTRE, dbo.Livret1.OrigineDemande, dbo.Livret1.Numero, dbo.Livret1.EtatLivret, 
-                         dbo.Livret1.IsRecours, dbo.Juries.Decision, dbo.Recours.Decision AS DecisionRecours
-FROM            dbo.Livret1 LEFT OUTER JOIN
+                         FLOOR(DATENAME(day, dbo.Livret1.DateDemande) / 16) + 1 AS QUINZAINE, DATENAME(quarter, dbo.Livret1.DateDemande) AS TRIMESTRE, dbo.Livret1.VecteurInformation, dbo.Livret1.Numero, dbo.Livret1.EtatLivret, 
+                         dbo.Livret1.IsRecours, dbo.Juries.Decision, dbo.Recours.Decision AS DecisionRecours, dbo.Juries.MotifGeneral AS MotifGJury, dbo.Juries.MotifDetail AS MotifDJury, dbo.Juries.MotifCommentaire AS MotifCJury, 
+                         dbo.Recours.MotifGeneral AS MotifGRecours, dbo.Recours.MotifDetail AS MotifDrecours, dbo.Recours.MotifCommentaire AS MotifCRecours, dbo.Candidats.Nom, dbo.Candidats.Sexe, dbo.Candidats.Ville, 
+                         dbo.Candidats.Region
+FROM            dbo.Livret1 INNER JOIN
+                         dbo.Candidats ON dbo.Livret1.Candidat_ID = dbo.Candidats.ID LEFT OUTER JOIN
                          dbo.Recours ON dbo.Livret1.ID = dbo.Recours.Livret1_ID LEFT OUTER JOIN
                          dbo.Juries ON dbo.Livret1.ID = dbo.Juries.Livret1_ID
-
 GO
-
 DROP VIEW [dbo].[RQ_L2_STAT]
 GO
 CREATE VIEW [dbo].[RQ_L2_STAT]
 AS
-SELECT        dbo.Livret2.Numero, dbo.Livret2.DateDemande, dbo.Candidats.Nom, dbo.Juries.Decision, dbo.Recours.Decision AS [Decision Recours], dbo.Livret2.EtatLivret, dbo.Livret2.NumPassage, dbo.Livret2.DateEnvoiEHESP, dbo.Juries.DateJury, dbo.Livret2.DateReceptEHESP, dbo.Livret2.DateReceptEHESPComplet, DATENAME(month, dbo.Juries.DateJury) AS MoisJury,
-                          dbo.Candidats.Sexe, dbo.Candidats.Ville, dbo.Candidats.Region
+SELECT        dbo.Livret2.Numero, dbo.Livret2.DateDemande, dbo.Candidats.Nom, dbo.Juries.Decision, dbo.Recours.Decision AS [Decision Recours], dbo.Livret2.EtatLivret, dbo.Livret2.NumPassage, dbo.Livret2.DateEnvoiEHESP, 
+                         dbo.Juries.DateJury, dbo.Livret2.DateReceptEHESP, dbo.Livret2.DateReceptEHESPComplet, DATENAME(month, dbo.Juries.DateJury) AS MoisJury, dbo.Candidats.Sexe, dbo.Candidats.Ville, dbo.Candidats.Region, 
+                         dbo.Livret2.IsOuvertureApresRecours, dbo.DiplomeCands.Statut AS StatutCAFDES
 FROM            dbo.Livret2 INNER JOIN
-                         dbo.Candidats ON dbo.Livret2.Candidat_ID = dbo.Candidats.ID LEFT OUTER JOIN
+                         dbo.Candidats ON dbo.Livret2.Candidat_ID = dbo.Candidats.ID INNER JOIN
+                         dbo.Diplomes ON dbo.Livret2.Diplome_ID = dbo.Diplomes.ID LEFT OUTER JOIN
+                         dbo.DiplomeCands ON dbo.Diplomes.ID = dbo.DiplomeCands.Diplome_ID AND dbo.Candidats.ID = dbo.DiplomeCands.Candidat_ID LEFT OUTER JOIN
                          dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID LEFT OUTER JOIN
                          dbo.Recours ON dbo.Livret2.ID = dbo.Recours.ID
 
-GO
 GO
 
 DROP VIEW [dbo].[RQ_L2_DECISION_DC]

@@ -74,5 +74,7 @@ namespace GestVAE.VM
         }
         public List<String> LstEtatLivret { get; set; }
 
+        public abstract void  ClearDCs();
+
     }
 }

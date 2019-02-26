@@ -14,21 +14,6 @@ namespace GestVAETU
         [TestMethod]
         public void TestMethod1()
         {
-            using (var context = new Context())
-            {
-                context.Departments.Add(new Department { Name = DepartmentNames.English });
-
-                context.SaveChanges();
-
-                var department = (from d in context.Departments
-                                  where d.Name == DepartmentNames.English
-                                  select d).FirstOrDefault();
-
-                Console.WriteLine(
-                    "DepartmentID: {0} Name: {1}",
-                    department.DepartmentID,
-                    department.Name);
-            }
         }
     }
 }

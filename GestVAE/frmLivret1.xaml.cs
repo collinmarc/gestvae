@@ -68,6 +68,7 @@ namespace GestVAE
             dtpDateLimiteRecours.SetBinding(DatePicker.SelectedDateProperty, "DateLimiteRecours");
 
             // Recours
+            dtpDateLimiteJuryRecours.SetBinding(DatePicker.SelectedDateProperty, "DateLimiteJuryRecours");
 
             dtpDateDepotRecours.SetBinding(DatePicker.SelectedDateProperty, "DateDepot");
             tbLieuJuryRecours.SetBinding(TextBox.TextProperty, "LieuJuryRecours");

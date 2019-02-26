@@ -24,7 +24,6 @@ namespace GestVAE
         public dlgDiplomeCand()
         {
             InitializeComponent();
-            DiplomeCandVM oitem;
             cbxNomdiplome.SetBinding(ComboBox.SelectedItemProperty, "oDiplome");
             cbxNomdiplome.SetBinding(ComboBox.ItemsSourceProperty, "LstDiplomes");
             cbxNomdiplome.DisplayMemberPath = "Nom";

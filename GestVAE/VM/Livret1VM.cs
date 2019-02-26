@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,6 +66,36 @@ namespace GestVAE.VM
             }
         }
 
+        public String TypeDemande
+        {
+            get
+            {
+                return oL1.TypeDemande;
+            }
+            set
+            {
+                if (value != TypeDemande)
+                {
+                    oL1.TypeDemande = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public String VecteurInformation
+        {
+            get
+            {
+                return oL1.VecteurInformation;
+            }
+            set
+            {
+                if (value != VecteurInformation)
+                {
+                    oL1.VecteurInformation   = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public Boolean IsContrat {
             get {
@@ -419,7 +450,20 @@ namespace GestVAE.VM
                 }
             }
         }
+        
+        public DateTime? DateReceptionPiecesManquantes
+        {
+            get { return oL1.DateReceptionPiecesManquantes; }
+            set
+            {
+                if (value != DateReceptionPiecesManquantes)
+                {
+                    oL1.DateReceptionPiecesManquantes = value;
+                    RaisePropertyChanged();
 
+                }
+            }
+        }
         public DateTime? Date1ereDemandePieceManquantes
         {
             get { return oL1.Date1ereDemandePieceManquantes; }
@@ -552,6 +596,62 @@ namespace GestVAE.VM
 
                     TheLivret.lstJurys[0].DateJury = value;
                     DateLimiteRecours = value.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateNotificationJury
+        {
+            get
+            {
+                if (TheLivret.lstJurys.Count >= 1)
+                {
+                    return TheLivret.lstJurys[0].DateNotificationJury;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != DateNotificationJury)
+                {
+                    if (TheLivret.lstJurys.Count == 0)
+                    {
+                        TheLivret.lstJurys.Add(new Jury());
+                    }
+
+                    TheLivret.lstJurys[0].DateNotificationJury = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateNotificationJuryRecours
+        {
+            get
+            {
+                if (TheLivret.lstJurys.Count >= 1)
+                {
+                    return TheLivret.lstJurys[0].DateNotificationJuryRecours;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != DateNotificationJuryRecours)
+                {
+                    if (TheLivret.lstJurys.Count == 0)
+                    {
+                        TheLivret.lstJurys.Add(new Jury());
+                    }
+
+                    TheLivret.lstJurys[0].DateNotificationJuryRecours = value;
 
                     RaisePropertyChanged();
                 }
@@ -880,6 +980,34 @@ namespace GestVAE.VM
                 }
             }
         }
+        public DateTime? DateLimiteJuryRecours
+        {
+            get
+            {
+                if (oL1.lstRecours.Count >= 1)
+                {
+                    return oL1.lstRecours[0].DateLimiteJury;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != DateDepot)
+                {
+                    if (oL1.lstRecours.Count == 0)
+                    {
+                        oL1.lstRecours.Add(new Recours());
+                    }
+
+                    oL1.lstRecours[0].DateLimiteJury = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
         public String LieuJuryRecours
         {
             get
@@ -1131,7 +1259,26 @@ namespace GestVAE.VM
 
         }
 
+        public override void ClearDCs()
+        {
+            foreach (PieceJointeLivretVM oItem in lstPieceJointe)
+            {
+                DbEntityEntry<PieceJointeL1> odb = _ctx.Entry<PieceJointeL1>((PieceJointeL1)oItem.ThePiecejointe);
+                if (oItem.IsNew)
+                { 
+                    odb.State = System.Data.Entity.EntityState.Detached;
+                }
+                    else
+                    {
+                        odb.State = System.Data.Entity.EntityState.Deleted;
+                    }
 
+            }
+            while (oL1.lstRecours.Count>0)
+            {
+                oL1.lstRecours.RemoveAt(0);
+            }
 
+        }
     }
 }

@@ -29,12 +29,14 @@ namespace GestVAE.VM
         public Action CloseAction { get; set; }
         public ObservableCollection<ParamCollege> lstParamCollege { get; set; }
         public ObservableCollection<ParamOrigine> lstParamOrigine { get; set; }
-
+        public ObservableCollection<ParamTypeDemande> lstParamTypeDemande { get; set; }
+        public ObservableCollection<ParamVecteurInformation> lstParamVecteurInformation { get; set; }
         public CandidatVM CurrentCandidat
         {
             get { return _candidatVM; }
             set { _candidatVM = value; RaisePropertyChanged(); }
         }
+        public DiplomeCandVM CurrentDiplomeCand{get;set;}
 
 
         public Boolean IsBusy
@@ -62,6 +64,8 @@ namespace GestVAE.VM
             _lstMotifGL2 = new ObservableCollection<MotifGeneralL2>();
             lstParamCollege = new ObservableCollection<ParamCollege>();
             lstParamOrigine = new ObservableCollection<ParamOrigine>();
+            lstParamTypeDemande = new ObservableCollection<ParamTypeDemande>();
+            lstParamVecteurInformation = new ObservableCollection<ParamVecteurInformation>();
 
             _SaveCommand = new SaveCommand(o => { saveData(); },
                                            o => { return hasChanges(); }
@@ -99,6 +103,8 @@ namespace GestVAE.VM
             CloseCommand = new RelayCommand<MyViewModel>(o => { CloseWindowL1(); }
                                            );
             DeleteCandidatCommand = new RelayCommand<MyViewModel>(o => { DeleteCandidat(); }
+                                           );
+            DeleteDiplomeCandCommand = new RelayCommand<MyViewModel>(o => { DeleteDiplomeCand(); }
                                            );
 
             CloturerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL2(); }
@@ -260,7 +266,32 @@ namespace GestVAE.VM
                     _ctx.dbParamCollege.Remove(item);
                 }
             }
+            foreach (ParamTypeDemande item in lstParamTypeDemande)
+            {
+                if (_ctx.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Detached)
+                {
+                    _ctx.dbParamTypeDemande.Add(item);
+                }
+                if (_ctx.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Deleted)
+                {
+                    _ctx.dbParamTypeDemande.Remove(item);
+                }
+            }
+            foreach (ParamVecteurInformation item in lstParamVecteurInformation)
+            {
+                if (_ctx.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Detached)
+                {
+                    _ctx.dbParamVecteurInformation.Add(item);
+                }
+                if (_ctx.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Deleted)
+                {
+                    _ctx.dbParamVecteurInformation.Remove(item);
+                }
+            }
             _ctx.SaveChanges();
+            _modelhasChanges = false;
+           
+
         }
 
 
@@ -332,6 +363,16 @@ namespace GestVAE.VM
             {
                 lstParamOrigine.Add(item);
             }
+            lstParamTypeDemande.Clear();
+            foreach (ParamTypeDemande item in _ctx.dbParamTypeDemande)
+            {
+                lstParamTypeDemande.Add(item);
+            }
+            lstParamVecteurInformation.Clear();
+            foreach (ParamVecteurInformation item in _ctx.dbParamVecteurInformation)
+            {
+                lstParamVecteurInformation.Add(item);
+            }
 
 
             _lstCandidatVM.Clear();
@@ -390,7 +431,7 @@ namespace GestVAE.VM
                 if (item.lstLivrets1.Count == 1)
                 {
                     Livret1 oL1 = item.lstLivrets1[0];
-                    oL1.OrigineDemande = tabvecteurs[oRand.Next(0, 20)];
+                    oL1.VecteurInformation = tabvecteurs[oRand.Next(0, 20)];
                 }
             }
 
@@ -462,6 +503,7 @@ namespace GestVAE.VM
         public ICommand CloturerL2Command { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand DeleteCandidatCommand { get; set; }
+        public ICommand DeleteDiplomeCandCommand { get; set; }
         public String rechIdentifiantVAE { get; set; }
         public String rechIdentifiantSISCOLE { get; set; }
         public String rechNom { get; set; }
@@ -613,15 +655,16 @@ namespace GestVAE.VM
             }
             // Récupération du diplome du candidat (si présent)
             DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
-            if (oDiplomeCandidat != null)
+            if (oDiplomeCandidat == null)
             {
+                oDiplomeCandidat = CurrentCandidat.AjoutDiplomeCand().TheDiplomeCand;
+            }
+
                 ((Livret2)oLivVM.TheLivret).InitDCLivrets(oDiplomeCandidat);
                 foreach (DCLivret oDCL in ((Livret2)oLivVM.TheLivret).lstDCLivrets)
                 {
                     oLivVM.lstDCLivret.Add(new DCLivretVM(oDCL));
                 }
-
-            }
 
             CurrentCandidat.CurrentLivret = oLivVM;
 
@@ -655,6 +698,10 @@ namespace GestVAE.VM
             oLiv.IsLivretClos = true;
             Livret2VM oLiv2 = new Livret2VM(oLiv.TheLivret.oDiplome);
             oLiv2.EtatLivret = LstEtatLivret2[1];
+            if (oLiv.IsRecoursDemande )
+            {
+                oLiv2.IsOuvertureApresRecours = true;
+            }
             CurrentCandidat.AjoutLivret2(oLiv2);
             CloseAction();
             }
@@ -740,6 +787,29 @@ namespace GestVAE.VM
                 lstCandidatVM.Remove(CurrentCandidat);
             }
    
+        }
+        public void DeleteDiplomeCand()
+        {
+            if (CurrentCandidat != null)
+            {
+                if (CurrentCandidat.CurrentDiplomeCand != null)
+                {
+                    if (!CurrentCandidat.CurrentDiplomeCand.IsNew)
+                    {
+                        _ctx.Entry<DiplomeCand>((DiplomeCand)CurrentCandidat.CurrentDiplomeCand.TheDiplomeCand).State = System.Data.Entity.EntityState.Deleted;
+                    }
+                    else
+                    {
+                        // Detache l'entity
+                        _ctx.Entry<DiplomeCand>((DiplomeCand)CurrentCandidat.CurrentDiplomeCand.TheDiplomeCand).State = System.Data.Entity.EntityState.Detached;
+                    }
+
+                    CurrentCandidat.CurrentDiplomeCand.IsDeleted = true;
+                    CurrentCandidat.lstDiplomesCandVMs.Remove(CurrentCandidat.CurrentDiplomeCand);
+
+                }
+            }
+
         }
 
     }

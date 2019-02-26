@@ -15,8 +15,6 @@ namespace GestVAEcls
         [NotMapped]
         public String Typestr { get; set; }
         public Boolean isContrat { get; set; }
-        public String TypeDemande { get; set; }
-        public String OrigineDemande { get; set; }
 
         private String _EtatLivret;
         public String EtatLivret {
@@ -32,6 +30,8 @@ namespace GestVAEcls
         public DateTime? DateEnvoiCandidat { get; set; }
         public DateTime? DateReceptEHESP { get; set; }
         public DateTime? DateReceptEHESPComplet { get; set; }
+        public virtual int Diplome_ID { get; set; }
+        [ForeignKey("Diplome_ID")]
         public virtual Diplome oDiplome { get; set; }
         public virtual ObservableCollection<Jury> lstJurys { get; set; }
         public Boolean isClos { get; set; }
@@ -50,6 +50,9 @@ namespace GestVAEcls
     public class Livret1 : Livret
     {
         public String Numero { get; set; }
+        public String TypeDemande { get; set; }
+        public String VecteurInformation { get; set; }
+
         public DateTime? DateDemande { get; set; }
         public DateTime? DateLimiteEnvoiEHESP { get; set; }
         public DateTime? DateLimiteReceptEHESP { get; set; }
@@ -85,6 +88,7 @@ namespace GestVAEcls
 
         public String Numero { get; set; }
         public Int32 NumPassage { get; set; }
+        public Boolean IsOuvertureApresRecours{ get; set; }
         public DateTime? DateDemande { get; set; }
         public DateTime? DateLimiteEnvoiEHESP { get; set; }
         public DateTime? DateLimiteReceptEHESP { get; set; }

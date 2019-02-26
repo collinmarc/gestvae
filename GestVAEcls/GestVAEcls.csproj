@@ -82,9 +82,27 @@
     <Compile Include="Migrations\201902221653393_testEnum.Designer.cs">
       <DependentUpon>201902221653393_testEnum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902260834237_FKDiplomeID.cs" />
+    <Compile Include="Migrations\201902260834237_FKDiplomeID.Designer.cs">
+      <DependentUpon>201902260834237_FKDiplomeID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902260935095_OuvertureAprèsRecours.cs" />
+    <Compile Include="Migrations\201902260935095_OuvertureAprèsRecours.Designer.cs">
+      <DependentUpon>201902260935095_OuvertureAprèsRecours.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902260937012_OuvertureAprèsRecours2.cs" />
+    <Compile Include="Migrations\201902260937012_OuvertureAprèsRecours2.Designer.cs">
+      <DependentUpon>201902260937012_OuvertureAprèsRecours2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902260956001_ADD-TypeVecteurL1.cs" />
+    <Compile Include="Migrations\201902260956001_ADD-TypeVecteurL1.Designer.cs">
+      <DependentUpon>201902260956001_ADD-TypeVecteurL1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
+    <Compile Include="ParamTypeDemande.cs" />
+    <Compile Include="ParamVecteurInformation.cs" />
     <Compile Include="PieceJointeBase.cs" />
     <Compile Include="ParamCollege.cs" />
     <Compile Include="ParamOrigine.cs" />
@@ -145,6 +163,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902221653393_testEnum.resx">
       <DependentUpon>201902221653393_testEnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902260834237_FKDiplomeID.resx">
+      <DependentUpon>201902260834237_FKDiplomeID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902260935095_OuvertureAprèsRecours.resx">
+      <DependentUpon>201902260935095_OuvertureAprèsRecours.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902260937012_OuvertureAprèsRecours2.resx">
+      <DependentUpon>201902260937012_OuvertureAprèsRecours2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902260956001_ADD-TypeVecteurL1.resx">
+      <DependentUpon>201902260956001_ADD-TypeVecteurL1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

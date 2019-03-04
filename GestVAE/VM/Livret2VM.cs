@@ -1050,5 +1050,11 @@ namespace GestVAE.VM
             }
  
         }
+
+        public override bool HasChanges()
+        {
+            DbEntityEntry<Livret2> dbL2 = _ctx.Entry<Livret2>(oL2);
+            return (dbL2.State == System.Data.Entity.EntityState.Modified);
+        }
     }
 }

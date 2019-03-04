@@ -52,7 +52,10 @@ namespace GestVAEcls
                                obj.Nom == Properties.Settings.Default.NomDiplomeDefaut
                         select obj).FirstOrDefault<Diplome>();
             //Chargement de la liste des domanes de compétences
-            oDiplome.lstDomainesCompetences.ToList();
+            if (oDiplome != null)
+            {
+                oDiplome.lstDomainesCompetences.ToList();
+            }
             return oDiplome;
 
         }

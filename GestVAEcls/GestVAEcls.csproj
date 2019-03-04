@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201902260956001_ADD-TypeVecteurL1.Designer.cs">
       <DependentUpon>201902260956001_ADD-TypeVecteurL1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902272100471_Recours-Jury.cs" />
+    <Compile Include="Migrations\201902272100471_Recours-Jury.Designer.cs">
+      <DependentUpon>201902272100471_Recours-Jury.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -175,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902260956001_ADD-TypeVecteurL1.resx">
       <DependentUpon>201902260956001_ADD-TypeVecteurL1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902272100471_Recours-Jury.resx">
+      <DependentUpon>201902272100471_Recours-Jury.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

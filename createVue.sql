@@ -73,17 +73,16 @@ DROP VIEW [dbo].[L1_VALIDATION_ACCEPTE]
 GO
 CREATE VIEW [dbo].[L1_VALIDATION_ACCEPTE]
 AS
-SELECT        dbo.Candidats.ID, dbo.Candidats.Civilite, dbo.Candidats.Nom, dbo.Candidats.Prenom, dbo.Candidats.Prenom2, dbo.Candidats.Prenom3, dbo.Candidats.Adresse, dbo.Candidats.CodePostal, dbo.Candidats.Ville, 
-                         dbo.Livret1_NonClos.Numero, dbo.Livret1_NonClos.ID AS IDLivret1, dbo.Livret1_NonClos.DateEnvoiCandidat, dbo.Livret1_NonClos.DateLimiteReceptEHESP, dbo.Livret1_NonClos.DateReceptEHESP, dbo.Candidats.Pays, dbo.Livret1_NonClos.EtatLivret, dbo.Juries.DateJury, 
-                         dbo.Juries.NomJury, dbo.Juries.LieuJury, dbo.Juries.HeureJury, dbo.Juries.HeureConvoc, dbo.Juries.Decision, dbo.Candidats.Sexe, dbo.Candidats.NomJeuneFille, dbo.Candidats.DateNaissance, dbo.Candidats.CPNaissance, 
-                         dbo.Candidats.VilleNaissance, dbo.Livret1_NonClos.DateValidite, dbo.Livret1_NonClos.IsRecours, dbo.Juries.DateLimiteRecours, dbo.Recours.DateDepot, dbo.Recours.TypeRecours, dbo.Juries.MotifGeneral, dbo.Juries.MotifDetail, 
-                         dbo.Juries.MotifCommentaire
-FROM            dbo.Candidats INNER JOIN
-                         dbo.Livret1_NonClos ON dbo.Candidats.ID = dbo.Livret1_NonClos.Candidat_ID LEFT OUTER JOIN
-                         dbo.Recours ON dbo.Livret1_NonClos.ID = dbo.Recours.Livret1_ID AND dbo.Livret1_NonClos.ID = dbo.Recours.Livret1_ID LEFT OUTER JOIN
-                         dbo.Juries ON dbo.Livret1_NonClos.ID = dbo.Juries.Livret1_ID
-WHERE        (dbo.Juries.Decision LIKE N'10-%')
-
+SELECT        Candidats.ID, Candidats.Civilite, Candidats.Nom, Candidats.Prenom, Candidats.Prenom2, Candidats.Prenom3, Candidats.Adresse, Candidats.CodePostal, Candidats.Ville, Livret1_NonClos.Numero, 
+                         Livret1_NonClos.ID AS IDLivret1, Livret1_NonClos.DateEnvoiCandidat, Livret1_NonClos.DateLimiteReceptEHESP, Livret1_NonClos.DateReceptEHESP, Candidats.Pays, Livret1_NonClos.EtatLivret, Juries.DateJury, 
+                         Juries.NomJury, Juries.LieuJury, Juries.HeureJury, Juries.HeureConvoc, Juries.Decision, Candidats.Sexe, Candidats.NomJeuneFille, Candidats.DateNaissance, Candidats.CPNaissance, Candidats.VilleNaissance, 
+                         Livret1_NonClos.DateValidite, dbo.juries.IsRecours, Juries.DateLimiteRecours, Recours.DateDepot, Recours.TypeRecours, Juries.MotifGeneral, Juries.MotifDetail, Juries.MotifCommentaire, 
+                         Juries.IsRecours AS Expr1
+FROM            Juries LEFT OUTER JOIN
+                         Recours ON Juries.ID = Recours.Jury_ID RIGHT OUTER JOIN
+                         Candidats INNER JOIN
+                         Livret1_NonClos ON Candidats.ID = Livret1_NonClos.Candidat_ID ON Juries.Livret1_ID = Livret1_NonClos.ID
+WHERE        (Juries.Decision LIKE N'10-%')
 
 GO
 /****** Object:  View [dbo].[L1_VALIDATION_APRESRECOURS]    Script Date: 19/02/2019 18:23:56 ******/
@@ -91,16 +90,15 @@ DROP VIEW [dbo].[L1_VALIDATION_APRESRECOURS]
 GO
 CREATE VIEW [dbo].[L1_VALIDATION_APRESRECOURS]
 AS
-SELECT        dbo.Candidats.ID, dbo.Candidats.Civilite, dbo.Candidats.Nom, dbo.Candidats.Prenom, dbo.Candidats.Prenom2, dbo.Candidats.Prenom3, dbo.Candidats.Adresse, dbo.Candidats.CodePostal, dbo.Candidats.Ville, 
-                         dbo.Livret1_NonClos.Numero, dbo.Livret1_NonClos.ID AS IDLivret1, dbo.Livret1_NonClos.DateEnvoiCandidat, dbo.Livret1_NonClos.DateLimiteReceptEHESP, dbo.Livret1_NonClos.DateReceptEHESP, dbo.Candidats.Pays, dbo.Livret1_NonClos.EtatLivret, dbo.Juries.DateJury, 
-                         dbo.Juries.NomJury, dbo.Juries.LieuJury, dbo.Juries.HeureJury, dbo.Juries.HeureConvoc, dbo.Juries.Decision, dbo.Candidats.Sexe, dbo.Candidats.NomJeuneFille, dbo.Candidats.DateNaissance, dbo.Candidats.CPNaissance, 
-                         dbo.Candidats.VilleNaissance, dbo.Livret1_NonClos.DateValidite, dbo.Livret1_NonClos.IsRecours, dbo.Juries.DateLimiteRecours, dbo.Recours.Decision AS DecisionRecours, dbo.Recours.MotifGeneral, dbo.Recours.MotifDetail, 
-                         dbo.Recours.MotifCommentaire
-FROM            dbo.Candidats INNER JOIN
-                         dbo.Livret1_NonClos ON dbo.Candidats.ID = dbo.Livret1_NonClos.Candidat_ID INNER JOIN
-                         dbo.Recours ON dbo.Livret1_NonClos.ID = dbo.Recours.Livret1_ID AND dbo.Livret1_NonClos.ID = dbo.Recours.Livret1_ID LEFT OUTER JOIN
-                         dbo.Juries ON dbo.Livret1_NonClos.ID = dbo.Juries.Livret1_ID
-WHERE        (dbo.Juries.Decision LIKE N'20-%') AND (dbo.Livret1_NonClos.IsRecours = 1) AND (dbo.Recours.Decision LIKE N'10-%')
+SELECT        Candidats.ID, Candidats.Civilite, Candidats.Nom, Candidats.Prenom, Candidats.Prenom2, Candidats.Prenom3, Candidats.Adresse, Candidats.CodePostal, Candidats.Ville, Livret1_NonClos.Numero, 
+                         Livret1_NonClos.ID AS IDLivret1, Livret1_NonClos.DateEnvoiCandidat, Livret1_NonClos.DateLimiteReceptEHESP, Livret1_NonClos.DateReceptEHESP, Candidats.Pays, Livret1_NonClos.EtatLivret, Juries.DateJury, 
+                         Juries.NomJury, Juries.LieuJury, Juries.HeureJury, Juries.HeureConvoc, Juries.Decision, Candidats.Sexe, Candidats.NomJeuneFille, Candidats.DateNaissance, Candidats.CPNaissance, Candidats.VilleNaissance, 
+                         Livret1_NonClos.DateValidite, juries.IsRecours, Juries.DateLimiteRecours, Recours.Decision AS DecisionRecours, Recours.MotifGeneral, Recours.MotifDetail, Recours.MotifCommentaire
+FROM            Recours RIGHT OUTER JOIN
+                         Juries ON Recours.Jury_ID = Juries.ID RIGHT OUTER JOIN
+                         Candidats INNER JOIN
+                         Livret1_NonClos ON Candidats.ID = Livret1_NonClos.Candidat_ID ON Juries.Livret1_ID = Livret1_NonClos.ID
+WHERE        (Juries.Decision LIKE N'20-%') AND (dbo.juries.IsRecours = 1) AND (Recours.Decision LIKE N'10-%')
 
 GO
 /****** Object:  View [dbo].[L1_VALIDATION_REFUSE]    Script Date: 19/02/2019 18:24:20 ******/
@@ -108,33 +106,30 @@ DROP VIEW [dbo].[L1_VALIDATION_REFUSE]
 GO
 CREATE VIEW [dbo].[L1_VALIDATION_REFUSE]
 AS
-SELECT        dbo.Candidats.ID, dbo.Candidats.Civilite, dbo.Candidats.Nom, dbo.Candidats.Prenom, dbo.Candidats.Prenom2, dbo.Candidats.Prenom3, dbo.Candidats.Adresse, dbo.Candidats.CodePostal, dbo.Candidats.Ville, 
-                         dbo.Livret1_NonClos.Numero, dbo.Livret1_NonClos.ID AS IDLivret1, dbo.Livret1_NonClos.DateEnvoiCandidat, dbo.Livret1_NonClos.DateLimiteReceptEHESP, dbo.Livret1_NonClos.DateReceptEHESP, dbo.Candidats.Pays, dbo.Livret1_NonClos.EtatLivret, dbo.Juries.DateJury, 
-                         dbo.Juries.NomJury, dbo.Juries.LieuJury, dbo.Juries.HeureJury, dbo.Juries.HeureConvoc, dbo.Juries.Decision, dbo.Candidats.Sexe, dbo.Candidats.NomJeuneFille, dbo.Candidats.DateNaissance, dbo.Candidats.CPNaissance, 
-                         dbo.Candidats.VilleNaissance, dbo.Livret1_NonClos.DateValidite, dbo.Livret1_NonClos.IsRecours, dbo.Juries.DateLimiteRecours, dbo.Recours.DateDepot, dbo.Recours.TypeRecours, dbo.Juries.MotifGeneral, dbo.Juries.MotifDetail, 
-                         dbo.Juries.MotifCommentaire
-FROM            dbo.Candidats INNER JOIN
-                         dbo.Livret1_NonClos ON dbo.Candidats.ID = dbo.Livret1_NonClos.Candidat_ID LEFT OUTER JOIN
-                         dbo.Recours ON dbo.Livret1_NonClos.ID = dbo.Recours.Livret1_ID AND dbo.Livret1_NonClos.ID = dbo.Recours.Livret1_ID LEFT OUTER JOIN
-                         dbo.Juries ON dbo.Livret1_NonClos.ID = dbo.Juries.Livret1_ID
-WHERE        (dbo.Juries.Decision LIKE N'20-%')
-
+SELECT        Candidats.ID, Candidats.Civilite, Candidats.Nom, Candidats.Prenom, Candidats.Prenom2, Candidats.Prenom3, Candidats.Adresse, Candidats.CodePostal, Candidats.Ville, Livret1_NonClos.Numero, 
+                         Livret1_NonClos.ID AS IDLivret1, Livret1_NonClos.DateEnvoiCandidat, Livret1_NonClos.DateLimiteReceptEHESP, Livret1_NonClos.DateReceptEHESP, Candidats.Pays, Livret1_NonClos.EtatLivret, Juries.DateJury, 
+                         Juries.NomJury, Juries.LieuJury, Juries.HeureJury, Juries.HeureConvoc, Juries.Decision, Candidats.Sexe, Candidats.NomJeuneFille, Candidats.DateNaissance, Candidats.CPNaissance, Candidats.VilleNaissance, 
+                         Livret1_NonClos.DateValidite, Juries.IsRecours, Juries.DateLimiteRecours, Recours.DateDepot, Recours.TypeRecours, Juries.MotifGeneral, Juries.MotifDetail, Juries.MotifCommentaire, Recours.Jury_ID
+FROM            Recours RIGHT OUTER JOIN
+                         Juries ON Recours.Jury_ID = Juries.ID RIGHT OUTER JOIN
+                         Candidats INNER JOIN
+                         Livret1_NonClos ON Candidats.ID = Livret1_NonClos.Candidat_ID ON Juries.Livret1_ID = Livret1_NonClos.ID
+WHERE        (Juries.Decision LIKE N'20-%')
 GO
 /****** Object:  View [dbo].[L1_VALIDATION_REFUSE_APRESRECOURS]    Script Date: 19/02/2019 18:24:35 ******/
 DROP VIEW [dbo].[L1_VALIDATION_REFUSE_APRESRECOURS]
 GO
 CREATE VIEW [dbo].[L1_VALIDATION_REFUSE_APRESRECOURS]
 AS
-SELECT        dbo.Candidats.ID, dbo.Candidats.Civilite, dbo.Candidats.Nom, dbo.Candidats.Prenom, dbo.Candidats.Prenom2, dbo.Candidats.Prenom3, dbo.Candidats.Adresse, dbo.Candidats.CodePostal, dbo.Candidats.Ville, 
-                         dbo.Livret1_NonClos.Numero, dbo.Livret1_NonClos.ID AS IDLivret1, dbo.Livret1_NonClos.DateEnvoiCandidat, dbo.Livret1_NonClos.DateLimiteReceptEHESP, dbo.Livret1_NonClos.DateReceptEHESP, dbo.Candidats.Pays, dbo.Livret1_NonClos.EtatLivret, dbo.Juries.DateJury, 
-                         dbo.Juries.NomJury, dbo.Juries.LieuJury, dbo.Juries.HeureJury, dbo.Juries.HeureConvoc, dbo.Juries.Decision, dbo.Candidats.Sexe, dbo.Candidats.NomJeuneFille, dbo.Candidats.DateNaissance, dbo.Candidats.CPNaissance, 
-                         dbo.Candidats.VilleNaissance, dbo.Livret1_NonClos.DateValidite, dbo.Livret1_NonClos.IsRecours, dbo.Juries.DateLimiteRecours, dbo.Recours.Decision AS DecisionRecours, dbo.Recours.MotifGeneral, dbo.Recours.MotifDetail, 
-                         dbo.Recours.MotifCommentaire
-FROM            dbo.Candidats INNER JOIN
-                         dbo.Livret1_NonClos ON dbo.Candidats.ID = dbo.Livret1_NonClos.Candidat_ID INNER JOIN
-                         dbo.Recours ON dbo.Livret1_NonClos.ID = dbo.Recours.Livret1_ID AND dbo.Livret1_NonClos.ID = dbo.Recours.Livret1_ID LEFT OUTER JOIN
-                         dbo.Juries ON dbo.Livret1_NonClos.ID = dbo.Juries.Livret1_ID
-WHERE        (dbo.Juries.Decision LIKE N'20-%') AND (dbo.Livret1_NonClos.IsRecours = 1) AND (dbo.Recours.Decision LIKE N'20-%')
+SELECT        Candidats.ID, Candidats.Civilite, Candidats.Nom, Candidats.Prenom, Candidats.Prenom2, Candidats.Prenom3, Candidats.Adresse, Candidats.CodePostal, Candidats.Ville, Livret1_NonClos.Numero, 
+                         Livret1_NonClos.ID AS IDLivret1, Livret1_NonClos.DateEnvoiCandidat, Livret1_NonClos.DateLimiteReceptEHESP, Livret1_NonClos.DateReceptEHESP, Candidats.Pays, Livret1_NonClos.EtatLivret, Juries.DateJury, 
+                         Juries.NomJury, Juries.LieuJury, Juries.HeureJury, Juries.HeureConvoc, Juries.Decision, Candidats.Sexe, Candidats.NomJeuneFille, Candidats.DateNaissance, Candidats.CPNaissance, Candidats.VilleNaissance, 
+                         Livret1_NonClos.DateValidite, dbo.Juries.IsRecours, Juries.DateLimiteRecours, Recours.Decision AS DecisionRecours, Recours.MotifGeneral, Recours.MotifDetail, Recours.MotifCommentaire
+FROM            Recours RIGHT OUTER JOIN
+                         Juries ON Recours.Jury_ID = Juries.ID RIGHT OUTER JOIN
+                         Candidats INNER JOIN
+                         Livret1_NonClos ON Candidats.ID = Livret1_NonClos.Candidat_ID ON Juries.Livret1_ID = Livret1_NonClos.ID
+WHERE        (Juries.Decision LIKE N'20-%') AND (Juries.IsRecours = 1) AND (Recours.Decision LIKE N'20-%')
 
 GO
 /****** Object:  View [dbo].[L2_DC]    Script Date: 19/02/2019 18:24:52 ******/
@@ -348,16 +343,16 @@ DROP VIEW [dbo].[RQ_L1_STAT]
 GO
 CREATE VIEW [dbo].[RQ_L1_STAT]
 AS
-SELECT        dbo.Livret1.DateDemande, dbo.Livret1.TypeDemande, YEAR(dbo.Livret1.DateDemande) AS ANNEE, DATENAME(month, dbo.Livret1.DateDemande) AS MOIS, DATENAME(day, dbo.Livret1.DateDemande) AS JOUR, 
-                         FLOOR(DATENAME(day, dbo.Livret1.DateDemande) / 16) + 1 AS QUINZAINE, DATENAME(quarter, dbo.Livret1.DateDemande) AS TRIMESTRE, dbo.Livret1.VecteurInformation, dbo.Livret1.Numero, dbo.Livret1.EtatLivret, 
-                         dbo.Livret1.IsRecours, dbo.Juries.Decision, dbo.Recours.Decision AS DecisionRecours, dbo.Juries.MotifGeneral AS MotifGJury, dbo.Juries.MotifDetail AS MotifDJury, dbo.Juries.MotifCommentaire AS MotifCJury, 
-                         dbo.Recours.MotifGeneral AS MotifGRecours, dbo.Recours.MotifDetail AS MotifDrecours, dbo.Recours.MotifCommentaire AS MotifCRecours, dbo.Candidats.Nom, dbo.Candidats.Sexe, dbo.Candidats.Ville, 
-                         dbo.Candidats.Region
-FROM            dbo.Livret1 INNER JOIN
-                         dbo.Candidats ON dbo.Livret1.Candidat_ID = dbo.Candidats.ID LEFT OUTER JOIN
-                         dbo.Recours ON dbo.Livret1.ID = dbo.Recours.Livret1_ID LEFT OUTER JOIN
-                         dbo.Juries ON dbo.Livret1.ID = dbo.Juries.Livret1_ID
+SELECT        Livret1.DateDemande, Livret1.TypeDemande, YEAR(Livret1.DateDemande) AS ANNEE, DATENAME(month, Livret1.DateDemande) AS MOIS, DATENAME(day, Livret1.DateDemande) AS JOUR, FLOOR(DATENAME(day, 
+                         Livret1.DateDemande) / 16) + 1 AS QUINZAINE, DATENAME(quarter, Livret1.DateDemande) AS TRIMESTRE, Livret1.VecteurInformation, Livret1.Numero, Livret1.EtatLivret, Juries.IsRecours, Juries.Decision, 
+                         Recours.Decision AS DecisionRecours, Juries.MotifGeneral AS MotifGJury, Juries.MotifDetail AS MotifDJury, Juries.MotifCommentaire AS MotifCJury, Recours.MotifGeneral AS MotifGRecours, 
+                         Recours.MotifDetail AS MotifDrecours, Recours.MotifCommentaire AS MotifCRecours, Candidats.Nom, Candidats.Sexe, Candidats.Ville, Candidats.Region
+FROM            Juries LEFT OUTER JOIN
+                         Recours ON Juries.ID = Recours.Jury_ID RIGHT OUTER JOIN
+                         Livret1 INNER JOIN
+                         Candidats ON Livret1.Candidat_ID = Candidats.ID ON Juries.Livret1_ID = Livret1.ID
 GO
+
 DROP VIEW [dbo].[RQ_L2_STAT]
 GO
 CREATE VIEW [dbo].[RQ_L2_STAT]

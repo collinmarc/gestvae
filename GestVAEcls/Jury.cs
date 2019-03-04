@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace GestVAEcls
 
         public DateTime? DateNotificationJury { get; set; }
         public DateTime? DateNotificationJuryRecours { get; set; }
+        public Boolean IsRecours { get; set; }
+        public virtual ObservableCollection<Recours> lstRecours { get; set; }
 
         public Jury() : base()
         {
@@ -41,6 +44,21 @@ namespace GestVAEcls
             MotifCommentaire = "";
             MotifDetail = "";
             MotifGeneral = "";
+            lstRecours = new ObservableCollection<Recours>();
+
         }
+
+        public Recours oRecours
+        {
+            get
+            {
+                if (lstRecours.Count ==0)
+                {
+                    lstRecours.Add(new Recours());
+                }
+                return lstRecours[0];
+            }
+        }
+
     }
 }

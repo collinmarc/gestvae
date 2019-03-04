@@ -127,6 +127,10 @@ namespace GestVAEcls
                         foreach (Jury oItem in oLiv.lstJurys)
                         {
                             Entry<Jury>(oItem).State = System.Data.Entity.EntityState.Deleted;
+                            foreach (Recours oItemR in oItem.lstRecours)
+                            {
+                                Entry<Recours>(oItemR).State = System.Data.Entity.EntityState.Deleted;
+                            }
                         }
 
                         foreach (Echange oItem in oLiv.lstEchanges)
@@ -136,10 +140,6 @@ namespace GestVAEcls
                         foreach (PieceJointe oItem in oLiv.lstPiecesJointes)
                         {
                             Entry<PieceJointe>(oItem).State = System.Data.Entity.EntityState.Deleted;
-                        }
-                        foreach (Recours oItem in oLiv.lstRecours)
-                        {
-                            Entry<Recours>(oItem).State = System.Data.Entity.EntityState.Deleted;
                         }
                     }
                 }

@@ -34,6 +34,18 @@ namespace GestVAEcls
         [ForeignKey("Diplome_ID")]
         public virtual Diplome oDiplome { get; set; }
         public virtual ObservableCollection<Jury> lstJurys { get; set; }
+
+        public Jury get1erJury()
+        {
+            if (lstJurys.Count>0)
+            {
+                return lstJurys[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
         public Boolean isClos { get; set; }
 
         public Livret()
@@ -42,9 +54,16 @@ namespace GestVAEcls
             EtatLivret = "";
             Typestr = "";
             lstJurys = new ObservableCollection<Jury>();
+            //lstJurys.Add(new Jury());
             oDiplome = Diplome.getDiplomeParDefaut();
         }
-
+        public void create1erJury()
+        {
+            if (get1erJury() == null)
+            {
+                lstJurys.Add(new Jury());
+            }
+        }
 
     }
     public class Livret1 : Livret
@@ -68,8 +87,6 @@ namespace GestVAEcls
         [ForeignKey("Candidat_ID")]
         [Required]
         public virtual Candidat oCandidat { get; set; }
-        public Boolean IsRecours { get; set; }
-        public virtual ObservableCollection<Recours> lstRecours { get; set; }
 
         public Livret1():base()
         {
@@ -78,7 +95,6 @@ namespace GestVAEcls
             lstEchanges = new ObservableCollection<EchangeL1>();
 
             Numero = DateTime.Now.ToString("L1yyyyMMddHHmm");
-            lstRecours = new ObservableCollection<Recours>();
         }
 
 
@@ -112,7 +128,6 @@ namespace GestVAEcls
         [ForeignKey("Candidat_ID")]
         [Required]
         public virtual Candidat oCandidat { get; set; }
- //       public virtual ObservableCollection<Recours> lstRecours { get; set; }
 
         public Livret2():base()
         {
@@ -121,7 +136,7 @@ namespace GestVAEcls
             lstEchanges = new ObservableCollection<EchangeL2>();
             lstDCLivrets = new ObservableCollection<DCLivret>();
             lstMembreJurys = new ObservableCollection<MembreJury>();
-            //           lstRecours = new ObservableCollection<Recours>();
+
             Numero = DateTime.Now.ToString("L2yyyyMMddHHmm");
             NumPassage = 1;
         }

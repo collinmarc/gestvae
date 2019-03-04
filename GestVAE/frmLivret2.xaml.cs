@@ -95,5 +95,10 @@ namespace GestVAE
         {
 
         }
+
+        private void cbQuitter_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -70,6 +70,7 @@
     <Compile Include="LivretTest.cs" />
     <Compile Include="DCLivretTest.cs" />
     <Compile Include="UnitTest1.cs" />
+    <Compile Include="VMTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -83,6 +84,10 @@
     <ProjectReference Include="..\GestVAEcls\GestVAEcls.csproj">
       <Project>{2537158c-ede7-47d6-835d-1d95b30f4620}</Project>
       <Name>GestVAEcls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GestVAE\GestVAE.csproj">
+      <Project>{864692b8-5c9d-4385-a91f-ce3e4a75773b}</Project>
+      <Name>GestVAE</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

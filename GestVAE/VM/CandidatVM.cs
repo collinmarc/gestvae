@@ -393,6 +393,7 @@ namespace GestVAE.VM
             if (!pLiv.IsNew)
             {
                     _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
+
             }
             else
             {

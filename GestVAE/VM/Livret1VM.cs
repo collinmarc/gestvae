@@ -29,6 +29,7 @@ namespace GestVAE.VM
 
             oReturn = new Livret1();
             oReturn.oDiplome = Diplome.getDiplomeParDefaut();
+            oReturn.create1erJury();
             TheItem = oReturn;
 
 
@@ -520,9 +521,9 @@ namespace GestVAE.VM
         public String NomJury {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].NomJury;
+                   return oJury.NomJury;
                 }
                 else
                 {
@@ -533,9 +534,9 @@ namespace GestVAE.VM
             {
                 if (value != NomJury)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury ==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
                     TheLivret.lstJurys[0].NomJury = value;
@@ -544,13 +545,33 @@ namespace GestVAE.VM
                 }
             }
         }
+
+        private Jury oJury { get
+            {
+                if (TheLivret.get1erJury() != null)
+                {
+                   return TheLivret.get1erJury();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (oJury == null)
+                {
+                    TheLivret.lstJurys.Add(value);
+                }
+            }
+        }
         public String LieuJury
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury!= null)
                 {
-                    return TheLivret.lstJurys[0].LieuJury;
+                    return oJury.LieuJury;
                 }
                 else
                 {
@@ -561,12 +582,12 @@ namespace GestVAE.VM
             {
                 if (value != LieuJury)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury= new Jury();
                     }
 
-                    TheLivret.lstJurys[0].LieuJury = value;
+                    oJury.LieuJury = value;
 
                     RaisePropertyChanged();
                 }
@@ -576,9 +597,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].DateJury;
+                    return oJury.DateJury;
                 }
                 else
                 {
@@ -589,12 +610,12 @@ namespace GestVAE.VM
             {
                 if (value != DateJury)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury == null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury= new Jury();
                     }
 
-                    TheLivret.lstJurys[0].DateJury = value;
+                    oJury.DateJury = value;
                     DateLimiteRecours = value.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
 
                     RaisePropertyChanged();
@@ -605,9 +626,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].DateNotificationJury;
+                    return oJury.DateNotificationJury;
                 }
                 else
                 {
@@ -618,12 +639,12 @@ namespace GestVAE.VM
             {
                 if (value != DateNotificationJury)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
-                    TheLivret.lstJurys[0].DateNotificationJury = value;
+                    oJury.DateNotificationJury = value;
 
                     RaisePropertyChanged();
                 }
@@ -633,9 +654,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].DateNotificationJuryRecours;
+                    return oJury.DateNotificationJuryRecours;
                 }
                 else
                 {
@@ -646,12 +667,12 @@ namespace GestVAE.VM
             {
                 if (value != DateNotificationJuryRecours)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury == null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
-                    TheLivret.lstJurys[0].DateNotificationJuryRecours = value;
+                    oJury.DateNotificationJuryRecours = value;
 
                     RaisePropertyChanged();
                 }
@@ -661,9 +682,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].HeureJury;
+                   return oJury.HeureJury;
                 }
                 else
                 {
@@ -674,9 +695,9 @@ namespace GestVAE.VM
             {
                 if (value != HeureJury)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury ==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
                     TheLivret.lstJurys[0].HeureJury = value;
@@ -689,9 +710,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].HeureConvoc;
+                   return oJury.HeureConvoc;
                 }
                 else
                 {
@@ -702,9 +723,9 @@ namespace GestVAE.VM
             {
                 if (value != HeureConvoc)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury ==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
                     TheLivret.lstJurys[0].HeureConvoc = value;
@@ -717,9 +738,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].DateLimiteRecours;
+                   return oJury.DateLimiteRecours;
                 }
                 else
                 {
@@ -730,9 +751,9 @@ namespace GestVAE.VM
             {
                 if (value != DateLimiteRecours)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury ==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
                     TheLivret.lstJurys[0].DateLimiteRecours = value;
@@ -752,9 +773,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].Decision;
+                   return oJury.Decision;
                 }
                 else
                 {
@@ -765,9 +786,9 @@ namespace GestVAE.VM
             {
                 if (value != DecisionJury)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury ==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
                     TheLivret.lstJurys[0].Decision = value;
@@ -825,16 +846,19 @@ namespace GestVAE.VM
             {
                 strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
             }
-            strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
-            EtatLivret = strEtat;
+            if (LstEtatLivret != null)
+            {
+                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
+                EtatLivret = strEtat;
+            }
         }
         public Boolean IsRecoursDemande {
-            get { return oL1.IsRecours; }
+            get { return oJury.IsRecours; }
             set
             {
                 if (value != IsRecoursDemande)
                 {
-                    oL1.IsRecours = value;
+                    oJury.IsRecours = value;
                     RaisePropertyChanged();
                 }
             }
@@ -843,9 +867,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].MotifGeneral;
+                   return oJury.MotifGeneral;
                 }
                 else
                 {
@@ -856,9 +880,9 @@ namespace GestVAE.VM
             {
                 if (value != MotifGeneralJury)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury ==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
                     TheLivret.lstJurys[0].MotifGeneral = value;
@@ -871,9 +895,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].MotifDetail;
+                   return oJury.MotifDetail;
                 }
                 else
                 {
@@ -884,9 +908,9 @@ namespace GestVAE.VM
             {
                 if (value != MotifDetailJury)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury ==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
                     TheLivret.lstJurys[0].MotifDetail = value;
@@ -899,9 +923,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (TheLivret.lstJurys.Count >= 1)
+                if (oJury != null)
                 {
-                    return TheLivret.lstJurys[0].MotifCommentaire;
+                   return oJury.MotifCommentaire;
                 }
                 else
                 {
@@ -912,9 +936,9 @@ namespace GestVAE.VM
             {
                 if (value != CommentaireJury)
                 {
-                    if (TheLivret.lstJurys.Count == 0)
+                    if (oJury ==null)
                     {
-                        TheLivret.lstJurys.Add(new Jury());
+                        oJury = new Jury();
                     }
 
                     TheLivret.lstJurys[0].MotifCommentaire = value;
@@ -927,9 +951,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
+                if (oJury.lstRecours.Count >= 1)
                 {
-                    return oL1.lstRecours[0].TypeRecours;
+                    return oJury.lstRecours[0].TypeRecours;
                 }
                 else
                 {
@@ -940,12 +964,12 @@ namespace GestVAE.VM
             {
                 if (value != TypeRecours)
                 {
-                    if (oL1.lstRecours.Count == 0)
+                    if (oJury.lstRecours.Count == 0)
                     {
-                        oL1.lstRecours.Add(new Recours());
+                        oJury.lstRecours.Add(new Recours());
                     }
 
-                    oL1.lstRecours[0].TypeRecours = value;
+                    oJury.lstRecours[0].TypeRecours = value;
 
                     RaisePropertyChanged();
                 }
@@ -956,25 +980,13 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count>= 1)
-                {
-                    return oL1.lstRecours[0].DateDepot;
-                }
-                else
-                {
-                    return null;
-                }
+                    return oJury.oRecours.DateDepot;
             }
             set
             {
                 if (value != DateDepot)
                 {
-                    if (oL1.lstRecours.Count == 0)
-                    {
-                        oL1.lstRecours.Add(new Recours());
-                    }
-
-                    oL1.lstRecours[0].DateDepot= value;
+                    oJury.oRecours.DateDepot= value;
 
                     RaisePropertyChanged();
                 }
@@ -984,9 +996,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
+                if (oJury.lstRecours.Count >= 1)
                 {
-                    return oL1.lstRecours[0].DateLimiteJury;
+                    return oJury.lstRecours[0].DateLimiteJury;
                 }
                 else
                 {
@@ -997,12 +1009,12 @@ namespace GestVAE.VM
             {
                 if (value != DateDepot)
                 {
-                    if (oL1.lstRecours.Count == 0)
+                    if (oJury.lstRecours.Count == 0)
                     {
-                        oL1.lstRecours.Add(new Recours());
+                        oJury.lstRecours.Add(new Recours());
                     }
 
-                    oL1.lstRecours[0].DateLimiteJury = value;
+                    oJury.lstRecours[0].DateLimiteJury = value;
 
                     RaisePropertyChanged();
                 }
@@ -1012,9 +1024,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
+                if (oJury.lstRecours.Count >= 1)
                 {
-                    return oL1.lstRecours[0].LieuJury;
+                    return oJury.lstRecours[0].LieuJury;
                 }
                 else
                 {
@@ -1025,12 +1037,12 @@ namespace GestVAE.VM
             {
                 if (value != LieuJury)
                 {
-                    if (oL1.lstRecours.Count == 0)
+                    if (oJury.lstRecours.Count == 0)
                     {
-                        oL1.lstRecours.Add(new Recours());
+                        oJury.lstRecours.Add(new Recours());
                     }
 
-                    oL1.lstRecours[0].LieuJury = value;
+                    oJury.lstRecours[0].LieuJury = value;
 
                     RaisePropertyChanged();
                 }
@@ -1040,9 +1052,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
+                if (oJury.lstRecours.Count >= 1)
                 {
-                    return oL1.lstRecours[0].DateJury;
+                    return oJury.lstRecours[0].DateJury;
                 }
                 else
                 {
@@ -1053,12 +1065,12 @@ namespace GestVAE.VM
             {
                 if (value != DateJuryRecours)
                 {
-                    if (oL1.lstRecours.Count == 0)
+                    if (oJury.lstRecours.Count == 0)
                     {
-                        oL1.lstRecours.Add(new Recours());
+                        oJury.lstRecours.Add(new Recours());
                     }
 
-                    oL1.lstRecours[0].DateJury = value;
+                    oJury.lstRecours[0].DateJury = value;
 
                     RaisePropertyChanged();
                 }
@@ -1068,25 +1080,13 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
-                {
-                    return oL1.lstRecours[0].Decision;
-                }
-                else
-                {
-                    return "";
-                }
+                    return oJury.oRecours.Decision;
             }
             set
             {
                 if (value != DecisionJuryRecours)
                 {
-                    if (oL1.lstRecours.Count == 0)
-                    {
-                        oL1.lstRecours.Add(new Recours());
-                    }
-
-                    oL1.lstRecours[0].Decision = value;
+                    oJury.oRecours.Decision = value;
 
                     setEtatLivret();
                     if (!IsEtatRefuse)
@@ -1104,25 +1104,18 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
-                {
-                    return oL1.lstRecours[0].MotifRecours;
-                }
-                else
-                {
-                    return "";
-                }
+                    return oJury.oRecours.MotifRecours;
             }
             set
             {
                 if (value != MotifRecours)
                 {
-                    if (oL1.lstRecours.Count == 0)
+                    if (oJury.lstRecours.Count == 0)
                     {
-                        oL1.lstRecours.Add(new Recours());
+                        oJury.lstRecours.Add(new Recours());
                     }
 
-                    oL1.lstRecours[0].MotifRecours = value;
+                    oJury.lstRecours[0].MotifRecours = value;
 
                     RaisePropertyChanged();
                 }
@@ -1132,9 +1125,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
+                if (oJury.lstRecours.Count >= 1)
                 {
-                    return oL1.lstRecours[0].MotifRecoursCommentaire;
+                    return oJury.lstRecours[0].MotifRecoursCommentaire;
                 }
                 else
                 {
@@ -1145,12 +1138,12 @@ namespace GestVAE.VM
             {
                 if (value != MotifRecoursCommentaire)
                 {
-                    if (oL1.lstRecours.Count == 0)
+                    if (oJury.lstRecours.Count == 0)
                     {
-                        oL1.lstRecours.Add(new Recours());
+                        oJury.lstRecours.Add(new Recours());
                     }
 
-                    oL1.lstRecours[0].MotifRecoursCommentaire = value;
+                    oJury.lstRecours[0].MotifRecoursCommentaire = value;
 
                     RaisePropertyChanged();
                 }
@@ -1161,9 +1154,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
+                if (oJury.lstRecours.Count >= 1)
                 {
-                    return oL1.lstRecours[0].MotifGeneral;
+                    return oJury.lstRecours[0].MotifGeneral;
                 }
                 else
                 {
@@ -1174,12 +1167,12 @@ namespace GestVAE.VM
             {
                 if (value != MotifGeneralJuryRecours)
                 {
-                    if (oL1.lstRecours.Count == 0)
+                    if (oJury.lstRecours.Count == 0)
                     {
-                        oL1.lstRecours.Add(new Recours());
+                        oJury.lstRecours.Add(new Recours());
                     }
 
-                    oL1.lstRecours[0].MotifGeneral = value;
+                    oJury.lstRecours[0].MotifGeneral = value;
 
                     RaisePropertyChanged();
                 }
@@ -1189,9 +1182,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
+                if (oJury.lstRecours.Count >= 1)
                 {
-                    return oL1.lstRecours[0].MotifDetail;
+                    return oJury.lstRecours[0].MotifDetail;
                 }
                 else
                 {
@@ -1202,12 +1195,12 @@ namespace GestVAE.VM
             {
                 if (value != MotifDetailJuryRecours)
                 {
-                    if (oL1.lstRecours.Count == 0)
+                    if (oJury.lstRecours.Count == 0)
                     {
-                        oL1.lstRecours.Add(new Recours());
+                        oJury.lstRecours.Add(new Recours());
                     }
 
-                    oL1.lstRecours[0].MotifDetail = value;
+                    oJury.lstRecours[0].MotifDetail = value;
 
                     RaisePropertyChanged();
                 }
@@ -1217,9 +1210,9 @@ namespace GestVAE.VM
         {
             get
             {
-                if (oL1.lstRecours.Count >= 1)
+                if (oJury.lstRecours.Count >= 1)
                 {
-                    return oL1.lstRecours[0].MotifCommentaire;
+                    return oJury.lstRecours[0].MotifCommentaire;
                 }
                 else
                 {
@@ -1230,12 +1223,12 @@ namespace GestVAE.VM
             {
                 if (value != CommentaireJuryRecours)
                 {
-                    if (oL1.lstRecours.Count == 0)
+                    if (oJury.lstRecours.Count == 0)
                     {
-                        oL1.lstRecours.Add(new Recours());
+                        oJury.lstRecours.Add(new Recours());
                     }
 
-                    oL1.lstRecours[0].MotifCommentaire = value;
+                    oJury.lstRecours[0].MotifCommentaire = value;
 
                     RaisePropertyChanged();
                 }
@@ -1274,11 +1267,23 @@ namespace GestVAE.VM
                     }
 
             }
-            while (oL1.lstRecours.Count>0)
-            {
-                oL1.lstRecours.RemoveAt(0);
-            }
 
+            while (oL1.lstJurys.Count>0)
+            {
+                oL1.lstJurys.RemoveAt(0);
+            }
+        }
+
+        public override bool HasChanges()
+        {
+            DbEntityEntry<Livret1> dbL1 = _ctx.Entry<Livret1>(oL1);
+            return (dbL1.State == System.Data.Entity.EntityState.Modified);
+        }
+
+        public void Reset()
+        {
+            DbEntityEntry<Livret1> dbL1 = _ctx.Entry<Livret1>(oL1);
+            dbL1.CurrentValues.SetValues(dbL1.OriginalValues);
         }
     }
 }

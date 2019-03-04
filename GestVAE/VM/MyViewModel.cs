@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace GestVAE.VM
@@ -51,10 +53,11 @@ namespace GestVAE.VM
                 }
             }
         }
-
+        public Boolean IsInTest { get; set; }
 
         public MyViewModel()
         {
+            IsInTest = false;
             _ctx = Context.instance;
             _lstCandidatVM = new ObservableCollection<CandidatVM>();
             _lstRegionVM = new ObservableCollection<RegionVM>();
@@ -100,7 +103,7 @@ namespace GestVAE.VM
                                            );
             CloturerL1etCreerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL1etCreerL2(); }
                                            );
-            CloseCommand = new RelayCommand<MyViewModel>(o => { CloseWindowL1(); }
+            CloseCommand = new RelayCommand<MyViewModel>(o => { ResetL1AndCloseWindowL1(); }
                                            );
             DeleteCandidatCommand = new RelayCommand<MyViewModel>(o => { DeleteCandidat(); }
                                            );
@@ -187,112 +190,123 @@ namespace GestVAE.VM
             set { }
         }
 
-        public void saveData()
+        public Boolean saveData()
         {
-            foreach (CandidatVM item in lstCandidatVM)
+            Boolean bReturn = true;
+            try
             {
-                item.Commit();
+                foreach (CandidatVM item in lstCandidatVM)
+                {
+                    item.Commit();
+                }
+                foreach (PieceJointeCategorie item in lstPieceJointeCategorie)
+                {
+                    if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctx.pieceJointeCategories.Add(item);
+                    }
+                    if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctx.pieceJointeCategories.Remove(item);
+                    }
+                }
+                foreach (MotifGeneralL1 item in lstMotifGL1)
+                {
+                    if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctx.dbMotifGeneralL1.Add(item);
+                    }
+                    if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctx.dbMotifGeneralL1.Remove(item);
+                    }
+                }
+
+                foreach (MotifGeneralL2 item in lstMotifGL2)
+                {
+                    if (_ctx.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctx.dbMotifGeneralL2.Add(item);
+                    }
+                    if (_ctx.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctx.dbMotifGeneralL2.Remove(item);
+                    }
+                }
+
+                foreach (RegionVM item in lstRegionVM)
+                {
+                    if (item.IsNew)
+                    {
+                        _ctx.Regions.Add(item.RegionItem);
+                    }
+                }
+                foreach (DiplomeVM item in lstDiplomeVM)
+                {
+                    item.Commit();
+                }
+
+                foreach (CandidatVM item in lstCandidatVM)
+                {
+                    item.Commit();
+                }
+                foreach (ParamOrigine item in lstParamOrigine)
+                {
+                    if (_ctx.Entry<ParamOrigine>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctx.dbParamOrigine.Add(item);
+                    }
+                    if (_ctx.Entry<ParamOrigine>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctx.dbParamOrigine.Remove(item);
+                    }
+                }
+                foreach (ParamCollege item in lstParamCollege)
+                {
+                    if (_ctx.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctx.dbParamCollege.Add(item);
+                    }
+                    if (_ctx.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctx.dbParamCollege.Remove(item);
+                    }
+                }
+                foreach (ParamTypeDemande item in lstParamTypeDemande)
+                {
+                    if (_ctx.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctx.dbParamTypeDemande.Add(item);
+                    }
+                    if (_ctx.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctx.dbParamTypeDemande.Remove(item);
+                    }
+                }
+                foreach (ParamVecteurInformation item in lstParamVecteurInformation)
+                {
+                    if (_ctx.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctx.dbParamVecteurInformation.Add(item);
+                    }
+                    if (_ctx.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctx.dbParamVecteurInformation.Remove(item);
+                    }
+                }
+                _ctx.DeleteOnCascade();
+                _ctx.SaveChanges();
+                _modelhasChanges = false;
+                bReturn = true;
             }
-            foreach (PieceJointeCategorie item in lstPieceJointeCategorie)
+            catch (Exception ex)
             {
-                if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Detached)
-                {
-                    _ctx.pieceJointeCategories.Add(item);
-                }
-                if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Deleted)
-                {
-                    _ctx.pieceJointeCategories.Remove(item);
-                }
-            }
-            foreach (MotifGeneralL1 item in lstMotifGL1)
-            {
-                if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Detached)
-                {
-                    _ctx.dbMotifGeneralL1.Add(item);
-                }
-                if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Deleted)
-                {
-                    _ctx.dbMotifGeneralL1.Remove(item);
-                }
+                Trace.WriteLine(ex.Message);
+                bReturn = false;
             }
 
-            foreach (MotifGeneralL2 item in lstMotifGL2)
-            {
-                if (_ctx.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Detached)
-                {
-                    _ctx.dbMotifGeneralL2.Add(item);
-                }
-                if (_ctx.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Deleted)
-                {
-                    _ctx.dbMotifGeneralL2.Remove(item);
-                }
-            }
-
-            foreach (RegionVM item in lstRegionVM)
-            {
-                if (item.IsNew)
-                {
-                    _ctx.Regions.Add(item.RegionItem);
-                }
-            }
-            foreach (DiplomeVM item in lstDiplomeVM)
-            {
-                item.Commit();
-            }
-
-            foreach (CandidatVM item in lstCandidatVM)
-            {
-                item.Commit();
-            }
-            foreach (ParamOrigine item in lstParamOrigine)
-            {
-                if (_ctx.Entry<ParamOrigine>(item).State == System.Data.Entity.EntityState.Detached)
-                {
-                    _ctx.dbParamOrigine.Add(item);
-                }
-                if (_ctx.Entry<ParamOrigine>(item).State == System.Data.Entity.EntityState.Deleted)
-                {
-                    _ctx.dbParamOrigine.Remove(item);
-                }
-            }
-            foreach (ParamCollege item in lstParamCollege)
-            {
-                if (_ctx.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Detached)
-                {
-                    _ctx.dbParamCollege.Add(item);
-                }
-                if (_ctx.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Deleted)
-                {
-                    _ctx.dbParamCollege.Remove(item);
-                }
-            }
-            foreach (ParamTypeDemande item in lstParamTypeDemande)
-            {
-                if (_ctx.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Detached)
-                {
-                    _ctx.dbParamTypeDemande.Add(item);
-                }
-                if (_ctx.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Deleted)
-                {
-                    _ctx.dbParamTypeDemande.Remove(item);
-                }
-            }
-            foreach (ParamVecteurInformation item in lstParamVecteurInformation)
-            {
-                if (_ctx.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Detached)
-                {
-                    _ctx.dbParamVecteurInformation.Add(item);
-                }
-                if (_ctx.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Deleted)
-                {
-                    _ctx.dbParamVecteurInformation.Remove(item);
-                }
-            }
-            _ctx.SaveChanges();
-            _modelhasChanges = false;
-           
-
-        }
+            return bReturn;
+        }//SaveData
 
 
         public void getData()
@@ -386,7 +400,12 @@ namespace GestVAE.VM
                 CandidatVM oCand = new CandidatVM(item);
                 _lstCandidatVM.Add(oCand);
             }
-            CurrentCandidat = _lstCandidatVM[0];
+            CurrentCandidat = null;
+            if (lstCandidatVM.Count > 0)
+            {
+                CurrentCandidat = _lstCandidatVM[0];
+            }
+
 
 
 
@@ -630,13 +649,16 @@ namespace GestVAE.VM
 
             CandidatVM oCandVM = CurrentCandidat;
             Livret1VM oLivVM = new Livret1VM();
+            oLivVM.LstEtatLivret = LstEtatLivret1;
             oLivVM.EtatLivret = LstEtatLivret1[1];
             oLivVM.DateDemande = DateTime.Now;
             CurrentCandidat.CurrentLivret = oLivVM;
-
-            frmLivret1 odlg = new frmLivret1();
-            odlg.setContexte(this);
-            odlg.ShowDialog();
+            if (!IsInTest)
+            {
+                frmLivret1 odlg = new frmLivret1();
+                odlg.setContexte(this);
+                odlg.ShowDialog();
+            }
         }//AjouteL1
          /// <summary>
          /// Ajout d'un Livret2
@@ -645,6 +667,7 @@ namespace GestVAE.VM
         {
             CandidatVM oCandVM = CurrentCandidat;
             Livret2VM oLivVM = new Livret2VM();
+            oLivVM.LstEtatLivret = LstEtatLivret2;
 
             oLivVM.EtatLivret = LstEtatLivret2[1];
             oLivVM.DateDemande = DateTime.Now;
@@ -668,9 +691,12 @@ namespace GestVAE.VM
 
             CurrentCandidat.CurrentLivret = oLivVM;
 
-            frmLivret2 odlg = new frmLivret2();
-            odlg.setContexte(this);
-            odlg.ShowDialog();
+            if (!IsInTest)
+            {
+                frmLivret2 odlg = new frmLivret2();
+                odlg.setContexte(this);
+                odlg.ShowDialog();
+            }
 
         }
         public void AjoutePJL1()
@@ -740,8 +766,11 @@ namespace GestVAE.VM
             {
                 CurrentCandidat.AjouLivret1(oL1VM);
             }
-//            _ctx.Histos.Add(new Histo("AjoutCandidat"));
-            CloseAction();
+            //            _ctx.Histos.Add(new Histo("AjoutCandidat"));
+            if (!IsInTest)
+            {
+                CloseAction();
+            }
         }
 
         public void ValideretQuitterL2()
@@ -754,23 +783,31 @@ namespace GestVAE.VM
             {
                 CurrentCandidat.AjoutLivret2(oL2VM);
             }
-            CloseAction();
+            if (!IsInTest)
+            {
+                CloseAction();
+            }
         }
 
-        public void CloseWindowL1()
+        public void ResetL1AndCloseWindowL1()
         {
-            var lstEnt = _ctx.ChangeTracker.Entries<Livret1>().Where(i=>i.Entity.ID== CurrentCandidat.CurrentLivret.TheLivret.ID);
-            foreach (var oLiv in lstEnt)
-            {
-                if (oLiv.State == EntityState.Modified)
+            Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
+            if (oLiv.HasChanges())
                 {
-                    oLiv.CurrentValues.SetValues(oLiv.OriginalValues);
+                if (MessageBox.Show("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION",MessageBoxButton.YesNo,MessageBoxImage.Warning) 
+                    == MessageBoxResult.Yes)
+                    {
+                        ResetL1();
+                    }
                 }
-            }
-            CurrentCandidat.refreshlstLivrets();
             CloseAction();
         }
-        public bool hasChanges()
+    public void ResetL1()
+    {
+            Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
+            oLiv.Reset();
+    }
+    public bool hasChanges()
         {
             return (_ctx.ChangeTracker.HasChanges() || _modelhasChanges);
         }

@@ -23,7 +23,7 @@ namespace GestVAETU
             oRec.NomJury = "BBBB";
             oRec.Decision = "Accepté";
 
-            oL1.lstRecours.Add(oRec);
+            oL1.get1erJury().lstRecours.Add(oRec);
             ctx.SaveChanges();
 
             nId = oCand.ID;
@@ -33,9 +33,9 @@ namespace GestVAETU
 
             oCand = ctx.Candidats.Find(nId);
             oL1 = oCand.lstLivrets1[0];
-            Assert.AreEqual(1, oL1.lstRecours.Count);
+            Assert.AreEqual(1, oL1.get1erJury().lstRecours.Count);
 
-            Recours oRec2 = oL1.lstRecours[0];
+            Recours oRec2 = oL1.get1erJury().lstRecours[0];
 
             Assert.AreEqual(oRec.ID, oRec2.ID);
             Assert.AreEqual(oRec.DateDepot, oRec2.DateDepot);

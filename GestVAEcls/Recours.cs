@@ -29,11 +29,10 @@ namespace GestVAEcls
         public String MotifGeneral { get; set; }
         public String MotifDetail { get; set; }
         public String MotifCommentaire { get; set; }
-        //public virtual Jury oJury { get; set; }
-        public virtual int Livret1_ID { get; set; }
-        [ForeignKey("Livret1_ID")]
+        public virtual int Jury_ID { get; set; }
+        [ForeignKey("Jury_ID")]
         [Required]
-        public virtual Livret1 oLivret { get; set; }
+        public virtual Jury oJury { get; set; }
 
 
         public Recours() : base()

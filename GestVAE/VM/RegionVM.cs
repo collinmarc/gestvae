@@ -1,6 +1,7 @@
 ﻿using GestVAEcls;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,11 @@ namespace GestVAE.VM
         {
             TheRegion = new Region();
             IsNew = true;
+        }
+        public override DbEntityEntry getEntity()
+        {
+            DbEntityEntry<Region> entry = _ctx.Entry<Region>(TheRegion);
+            return entry;
         }
 
         public String Nom

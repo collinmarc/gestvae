@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,11 @@ namespace GestVAE.VM
         public DiplomeVM(Diplome pDiplome):base(pDiplome)
         {
             TheDiplome = pDiplome;
+        }
+        public override DbEntityEntry getEntity()
+        {
+            DbEntityEntry<Diplome> entry = _ctx.Entry<Diplome>(TheDiplome);
+            return entry;
         }
 
         public String NomDiplome

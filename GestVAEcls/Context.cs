@@ -46,63 +46,7 @@ namespace GestVAEcls
         public DbSet<MotifGeneralL1> dbMotifGeneralL1 { get; set; }
         public DbSet<MotifGeneralL2> dbMotifGeneralL2 { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-
-            //modelBuilder.Entity<Livret>()
-            //.Property(p => p.ID)
-            //.HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None)
-            //;
-            //modelBuilder.Entity<Livret1>()
-            //.Property(p => p.ID)
-            //.HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None)
-            //;
-            //modelBuilder.Entity<Livret2>()
-            //.Property(p => p.ID)
-            //.HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None)
-            //;
-
-            //modelBuilder.Entity<Livret1>().HasKey(t => t.IDLivret);
-            //modelBuilder.Entity<Livret2>().HasKey(t => t.IDLivret);
-
-            //modelBuilder.Entity<Livret1>().Map(m =>
-            //{
-            //    m.MapInheritedProperties();
-            //    m.ToTable("Livret1");
-            //});
-
-            //modelBuilder.Entity<Livret2>().Map(m =>
-            //{
-            //    m.MapInheritedProperties();
-            //    m.ToTable("Livret2");
-            //});
-            ////modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
-            //modelBuilder.Entity<Candidat>()
-            //    .HasKey(t => t.ID);
-            //modelBuilder.Entity<Diplome>()
-            //    .HasKey(t => t.ID);
-            //modelBuilder.Entity<DiplomeCand>()
-            //    .HasKey(t => t.ID);
-            //modelBuilder.Entity<DomaineCompetence>()
-            //    .HasKey(t => t.ID);
-            //modelBuilder.Entity<DomaineCompetenceCand>()
-            //    .HasKey(t => t.ID);
-
-            //modelBuilder.Entity<DomaineCompetenceCand>()
-            //    .HasRequired(t => t.oDiplomeCand)
-            //    .WithOptional()
-            //    .WillCascadeOnDelete(true);
-
-
-            //modelBuilder.Entity<T2>()
-            //    .HasKey(t => t.ID)
-            //    .HasRequired(t => t.oT1)
-            //    .WithRequiredPrincipal()
-            //    .WillCascadeOnDelete();
-
-        }
-
+ 
         public void DeleteOnCascade()
 
         {

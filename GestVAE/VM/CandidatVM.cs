@@ -78,6 +78,11 @@ namespace GestVAE.VM
 
         }
 
+        public override DbEntityEntry getEntity()
+        {
+            DbEntityEntry<Candidat> entry = _ctx.Entry<Candidat>(TheCandidat);
+            return entry;
+        }
 
         public String Civilite
         {
@@ -392,13 +397,22 @@ namespace GestVAE.VM
             pLiv.ClearDCs();
             if (!pLiv.IsNew)
             {
-                    _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
+                foreach (JuryVM oJ in CurrentLivret.lstJuryVM)
+                {
+                    foreach (RecoursVM oR in oJ.lstRecoursVM)
+                    {
+                        _ctx.Entry<Recours>((Recours)oR.TheItem).State = System.Data.Entity.EntityState.Deleted;
 
+                    }
+                    _ctx.Entry<Jury>((Jury)oJ.TheItem).State = System.Data.Entity.EntityState.Deleted;
+
+                }
+                _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
             }
             else
             {
-                    // Detache l'entity
-                    _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Detached;
+                // Detache l'entity
+                _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Detached;
             }
             CurrentLivret.IsDeleted = true;
             lstLivrets.Remove(pLiv);

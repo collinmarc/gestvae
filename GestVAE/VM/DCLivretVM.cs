@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,11 @@ namespace GestVAE.VM
         public DCLivretVM(DCLivret pDCLivret):base(pDCLivret)
         {
             TheDCLivret = pDCLivret;
+        }
+        public override DbEntityEntry getEntity()
+        {
+            DbEntityEntry<DCLivret> entry = _ctx.Entry<DCLivret>(TheDCLivret);
+            return entry;
         }
 
         public String NomDC

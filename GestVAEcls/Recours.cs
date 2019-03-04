@@ -40,6 +40,14 @@ namespace GestVAEcls
             DateDepot = DateTime.Now;
             TypeRecours = EnumTypeRecours.Gracieux;
             MotifRecours = "";
+            Decision = "";
+            MotifRecoursCommentaire = "";
+            NomJury = "";
+        LieuJury = ""; 
+            Decision = "";
+            MotifGeneral = "";
+            MotifDetail = "";
+            MotifCommentaire = "";
         }
-    }
+}
 }

@@ -805,7 +805,10 @@ namespace GestVAE.VM
     public void ResetL1()
     {
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
-            oLiv.Reset();
+            if (oLiv != null)
+            {
+                oLiv.Reset();
+            }
     }
     public bool hasChanges()
         {

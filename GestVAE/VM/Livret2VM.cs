@@ -61,6 +61,11 @@ namespace GestVAE.VM
         {
             TheLivret.oDiplome = pDip;
         }
+        public override DbEntityEntry getEntity()
+        {
+            DbEntityEntry<Livret2> entry = _ctx.Entry<Livret2>(oL2);
+            return entry;
+        }
 
         public String NomDiplome
         {
@@ -188,62 +193,6 @@ namespace GestVAE.VM
             }
         }
 
-        public Boolean IsLivretClos
-        {
-            get { return TheLivret.isClos; }
-            set
-            {
-                if (value != IsLivretClos)
-                {
-                    TheLivret.isClos = value;
-                    RaisePropertyChanged();
-                    RaisePropertyChanged("IsLivretNonClos");
-                }
-            }
-        }
-        public Boolean IsLivretNonClos
-        {
-            get { return !IsLivretClos; }
-            set { IsLivretClos = !value; }
-        }
-
-        public String EtatLivret
-        {
-            get
-            {
-                try
-                {
-                    return TheLivret.EtatLivret;
-
-                }
-                catch (Exception)
-                {
-
-                    return "";
-
-                }
-            }
-            set
-            {
-                if (value != EtatLivret)
-                {
-                    TheLivret.EtatLivret = value;
-                    if (IsLivretClos)
-                    {
-
-                    }
-                    RaisePropertyChanged();
-                    RaisePropertyChanged("IsEtatEnvoye");
-                    RaisePropertyChanged("IsEtatRecu");
-                    RaisePropertyChanged("IsEtatRecuComplet");
-                    RaisePropertyChanged("IsEtatRecuIncomplet");
-                    RaisePropertyChanged("IsEtatRefuse");
-                    RaisePropertyChanged("IsEtatRecours");
-                    RaisePropertyChanged("IsEtatAccepte");
-                    RaisePropertyChanged("IsEtatFerme");
-                }
-            }
-        }
         private int getNumetat()
         {
             int nReturn = 0;
@@ -269,57 +218,6 @@ namespace GestVAE.VM
                 nReturn = 0;
             }
             return nReturn;
-        }
-        public Boolean IsEtatDemande
-        {
-            get
-            {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_DEMANDE);
-            }
-        }
-        public Boolean IsEtatEnvoye
-        {
-            get
-            {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ENVOYE);
-            }
-        }
-        public Boolean IsEtatRecuIncomplet
-        {
-            get
-            {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET &&
-                    getNumetat() < (int)MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
-            }
-        }
-        public Boolean IsEtatRecu
-        {
-            get
-            {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET);
-            }
-        }
-        public Boolean IsEtatRecuComplet
-        {
-            get
-            {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
-            }
-        }
-        public Boolean IsEtatRefuse
-        {
-            get
-            {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_REFUSE) &&
-                        (getNumetat() < (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
-            }
-        }
-        public Boolean IsEtatAccepte
-        {
-            get
-            {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
-            }
         }
 
 
@@ -562,34 +460,6 @@ namespace GestVAE.VM
                 }
             }
         }
-        public DateTime? DateNotificationJury
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].DateNotificationJury;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                if (value != DateNotificationJury)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].DateNotificationJury = value;
-
-                    RaisePropertyChanged();
-                }
-            }
-        }
         public String SessionJury
         {
             get { return oL2.SessionJury; }
@@ -642,223 +512,6 @@ namespace GestVAE.VM
                 }
             }
         }
-        public String LieuJury
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].LieuJury;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (value != LieuJury)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].LieuJury = value;
-
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        public DateTime? DateJury
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].DateJury;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                if (value != DateJury)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].DateJury = value;
-                    DateLimiteRecours = value.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
-
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        public DateTime? HeureJury
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].HeureJury;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                if (value != HeureJury)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].HeureJury = value;
-
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        public DateTime? HeureConvoc
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].HeureConvoc;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                if (value != HeureConvoc)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].HeureConvoc = value;
-
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        public DateTime? DateLimiteRecours
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].DateLimiteRecours;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                if (value != DateLimiteRecours)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].DateLimiteRecours = value;
-
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-
-
-
-
-
-
-        public String DecisionJury
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].Decision;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                if (value != DecisionJury)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].Decision = value;
-                    if (LstEtatLivret != null)
-                    {
-                        setEtatLivret();
-                        if (IsDecisionJuryFavorable)
-                        {
-                            String strKey = String.Format("{0:D}", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
-                            String decisionModule = LstDecisionL2Module.Find(x => x.StartsWith(strKey));
-                            foreach (DCLivretVM oDC in lstDCLivret.Where(dc => dc.IsAValider))
-                            {
-                                oDC.Decision = decisionModule;
-                            }
-                        }
-                    }
-                    if (IsDecisionJuryDefavorable)
-                        {
-                            String strKey = String.Format("{0:D}", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
-                            String decisionModule = LstDecisionL2Module.Find(x => x.StartsWith(strKey));
-                            foreach (DCLivretVM oDC in lstDCLivret.Where(dc => dc.IsAValider))
-                            {
-                                oDC.Decision = decisionModule;
-                            }
-                    }
-                    RaisePropertyChanged();
-                    RaisePropertyChanged("IsDecisionJuryFavorable");
-                    RaisePropertyChanged("IsDecisionJuryDefavorable");
-                    RaisePropertyChanged("IsDecisionJuryPartielle");
-                    RaisePropertyChanged("lstDCLivretAValider");
-                }
-            }
-        }
-
-        public Boolean IsDecisionJuryFavorable
-        {
-            get
-            {
-                return (getNumDecisionJury() < (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
-            }
-        }
-        public Boolean IsDecisionJuryDefavorable
-        {
-            get
-            {
-                return ((getNumDecisionJury() >= (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE) &&
-                        (getNumDecisionJury() < (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
-            }
-        }
         public Boolean IsDecisionJuryPartielle
         {
             get
@@ -883,95 +536,13 @@ namespace GestVAE.VM
                 EtatLivret = strEtat;
             }
         }
-        public String MotifGeneralJury
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].MotifGeneral;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (value != MotifGeneralJury)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].MotifGeneral = value;
-
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        public String MotifDetailJury
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].MotifDetail;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (value != MotifDetailJury)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].MotifDetail = value;
-
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        public String CommentaireJury
-        {
-            get
-            {
-                if (TheLivret.lstJurys.Count >= 1)
-                {
-                    return TheLivret.lstJurys[0].MotifCommentaire;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                if (value != CommentaireJury)
-                {
-                    if (TheLivret.lstJurys.Count == 0)
-                    {
-                        TheLivret.lstJurys.Add(new Jury());
-                    }
-
-                    TheLivret.lstJurys[0].MotifCommentaire = value;
-
-                    RaisePropertyChanged();
-                }
-            }
-        }
 
 
 
         public override void Commit()
         {
+            base.Commit();
+
             // Validation des PiècesJointes L2
             foreach (PieceJointeLivretVM item in lstPieceJointe)
             {
@@ -1051,10 +622,5 @@ namespace GestVAE.VM
  
         }
 
-        public override bool HasChanges()
-        {
-            DbEntityEntry<Livret2> dbL2 = _ctx.Entry<Livret2>(oL2);
-            return (dbL2.State == System.Data.Entity.EntityState.Modified);
-        }
     }
 }

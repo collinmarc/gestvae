@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="DiplomeCandidatTest.cs" />
     <Compile Include="DomaineCompetenceTest.cs" />
+    <Compile Include="MembreJuryVM.cs" />
     <Compile Include="RecoursTest.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

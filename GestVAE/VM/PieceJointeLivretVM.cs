@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,11 @@ namespace GestVAE.VM
         {
             ThePiecejointe = pPieceJointe;
             strLivret = pLivret;
+        }
+        public override DbEntityEntry getEntity()
+        {
+            DbEntityEntry<PieceJointe> entry = _ctx.Entry<PieceJointe>(ThePiecejointe);
+            return entry;
         }
 
         public String Categorie

@@ -323,6 +323,7 @@ namespace GestVAE.VM
                     RaisePropertyChanged();
                     RaisePropertyChanged("IsDecisionJuryFavorable");
                     RaisePropertyChanged("IsDecisionJuryDefavorable");
+                    RaisePropertyChanged("IsDecisionJuryPartielle");
                 }
             }
         }

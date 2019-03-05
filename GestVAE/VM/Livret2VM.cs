@@ -619,7 +619,19 @@ namespace GestVAE.VM
                 }
 
             }
- 
+            foreach (MembreJuryVM oItem in _lstMembreJuryVM)
+            {
+                if (oItem.IsNew)
+                {
+                    _ctx.Entry<MembreJury>((MembreJury)oItem.TheItem).State = System.Data.Entity.EntityState.Detached;
+                }
+                else
+                {
+                    _ctx.Entry<MembreJury>((MembreJury)oItem.TheItem).State = System.Data.Entity.EntityState.Deleted;
+                }
+
+            }
+
         }
 
     }

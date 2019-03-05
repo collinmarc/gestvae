@@ -378,7 +378,7 @@
                                   Grid.ColumnSpan="3"
                                   AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10,11,10,9" RowHeaderWidth="0" HorizontalAlignment="Stretch">
                         <DataGrid.Resources>
-                            <VM:Livret2VM x:Key="ComboItems"  />
+                            <VM:Livret2VM x:Key="ComboItems"/>
                             <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
                         </DataGrid.Resources>
                         <DataGrid.Visibility>

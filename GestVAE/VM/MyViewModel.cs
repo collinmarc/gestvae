@@ -70,8 +70,14 @@ namespace GestVAE.VM
             lstParamTypeDemande = new ObservableCollection<ParamTypeDemande>();
             lstParamVecteurInformation = new ObservableCollection<ParamVecteurInformation>();
 
+            CreateCommands();
+            //getData();
+        }
+
+        private void CreateCommands()
+        {
             _SaveCommand = new SaveCommand(o => { saveData(); },
-                                           o => { return hasChanges(); }
+                                           o => { return HasChanges(); }
                                           );
             _RefreshCommand = new RelayCommand<CandidatVM>(o => { getData(); }
                                           );
@@ -103,17 +109,17 @@ namespace GestVAE.VM
                                            );
             CloturerL1etCreerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL1etCreerL2(); }
                                            );
-            CloseCommand = new RelayCommand<MyViewModel>(o => { ResetL1AndCloseWindowL1(); }
+            CloseCommand = new RelayCommand<MyViewModel>(o => { QuitterLivret(); }
                                            );
-            DeleteCandidatCommand = new RelayCommand<MyViewModel>(o => { DeleteCandidat(); }
+            DeleteCandidatCommand = new RelayCommand<MyViewModel>(o => { DeleteCurrentCandidat(); }
                                            );
             DeleteDiplomeCandCommand = new RelayCommand<MyViewModel>(o => { DeleteDiplomeCand(); }
                                            );
 
             CloturerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL2(); }
                                            );
-            //getData();
         }
+
         public ObservableCollection<CandidatVM> lstCandidatVM
         {
             get => _lstCandidatVM;
@@ -665,23 +671,27 @@ namespace GestVAE.VM
          /// </summary>
         public void AjouteL2()
         {
-            CandidatVM oCandVM = CurrentCandidat;
-            Livret2VM oLivVM = new Livret2VM();
-            oLivVM.LstEtatLivret = LstEtatLivret2;
-
-            oLivVM.EtatLivret = LstEtatLivret2[1];
-            oLivVM.DateDemande = DateTime.Now;
-            if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Count() > 0)
-            { 
-                    int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Select(l => ((Livret2VM)l).NumPassage).Max();
-                oLivVM.NumPassage = nbL2 + 1;
-            }
-            // Récupération du diplome du candidat (si présent)
-            DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
-            if (oDiplomeCandidat == null)
+            Livret2VM oLivVM = null;
+            try
             {
-                oDiplomeCandidat = CurrentCandidat.AjoutDiplomeCand().TheDiplomeCand;
-            }
+
+                CandidatVM oCandVM = CurrentCandidat;
+                oLivVM = new Livret2VM();
+                oLivVM.LstEtatLivret = LstEtatLivret2;
+
+                oLivVM.EtatLivret = LstEtatLivret2[1];
+                oLivVM.DateDemande = DateTime.Now;
+                if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Count() > 0)
+                {
+                    int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Select(l => ((Livret2VM)l).NumPassage).Max();
+                    oLivVM.NumPassage = nbL2 + 1;
+                }
+                // Récupération du diplome du candidat (si présent)
+                DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
+                if (oDiplomeCandidat == null)
+                {
+                    oDiplomeCandidat = CurrentCandidat.AjoutDiplomeCand().TheDiplomeCand;
+                }
 
                 ((Livret2)oLivVM.TheLivret).InitDCLivrets(oDiplomeCandidat);
                 foreach (DCLivret oDCL in ((Livret2)oLivVM.TheLivret).lstDCLivrets)
@@ -689,17 +699,22 @@ namespace GestVAE.VM
                     oLivVM.lstDCLivret.Add(new DCLivretVM(oDCL));
                 }
 
-            CurrentCandidat.CurrentLivret = oLivVM;
+                CurrentCandidat.CurrentLivret = oLivVM;
 
-            if (!IsInTest)
+                if (!IsInTest)
+                {
+                    frmLivret2 odlg = new frmLivret2();
+                    odlg.setContexte(this);
+                    odlg.ShowDialog();
+                }
+            }
+            catch (Exception)
             {
-                frmLivret2 odlg = new frmLivret2();
-                odlg.setContexte(this);
-                odlg.ShowDialog();
+                oLivVM = null;
             }
 
-        }
-        public void AjoutePJL1()
+    }
+public void AjoutePJL1()
         {
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
             oLiv.AjoutePJ("L1");
@@ -718,19 +733,21 @@ namespace GestVAE.VM
 
 
         public void CloturerL1etCreerL2()
-            {
+        {
               Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
             // CloturerLivret1
             oLiv.IsLivretClos = true;
-            Livret2VM oLiv2 = new Livret2VM(oLiv.TheLivret.oDiplome);
-            oLiv2.EtatLivret = LstEtatLivret2[1];
+            AjouteL2();
+            Livret2VM oLiv2 = (Livret2VM)CurrentCandidat.CurrentLivret;
             if (oLiv.IsRecoursDemande )
             {
                 oLiv2.IsOuvertureApresRecours = true;
             }
-            CurrentCandidat.AjoutLivret2(oLiv2);
-            CloseAction();
+            if (!IsInTest)
+            {
+                CloseAction();
             }
+        }
 
         public void CloturerL2()
         {
@@ -789,28 +806,32 @@ namespace GestVAE.VM
             }
         }
 
-        public void ResetL1AndCloseWindowL1()
+        public void QuitterLivret()
         {
-            Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
+            LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
             if (oLiv.HasChanges())
                 {
                 if (MessageBox.Show("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION",MessageBoxButton.YesNo,MessageBoxImage.Warning) 
                     == MessageBoxResult.Yes)
                     {
-                        ResetL1();
+                        ResetCurrentLivret();
+                        CloseAction();
                     }
-                }
-            CloseAction();
-        }
-    public void ResetL1()
-    {
-            Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
-            if (oLiv != null)
-            {
-                oLiv.Reset();
             }
+        }
+
+    /// <summary>
+    /// Réinitialise le Livret courant à partir des données Originelles
+    /// </summary>
+    public void ResetCurrentLivret()
+    {
+        if (CurrentCandidat.CurrentLivret != null)
+        {
+            CurrentCandidat.CurrentLivret.Reset();
+                CurrentCandidat.refreshlstLivrets();
+        }
     }
-    public bool hasChanges()
+    public bool HasChanges()
         {
             return (_ctx.ChangeTracker.HasChanges() || _modelhasChanges);
         }
@@ -819,7 +840,7 @@ namespace GestVAE.VM
             _modelhasChanges = true;
         }
 
-        public void DeleteCandidat()
+        public void DeleteCurrentCandidat()
         {
             if (CurrentCandidat != null)
             {
@@ -850,6 +871,25 @@ namespace GestVAE.VM
                 }
             }
 
+        }
+
+        public Boolean SetCurrentCandidat(String pNom)
+        {
+            Boolean bReturn = false;
+
+            try
+            {
+                CandidatVM oCand = lstCandidatVM.Where(c => c.Nom == pNom).LastOrDefault();
+                CurrentCandidat = oCand;
+                
+                bReturn = (oCand != null);
+            }
+            catch (Exception)
+            {
+
+                bReturn = false;
+            }
+            return bReturn;
         }
 
     }

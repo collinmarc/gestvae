@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,7 +51,7 @@ namespace GestVAE.VM
                 lstLivrets.Add(oLivret);
             }
 
-            DeleteLivretCommand = new RelayCommand<MyViewModel>(o => { DeleteLivret(); });
+            DeleteLivretCommand = new RelayCommand<MyViewModel>(o => { DeleteCurrentLivret(); });
 
 
 
@@ -390,8 +391,9 @@ namespace GestVAE.VM
         /// <summary>
         /// Suppression du Livert Courant
         /// </summary>
-        public void DeleteLivret()
+        public void DeleteCurrentLivret()
         {
+            Debug.Assert(CurrentLivret != null);
 
             LivretVMBase pLiv = CurrentLivret;
             pLiv.ClearDCs();

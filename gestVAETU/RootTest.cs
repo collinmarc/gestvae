@@ -2,7 +2,7 @@
 using GestVAEcls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-
+using GestVAE.VM;
 
 namespace GestVAETU
 {
@@ -30,7 +30,15 @@ namespace GestVAETU
             //{
             //    ctx.Entry<Candidat>(oCand).State = System.Data.Entity.EntityState.Deleted;
             //}
-            ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
+            MyViewModel VM = new MyViewModel();
+            VM.getData();
+            while (VM.lstCandidatVM.Count>0)
+            {
+                VM.CurrentCandidat = VM.lstCandidatVM[0];
+                VM.DeleteCurrentCandidat();
+            }
+            VM.saveData();
+//            ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
             //foreach (Diplome oItem in ctx.Diplomes)
             //{
             //    ctx.Entry<Diplome>(oItem).State = System.Data.Entity.EntityState.Deleted;

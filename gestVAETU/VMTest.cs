@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace GestVAETU
 {
     [TestClass]
-    public class VMTest
+    public class VMTest : RootTest
     {
         [TestMethod]
         public void CreateDeleteL1Test()
@@ -19,7 +19,7 @@ namespace GestVAETU
             VM.AddCandidatCommand.Execute(null);
             CandidatVM oCand = VM.CurrentCandidat;
             oCand.Nom = "TESTCAND";
-         
+
             VM.AjouteL1();
             VM.ValideretQuitterL1();
 
@@ -37,7 +37,7 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
             oLiv = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
             Assert.AreEqual("TEST", oLiv.DecisionJuryRecours);
-            VM.CurrentCandidat.DeleteLivret();
+            VM.CurrentCandidat.DeleteCurrentLivret();
             Assert.IsTrue(VM.saveData());
 
             VM.getData();
@@ -45,7 +45,7 @@ namespace GestVAETU
             Assert.IsNotNull(VM.CurrentCandidat);
             Assert.AreEqual(0, VM.CurrentCandidat.lstLivrets.Count);
 
-            VM.DeleteCandidat();
+            VM.DeleteCurrentCandidat();
 
             VM.saveData();
             VM.getData();
@@ -82,7 +82,7 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
             oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             Assert.AreEqual("DECISIONJURYL2", oLiv.DecisionJury);
-            VM.CurrentCandidat.DeleteLivret();
+            VM.CurrentCandidat.DeleteCurrentLivret();
             Assert.IsTrue(VM.saveData());
 
             VM.getData();
@@ -90,7 +90,7 @@ namespace GestVAETU
             Assert.IsNotNull(VM.CurrentCandidat);
             Assert.AreEqual(0, VM.CurrentCandidat.lstLivrets.Count);
 
-            VM.DeleteCandidat();
+            VM.DeleteCurrentCandidat();
 
             VM.saveData();
             VM.getData();
@@ -115,6 +115,7 @@ namespace GestVAETU
 
             VM.getData();
             oCand = VM.lstCandidatVM.Where(c => c.Nom == "TESTCANDL1").FirstOrDefault<CandidatVM>();
+            VM.CurrentCandidat = oCand;
             oCand.CurrentLivret = oCand.lstLivrets[0];
 
             Assert.IsFalse(oCand.CurrentLivret.HasChanges());
@@ -124,12 +125,12 @@ namespace GestVAETU
             oLiv.DateDemande = DateTime.Now;
 
             Assert.IsTrue(oLiv.HasChanges());
-            VM.ResetL1();
-            Assert.IsFalse( oLiv.HasChanges());
+            VM.ResetCurrentLivret();
+            Assert.IsFalse(oLiv.HasChanges());
             Assert.AreEqual("", oLiv.DecisionJury);
 
-            oCand.DeleteLivret();
-            VM.DeleteCandidat();
+            oCand.DeleteCurrentLivret();
+            VM.DeleteCurrentCandidat();
             VM.saveData();
 
         }
@@ -149,6 +150,7 @@ namespace GestVAETU
 
             VM.getData();
             oCand = VM.lstCandidatVM.Where(c => c.Nom == "TESTCANDL2").FirstOrDefault<CandidatVM>();
+            VM.CurrentCandidat = oCand;
             oCand.CurrentLivret = oCand.lstLivrets[0];
 
 
@@ -158,19 +160,19 @@ namespace GestVAETU
             oLiv.DecisionJury = "TEST";
 
             Assert.IsTrue(oLiv.HasChanges());
-            VM.ResetL1();
+            VM.ResetCurrentLivret();
             Assert.IsFalse(oLiv.HasChanges());
             Assert.AreEqual("", oLiv.DecisionJury);
 
             oLiv.DecisionJuryRecours = "TEST2";
             Assert.IsTrue(oLiv.HasChanges());
-            VM.ResetL1();
+            VM.ResetCurrentLivret();
             Assert.IsFalse(oLiv.HasChanges());
             Assert.AreEqual("", oLiv.DecisionJuryRecours);
 
-            oCand.DeleteLivret();
+            oCand.DeleteCurrentLivret();
             VM.CurrentCandidat = oCand;
-            VM.DeleteCandidat();
+            VM.DeleteCurrentCandidat();
             VM.saveData();
 
         }
@@ -192,7 +194,8 @@ namespace GestVAETU
             VM.saveData();
 
             VM.getData();
-            oCand = VM.lstCandidatVM.Where(c => c.Nom == "TESTCAND").LastOrDefault();
+            Assert.IsTrue(VM.SetCurrentCandidat("TESTCAND"));
+            oCand = VM.CurrentCandidat;
             Assert.AreEqual(1, oCand.lstLivrets.Count);
             oCand.CurrentLivret = oCand.lstLivrets[0];
 
@@ -207,10 +210,36 @@ namespace GestVAETU
             oCand = VM.lstCandidatVM.Where(c => c.Nom == "TESTCAND").LastOrDefault();
             Assert.AreEqual(1, oCand.lstLivrets.Count);
             oCand.CurrentLivret = oCand.lstLivrets[0];
-            oCand.DeleteLivret();
+            oCand.DeleteCurrentLivret();
 
-            VM.DeleteCandidat();
+            VM.DeleteCurrentCandidat();
             Assert.IsTrue(VM.saveData());
+        }
+        [TestMethod]
+        public void testCreateL2()
+        {
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.AddCandidatCommand.Execute(null);
+            CandidatVM oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            VM.saveData();
+            VM.getData();
+            Assert.IsTrue(VM.SetCurrentCandidat("TESTCAND"));
+            VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
+            VM.CloturerL1etCreerL2();
+
+            Livret2VM oLiv = (Livret2VM) VM.CurrentCandidat.CurrentLivret;
+            Assert.AreEqual(4, oLiv.lstDCLivret.Count);
+
+            VM.DeleteCurrentCandidat();
+            VM.saveData();
+
+
         }
     }
 }

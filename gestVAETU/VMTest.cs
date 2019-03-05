@@ -233,13 +233,96 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
             VM.CloturerL1etCreerL2();
 
-            Livret2VM oLiv = (Livret2VM) VM.CurrentCandidat.CurrentLivret;
+            Livret2VM oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             Assert.AreEqual(4, oLiv.lstDCLivret.Count);
 
             VM.DeleteCurrentCandidat();
             VM.saveData();
 
 
+        }
+
+        [TestMethod]
+        public void testLock()
+        {
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.AddCandidatCommand.Execute(null);
+            CandidatVM oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+
+            VM.AddCandidatCommand.Execute(null);
+            oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND2";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+
+            VM.saveData();
+            VM.getData();
+
+            VM.SetCurrentCandidat("TESTCAND");
+            oCand = VM.CurrentCandidat;
+            Assert.IsFalse(oCand.IsLocked());
+
+            oCand.Lock();
+
+            Assert.IsTrue(oCand.IsLocked());
+
+            VM.getData();
+            Assert.IsTrue(oCand.IsLocked());
+
+
+            VM.DeleteCurrentCandidat();
+            VM.saveData();
+        }
+        [TestMethod]
+        public void testLockVM()
+        {
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.AddCandidatCommand.Execute(null);
+            CandidatVM oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+
+            VM.AddCandidatCommand.Execute(null);
+            oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND2";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+
+            VM.saveData();
+            VM.getData();
+
+            VM.SetCurrentCandidat("TESTCAND");
+            oCand = VM.CurrentCandidat;
+            Assert.IsFalse(oCand.IsLocked());
+
+            VM.LockCurrentCandidat();
+
+            Assert.IsTrue(oCand.IsLocked());
+
+            VM.getData();
+            VM.SetCurrentCandidat("TESTCAND");
+            oCand = VM.CurrentCandidat;
+            Assert.IsTrue(oCand.IsLocked());
+            CandidatVM oCand2 = VM.lstCandidatVM.Where(c => c.Nom == "TESTCAND2").FirstOrDefault();
+            Assert.IsFalse(oCand2.IsLocked());
+
+            VM.saveData();
+            VM.SetCurrentCandidat("TESTCAND");
+            oCand = VM.CurrentCandidat;
+            Assert.IsFalse(oCand.IsLocked());
+
+            VM.DeleteCurrentCandidat();
+            VM.saveData();
         }
     }
 }

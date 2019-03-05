@@ -12,7 +12,7 @@
     xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
     x:Class="GestVAE.MainWindow"
         mc:Ignorable="d"
-        Title="EHESP : Gestion VAE" Height="847.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp-ConvertImage.ico" WindowStyle="ThreeDBorderWindow">
+        Title="EHESP : Gestion VAE" Height="847.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp-ConvertImage.ico" WindowStyle="ThreeDBorderWindow" Closing="window_Closing">
 
     <!--    <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" CanExecute="SaveCommand_CanExecute" />
@@ -46,6 +46,8 @@
     <DockPanel     Cursor="{Binding IsBusy, Converter={StaticResource BoolToCursor}}">
         <ToolBarTray DockPanel.Dock="Top" >
             <ToolBar>
+                <Button Name="btnLock" Command="{Binding LockCommand}" Content="Lock" />
+                <Button Name="btnUnLock" Command="{Binding UnLockCommand}" Content="UnLock" />
                 <Button Name="btnSave" Command="{Binding SaveCommand}" Content="Save" />
                 <Button Name="btnRefresh" Command="{Binding RefreshCommand}" Content="Refresh" />
                 <Button Name="btnParam" Command="{Binding dlgParamCommand}" Content="Paramètres" />
@@ -166,7 +168,7 @@
 
             </Grid>
             <Grid x:Name="GridRight" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.CanContentScroll="True">
-                <ScrollViewer>
+                <ScrollViewer Margin="0,10,0,-10">
                     <Grid x:Name="grdDetailCandidat" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Style="{DynamicResource GridStyle1}" ScrollViewer.VerticalScrollBarVisibility="Visible"
                       DataContext="{Binding CurrentCandidat}">
                         <Grid.ColumnDefinitions>

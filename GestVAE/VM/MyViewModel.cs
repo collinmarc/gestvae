@@ -36,7 +36,11 @@ namespace GestVAE.VM
         public CandidatVM CurrentCandidat
         {
             get { return _candidatVM; }
-            set { _candidatVM = value; RaisePropertyChanged(); }
+            set {
+               
+                _candidatVM = value;
+                RaisePropertyChanged("IsCurrentCandidatLockable");
+                RaisePropertyChanged(); }
         }
         public DiplomeCandVM CurrentDiplomeCand{get;set;}
 
@@ -118,6 +122,14 @@ namespace GestVAE.VM
 
             CloturerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL2(); }
                                            );
+            LockCommand = new RelayCommand<MyViewModel>(o => { LockCurrentCandidat(); },
+                                                        o => { return IsCurrentCandidatLockable(); }
+                                                        );
+
+            UnLockCommand = new RelayCommand<MyViewModel>(o => { UnLockCurrentCandidat(); }
+                                                        );
+            UnLockAllCommand = new RelayCommand<MyViewModel>(o => { UnlockCandidats(); }
+                                                        );
         }
 
         public ObservableCollection<CandidatVM> lstCandidatVM
@@ -302,6 +314,7 @@ namespace GestVAE.VM
                 }
                 _ctx.DeleteOnCascade();
                 _ctx.SaveChanges();
+                UnlockCandidats();
                 _modelhasChanges = false;
                 bReturn = true;
             }
@@ -529,6 +542,9 @@ namespace GestVAE.VM
         public ICommand CloseCommand { get; set; }
         public ICommand DeleteCandidatCommand { get; set; }
         public ICommand DeleteDiplomeCandCommand { get; set; }
+        public ICommand LockCommand { get; set; }
+        public ICommand UnLockCommand { get; set; }
+        public ICommand UnLockAllCommand { get; set; }
         public String rechIdentifiantVAE { get; set; }
         public String rechIdentifiantSISCOLE { get; set; }
         public String rechNom { get; set; }
@@ -890,6 +906,66 @@ public void AjoutePJL1()
                 bReturn = false;
             }
             return bReturn;
+
+
+        }
+
+        public Boolean CleanAllLocks()
+        {
+            Context ctxLock = new Context();
+            ctxLock.Locks.RemoveRange(ctxLock.Locks.ToList());
+            return true;
+        }
+
+        private List<CandidatVM> _lstCandidatsLocked = new List<CandidatVM>();
+
+        public Boolean LockCurrentCandidat()
+        {
+            Context ctxLock = new Context();
+            if (CurrentCandidat != null)
+            {
+                if (!CurrentCandidat.IsLocked())
+                {
+                    CurrentCandidat.Lock();
+                    _lstCandidatsLocked.Add(CurrentCandidat);
+                }
+            }
+            return true;
+        }
+        public Boolean UnLockCurrentCandidat()
+        {
+            Context ctxLock = new Context();
+            if (CurrentCandidat != null)
+            {
+                CandidatVM oCand = _lstCandidatsLocked.Where(c => c.ID == CurrentCandidat.ID).FirstOrDefault();
+                if (oCand != null)
+                {
+                    oCand.UnLock();
+                    _lstCandidatsLocked.Remove(oCand);
+                }
+            }
+            return true;
+        }
+        public Boolean IsCurrentCandidatLockable()
+        {
+            if (CurrentCandidat == null)
+            {
+                return false;
+            }
+            Context ctxLock = new Context();
+            if (CurrentCandidat.IsLocked())
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void UnlockCandidats()
+        {
+            foreach (CandidatVM oCand in _lstCandidatsLocked)
+            {
+                oCand.UnLock();
+            }
         }
 
     }

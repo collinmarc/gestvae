@@ -99,7 +99,10 @@ namespace GestVAE
             ofrm.ShowDialog();
         }
 
- 
+        private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            VM.UnlockCandidats();
+        }
     }
 }
 

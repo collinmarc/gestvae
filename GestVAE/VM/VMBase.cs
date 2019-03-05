@@ -60,6 +60,13 @@ namespace GestVAE.VM
             IsSelected = false;
             TheItem = pItem;
         }
+
+
+        public Int32 ID
+        {
+            get { return TheItem.ID; }
+        }
+
         public abstract DbEntityEntry getEntity();
 
         public virtual Boolean Reset()

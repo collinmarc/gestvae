@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
+
     public class Context:DbContext
     {
         private static Context _instance = null;
@@ -30,6 +31,7 @@ namespace GestVAEcls
         public Context() : base("name=CSGESTVAE")
         {
         }
+        public DbSet<LockCandidat> Locks { get; set; }
         public DbSet<Candidat> Candidats { get; set; }
         public DbSet<Diplome> Diplomes { get; set; }
         public DbSet<DomaineCompetence> DomainesCompetences { get; set; }

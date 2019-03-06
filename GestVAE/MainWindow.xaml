@@ -50,10 +50,10 @@
             <Setter Property="IsEnabled" Value="{Binding Path=IsUnlocked}"/>
         </Style>
         <Style TargetType="CheckBox" x:Key="CheckBoxReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=IsUnlocked}"/>
+            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
         </Style>
         <Style TargetType="Button" x:Key="ButtonReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=IsUnlocked}"/>
+            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
         </Style>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
@@ -294,7 +294,7 @@
                         <StackPanel Grid.Row ="18" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal" >
                                 <Label>DEIS :</Label>
-                                <CheckBox Name="chkIsDEIS" IsChecked="{Binding IsDEIS}" VerticalAlignment="Center" Style="{DynamicResource CheckBoxReadOnlyStyle}"></CheckBox>
+                                <CheckBox Name="chkIsDEIS" IsChecked="{Binding IsDEIS}" VerticalAlignment="Center" Style="{DynamicResource CheckBoxReadOnlyStyle}"/>
                                 <Label>CAFERUIS :</Label>
                                 <CheckBox Name="chkIsCAFERUIS" IsChecked="{Binding IsCAFERUIS}" VerticalAlignment="Center" Style="{DynamicResource CheckBoxReadOnlyStyle}"></CheckBox>
                                 <Label>CAFDES :</Label>

@@ -126,7 +126,8 @@ namespace GestVAE.VM
                                                         o => { return IsCurrentCandidatLockable(); }
                                                         );
 
-            UnLockCommand = new RelayCommand<MyViewModel>(o => { UnLockCurrentCandidat(); }
+            UnLockCommand = new RelayCommand<MyViewModel>(o => { UnLockCurrentCandidat(); },
+                                                        o => { return this.IsCurrentCandidatLocked; }
                                                         );
             UnLockAllCommand = new RelayCommand<MyViewModel>(o => { UnlockCandidats(); }
                                                         );
@@ -924,10 +925,11 @@ public void AjoutePJL1()
             Context ctxLock = new Context();
             if (CurrentCandidat != null)
             {
-                if (!CurrentCandidat.IsLocked())
+                if (!CurrentCandidat.IsLocked)
                 {
                     CurrentCandidat.Lock();
                     _lstCandidatsLocked.Add(CurrentCandidat);
+                    RaisePropertyChanged("IsCurrentCandidatLocked");
                 }
             }
             return true;
@@ -948,16 +950,33 @@ public void AjoutePJL1()
         }
         public Boolean IsCurrentCandidatLockable()
         {
+            
+            Boolean bReturn = true;
             if (CurrentCandidat == null)
             {
-                return false;
+                bReturn = false;
             }
-            Context ctxLock = new Context();
-            if (CurrentCandidat.IsLocked())
+            else
             {
-                return false;
+                bReturn = ! IsCurrentCandidatLocked ;
             }
-            return true;
+            return bReturn;
+        }
+        public Boolean IsCurrentCandidatLocked
+        {
+            get
+            {
+                Boolean bReturn = false;
+                if (CurrentCandidat != null)
+                {
+                    Context ctxLock = new Context();
+                    if (CurrentCandidat.IsLocked)
+                    {
+                        bReturn = true;
+                    }
+                }
+                return bReturn;
+            }
         }
 
         public void UnlockCandidats()

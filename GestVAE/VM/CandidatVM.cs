@@ -427,19 +427,33 @@ namespace GestVAE.VM
             Context ctxLock = new Context();
             ctxLock.Locks.Add(new LockCandidat(ID));
             ctxLock.SaveChanges();
+            RaisePropertyChanged("IsLocked");
+            RaisePropertyChanged("IsUnlocked");
             return true;
         }
-        public Boolean IsLocked()
+        public Boolean IsLocked
         {
-            Context ctxLock = new Context();
-            int nLock = ctxLock.Locks.Where(L => L.IDCandidat == ID).Count();
-            return (nLock > 0);
+            get
+            {
+                Context ctxLock = new Context();
+                int nLock = ctxLock.Locks.Where(L => L.IDCandidat == ID).Count();
+                return (nLock > 0);
+            }
+        }
+        public Boolean IsUnlocked
+        {
+            get
+            {
+                return !IsLocked;
+            }
         }
         public Boolean UnLock()
         {
             Context ctxLock = new Context();
             ctxLock.Locks.RemoveRange(ctxLock.Locks.Where(L => L.IDCandidat == ID));
             ctxLock.SaveChanges();
+            RaisePropertyChanged("IsLocked");
+            RaisePropertyChanged("IsUnlocked");
             return true;
         }
 

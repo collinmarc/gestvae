@@ -101,7 +101,24 @@ namespace GestVAE
 
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            VM.UnlockCandidats();
+            if (VM.HasChanges())
+            {
+                if (MessageBox.Show("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                    == MessageBoxResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    VM.UnlockCandidats();
+                }
+            }
+            else
+            {
+                VM.UnlockCandidats();
+            }
+
+
         }
     }
 }

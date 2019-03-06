@@ -266,14 +266,14 @@ namespace GestVAETU
 
             VM.SetCurrentCandidat("TESTCAND");
             oCand = VM.CurrentCandidat;
-            Assert.IsFalse(oCand.IsLocked());
+            Assert.IsFalse(oCand.IsLocked);
 
             oCand.Lock();
 
-            Assert.IsTrue(oCand.IsLocked());
+            Assert.IsTrue(oCand.IsLocked);
 
             VM.getData();
-            Assert.IsTrue(oCand.IsLocked());
+            Assert.IsTrue(oCand.IsLocked);
 
 
             VM.DeleteCurrentCandidat();
@@ -303,23 +303,23 @@ namespace GestVAETU
 
             VM.SetCurrentCandidat("TESTCAND");
             oCand = VM.CurrentCandidat;
-            Assert.IsFalse(oCand.IsLocked());
+            Assert.IsFalse(oCand.IsLocked);
 
             VM.LockCurrentCandidat();
 
-            Assert.IsTrue(oCand.IsLocked());
+            Assert.IsTrue(oCand.IsLocked);
 
             VM.getData();
             VM.SetCurrentCandidat("TESTCAND");
             oCand = VM.CurrentCandidat;
-            Assert.IsTrue(oCand.IsLocked());
+            Assert.IsTrue(oCand.IsLocked);
             CandidatVM oCand2 = VM.lstCandidatVM.Where(c => c.Nom == "TESTCAND2").FirstOrDefault();
-            Assert.IsFalse(oCand2.IsLocked());
+            Assert.IsFalse(oCand2.IsLocked);
 
             VM.saveData();
             VM.SetCurrentCandidat("TESTCAND");
             oCand = VM.CurrentCandidat;
-            Assert.IsFalse(oCand.IsLocked());
+            Assert.IsFalse(oCand.IsLocked);
 
             VM.DeleteCurrentCandidat();
             VM.saveData();

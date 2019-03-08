@@ -61,7 +61,7 @@
                 <ComboBox x:Name="cbxEtatLivret" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
                 <Label Content="Livret CLOTURE :" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
                 <CheckBox x:Name="ckIsClos" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <Label Content="Diplome :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                <Label Content="Diplôme :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbDiplome" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
 

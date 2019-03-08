@@ -51,9 +51,7 @@ namespace GestVAE
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MyViewModel _VM = new MyViewModel();
-            _VM.getData();
             this.DataContext = _VM;
-            //lbCandidats.ItemsSource = _VM.lstCandidatVM;
                 
         }
         bool manualCommit = false;

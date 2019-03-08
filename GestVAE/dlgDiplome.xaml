@@ -8,7 +8,7 @@
         xmlns:localCLS="clr-namespace:GestVAEcls"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplome"
         mc:Ignorable="d"
-        Title="Détail d'un diplome" Height="227.119" Width="601.516" Icon="IMG/diplome.ico">
+        Title="Détail d'un diplôme" Height="227.119" Width="601.516" Icon="IMG/diplome.ico">
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

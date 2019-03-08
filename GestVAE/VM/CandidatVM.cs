@@ -112,6 +112,21 @@ namespace GestVAE.VM
             get { return TheCandidat.IdSiscole; }
             set { TheCandidat.IdSiscole = value; RaisePropertyChanged(); }
         }
+        public String IdVAE
+        {
+            get { return TheCandidat.IdVAE; }
+            set { TheCandidat.IdVAE = value; RaisePropertyChanged(); }
+        }
+        public DateTime? DateNaissance
+        {
+            get { return TheCandidat.DateNaissance; }
+            set { TheCandidat.DateNaissance = value; RaisePropertyChanged(); }
+        }
+        public Boolean bHandicap
+        {
+            get { return TheCandidat.bHandicap; }
+            set { TheCandidat.bHandicap = value; RaisePropertyChanged(); }
+        }
 
 
         private DiplomeCandVM diplomeCAFDESCandidat

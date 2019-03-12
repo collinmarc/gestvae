@@ -1,0 +1,10 @@
+SET IDENTITY_INSERT [dbo].[MotifGeneralL1] ON
+INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (1, N'Pas d''activité dans au moins 1 DC', N'2019-02-07 22:26:49', N'2019-02-07 22:26:49', 0, N'')
+INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (2, N'Pas d''activité dans au moins 2 DC', N'2019-02-07 22:26:59', N'2019-02-07 22:26:59', 0, N'')
+INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (3, N'Pas d''activité dans au moins 3 DC', N'2019-02-26 09:48:21', N'2019-02-26 09:48:21', 0, N'')
+INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (4, N'Pas d''activité dans au moins 4 DC', N'2019-02-26 09:48:33', N'2019-02-26 09:48:33', 0, N'')
+INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (5, N'L''objet des activités mentionnées dans le DC1 ne porte pas sur les politiques sanitaires et sociales.', N'2019-02-26 09:48:38', N'2019-02-26 09:48:38', 0, N'')
+INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (6, N'Dernière expérience en lien avec le diplôme date de plus de 10 ans.', N'2019-02-26 09:48:54', N'2019-02-26 09:48:54', 0, N'')
+INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (7, N'Expérience de moins de 3 ans équivalent temps plein en lien avec le référentiel de compétences CAFDES, à la date de l''analyse du livret de recevabilité', N'2019-02-26 09:49:04', N'2019-02-26 09:49:04', 0, N'')
+INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (8, N'Pièces manquantes demandées non réceptionnées dans le délai imparti.', N'2019-02-26 09:49:15', N'2019-02-26 09:49:15', 0, N'')
+SET IDENTITY_INSERT [dbo].[MotifGeneralL1] OFF

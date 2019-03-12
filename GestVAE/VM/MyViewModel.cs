@@ -1,14 +1,18 @@
 ﻿
 using GestVAEcls;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -128,6 +132,8 @@ namespace GestVAE.VM
 
             UnLockCommand = new RelayCommand<MyViewModel>(o => { UnLockCurrentCandidat(); },
                                                         o => { return this.IsCurrentCandidatLocked; }
+                                                        );
+            ExecSQLCommand = new RelayCommand<MyViewModel>(o => { ExecSQL(); }
                                                         );
         }
 
@@ -572,6 +578,7 @@ namespace GestVAE.VM
         public ICommand LockCommand { get; set; }
         public ICommand UnLockCommand { get; set; }
         public ICommand UnLockAllCommand { get; set; }
+        public ICommand ExecSQLCommand { get; set; }
         public String rechIdentifiantVAE { get; set; }
         public String rechIdentifiantSISCOLE { get; set; }
         public String rechNom { get; set; }
@@ -1032,6 +1039,43 @@ public void AjoutePJL1()
                 Context ctxLock = new Context();
             int nCount = ctxLock.Locks.ToList().Count();
             return (nCount > 0);
+        }
+
+        public void ExecSQL()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            String strFilename;
+            String Script;
+            if (ofd.ShowDialog()== true)
+            {
+                strFilename = ofd.FileName;
+                Script = File.ReadAllText(strFilename);
+                IEnumerable<string> commandStrings = Regex.Split(Script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+                System.Data.SqlClient.SqlConnection cnx = new System.Data.SqlClient.SqlConnection(Properties.Settings.Default.CSGESTVAE);
+                cnx.Open();
+
+                try
+                {
+                    foreach (string commandString in commandStrings)
+                    {
+                        if (commandString.Trim() != "")
+                        {
+                            using (var command = new SqlCommand(commandString, cnx))
+                            {
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    CSDebug.TraceException("ExecSQL", ex);
+                }
+                cnx.Close();
+            }
+
+
         }
 
     }

@@ -58,9 +58,10 @@
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
-
     </Window.Resources>
-
+    <Window.InputBindings>
+        <KeyBinding  Key="F12" Command="{Binding ExecSQLCommand}"></KeyBinding>
+    </Window.InputBindings>
     <DockPanel     Cursor="{Binding IsBusy, Converter={StaticResource BoolToCursor}}">
         <ToolBarTray DockPanel.Dock="Top" >
             <ToolBar>

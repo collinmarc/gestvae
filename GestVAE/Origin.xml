@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DacOrigin xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <PackageProperties>
+    <Version>3.1.0.0</Version>
+    <ContainsExportedData>false</ContainsExportedData>
+    <StreamVersions>
+      <Version StreamName="Data">2.0.0.0</Version>
+      <Version StreamName="DeploymentContributors">1.0.0.0</Version>
+    </StreamVersions>
+  </PackageProperties>
+  <Operation>
+    <Identity>65bccdae-e0f6-46ae-9ea6-5f098fc39ed5</Identity>
+    <Start>2019-03-06T18:50:20.6095853+01:00</Start>
+    <End>0001-01-01T00:00:00.0000000</End>
+    <ProductName>Microsoft.SqlServer.Dac, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</ProductName>
+    <ProductVersion>14.0.4009.3</ProductVersion>
+    <ProductSchema>http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02</ProductSchema>
+  </Operation>
+  <Server>
+    <ServerVersion>Microsoft SQL Server 2012 (SP1) - 11.0.3000.0 (X64) 
+	Oct 19 2012 13:38:57 
+	Copyright (c) Microsoft Corporation
+	Express Edition (64-bit) on Windows NT 6.2 &lt;X64&gt; (Build 9200: )
+</ServerVersion>
+    <ObjectCounts>
+      <ComputedColumn>492</ComputedColumn>
+      <DatabaseOptions>1</DatabaseOptions>
+      <DefaultConstraint>4</DefaultConstraint>
+      <ForeignKeyConstraint>22</ForeignKeyConstraint>
+      <Index>23</Index>
+      <PrimaryKeyConstraint>28</PrimaryKeyConstraint>
+      <SimpleColumn>319</SimpleColumn>
+      <Table>28</Table>
+      <View>22</View>
+    </ObjectCounts>
+  </Server>
+  <Checksums>
+    <Checksum Uri="/model.xml">8E47248F9A1BA7E1586202F0E00A84A4EA30F3DDAB4000E7BFB8F32E2AADB3D0</Checksum>
+  </Checksums>
+  <ModelSchemaVersion>2.5</ModelSchemaVersion>
+</DacOrigin>

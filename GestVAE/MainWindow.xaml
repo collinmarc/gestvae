@@ -30,12 +30,12 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
 
         </Style>
-        <Style x:Key="CustTextBox" TargetType="{x:Type TextBox}" >
-            <Setter Property="Margin" Value="0,10,10,0"/>
-        </Style>
         <Style x:Key="GridStyle1" TargetType="{x:Type Grid}"  >
             <Setter Property="ShowGridLines" Value="False"/>
             <Setter Property="Background" Value="#FF90A4C1"/>
+        </Style>
+        <Style x:Key="CustTextBox" TargetType="{x:Type TextBox}" >
+            <Setter Property="Margin" Value="0,10,10,0"/>
         </Style>
         <Style TargetType="TextBox" x:Key="TextBoxReadOnlyStyle" BasedOn="{StaticResource CustTextBox}">
             <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
@@ -47,7 +47,7 @@
             <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
         </Style>
         <Style TargetType="DatePicker" x:Key="DatePickerReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=IsUnlocked}"/>
+            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
         </Style>
         <Style TargetType="CheckBox" x:Key="CheckBoxReadOnlyStyle" >
             <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>

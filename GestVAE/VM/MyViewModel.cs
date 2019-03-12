@@ -331,15 +331,21 @@ namespace GestVAE.VM
 
         public void getData()
         {
-            IsBusy = true;
+            CSDebug.TraceINFO("MyViwModel.getData : START");
+            try
+            {
+
             Context.Reset();
+            CSDebug.TraceINFO("MyViwModel.getData : Reset");
             _ctx = Context.instance;
 
             // Créatino du CAFDES si Necessaire
+            CSDebug.TraceINFO("MyViwModel.getData : GetDiplome");
             Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
 
             if (oDipCAFDES == null)
             {
+                CSDebug.TraceINFO("MyViwModel.getData : CreateDiplome");
                 oDipCAFDES = new Diplome("CAFDES");
                 oDipCAFDES.addDomainecompetence("DC1");
                 oDipCAFDES.addDomainecompetence("DC2");
@@ -349,6 +355,7 @@ namespace GestVAE.VM
                 _ctx.Diplomes.Add(oDipCAFDES);
             }
 
+            CSDebug.TraceINFO("MyViwModel.getData : Region");
             _lstRegionVM.Clear();
             foreach (Region item in _ctx.Regions)
             {
@@ -357,6 +364,7 @@ namespace GestVAE.VM
             }
             RaisePropertyChanged("lstRegionVM");
 
+            CSDebug.TraceINFO("MyViwModel.getData : Diplome");
             _lstDiplomeVM.Clear();
             foreach (Diplome item in _ctx.Diplomes)
             {
@@ -365,6 +373,7 @@ namespace GestVAE.VM
             }
             RaisePropertyChanged("lstDiplomeVM");
 
+            CSDebug.TraceINFO("MyViwModel.getData : PJ");
             _lstPieceJointeCategorie.Clear();
             foreach (PieceJointeCategorie item in _ctx.pieceJointeCategories)
             {
@@ -373,6 +382,7 @@ namespace GestVAE.VM
             }
             RaisePropertyChanged("lstPieceJointeCategorie");
 
+            CSDebug.TraceINFO("MyViwModel.getData : Motif");
             _lstMotifGL1.Clear();
             foreach (MotifGeneralL1 item in _ctx.dbMotifGeneralL1)
             {
@@ -408,6 +418,7 @@ namespace GestVAE.VM
                 lstParamVecteurInformation.Add(item);
             }
 
+            CSDebug.TraceINFO("MyViwModel.getData : Candidat");
 
             _lstCandidatVM.Clear();
             foreach (Candidat item in _ctx.Candidats)
@@ -426,15 +437,19 @@ namespace GestVAE.VM
                 CurrentCandidat = _lstCandidatVM[0];
             }
 
-
-
-
-
             RaisePropertyChanged("lstCandidatVM");
             RaisePropertyChanged("CurrentCandidat");
 
 
             IsBusy = false;
+        }
+           catch (Exception ex )
+            {
+
+                CSDebug.TraceException("MyViewModel.getData : ", ex);
+            }
+
+            CSDebug.TraceINFO("MyViwModel.getData : END");
 
         }
 

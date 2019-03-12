@@ -35,6 +35,8 @@ namespace GestVAE
         public MainWindow()
         {
             InitializeComponent();
+            CSDebug.TraceINFO("MainWindow.Construct");
+
             tbRechIdentVAE.SetBinding(TextBox.TextProperty, "rechIdentifiantVAE");
             tbRechIdentSISCOLE.SetBinding(TextBox.TextProperty, "rechIdentifiantSISCOLE");
             tbRechNom.SetBinding(TextBox.TextProperty, "rechNom");
@@ -50,11 +52,13 @@ namespace GestVAE
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            CSDebug.TraceINFO("MainWindow.Window_Loaded : Start");
             MyViewModel _VM = new MyViewModel();
             _VM.getData();
             this.DataContext = _VM;
             //lbCandidats.ItemsSource = _VM.lstCandidatVM;
-                
+            CSDebug.TraceINFO("MainWindow.Window_Loaded : End");
+
         }
         bool manualCommit = false;
         private void gridLstDiplome_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -70,8 +74,8 @@ namespace GestVAE
         private void gridLstDiplome_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             dlgDiplomeCand odlg = new dlgDiplomeCand();
-            DiplomeCandVM obj = (DiplomeCandVM)gridLstDiplome.SelectedItem;
-            odlg.setContexte(obj);
+            VM.CurrentDiplomeCand = (DiplomeCandVM)gridLstDiplome.SelectedItem;
+            odlg.setContexte(VM);
 
             odlg.ShowDialog();
         }

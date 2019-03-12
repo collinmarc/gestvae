@@ -11,6 +11,30 @@
         Title="Détail du diplome d'un candidat" Height="386" Width="600" Icon="IMG/diplome.ico">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <Style x:Key="CustTextBox" TargetType="{x:Type TextBox}" >
+            <Setter Property="Margin" Value="0,10,10,0"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TextBoxReadOnlyStyle" BasedOn="{StaticResource CustTextBox}">
+            <Setter Property="IsReadOnly" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
+        </Style>
+        <Style TargetType="RadioButton" x:Key="RadioButtonReadOnlyStyle" >
+            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
+        </Style>
+        <Style TargetType="ComboBox" x:Key="ComboboxReadOnlyStyle" >
+            <Setter Property="IsReadOnly" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
+        </Style>
+        <Style TargetType="DatePicker" x:Key="DatePickerReadOnlyStyle" >
+            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
+        </Style>
+        <Style TargetType="CheckBox" x:Key="CheckBoxReadOnlyStyle" >
+            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonReadOnlyStyle" >
+            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
+        </Style>
+        <Style TargetType="DataGrid" x:Key="DataGridReadOnlyStyle" >
+            <Setter Property="IsReadOnly" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
+        </Style>
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -25,20 +49,20 @@
         <Label Content="Nom du diplome :" Canvas.Left="8" Canvas.Top="6"/>
         <ComboBox x:Name="cbxNomdiplome"
                   Canvas.Left="145" Canvas.Top="10" Width="120" 
-                  SelectionChanged="cbxNomdiplome_SelectionChanged"/>
+                  SelectionChanged="cbxNomdiplome_SelectionChanged" Style="{DynamicResource ComboboxReadOnlyStyle}"/>
         <Button x:Name="btnAddDiplome" Grid.Row ="15" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddDiplome_Click" Canvas.Left="279" Canvas.Top="10">
             <Image Source="IMG/add.png" Margin="0,0,10,0" Height="17" Width="18" RenderTransformOrigin="0.639,0.059" />
         </Button>
         <Label Content="Statut :" Canvas.Left="329" Canvas.Top="6"/>
-        <ComboBox x:Name="cbxStatutdiplome" Canvas.Left="391" Canvas.Top="6" Width="120"/>
+        <ComboBox x:Name="cbxStatutdiplome" Canvas.Left="391" Canvas.Top="6" Width="120" Style="{DynamicResource ComboboxReadOnlyStyle}"/>
         <DataGrid x:Name="dgDC" Height="170" Canvas.Left="10" Canvas.Top="102" Width="501" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
-                  ItemsSource="{Binding lstDCCands}"
-                  CellEditEnding="dgDC_CellEditEnding">
+                  ItemsSource="{Binding CurrentDiplomeCand.lstDCCands}"
+                  CellEditEnding="dgDC_CellEditEnding" Style="{DynamicResource DataGridReadOnlyStyle}">
             <DataGrid.Resources>
                 <localVM:DiplomeCandVM x:Key="ComboItems"  />
             </DataGrid.Resources>
             <DataGrid.Visibility>
-                <Binding Converter="{StaticResource BooleanToVisibilityConverter}" Path="IsDCCands"/>
+                <Binding Converter="{StaticResource BooleanToVisibilityConverter}" Path="CurrentDiplomeCand.IsDCCands"/>
             </DataGrid.Visibility>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding NomDomaineCompetence}" IsReadOnly="true" />
@@ -49,8 +73,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Date d'obtention : " Canvas.Left="8" Canvas.Top="36"/>
-        <DatePicker Name ="dtDateObtention" Canvas.Left="145" Canvas.Top="38" />
+        <DatePicker Name ="dtDateObtention" Canvas.Left="145" Canvas.Top="38" Style="{DynamicResource DatePickerReadOnlyStyle}" />
         <Label Content="Numéro  : " Canvas.Left="8" Canvas.Top="62"/>
-        <TextBox Name ="tbNumero" Height="23" Canvas.Left="145" TextWrapping="Wrap"  Canvas.Top="67" Width="120"/>
+        <TextBox Name ="tbNumero" Height="23" Canvas.Left="145" TextWrapping="Wrap"  Canvas.Top="67" Width="120" Style="{DynamicResource TextBoxReadOnlyStyle}"/>
     </Canvas>
 </Window>

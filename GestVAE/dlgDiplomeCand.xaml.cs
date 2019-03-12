@@ -21,20 +21,27 @@ namespace GestVAE
     /// </summary>
     public partial class dlgDiplomeCand: Window
     {
+        public MyViewModel VM
+        {
+            get
+            {
+                return (MyViewModel)DataContext;
+            }
+        }
         public dlgDiplomeCand()
         {
             InitializeComponent();
-            cbxNomdiplome.SetBinding(ComboBox.SelectedItemProperty, "oDiplome");
-            cbxNomdiplome.SetBinding(ComboBox.ItemsSourceProperty, "LstDiplomes");
+            cbxNomdiplome.SetBinding(ComboBox.SelectedItemProperty, "CurrentDiplomeCand.oDiplome");
+            cbxNomdiplome.SetBinding(ComboBox.ItemsSourceProperty, "CurrentDiplomeCand.LstDiplomes");
             cbxNomdiplome.DisplayMemberPath = "Nom";
             cbxNomdiplome.SelectedValuePath = "Nom";
 
-            cbxStatutdiplome.SetBinding(ComboBox.SelectedValueProperty, "StatutDiplome");
-            cbxStatutdiplome.SetBinding(ComboBox.ItemsSourceProperty, "LstStatutDiplome");
+            cbxStatutdiplome.SetBinding(ComboBox.SelectedValueProperty, "CurrentDiplomeCand.StatutDiplome");
+            cbxStatutdiplome.SetBinding(ComboBox.ItemsSourceProperty, "CurrentDiplomeCand.LstStatutDiplome");
 
 
-            dtDateObtention.SetBinding(DatePicker.SelectedDateProperty, "DateObtentionDiplome");
-            tbNumero.SetBinding(TextBox.TextProperty, "NumeroDiplome");
+            dtDateObtention.SetBinding(DatePicker.SelectedDateProperty, "CurrentDiplomeCand.DateObtentionDiplome");
+            tbNumero.SetBinding(TextBox.TextProperty, "CurrentDiplomeCand.NumeroDiplome");
         }
 
 
@@ -44,9 +51,9 @@ namespace GestVAE
 
         }
 
-        public void setContexte(DiplomeCandVM pDiplome)
+        public void setContexte(MyViewModel pVM)
         {
-            this.DataContext = pDiplome;
+            this.DataContext = pVM;
         }
         bool manualCommit = false;
 
@@ -62,7 +69,7 @@ namespace GestVAE
                 }
             }
 
-            DiplomeCandVM oDipCandVM = (DiplomeCandVM)this.DataContext;
+            DiplomeCandVM oDipCandVM = VM.CurrentDiplomeCand;
             oDipCandVM.CalcStatutDiplome();
 
         }
@@ -74,7 +81,7 @@ namespace GestVAE
             odlg.setContexte(odiplomeVM);
             odlg.ShowDialog();
 
-            ((DiplomeCandVM)this.DataContext).RefreshlstDiplome();
+            VM.CurrentDiplomeCand.RefreshlstDiplome();
             //cbxNomdiplome.SetBinding(ComboBox.ItemsSourceProperty, "");
             //cbxNomdiplome.ItemsSource = ((DiplomeCandVM)this.DataContext).LstDiplomes;
         }

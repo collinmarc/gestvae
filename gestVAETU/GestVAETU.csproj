@@ -72,6 +72,8 @@
     <Compile Include="DCLivretTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="CandidatVMTest.cs" />
+    <Compile Include="ParamVMTest.cs" />
+    <Compile Include="Livret1VMTest.cs" />
     <Compile Include="VMTest.cs" />
   </ItemGroup>
   <ItemGroup>

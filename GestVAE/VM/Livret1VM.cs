@@ -29,8 +29,11 @@ namespace GestVAE.VM
             Livret oReturn = null;
 
             oReturn = new Livret1();
+
+
             oReturn.oDiplome = Diplome.getDiplomeParDefaut();
             TheItem = oReturn;
+            Numero = "L1" + DateTime.Now.ToString("yyyyMM") +"-"+ ParamVM.incrementLivret().ToString("00000");
 
 
         }

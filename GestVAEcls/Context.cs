@@ -47,8 +47,9 @@ namespace GestVAEcls
         public DbSet<PieceJointeCategorie> pieceJointeCategories { get; set; }
         public DbSet<MotifGeneralL1> dbMotifGeneralL1 { get; set; }
         public DbSet<MotifGeneralL2> dbMotifGeneralL2 { get; set; }
+        public DbSet<Param> dbParam { get; set; }
 
- 
+
         public void DeleteOnCascade()
 
         {

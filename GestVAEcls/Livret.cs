@@ -94,7 +94,6 @@ namespace GestVAEcls
             lstPiecesJointes = new ObservableCollection<PieceJointeL1>();
             lstEchanges = new ObservableCollection<EchangeL1>();
 
-            Numero = DateTime.Now.ToString("L1yyyyMMddHHmm");
         }
 
 

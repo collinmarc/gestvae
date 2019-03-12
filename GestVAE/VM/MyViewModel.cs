@@ -902,8 +902,16 @@ public void AjoutePJL1()
         {
             if (CurrentCandidat != null)
             {
-                _ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
-                lstCandidatVM.Remove(CurrentCandidat);
+                if (CurrentCandidat.IsLocked)
+                {
+
+                    if (MessageBox.Show("Etes-vous sur de souloir supprimer le candidat", "Suppression d'un candidat", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        CurrentCandidat.UnLock();
+                        _ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
+                        lstCandidatVM.Remove(CurrentCandidat);
+                    }
+                }
             }
    
         }

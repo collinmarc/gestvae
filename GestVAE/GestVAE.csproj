@@ -165,6 +165,7 @@
     <Compile Include="VM\MyViewModel.cs" />
     <Compile Include="VM\NotifyUIBase.cs" />
     <Compile Include="VM\MembreJuryVM.cs" />
+    <Compile Include="VM\ParamVM.cs" />
     <Compile Include="VM\RegionVM.cs" />
     <Compile Include="VM\VMBase.cs" />
     <Page Include="dlgDiplome.xaml">

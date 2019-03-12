@@ -37,6 +37,7 @@ namespace GestVAE.VM
         public ObservableCollection<ParamOrigine> lstParamOrigine { get; set; }
         public ObservableCollection<ParamTypeDemande> lstParamTypeDemande { get; set; }
         public ObservableCollection<ParamVecteurInformation> lstParamVecteurInformation { get; set; }
+        private Boolean bCandidatAjoute = false;
         public CandidatVM CurrentCandidat
         {
             get { return _candidatVM; }
@@ -524,6 +525,7 @@ namespace GestVAE.VM
             lstCandidatVM.Add(oCandVM);
             CurrentCandidat = oCandVM;
             RaisePropertyChanged("lstCandidatVM");
+            bCandidatAjoute = true;
         }
 
 
@@ -1024,10 +1026,17 @@ public void AjoutePJL1()
             {
                 oCand.UnLock();
             }
+            if (bCandidatAjoute)
+            {
+                //Supppression du Candidat avec l'ID 0
+                Candidat oCand = new Candidat("CandidatFictifQuinestpasajouteenbase");
+                CandidatVM oCandVM = new CandidatVM(oCand);
+                oCandVM.UnLock();
+            }
         }
         public void UnlockAll()
         {
-            if (MessageBox.Show("Etes-vous sur de vouloir dévérouiller TOUS les candidats ?", "Dévérouiller tous les candidats", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Etes-vous sur de vouloir déverrouiller TOUS les candidats ?", "Dévérouiller tous les candidats", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 Context ctxLock = new Context();
                 ctxLock.Locks.RemoveRange(ctxLock.Locks.ToList());

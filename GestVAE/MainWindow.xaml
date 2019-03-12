@@ -65,10 +65,12 @@
     <DockPanel     Cursor="{Binding IsBusy, Converter={StaticResource BoolToCursor}}">
         <ToolBarTray DockPanel.Dock="Top" >
             <ToolBar>
-                <Button Name="btnSave" Command="{Binding SaveCommand}" Content="Save" />
-                <Button Name="btnLock" Command="{Binding LockCommand}" Content="Vérouiller" />
+                <Button Name="btnSave" Command="{Binding SaveCommand}" ToolTip="Sauvegarder"  >
+                    Sauvegarder
+                </Button>
+                <Button Name="btnLock" Command="{Binding LockCommand}" Content="Vérrouiller" />
                 <Button Name="btnUnLock" Command="{Binding UnLockCommand}" Content="Déverrouiller" />
-                <Button Name="btnUnlockAll" Command="{Binding UnLockAllCommand}" Content="Tout dévérouiller" />
+                <Button Name="btnUnlockAll" Command="{Binding UnLockAllCommand}" Content="Tout déverrouiller" />
                 <Button Name="btnParam" Command="{Binding dlgParamCommand}" Content="Paramètres" />
             </ToolBar>
         </ToolBarTray>

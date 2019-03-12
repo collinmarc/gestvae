@@ -89,6 +89,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -249,10 +250,13 @@
     <Resource Include="IMG\addL2.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\logo_ehesp.ico" />
     <Resource Include="IMG\Diplome.png" />
     <Resource Include="IMG\diplome_318-10155.jpg" />
     <Resource Include="IMG\logo_ehesp-2.jpg" />
-    <Resource Include="IMG\logo_ehesp-ConvertImage.ico" />
+    <Content Include="IMG\logo_ehesp.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="IMG\logo_ehesp.jpg" />
   </ItemGroup>
   <ItemGroup>

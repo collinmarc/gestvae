@@ -12,7 +12,7 @@
     xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
     x:Class="GestVAE.MainWindow"
         mc:Ignorable="d"
-        Title="EHESP : Gestion VAE" Height="847.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp-ConvertImage.ico" WindowStyle="ThreeDBorderWindow" Closing="window_Closing">
+        Title="EHESP : Gestion VAE" Height="847.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp.ico" WindowStyle="ThreeDBorderWindow" Closing="window_Closing">
 
     <!--    <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" CanExecute="SaveCommand_CanExecute" />

@@ -20,7 +20,7 @@ namespace GestVAEcls
         public String IdVAE { get; set; }
         public String IdSiscole { get; set; }
         public String NomJeuneFille { get; set; }
-        public String Nationnalite { get; set; }
+        public String Nationalite { get; set; }
         public DateTime? DateNaissance { get; set; }
         public String CPNaissance { get; set; }
         public String VilleNaissance { get; set; }
@@ -53,6 +53,9 @@ namespace GestVAEcls
             lstDiplomes = new ObservableCollection<DiplomeCand>();
             lstLivrets1 = new ObservableCollection<Livret1>();
             lstLivrets2 = new ObservableCollection<Livret2>();
+            Nationalite = "Française";
+            NationaliteNaissance = "Française";
+            Pays = "France";
 
         }
         public Candidat(String pNom) : this ()

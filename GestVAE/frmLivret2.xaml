@@ -68,7 +68,7 @@
                           />
                 <Label Content="Livret CLOTURE :" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
                 <CheckBox x:Name="ckIsClos" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <Label Content="Diplome :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                <Label Content="Diplôme :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbDiplome" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                 <DataGrid x:Name="dgDCLivret"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
                            ItemsSource="{Binding lstDCLivret, UpdateSourceTrigger=PropertyChanged}" 
@@ -76,7 +76,7 @@
                           CellEditEnding="dgDCLivret_CellEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="2*" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Status" Binding="{Binding Statut}" Width="2*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="2*" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Mode Obtention" Binding="{Binding ModeObtention}" Width="2*" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Date Obtention" Binding="{Binding DateObtention}" Width="2*" IsReadOnly="True"/>
                         <DataGridCheckBoxColumn Header=" ? " Binding="{Binding IsAValider, UpdateSourceTrigger=LostFocus}" Width="1*" IsReadOnly="False"/>

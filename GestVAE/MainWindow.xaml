@@ -164,10 +164,11 @@
                     <DataGrid x:Name="_0" Grid.Row ="0" MinHeight="100" VerticalAlignment="Stretch"
                               ItemsSource="{Binding lstCandidatVM}" SelectedItem="{Binding CurrentCandidat}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding"  Margin="10" BorderThickness="0">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID VAE" IsReadOnly="true" Binding="{Binding IdVAE}" Width="1*"/>
                             <DataGridTextColumn Header="SISCOLE" IsReadOnly="true" Binding="{Binding IdSiscole}" Width="1*"/>
                             <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="2*"/>
                             <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}" Width="2*"/>
-                            <DataGridTextColumn Header="Ville" Binding="{Binding Ville}" Width="2*"/>
+                            <DataGridTextColumn Header="Date naiss." Binding="{Binding DateNaissance}" Width="1*"/>
                         </DataGrid.Columns>
                         <DataGrid.InputBindings>
                             <KeyBinding Key="Delete" Command="{Binding DeleteCandidatCommand}" />
@@ -230,10 +231,12 @@
                             <TextBox x:Name="tbIdSISCOLE"  Height="18" Margin="32,0,32,-15"  Text="{Binding IdSiscole}" Width="120" Style="{DynamicResource TextBoxReadOnlyStyle}"/>
                         </UniformGrid>
                         <Label Content="Sexe:" Grid.Row ="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                        <StackPanel Grid.Row ="2" Grid.Column="1" Orientation="Horizontal">
-                            <RadioButton Content="Homme" Grid.Column="3" HorizontalAlignment="Left"  IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}" VerticalAlignment="Center" Style="{DynamicResource RadioButtonReadOnlyStyle}"/>
-                            <RadioButton Content="Femme" Grid.Column="3" HorizontalAlignment="Left"  IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}" VerticalAlignment="Center" Style="{DynamicResource RadioButtonReadOnlyStyle}"/>
-                        </StackPanel>
+                        <UniformGrid Grid.Row="2" Grid.Column="1" Margin="0" VerticalAlignment="Center" Columns="4">
+                                <RadioButton Content="Homme" HorizontalAlignment="Left"  IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}" VerticalAlignment="Center" Style="{DynamicResource RadioButtonReadOnlyStyle}"/>
+                                <RadioButton Content="Femme" HorizontalAlignment="Left"  IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}" VerticalAlignment="Center" Style="{DynamicResource RadioButtonReadOnlyStyle}"/>
+                                <Label Content="Handicapé :" />
+                                <CheckBox   IsChecked="{Binding bHandicap}" Style="{DynamicResource CheckBoxReadOnlyStyle}" VerticalAlignment="Center"/>
+                        </UniformGrid>
                         <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26"  Margin="0,3" >Civilité :</Label>
                         <ComboBox x:Name="cbxCivilite" Grid.Row="3"  Grid.Column="1" IsEditable="False" Margin="0,10,0,0" 
                               Text="{Binding Civilite}" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{DynamicResource ComboboxReadOnlyStyle}"
@@ -286,7 +289,7 @@
                         <Label Content="Date naissance : " Grid.Row="15" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="98" Margin="0,9,0,0" />
                         <Label Content="Ville naissance : " Grid.Row="16" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="96" Margin="0,1" />
                         <TextBox x:Name="tbVilleNaissance" Grid.Row="16" Text="{Binding TheCandidat.VilleNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" />
-                        <Label Content="Nationnalité naissance : " Grid.Row="17" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="138" Margin="0,1" />
+                        <Label Content="Nationalité naissance : " Grid.Row="17" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="138" Margin="0,1" />
                         <TextBox x:Name="tbNationaliteNaissance" Grid.Row="17" Text="{Binding TheCandidat.NationaliteNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" />
                         <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="15" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,11,10,0" VerticalAlignment="Center" Style="{DynamicResource DatePickerReadOnlyStyle}"/>
                         <Button x:Name="btnAddDiplomeCand" Grid.Row ="18" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,10,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" 

@@ -8,7 +8,7 @@
         xmlns:localCLS="clr-namespace:GestVAEcls"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplomeCand"
         mc:Ignorable="d"
-        Title="Détail du diplome d'un candidat" Height="386" Width="600" Icon="IMG/diplome.ico">
+        Title="Détail du diplôme d'un candidat" Height="386" Width="600" Icon="IMG/diplome.ico">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style x:Key="CustTextBox" TargetType="{x:Type TextBox}" >
@@ -46,7 +46,7 @@
         <Button x:Name ="btnOK" Content="OK" Canvas.Left="357" Canvas.Top="286" Width="75" Click="btnOK_Click"/>
 
 
-        <Label Content="Nom du diplome :" Canvas.Left="8" Canvas.Top="6"/>
+        <Label Content="Nom du diplôme :" Canvas.Left="8" Canvas.Top="6"/>
         <ComboBox x:Name="cbxNomdiplome"
                   Canvas.Left="145" Canvas.Top="10" Width="120" 
                   SelectionChanged="cbxNomdiplome_SelectionChanged" Style="{DynamicResource ComboboxReadOnlyStyle}"/>

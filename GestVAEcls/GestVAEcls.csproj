@@ -109,6 +109,10 @@
     <Compile Include="Migrations\201903052109146_Lock.Designer.cs">
       <DependentUpon>201903052109146_Lock.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903071634102_Nationnalité.cs" />
+    <Compile Include="Migrations\201903071634102_Nationnalité.Designer.cs">
+      <DependentUpon>201903071634102_Nationnalité.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -192,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903052109146_Lock.resx">
       <DependentUpon>201903052109146_Lock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903071634102_Nationnalité.resx">
+      <DependentUpon>201903071634102_Nationnalité.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

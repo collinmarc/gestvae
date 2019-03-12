@@ -136,6 +136,8 @@ namespace GestVAE.VM
                                                         );
             ExecSQLCommand = new RelayCommand<MyViewModel>(o => { ExecSQL(); }
                                                         );
+            DecloturerLivretCommand= new RelayCommand<MyViewModel>(o => { DecloturerLivret(); }
+                                                        );
         }
 
         public ObservableCollection<CandidatVM> lstCandidatVM
@@ -538,12 +540,6 @@ namespace GestVAE.VM
             }
         }
 
-        private ICommand _PopulateCommand;
-
-        public ICommand PopulateCommand
-        {
-            get { return _PopulateCommand; }
-        }
 
         private ICommand _AddCandidatCommand;
 
@@ -574,6 +570,7 @@ namespace GestVAE.VM
         public ICommand ValideretQuitterL2Command { get; set; }
         public ICommand CloturerL1etCreerL2Command { get; set; }
         public ICommand CloturerL2Command { get; set; }
+        public ICommand DecloturerLivretCommand { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand DeleteCandidatCommand { get; set; }
         public ICommand DeleteDiplomeCandCommand { get; set; }
@@ -766,8 +763,9 @@ namespace GestVAE.VM
                     odlg.ShowDialog();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                CSDebug.TraceException("MVM.AjouteL2", ex);
                 oLivVM = null;
             }
 
@@ -795,6 +793,7 @@ public void AjoutePJL1()
               Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
             // CloturerLivret1
             oLiv.IsLivretClos = true;
+            ValideretQuitterL1();
             AjouteL2();
             Livret2VM oLiv2 = (Livret2VM)CurrentCandidat.CurrentLivret;
             if (oLiv.IsRecoursDemande )
@@ -868,20 +867,24 @@ public void AjoutePJL1()
         {
             LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
             if (oLiv.HasChanges())
-                {
-                if (MessageBox.Show("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION",MessageBoxButton.YesNo,MessageBoxImage.Warning) 
+            {
+                if (MessageBox.Show("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                     == MessageBoxResult.Yes)
-                    {
-                        ResetCurrentLivret();
-                        CloseAction();
-                    }
+                {
+                    ResetCurrentLivret();
+                    CloseAction();
+                }
+            }
+            else
+            {
+                CloseAction();
             }
         }
 
-    /// <summary>
-    /// Réinitialise le Livret courant à partir des données Originelles
-    /// </summary>
-    public void ResetCurrentLivret()
+        /// <summary>
+        /// Réinitialise le Livret courant à partir des données Originelles
+        /// </summary>
+        public void ResetCurrentLivret()
     {
         if (CurrentCandidat.CurrentLivret != null)
         {
@@ -1093,6 +1096,16 @@ public void AjoutePJL1()
             }
 
 
+        }
+        public void DecloturerLivret()
+        {
+            if (CurrentCandidat != null)
+            {
+                if (CurrentCandidat.CurrentLivret != null)
+                {
+                    CurrentCandidat.CurrentLivret.IsLivretClos = false;
+                }
+            }
         }
 
     }

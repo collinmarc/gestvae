@@ -248,7 +248,7 @@
             <TabItem x:Name="tabJury" Header="Jury" 
                     Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}"
                      >
-                <Grid x:Name="grdJury1"  ShowGridLines="True" HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretNonClos}" >
+                <Grid x:Name="grdJury1"  HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretNonClos}" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto" />

@@ -348,10 +348,6 @@ namespace GestVAE.VM
                 if (value != EtatLivret)
                 {
                     TheLivret.EtatLivret = value;
-                    if (IsLivretClos)
-                    {
-
-                    }
                     RaisePropertyChanged();
                     RaisePropertyChanged("IsEtatEnvoye");
                     RaisePropertyChanged("IsEtatRecu");
@@ -364,9 +360,30 @@ namespace GestVAE.VM
                 }
             }
         }
+        public Boolean IsLivretNonModifiable
+        {
+            get { if (getCurrentCandidat().IsUnlocked)
+                {
+                    return true;
+                }
+                else
+                {
+
+                    return TheLivret.isClos;
+                }
+            }
+        }
+        public Boolean IsLivretModifiable
+        {
+            get { return !IsLivretNonModifiable; }
+        }
         public Boolean IsLivretClos
         {
-            get { return TheLivret.isClos; }
+            get
+            {
+
+                    return TheLivret.isClos;
+            }
             set
             {
                 if (value != IsLivretClos)
@@ -374,6 +391,8 @@ namespace GestVAE.VM
                     TheLivret.isClos = value;
                     RaisePropertyChanged();
                     RaisePropertyChanged("IsLivretNonClos");
+                    RaisePropertyChanged("IsLivretModifiable");
+                    RaisePropertyChanged("IsLivretNonModifiable");
                 }
             }
         }
@@ -934,5 +953,8 @@ namespace GestVAE.VM
             return bReturn;
 
         }
+
+        public abstract CandidatVM getCurrentCandidat();
+
     }
 }

@@ -123,5 +123,5 @@ namespace GestVAE
             m_oLivret.RaisePropertyChanged("ResultatPiecesJointesColor");
         }
 
-    }
+   }
 }

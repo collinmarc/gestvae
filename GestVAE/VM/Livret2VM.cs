@@ -634,5 +634,10 @@ namespace GestVAE.VM
 
         }
 
+        public override CandidatVM getCurrentCandidat()
+        {
+                return new CandidatVM(oL2.oCandidat);
+        }
+
     }
 }

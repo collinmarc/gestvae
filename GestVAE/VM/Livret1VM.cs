@@ -434,5 +434,9 @@ namespace GestVAE.VM
             DbEntityEntry<Livret1> entry = _ctx.Entry<Livret1>(oL1);
             return entry;
         }
+        public  override CandidatVM getCurrentCandidat()
+        { 
+                return new CandidatVM(oL1.oCandidat);
+        }
     }
 }

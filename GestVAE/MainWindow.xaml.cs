@@ -45,7 +45,7 @@ namespace GestVAE
             dpRechReceptL1Fin.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL1Fin");
             dpRechReceptL2Deb.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL2Deb");
             dpRechReceptL2Fin.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL2Fin");
-
+            ckRechHandicap.SetBinding(CheckBox.IsCheckedProperty, "rechbHandicap");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -69,7 +69,7 @@ namespace GestVAE
         {
             dlgDiplomeCand odlg = new dlgDiplomeCand();
             DiplomeCandVM obj = (DiplomeCandVM)gridLstDiplome.SelectedItem;
-            odlg.setContexte(obj);
+            odlg.setContexte(VM);
 
             odlg.ShowDialog();
         }

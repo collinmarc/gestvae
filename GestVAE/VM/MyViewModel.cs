@@ -496,6 +496,8 @@ namespace GestVAE.VM
             Candidat oCand = new Candidat("...");
             _ctx.Candidats.Add(oCand);
             CandidatVM oCandVM = new CandidatVM(oCand);
+            oCandVM.Nationnalite = "Française";
+            oCandVM.NationnaliteNaissance = "Française";
             lstCandidatVM.Add(oCandVM);
             CurrentCandidat = oCandVM;
             RaisePropertyChanged("lstCandidatVM");
@@ -566,6 +568,7 @@ namespace GestVAE.VM
         public String rechNom { get; set; }
         public String rechPrenom { get; set; }
         public String rechVille { get; set; }
+        public Boolean rechbHandicap { get; set; }
         public DateTime? rechDateNaissance { get; set; }
         public DateTime? rechDateReceptL1Deb { get; set; }
         public DateTime? rechDateReceptL1Fin { get; set; }
@@ -651,6 +654,11 @@ namespace GestVAE.VM
             if (rechDateReceptL2Fin != null)
             {
                 rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.DateReceptEHESP <= rechDateReceptL2Fin).Count() > 0);
+
+            }
+            if (rechbHandicap )
+            {
+                rq = rq.Where(c => c.bHandicap);
 
             }
             _lstCandidatVM.Clear();

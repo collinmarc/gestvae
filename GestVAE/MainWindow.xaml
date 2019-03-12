@@ -125,6 +125,9 @@
                     <Label  Grid.Row="4" Grid.Column="0"  Content="Date de &#xD;&#xA;naissance :" />
                     <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center"/>
 
+                    <CheckBox x:Name="ckRechHandicap" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Content="Handicapé" IsThreeState="True"
+                              />
+
                     <Label  Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" 
                             >Réception Livret1:</Label>
                     <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">

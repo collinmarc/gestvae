@@ -127,6 +127,17 @@ namespace GestVAE.VM
             get { return TheCandidat.bHandicap; }
             set { TheCandidat.bHandicap = value; RaisePropertyChanged(); }
         }
+        public String Nationnalite
+        {
+            get { return TheCandidat.Nationalite; }
+            set { TheCandidat.Nationalite = value; RaisePropertyChanged(); }
+        }
+
+        public String NationnaliteNaissance
+        {
+            get { return TheCandidat.NationaliteNaissance; }
+            set { TheCandidat.NationaliteNaissance = value; RaisePropertyChanged(); }
+        }
 
 
         private DiplomeCandVM diplomeCAFDESCandidat

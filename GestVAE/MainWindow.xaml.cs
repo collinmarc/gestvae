@@ -52,6 +52,7 @@ namespace GestVAE
         {
             MyViewModel _VM = new MyViewModel();
             this.DataContext = _VM;
+            _VM.getParams();
                 
         }
         bool manualCommit = false;

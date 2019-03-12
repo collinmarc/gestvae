@@ -271,9 +271,9 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
-                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE));
-                oReturn.Add(String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
+                oReturn.Add(String.Format("{0:D}-Validation totale", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Refus de validation", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Validation partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
                 return oReturn;
             }
             set { }
@@ -284,8 +284,8 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
-                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Validation", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Refus de validation", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE));
                 return oReturn;
             }
             set { }

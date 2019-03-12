@@ -3584,6 +3584,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_BFDD66D04EEB47FDB6905DFF078AADF2"
+                    {
+                    "Name" = "8:DOCS"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_C20FC7CF20E044C4BB4EB77D38F217A9"
+                        "Folders"
+                        {
+                        }
+                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_F3562C0425A7474F86921692C2382A37"
                     {
                     "Name" = "8:IMG"
@@ -3625,7 +3636,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:gestVAE"
         "ProductCode" = "8:{6143D5E6-41DF-44F8-8E99-696E9F1A6BED}"
-        "PackageCode" = "8:{1359E3DA-0CC8-4D02-A83E-C2DB272AA9BD}"
+        "PackageCode" = "8:{6850C57D-8670-40FF-BA18-9986413CAEB3}"
         "UpgradeCode" = "8:{A4442766-10E4-4285-900C-D95A9C2BD4E4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -3769,20 +3780,6 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_3698190E8AF14CB3A3A0F1E8A0D8CF55"
             "Folder" = "8:_A9933BA185CF48C2AF69D400B58706B7"
-            "WorkingFolder" = "8:_758CB9900BE541B4A64F3D741BD73223"
-            "Icon" = "8:_F59E91978F7445C9AA3E2DEECF3E7995"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BDAC997004BF4E21AD58854EBBD9F12B"
-            {
-            "Name" = "8:Shortcut to Sortie principale from GestVAE (Active)"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_3698190E8AF14CB3A3A0F1E8A0D8CF55"
-            "Folder" = "8:_758CB9900BE541B4A64F3D741BD73223"
             "WorkingFolder" = "8:_758CB9900BE541B4A64F3D741BD73223"
             "Icon" = "8:_F59E91978F7445C9AA3E2DEECF3E7995"
             "Feature" = "8:"
@@ -4208,6 +4205,34 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{864692B8-5C9D-4385-A91F-CE3E4A75773B}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CF17EAB07EAF46B891828D1EA653A2DA"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_BFDD66D04EEB47FDB6905DFF078AADF2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
             "OutputProjectGuid" = "8:{864692B8-5C9D-4385-A91F-CE3E4A75773B}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"

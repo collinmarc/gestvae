@@ -94,12 +94,7 @@
                     <xctk:IntegerUpDown   Width="100" Value="{Binding NumPassage}" Margin="0,5"/>
 
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" >
-                    <Label Content="Date création livret :" Width="150"/>
-                    <DatePicker x:Name="dtpDateDemande" 
-                            SelectedDate="{Binding DateDemande}" 
-                            Width="100" Height="29"/>
-                </StackPanel>
+                <StackPanel Orientation="Horizontal" />
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Ouverture après recours :" VerticalAlignment="Center"/>
                     <CheckBox x:Name="ckIsOuvertureApresRecours" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -137,13 +132,10 @@
                                 />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date réception complet : " Width="150" />
+                    <Label Content="Date notif. complétude : " Width="150" />
                     <DatePicker x:Name="dtpReceptComplet"  SelectedDate="{Binding DateReceptEHESPComplet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date limite Jury : " Width="150" />
-                    <DatePicker x:Name="dtpLimiteJury"  SelectedDate="{Binding DateLimiteJury, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" />
-                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatAccepte, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date validité : "  Width="150"  VerticalContentAlignment="Center"/>
                     <DatePicker x:Name="dtpValidite"     HorizontalAlignment="Left"

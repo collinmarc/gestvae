@@ -62,6 +62,7 @@ namespace GestVAE.VM
         public MyViewModel()
         {
             IsInTest = false;
+            Context.Reset();
             _ctx = Context.instance;
             _lstCandidatVM = new ObservableCollection<CandidatVM>();
             _lstRegionVM = new ObservableCollection<RegionVM>();
@@ -83,10 +84,9 @@ namespace GestVAE.VM
             _SaveCommand = new SaveCommand(o => { saveData(); },
                                            o => { return HasChanges(); }
                                           );
-            _RefreshCommand = new RelayCommand<CandidatVM>(o => { getData(); }
+            UnLockAllCommand = new RelayCommand<MyViewModel>(o => { UnlockAll(); },
+                                                            o => { return IsAnyLock(); }
                                           );
-            _PopulateCommand = new RelayCommand<CandidatVM>(o => { populate(); }
-                                           );
             _AddCandidatCommand = new RelayCommand<CandidatVM>(o => { AddCandidat(); }
                                            );
             _dlgParamCommand = new RelayCommand<MyViewModel>(o => { CalldlgParam(); }
@@ -128,8 +128,6 @@ namespace GestVAE.VM
 
             UnLockCommand = new RelayCommand<MyViewModel>(o => { UnLockCurrentCandidat(); },
                                                         o => { return this.IsCurrentCandidatLocked; }
-                                                        );
-            UnLockAllCommand = new RelayCommand<MyViewModel>(o => { UnlockCandidats(); }
                                                         );
         }
 
@@ -335,89 +333,7 @@ namespace GestVAE.VM
             try
             {
 
-            Context.Reset();
-            CSDebug.TraceINFO("MyViwModel.getData : Reset");
-            _ctx = Context.instance;
-
-            // Créatino du CAFDES si Necessaire
-            CSDebug.TraceINFO("MyViwModel.getData : GetDiplome");
-            Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
-
-            if (oDipCAFDES == null)
-            {
-                CSDebug.TraceINFO("MyViwModel.getData : CreateDiplome");
-                oDipCAFDES = new Diplome("CAFDES");
-                oDipCAFDES.addDomainecompetence("DC1");
-                oDipCAFDES.addDomainecompetence("DC2");
-                oDipCAFDES.addDomainecompetence("DC3");
-                oDipCAFDES.addDomainecompetence("DC4");
-
-                _ctx.Diplomes.Add(oDipCAFDES);
-            }
-
-            CSDebug.TraceINFO("MyViwModel.getData : Region");
-            _lstRegionVM.Clear();
-            foreach (Region item in _ctx.Regions)
-            {
-                RegionVM oItVM = new RegionVM(item);
-                _lstRegionVM.Add(oItVM);
-            }
-            RaisePropertyChanged("lstRegionVM");
-
-            CSDebug.TraceINFO("MyViwModel.getData : Diplome");
-            _lstDiplomeVM.Clear();
-            foreach (Diplome item in _ctx.Diplomes)
-            {
-                DiplomeVM oItVM = new DiplomeVM(item);
-                _lstDiplomeVM.Add(oItVM);
-            }
-            RaisePropertyChanged("lstDiplomeVM");
-
-            CSDebug.TraceINFO("MyViwModel.getData : PJ");
-            _lstPieceJointeCategorie.Clear();
-            foreach (PieceJointeCategorie item in _ctx.pieceJointeCategories)
-            {
-                //DiplomeVM oItVM = new DiplomeVM(item);
-                _lstPieceJointeCategorie.Add(item);
-            }
-            RaisePropertyChanged("lstPieceJointeCategorie");
-
-            CSDebug.TraceINFO("MyViwModel.getData : Motif");
-            _lstMotifGL1.Clear();
-            foreach (MotifGeneralL1 item in _ctx.dbMotifGeneralL1)
-            {
-                _lstMotifGL1.Add(item);
-            }
-            RaisePropertyChanged("lstMotifGL1");
-
-            _lstMotifGL2.Clear();
-            foreach (MotifGeneralL2 item in _ctx.dbMotifGeneralL2)
-            {
-                _lstMotifGL2.Add(item);
-            }
-            RaisePropertyChanged("lstMotifGL2");
-
-            lstParamCollege.Clear();
-            foreach (ParamCollege item in _ctx.dbParamCollege)
-            {
-                lstParamCollege.Add(item);
-            }
-            lstParamOrigine.Clear();
-            foreach (ParamOrigine item in _ctx.dbParamOrigine)
-            {
-                lstParamOrigine.Add(item);
-            }
-            lstParamTypeDemande.Clear();
-            foreach (ParamTypeDemande item in _ctx.dbParamTypeDemande)
-            {
-                lstParamTypeDemande.Add(item);
-            }
-            lstParamVecteurInformation.Clear();
-            foreach (ParamVecteurInformation item in _ctx.dbParamVecteurInformation)
-            {
-                lstParamVecteurInformation.Add(item);
-            }
-
+                getParams();
             CSDebug.TraceINFO("MyViwModel.getData : Candidat");
 
             _lstCandidatVM.Clear();
@@ -452,6 +368,107 @@ namespace GestVAE.VM
             CSDebug.TraceINFO("MyViwModel.getData : END");
 
         }
+        public void getParams()
+        {
+            CSDebug.TraceINFO("MyViwModel.getParam : START");
+            try
+            {
+
+                CSDebug.TraceINFO("MyViwModel.getParam : Reset");
+
+                // Créatino du CAFDES si Necessaire
+                CSDebug.TraceINFO("MyViwModel.getParam : GetDiplome");
+                Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
+
+                if (oDipCAFDES == null)
+                {
+                    CSDebug.TraceINFO("MyViwModel.getParam : CreateDiplome");
+                    oDipCAFDES = new Diplome("CAFDES");
+                    oDipCAFDES.addDomainecompetence("DC1");
+                    oDipCAFDES.addDomainecompetence("DC2");
+                    oDipCAFDES.addDomainecompetence("DC3");
+                    oDipCAFDES.addDomainecompetence("DC4");
+
+                    _ctx.Diplomes.Add(oDipCAFDES);
+                }
+
+                CSDebug.TraceINFO("MyViwModel.getParam : Region");
+                _lstRegionVM.Clear();
+                foreach (Region item in _ctx.Regions)
+                {
+                    RegionVM oItVM = new RegionVM(item);
+                    _lstRegionVM.Add(oItVM);
+                }
+                RaisePropertyChanged("lstRegionVM");
+
+                CSDebug.TraceINFO("MyViwModel.getParam : Diplome");
+                _lstDiplomeVM.Clear();
+                foreach (Diplome item in _ctx.Diplomes)
+                {
+                    DiplomeVM oItVM = new DiplomeVM(item);
+                    _lstDiplomeVM.Add(oItVM);
+                }
+                RaisePropertyChanged("lstDiplomeVM");
+
+                CSDebug.TraceINFO("MyViwModel.getParam : PJ");
+                _lstPieceJointeCategorie.Clear();
+                foreach (PieceJointeCategorie item in _ctx.pieceJointeCategories)
+                {
+                    //DiplomeVM oItVM = new DiplomeVM(item);
+                    _lstPieceJointeCategorie.Add(item);
+                }
+                RaisePropertyChanged("lstPieceJointeCategorie");
+
+                CSDebug.TraceINFO("MyViwModel.getParam : Motif");
+                _lstMotifGL1.Clear();
+                foreach (MotifGeneralL1 item in _ctx.dbMotifGeneralL1)
+                {
+                    _lstMotifGL1.Add(item);
+                }
+                RaisePropertyChanged("lstMotifGL1");
+
+                _lstMotifGL2.Clear();
+                foreach (MotifGeneralL2 item in _ctx.dbMotifGeneralL2)
+                {
+                    _lstMotifGL2.Add(item);
+                }
+                RaisePropertyChanged("lstMotifGL2");
+
+                lstParamCollege.Clear();
+                foreach (ParamCollege item in _ctx.dbParamCollege)
+                {
+                    lstParamCollege.Add(item);
+                }
+                lstParamOrigine.Clear();
+                foreach (ParamOrigine item in _ctx.dbParamOrigine)
+                {
+                    lstParamOrigine.Add(item);
+                }
+                lstParamTypeDemande.Clear();
+                foreach (ParamTypeDemande item in _ctx.dbParamTypeDemande)
+                {
+                    lstParamTypeDemande.Add(item);
+                }
+                lstParamVecteurInformation.Clear();
+                foreach (ParamVecteurInformation item in _ctx.dbParamVecteurInformation)
+                {
+                    lstParamVecteurInformation.Add(item);
+                }
+
+
+
+
+                IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+
+                CSDebug.TraceException("MyViewModel.getParam : ", ex);
+            }
+
+            CSDebug.TraceINFO("MyViwModel.getParam : END");
+
+        }//getParam
 
         public void populate()
         {
@@ -510,14 +527,6 @@ namespace GestVAE.VM
             get
             {
                 return _SaveCommand;
-            }
-        }
-        private ICommand _RefreshCommand;
-        public ICommand RefreshCommand
-        {
-            get
-            {
-                return _RefreshCommand;
             }
         }
 
@@ -1008,6 +1017,21 @@ public void AjoutePJL1()
             {
                 oCand.UnLock();
             }
+        }
+        public void UnlockAll()
+        {
+            if (MessageBox.Show("Etes-vous sur de vouloir dévérouiller TOUS les candidats ?", "Dévérouiller tous les candidats", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Context ctxLock = new Context();
+                ctxLock.Locks.RemoveRange(ctxLock.Locks.ToList());
+                ctxLock.SaveChanges();
+            }
+        }
+        public Boolean IsAnyLock()
+        {
+                Context ctxLock = new Context();
+            int nCount = ctxLock.Locks.ToList().Count();
+            return (nCount > 0);
         }
 
     }

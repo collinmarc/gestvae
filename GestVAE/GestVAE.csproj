@@ -218,10 +218,181 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="SourcesDonnees\GESTVAE Candidats.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L1_RECUS_COMPLETS.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L1_RECUS_INCOMPLET.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L1_RECUS_INCOMPLETS.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L1_RECUS_INCOMPLETS_PJ.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L1_RECUS_INCOMPLET_PJ.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L1_VALIDATION_ACCEPTE.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L1_VALIDATION_APRESRECOURS.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L1_VALIDATION_REFUSE.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L1_VALIDATION_REFUSE_APRESRECOURS.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L2_RECUS_COMPLETS.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L2_RECUS_COMPLETS_DC.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L2_RECUS_COMPLETS_JURY.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L2_RECUS_INCOMPLETS.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L2_RECUS_INCOMPLETS_PJ.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L2_VALIDATION_PARTIELLE.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L2_VALIDATION_REFUSE.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE L2_VALIDATION_TOTALE.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE Livret1.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE LSTLIVRETS.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SourcesDonnees\GESTVAE MembreJuries.odc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL\createVue.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL\dbo.Diplomes.data.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL\dbo.DomaineCompetences.data.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL\dbo.MotifGeneralL1.data.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL\dbo.ParamTypeDemandes.data.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL\dbo.ParamVecteurInformations.data.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL\dbo.Regions.data.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="DOCS\AssociationTabloStats.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Demande PJL1.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 10%28L2_Complet Grille Appéciation%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 11%28L2_ValidationTotale%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 12%28L2_ValidationPartielle%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 13%28L2_Refus de valivation%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 14%28L2_Refus de valivation %28L2 echu%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 15%28L2_Infos refus%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 16%28L2_VALIDATION PARTIELLE avant oct 2017%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 17%28L2_VALIDATION PARTIELLE %28infos%29%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 18%28L2_VALIDATION PARTIELLE DOM 1 et 2%28infos%29%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 19%28L2_VALIDATION PARTIELLE DOM 1 et 2%28infos%29%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 20%28Attestation de Présence%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 21%28L1_Demande de recevabilté%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 22%28%28L1_Etude Decision Recevabilité Après recours%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 23%28L1 Etude Decision Recevabilité COMPLET%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 24%28Non recevabilité après recours%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 25%28L1-Recevabilité après recours%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 26%28L1-Courrier AR Recours%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 27%28L1 Courrier non recevabilité Motivé%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 28%28L1 Courrier non recevabilité Motivé %28Pièces manquantes%29%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 29%28L1_Courrier Recevabilité%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 30%28L1 Courrier Pièces manquantes 2eme courier%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 31%28L1 Courrier Pièces manquantes 1er courier%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 32%28Livret1 Courrier Complet après receop, des pièces manquantes%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 33%28Livret1 Courrier Complet%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Document 9%28L2_Proposition decision%29.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\RegleDates.xlxs.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DOCS\Stat1.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="GestVAE_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GestVAEcls.Context.datasource" />

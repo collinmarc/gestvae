@@ -48,8 +48,6 @@ namespace GestVAE
 
 
             dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, "DateJury");
-            tpHeureConvoc.SetBinding(TimePicker.ValueProperty, "HeureConvoc");
-            tpHeureJury.SetBinding(TimePicker.ValueProperty, "HeureJury");
             tbLieuJury.SetBinding(TextBox.TextProperty, "LieuJury");
 
             cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
@@ -68,11 +66,9 @@ namespace GestVAE
             dtpDateLimiteRecours.SetBinding(DatePicker.SelectedDateProperty, "DateLimiteRecours");
 
             // Recours
-            dtpDateLimiteJuryRecours.SetBinding(DatePicker.SelectedDateProperty, "DateLimiteJuryRecours");
+            dtpDateNotificationJuryRecours.SetBinding(DatePicker.SelectedDateProperty, "DateNotificationJuryRecours");
 
             dtpDateDepotRecours.SetBinding(DatePicker.SelectedDateProperty, "DateDepot");
-            tbLieuJuryRecours.SetBinding(TextBox.TextProperty, "LieuJuryRecours");
-            dtpDateJuryRecours.SetBinding(DatePicker.SelectedDateProperty, "DateJuryRecours");
 
             tbMotifRecours.SetBinding(TextBox.TextProperty, "MotifRecours");
 

@@ -810,6 +810,10 @@ public void AjoutePJL1()
         {
             Livret2VM oLiv = (Livret2VM)CurrentCandidat.CurrentLivret;
             oLiv.Cloturer();
+            if (!IsInTest)
+            {
+                CloseAction();
+            }
         }
 
         public void GestionDiplome()

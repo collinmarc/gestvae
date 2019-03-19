@@ -110,7 +110,7 @@
                 <StackPanel Orientation="Horizontal"  Visibility="{Binding IsEtatDemande, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date envoi EHESP : " Width="150" />
-                    <DatePicker x:Name="dtpenvoiEHESP" SelectedDate="{Binding DateEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}" 
+                    <DatePicker x:Name="dtpenvoiEHESP" SelectedDate="{Binding DateEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateDemande}" 
                                 />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"/>
@@ -121,12 +121,12 @@
                         IsEnabled="{Binding IsLivretModifiable}" >
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date 1ere réception : " Width="150" />
-                    <DatePicker x:Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" IsEnabled="{Binding IsLivretModifiable}" 
+                    <DatePicker x:Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" IsEnabled="{Binding IsLivretModifiable}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpenvoiEHESP}" 
                                 />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date réception complet : " Width="150" />
-                    <DatePicker x:Name="dtpReceptComplet"  SelectedDate="{Binding DateReceptEHESPComplet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}"/>
+                    <DatePicker x:Name="dtpReceptComplet"  SelectedDate="{Binding DateReceptEHESPComplet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpenvoiEHESP}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatAccepte, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -190,7 +190,7 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Date 1ere demande   :"/>
-                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}"></DatePicker>
+                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal"/>
                         </StackPanel>
@@ -198,11 +198,11 @@
                             <StackPanel Orientation="Horizontal">
 
                                 <Label Name="lblDateRetourPM" Content="Date de retour demandée :"/>
-                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemandePieceManquantesRetour}"></DatePicker>
+                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemandePieceManquantesRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate1ereDemandePJ}"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Label Name="lblDateReceptPM" Content="Date retour PJ :" Width="153"/>
-                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes}"></DatePicker>
+                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
                     </UniformGrid>
@@ -271,7 +271,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
                         <Label Content="Date :" VerticalAlignment="Center"/>
-                        <DatePicker x:Name="dtpDateJury" Margin="0" VerticalAlignment="Center"  />
+                        <DatePicker x:Name="dtpDateJury" Margin="0" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDateFormat, ElementName=dtpReceptComplet}"  />
                     </StackPanel>
                     <Grid Grid.Row="0" Grid.Column="1" >
                         <Grid.ColumnDefinitions>
@@ -321,13 +321,13 @@
                         <Label  Content="Recours :"/>
                         <CheckBox x:Name="chkRecours" IsChecked="True" VerticalAlignment="Center"/>
                         <Label VerticalAlignment="Center" Content="Date limite de depot :" Margin="10,0,0,0"/>
-                        <DatePicker x:Name="dtpDateLimiteRecours" VerticalAlignment="Center" Width="100"/>
+                        <DatePicker x:Name="dtpDateLimiteRecours" VerticalAlignment="Center" Width="100" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
                         <StackPanel Orientation="Horizontal" >
                             <Label Width="169" VerticalAlignment="Center" Content="Date de dépôt du recours :"  />
-                            <DatePicker x:Name="dtpDateDepotRecours" Width="125" VerticalAlignment="Center"/>
+                            <DatePicker x:Name="dtpDateDepotRecours" Width="125" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"/>
                     </StackPanel>
@@ -376,7 +376,7 @@
                         <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch"/>
 
                         <Label VerticalAlignment="Center"  Grid.Row="3" Grid.Column="0" Content="Date notification du recours: " />
-                        <DatePicker  Grid.Row="3" Grid.Column="1" x:Name="dtpDateNotificationJuryRecours" HorizontalAlignment="Left" Width="125"/>
+                        <DatePicker  Grid.Row="3" Grid.Column="1" x:Name="dtpDateNotificationJuryRecours" HorizontalAlignment="Left" Width="125" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateDepotRecours}"/>
 
                         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2"/>
 

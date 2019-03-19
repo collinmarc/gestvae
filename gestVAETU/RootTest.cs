@@ -30,11 +30,13 @@ namespace GestVAETU
             //{
             //    ctx.Entry<Candidat>(oCand).State = System.Data.Entity.EntityState.Deleted;
             //}
-            MyViewModel VM = new MyViewModel();
+            MyViewModel VM = new MyViewModel(true);
             VM.getData();
+            VM.UnlockAll();
             while (VM.lstCandidatVM.Count>0)
             {
                 VM.CurrentCandidat = VM.lstCandidatVM[0];
+                VM.LockCurrentCandidat();
                 VM.DeleteCurrentCandidat();
             }
             VM.saveData();
@@ -56,13 +58,6 @@ namespace GestVAETU
             cleanDB();
             //using (ctx = Context.instance)
             //{
-            //    //ctx.DomaineCompetenceCands.RemoveRange(ctx.DomaineCompetenceCands.ToList<DomaineCompetenceCand>());
-                //ctx.DiplomeCands.RemoveRange(ctx.DiplomeCands.ToList<DiplomeCand>());
-                //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-                //ctx.DomainesCompetences.RemoveRange(ctx.DomainesCompetences.ToList<DomaineCompetence>());
-                //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-                ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
-                ctx.SaveChanges();
 
                 oCand = new Candidat("Marc Collin");
                 ctx.Candidats.Add(oCand);

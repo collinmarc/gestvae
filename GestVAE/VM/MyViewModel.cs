@@ -83,6 +83,10 @@ namespace GestVAE.VM
             CreateCommands();
             //getData();
         }
+        public MyViewModel(Boolean pIsInTest) :this()
+        {
+            IsInTest = pIsInTest;
+        }
 
         private void CreateCommands()
         {
@@ -872,7 +876,7 @@ public void AjoutePJL1()
             LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
             if (oLiv.HasChanges())
             {
-                if (MessageBox.Show("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                if (MessageBoxShow("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                     == MessageBoxResult.Yes)
                 {
                     ResetCurrentLivret();
@@ -912,7 +916,7 @@ public void AjoutePJL1()
                 if (CurrentCandidat.IsLocked)
                 {
 
-                    if (MessageBox.Show("Etes-vous sur de souloir supprimer le candidat", "Suppression d'un candidat", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (MessageBoxShow("Etes-vous sur de souloir supprimer le candidat", "Suppression d'un candidat", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         CurrentCandidat.UnLock();
                         _ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
@@ -1051,7 +1055,7 @@ public void AjoutePJL1()
         }
         public void UnlockAll()
         {
-            if (MessageBox.Show("Etes-vous sur de vouloir déverrouiller TOUS les candidats ?", "Dévérouiller tous les candidats", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBoxShow("Etes-vous sur de vouloir déverrouiller TOUS les candidats ?", "Dévérouiller tous les candidats", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 Context ctxLock = new Context();
                 ctxLock.Locks.RemoveRange(ctxLock.Locks.ToList());
@@ -1110,6 +1114,16 @@ public void AjoutePJL1()
                     CurrentCandidat.CurrentLivret.IsLivretClos = false;
                 }
             }
+        }
+
+        public MessageBoxResult MessageBoxShow(String pMessage,String pCaption = "Gest VAE", MessageBoxButton pButton=MessageBoxButton.OK,MessageBoxImage pIcon = MessageBoxImage.None )
+        {
+            MessageBoxResult oResult = MessageBoxResult.Yes;
+            if (!IsInTest)
+            {
+                oResult = MessageBox.Show(pMessage, pCaption, pButton, pIcon);
+            }
+            return oResult;
         }
 
     }

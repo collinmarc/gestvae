@@ -55,6 +55,33 @@ namespace GestVAE.VM
             }
         }
 
+        public DateTime? DateValidite
+        {
+            get
+            {
+                if (this is Livret1VM)
+                {
+                    return ((Livret1)TheLivret).DateValidite;
+                }
+                else
+                {
+                    return ((Livret2)TheLivret).DateValidite;
+
+                }
+            }
+            set
+            {
+                if (this is Livret1VM)
+                {
+                    ((Livret1)TheLivret).DateValidite = value;
+                }
+                else
+                {
+                    ((Livret2)TheLivret).DateValidite = value;
+                }
+
+            }
+        }
         public virtual void Commit() {
             foreach (JuryVM item in lstJuryVM)
             {

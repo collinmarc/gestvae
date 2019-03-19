@@ -343,6 +343,7 @@ namespace GestVAE.VM
         public void refreshlstLivrets()
         {
             RaisePropertyChanged("lstLivrets");
+            RaisePropertyChanged("IsL1Valide");
         }
         public void AjouLivret1(Livret1VM pLivret)
         {
@@ -481,6 +482,31 @@ namespace GestVAE.VM
             RaisePropertyChanged("IsLocked");
             RaisePropertyChanged("IsUnlocked");
             return true;
+        }
+
+        public Boolean IsL1Valide
+        {
+            get
+            {
+                Boolean bReturn = false;
+                foreach (LivretVMBase oLiv in lstLivrets)
+                {
+                    if (oLiv is Livret1VM)
+                    {
+                        Livret1VM oL1 = (Livret1VM)oLiv;
+                        if (oL1.IsEtatAccepte)
+                        {
+                            if (oL1.DateValidite > DateTime.Now)
+                            {
+                                bReturn = true;
+                            }
+                        }
+                    }
+                }
+
+                return bReturn;
+                
+            }
         }
 
     }

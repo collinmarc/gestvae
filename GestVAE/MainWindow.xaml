@@ -347,7 +347,7 @@
                                     <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
                                     <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}"/>
                                     <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret}"/>
-                                    <DataGridTextColumn Header="Echéance" Binding="{Binding TheLivret.DateEcheance, StringFormat='dd/MM/yyyy'}"/>
+                                    <DataGridTextColumn Header="Validité" Binding="{Binding DateValidite, StringFormat='dd/MM/yyyy'}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
 
@@ -357,8 +357,10 @@
                                 >Ajout Livret 1
                                 </Button>
                                 <Button x:Name="btnAddLivret2" Margin="10,0,0,0"
-                                Command="{Binding DataContext.AjouteL2Command, ElementName=window}" Style="{DynamicResource ButtonReadOnlyStyle}">
+                                Command="{Binding DataContext.AjouteL2Command, ElementName=window}" Style="{DynamicResource ButtonReadOnlyStyle}"
+                                        IsEnabled="{Binding IsL1Valide}">
                                     Ajout Livret 2
+                                    
                                 </Button>
                             </UniformGrid>
                         </StackPanel>

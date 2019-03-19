@@ -12,8 +12,7 @@ namespace GestVAETU
         public void CreateDeleteL1Test()
         {
 
-            MyViewModel VM = new MyViewModel();
-            VM.IsInTest = true;
+            MyViewModel VM = new MyViewModel(true);
             VM.getData();
 
             VM.AddCandidatCommand.Execute(null);
@@ -44,7 +43,7 @@ namespace GestVAETU
             VM.CurrentCandidat = VM.lstCandidatVM.Where(i => i.Nom == "TESTCAND").FirstOrDefault();
             Assert.IsNotNull(VM.CurrentCandidat);
             Assert.AreEqual(0, VM.CurrentCandidat.lstLivrets.Count);
-
+            VM.LockCurrentCandidat();
             VM.DeleteCurrentCandidat();
 
             VM.saveData();
@@ -90,6 +89,7 @@ namespace GestVAETU
             Assert.IsNotNull(VM.CurrentCandidat);
             Assert.AreEqual(0, VM.CurrentCandidat.lstLivrets.Count);
 
+            VM.LockCurrentCandidat();
             VM.DeleteCurrentCandidat();
 
             VM.saveData();
@@ -129,7 +129,7 @@ namespace GestVAETU
             Assert.IsFalse(oLiv.HasChanges());
             Assert.AreEqual("", oLiv.DecisionJury);
 
-            oCand.DeleteCurrentLivret();
+            VM.LockCurrentCandidat();
             VM.DeleteCurrentCandidat();
             VM.saveData();
 
@@ -170,8 +170,8 @@ namespace GestVAETU
             Assert.IsFalse(oLiv.HasChanges());
             Assert.AreEqual("", oLiv.DecisionJuryRecours);
 
-            oCand.DeleteCurrentLivret();
             VM.CurrentCandidat = oCand;
+            VM.LockCurrentCandidat();
             VM.DeleteCurrentCandidat();
             VM.saveData();
 
@@ -212,6 +212,8 @@ namespace GestVAETU
             oCand.CurrentLivret = oCand.lstLivrets[0];
             oCand.DeleteCurrentLivret();
 
+            VM.LockCurrentCandidat();
+
             VM.DeleteCurrentCandidat();
             Assert.IsTrue(VM.saveData());
         }
@@ -236,6 +238,7 @@ namespace GestVAETU
             Livret2VM oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             Assert.AreEqual(4, oLiv.lstDCLivret.Count);
 
+            VM.LockCurrentCandidat();
             VM.DeleteCurrentCandidat();
             VM.saveData();
 
@@ -276,6 +279,7 @@ namespace GestVAETU
             Assert.IsTrue(oCand.IsLocked);
 
 
+            VM.LockCurrentCandidat();
             VM.DeleteCurrentCandidat();
             VM.saveData();
         }
@@ -321,6 +325,43 @@ namespace GestVAETU
             oCand = VM.CurrentCandidat;
             Assert.IsFalse(oCand.IsLocked);
 
+            VM.LockCurrentCandidat();
+            VM.DeleteCurrentCandidat();
+            VM.saveData();
+        }
+        [TestMethod]
+        public void testIsL1Valide()
+        {
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.AddCandidatCommand.Execute(null);
+            CandidatVM oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND";
+            VM.saveData();
+
+            Assert.IsFalse(oCand.IsL1Valide);
+            //Ajout D'un L1
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            // Le L1 Rest non valide car l'état n'est pas bon
+            Assert.IsFalse(oCand.IsL1Valide);
+            Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
+            oL1.EtatLivret = String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+            oL1.DateValidite = DateTime.Now.AddYears(3);
+            // Le L1 Devient Valide
+            Assert.IsTrue(oCand.IsL1Valide);
+            oL1.DateValidite = DateTime.Now.AddDays(1);
+            // Le L1 Reste Valide à 1 jour de l'échéance
+            Assert.IsTrue(oCand.IsL1Valide);
+
+            // Le L1 n'est plus valide
+            oL1.DateValidite = DateTime.Now.AddDays(-1);
+            Assert.IsFalse(oCand.IsL1Valide);
+
+
+            VM.LockCurrentCandidat();
             VM.DeleteCurrentCandidat();
             VM.saveData();
         }

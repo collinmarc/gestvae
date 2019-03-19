@@ -371,18 +371,6 @@ namespace GestVAE.VM
                 }
             }
         }
-        public DateTime? DateValidite
-        {
-            get { return oL2.DateValidite; }
-            set
-            {
-                if (value != DateValidite)
-                {
-                    oL2.DateValidite = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
 
         public DateTime? DatePrevJury1
         {

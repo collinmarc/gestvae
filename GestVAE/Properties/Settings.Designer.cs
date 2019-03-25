@@ -25,30 +25,10 @@ namespace GestVAE.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\V11.0;Initial Catalog=GESTVAE;Integrated Security=True")]
-        public string CSGESTVAE {
-            get {
-                return ((string)(this["CSGESTVAE"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("CAFDES")]
         public string NomDiplomeDefaut {
             get {
                 return ((string)(this["NomDiplomeDefaut"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\V11.0;Initial Catalog=GESTVAETU;Integrated Security=True")]
-        public string CSGESTVAETU {
-            get {
-                return ((string)(this["CSGESTVAETU"]));
             }
         }
         
@@ -94,6 +74,43 @@ namespace GestVAE.Properties {
         public int DelaiDepotRecours {
             get {
                 return ((int)(this["DelaiDepotRecours"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ICARE;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123")]
+        public string CSGESTVAE {
+            get {
+                return ((string)(this["CSGESTVAE"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DEV")]
+        public string dbMODE {
+            get {
+                return ((string)(this["dbMODE"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("(localdb)\\V11.0")]
+        public string dbSRVDEV {
+            get {
+                return ((string)(this["dbSRVDEV"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FORTUNA")]
+        public string dbSRVPP {
+            get {
+                return ((string)(this["dbSRVPP"]));
             }
         }
     }

@@ -13,7 +13,7 @@ namespace GestVAEcls.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -26,7 +26,8 @@ namespace GestVAEcls.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\V11.0;Initial Catalog=GESTVAE;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\V11.0;Initial Catalog=GESTVAE;Persist Security Info=True;Us" +
+            "er ID=gestvae;Password=gestvae#123")]
         public string CSGESTVAE {
             get {
                 return ((string)(this["CSGESTVAE"]));
@@ -39,16 +40,6 @@ namespace GestVAEcls.Properties {
         public string NomDiplomeDefaut {
             get {
                 return ((string)(this["NomDiplomeDefaut"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\v11.0;Initial Catalog=GESTVAETU;Integrated Security=True")]
-        public string CSGestVAETU {
-            get {
-                return ((string)(this["CSGestVAETU"]));
             }
         }
     }

@@ -8,9 +8,9 @@ using System.Windows;
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
 [assembly: AssemblyTitle("GestVAE")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Gestion des Livrets de VAE")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("2P Consultants")]
 [assembly: AssemblyProduct("GestVAE")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

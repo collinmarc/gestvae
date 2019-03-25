@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GestVAETU.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Paramètre" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="dbMODE" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">PP</Value>
+    </Setting>
+    <Setting Name="dbSRVDEV" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">(localdb)\V11.0</Value>
+    </Setting>
+    <Setting Name="dbSRVPP" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">FORTUNA</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

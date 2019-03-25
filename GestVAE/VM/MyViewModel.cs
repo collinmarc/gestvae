@@ -66,8 +66,8 @@ namespace GestVAE.VM
 
         public MyViewModel()
         {
-            IsInTest = false;
             Context.Reset();
+            IsInTest = false;
             _ctx = Context.instance;
             _lstCandidatVM = new ObservableCollection<CandidatVM>();
             _lstRegionVM = new ObservableCollection<RegionVM>();
@@ -347,7 +347,6 @@ namespace GestVAE.VM
             {
 
                 getParams();
-            CSDebug.TraceINFO("MyViwModel.getData : Candidat");
 
             _lstCandidatVM.Clear();
             foreach (Candidat item in _ctx.Candidats)
@@ -383,11 +382,8 @@ namespace GestVAE.VM
         }
         public void getParams()
         {
-            CSDebug.TraceINFO("MyViwModel.getParam : START");
             try
             {
-
-                CSDebug.TraceINFO("MyViwModel.getParam : Reset");
 
                 // Créatino du CAFDES si Necessaire
                 CSDebug.TraceINFO("MyViwModel.getParam : GetDiplome");
@@ -1064,7 +1060,7 @@ public void AjoutePJL1()
         }
         public Boolean IsAnyLock()
         {
-                Context ctxLock = new Context();
+            Context ctxLock = new Context();
             int nCount = ctxLock.Locks.ToList().Count();
             return (nCount > 0);
         }
@@ -1080,7 +1076,7 @@ public void AjoutePJL1()
                 Script = File.ReadAllText(strFilename);
                 IEnumerable<string> commandStrings = Regex.Split(Script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
-                System.Data.SqlClient.SqlConnection cnx = new System.Data.SqlClient.SqlConnection(Properties.Settings.Default.CSGESTVAE);
+                System.Data.SqlClient.SqlConnection cnx = (SqlConnection)_ctx.Database.Connection;
                 cnx.Open();
 
                 try

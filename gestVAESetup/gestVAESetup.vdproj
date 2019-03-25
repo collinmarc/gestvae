@@ -1120,6 +1120,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -3636,7 +3644,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:gestVAE"
         "ProductCode" = "8:{6143D5E6-41DF-44F8-8E99-696E9F1A6BED}"
-        "PackageCode" = "8:{6850C57D-8670-40FF-BA18-9986413CAEB3}"
+        "PackageCode" = "8:{346F4F34-268C-4217-821C-5B3D2B42FAB8}"
         "UpgradeCode" = "8:{A4442766-10E4-4285-900C-D95A9C2BD4E4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -3651,7 +3659,7 @@
         "Subject" = "8:Gestion des demandes de Livrets VAE"
         "ARPCONTACT" = "8:2PConsultants/ Marc Collin"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Gestion des demandes de VAE"
+        "ARPCOMMENTS" = "8:Gestion des livrets de VAE"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:_F59E91978F7445C9AA3E2DEECF3E7995"
         "ARPIconIndex" = "3:0"
@@ -4185,7 +4193,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3698190E8AF14CB3A3A0F1E8A0D8CF55"
             {
-            "SourcePath" = "8:..\\GestVAE\\obj\\Debug\\GestVAE.exe"
+            "SourcePath" = "8:..\\GestVAE\\obj\\Release\\GestVAE.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_758CB9900BE541B4A64F3D741BD73223"

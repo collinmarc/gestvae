@@ -32,58 +32,11 @@ namespace GestVAEcls
         {
             _instance = new Context();
         }
-        public Context():base()
+        public Context() : base("name=CSGESTVAE")
         {
-            String CS1 = Properties.Settings.Default.CSGESTVAE;
-            String CS = ConfigurationManager.ConnectionStrings["CSGESTVAE"].ConnectionString;
-            if (dbMode != "PROD")
-            {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(CS);
-                builder.DataSource = dbSRV;
-                builder.InitialCatalog = dbCatalog;
-                Database.Connection.ConnectionString = builder.ConnectionString;
-            }
-            
+
         }
-        public String dbMode
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["dbMODE"];
-            }
-        }
-        public String dbSRV
-        {
-            get
-            {
-                String strReturn="";
-                if (dbMode == "DEV")
-                {
-                    strReturn = ConfigurationManager.AppSettings["dbSRVDEV"];
-                }
-                if (dbMode == "PP")
-                {
-                    strReturn = ConfigurationManager.AppSettings["dbSRVPP"];
-                }
-                return strReturn;
-            }
-        }
-        public String dbCatalog
-        {
-            get
-            {
-                String strReturn = "";
-                if (dbMode == "DEV")
-                {
-                    strReturn = ConfigurationManager.AppSettings["dbCATALOGDEV"];
-                }
-                if (dbMode == "PP")
-                {
-                    strReturn = ConfigurationManager.AppSettings["dbCATALOGPP"];
-                }
-                return strReturn;
-            }
-        }
+
         public DbSet<LockCandidat> Locks { get; set; }
         public DbSet<Candidat> Candidats { get; set; }
         public DbSet<Diplome> Diplomes { get; set; }

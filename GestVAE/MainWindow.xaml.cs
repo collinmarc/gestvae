@@ -83,6 +83,7 @@ namespace GestVAE
         private void gridLstLivrets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Window ofrm = null;
+            VM.CurrentCandidat.CurrentLivret.IsCandidatLocked = VM.CurrentCandidat.IsLocked;
             if (VM.CurrentCandidat.CurrentLivret.Typestr=="LIVRET1")
             {
                 ofrm = new frmLivret1();
@@ -93,8 +94,6 @@ namespace GestVAE
                 ofrm = new frmLivret2();
                 ((frmLivret2)ofrm).setContexte(VM);
             }
-
-
             ofrm.ShowDialog();
         }
 

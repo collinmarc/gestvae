@@ -12,9 +12,9 @@ namespace GestVAETU
         public void TestAdd()
         {
 
-            Livret1VM oL1 = new Livret1VM();
+            Livret1VM oL1 = new Livret1VM(false);
             Assert.AreNotEqual("", oL1.Numero);
-            Livret1VM oL2 = new Livret1VM();
+            Livret1VM oL2 = new Livret1VM(false);
             Assert.AreNotEqual(oL2.Numero, oL1.Numero);
 
         }

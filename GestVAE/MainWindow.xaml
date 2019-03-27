@@ -338,7 +338,7 @@
                               SelectedItem="{Binding CurrentLivret}"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                               CellEditEnding="gridLstLivrets_CellEditEnding" 
-                              MouseDoubleClick="gridLstLivrets_MouseDoubleClick"
+                              MouseDoubleClick="gridLstLivrets_MouseDoubleClick" IsReadOnly="True"
                               >
                                 <DataGrid.InputBindings>
                                     <KeyBinding Key="Delete" Command="{Binding DeleteLivretCommand}" />

@@ -46,7 +46,7 @@ namespace GestVAE.VM
         }
 
 
-        public Livret2VM() : base()
+        public Livret2VM(Boolean pIsCandidatLocked) : base(pIsCandidatLocked)
         {
             Livret oReturn = null;
 
@@ -56,10 +56,6 @@ namespace GestVAE.VM
 
             lstDCLivret = new ObservableCollection<DCLivretVM>();
             _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
-        }
-        public Livret2VM(Diplome pDip) : this()
-        {
-            TheLivret.oDiplome = pDip;
         }
         public override DbEntityEntry getEntity()
         {

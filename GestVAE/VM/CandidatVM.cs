@@ -27,7 +27,7 @@ namespace GestVAE.VM
         public LivretVMBase CurrentLivret
         {
             get { return _LivretVM; }
-            set { _LivretVM = value; }
+            set { _LivretVM = value; CurrentLivret.IsCandidatLocked = IsLocked; }
         }
 
         public CandidatVM(Candidat pCandidat):base(pCandidat)

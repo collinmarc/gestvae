@@ -39,9 +39,11 @@ namespace GestVAE.VM
             }
 
         }
+        public Boolean IsCandidatLocked { get; set; }
 
-        public LivretVMBase():base()
+        public LivretVMBase(Boolean pIsCandidatLocked):base()
         {
+            IsCandidatLocked = pIsCandidatLocked;
             lstPieceJointe = new ObservableCollection<PieceJointeLivretVM>();
             lstJuryVM = new ObservableCollection<JuryVM>();
             create1erJury();
@@ -389,7 +391,7 @@ namespace GestVAE.VM
         }
         public Boolean IsLivretNonModifiable
         {
-            get { if (getCurrentCandidat().IsUnlocked)
+            get { if (!IsCandidatLocked)
                 {
                     return true;
                 }

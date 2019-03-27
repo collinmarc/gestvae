@@ -399,7 +399,6 @@
                                   Grid.ColumnSpan="3"
                                   AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10,11,10,9" RowHeaderWidth="0" HorizontalAlignment="Stretch">
                         <DataGrid.Resources>
-                            <VM:Livret2VM x:Key="ComboItems"/>
                             <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
                         </DataGrid.Resources>
                         <DataGrid.Visibility>
@@ -410,7 +409,7 @@
                             <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*"/>
                             <DataGridComboBoxColumn Header="Décision" 
                                                         SelectedValueBinding="{Binding Decision}" 
-                                                        ItemsSource="{Binding LstDecisionL2Module, Source={StaticResource ComboItems}}" 
+                                                        ItemsSource="{Binding Data.LstDecisionL2Module, Source={StaticResource proxy}}"
                                                         Width="2*"/>
                             <DataGridComboBoxColumn x:Name="dgColMotifGeneral" Header="Motif général" 
                                                         SelectedItemBinding="{Binding MotifGeneral, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

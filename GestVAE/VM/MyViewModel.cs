@@ -709,7 +709,7 @@ namespace GestVAE.VM
         {
 
             CandidatVM oCandVM = CurrentCandidat;
-            Livret1VM oLivVM = new Livret1VM();
+            Livret1VM oLivVM = new Livret1VM(CurrentCandidat.IsLocked);
             oLivVM.LstEtatLivret = LstEtatLivret1;
             oLivVM.EtatLivret = LstEtatLivret1[1];
             oLivVM.DateDemande = DateTime.Now;
@@ -731,11 +731,12 @@ namespace GestVAE.VM
             {
 
                 CandidatVM oCandVM = CurrentCandidat;
-                oLivVM = new Livret2VM();
+                oLivVM = new Livret2VM(CurrentCandidat.IsLocked);
                 oLivVM.LstEtatLivret = LstEtatLivret2;
 
                 oLivVM.EtatLivret = LstEtatLivret2[1];
                 oLivVM.DateDemande = DateTime.Now;
+                CurrentCandidat.CurrentLivret = oLivVM;
                 if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Count() > 0)
                 {
                     int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Select(l => ((Livret2VM)l).NumPassage).Max();
@@ -844,6 +845,7 @@ public void AjoutePJL1()
             {
                 CurrentCandidat.AjouLivret1(oL1VM);
             }
+            CurrentCandidat.refreshlstLivrets();
             //            _ctx.Histos.Add(new Histo("AjoutCandidat"));
             if (!IsInTest)
             {

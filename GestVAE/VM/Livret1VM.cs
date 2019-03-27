@@ -24,7 +24,7 @@ namespace GestVAE.VM
         }
 
 
-        public Livret1VM() : base()
+        public Livret1VM(Boolean pIsCandidatLocked) : base( pIsCandidatLocked)
         {
             Livret oReturn = null;
 

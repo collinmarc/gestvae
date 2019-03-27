@@ -30,7 +30,14 @@ namespace GestVAE
             }
 
         }
-        private Livret2VM m_oLivret;
+        public Livret2VM oLivret2VM
+        {
+            get
+            {
+                return (Livret2VM) VM.CurrentCandidat.CurrentLivret;
+            }
+
+        }
         public frmLivret2()
         {
             InitializeComponent();
@@ -62,9 +69,8 @@ namespace GestVAE
         public void setContexte(MyViewModel pViewModel)
         {
             this.DataContext = pViewModel;
-            m_oLivret = (Livret2VM)pViewModel.CurrentCandidat.CurrentLivret;
             // Mise a jour de la liste des Etat pour faire fonctionner le Set Etat
-            m_oLivret.LstEtatLivret = pViewModel.LstEtatLivret2;
+            oLivret2VM.LstEtatLivret = pViewModel.LstEtatLivret2;
             pViewModel.CloseAction = new Action(() => this.Close());
         }
 
@@ -87,8 +93,8 @@ namespace GestVAE
                 manualCommit = false;
             }
 
-            m_oLivret.RaisePropertyChanged("ResultatPiecesJointes");
-            m_oLivret.RaisePropertyChanged("ResultatPiecesJointesColor");
+            oLivret2VM.RaisePropertyChanged("ResultatPiecesJointes");
+            oLivret2VM.RaisePropertyChanged("ResultatPiecesJointesColor");
         }
 
         private void dgDCLivret_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)

@@ -19,45 +19,36 @@ namespace GestVAETU
 
         public void cleanDB()
         {
-            //using (ctx = Context.instance)
-            //{
-                ;
-            //ctx.DomaineCompetenceCands.RemoveRange(ctx.DomaineCompetenceCands.ToList<DomaineCompetenceCand>());
-            //ctx.DiplomeCands.RemoveRange(ctx.DiplomeCands.ToList<DiplomeCand>());
-            //ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-            //ctx.DomainesCompetences.RemoveRange(ctx.DomainesCompetences.ToList<DomaineCompetence>());
-            //foreach(Candidat oCand in ctx.Candidats)
-            //{
-            //    ctx.Entry<Candidat>(oCand).State = System.Data.Entity.EntityState.Deleted;
-            //}
-            MyViewModel VM = new MyViewModel(true);
-            VM.getData();
-            VM.UnlockAll();
-            while (VM.lstCandidatVM.Count>0)
-            {
-                VM.CurrentCandidat = VM.lstCandidatVM[0];
-                VM.LockCurrentCandidat();
-                VM.DeleteCurrentCandidat();
-            }
-            VM.saveData();
-//            ctx.Candidats.RemoveRange(ctx.Candidats.ToList<Candidat>());
-            //foreach (Diplome oItem in ctx.Diplomes)
-            //{
-            //    ctx.Entry<Diplome>(oItem).State = System.Data.Entity.EntityState.Deleted;
-            //}
-            ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-//            ctx.DeleteOnCascade();
-                ctx.SaveChanges();
-            //}
 
+            foreach (Candidat oC in ctx.Candidats)
+            {
+                while (oC.lstLivrets1.Count>0)
+                {
+                    while (oC.lstLivrets1[0].lstJurys.Count > 0)
+                    {
+                        oC.lstLivrets1[0].lstJurys.RemoveAt(0);
+                    }
+                    oC.lstLivrets1.RemoveAt(0);
+                }
+                while (oC.lstLivrets2.Count > 0)
+                {
+                    while (oC.lstLivrets2[0].lstJurys.Count > 0)
+                    {
+                        oC.lstLivrets2[0].lstJurys.RemoveAt(0);
+                    }
+                    oC.lstLivrets2.RemoveAt(0);
+                }
+            }
+            ctx.Candidats.RemoveRange(ctx.Candidats.ToList());
+            ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
+                ctx.SaveChanges();
         }
         [TestInitialize]
         public void Setup()
         {
+            Context.Reset();
             ctx = Context.instance;
             cleanDB();
-            //using (ctx = Context.instance)
-            //{
 
                 oCand = new Candidat("Marc Collin");
                 ctx.Candidats.Add(oCand);
@@ -70,8 +61,6 @@ namespace GestVAETU
 
                 ctx.Diplomes.Add(oDip);
                 ctx.SaveChanges();
-            //}
-            //ctx = Context.instance;
         }
     }
 }

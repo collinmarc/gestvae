@@ -9,6 +9,7 @@ namespace GestVAETU
     public class VMTest : RootTest
     {
         [TestMethod]
+        [TestCategory("VMTest"), TestCategory("Validation")]
         public void CreateDeleteL1Test()
         {
 
@@ -274,9 +275,11 @@ namespace GestVAETU
             oCand.Lock();
 
             Assert.IsTrue(oCand.IsLocked);
+            Assert.IsFalse(oCand.IsUnlocked);
 
             VM.getData();
             Assert.IsTrue(oCand.IsLocked);
+            Assert.IsFalse(oCand.IsUnlocked);
 
 
             VM.LockCurrentCandidat();

@@ -150,5 +150,105 @@ namespace GestVAETU
             Assert.AreEqual(oJ.MotifDetail, oJ2.MotifDetail);
 
         }
+        [TestMethod]
+        public void ValiderL2ValidationTotaleTest()
+        {
+            int nId = 0;
+            nId = oCand.ID;
+            Diplome oDipDefault = Diplome.getDiplomeParDefaut();
+            Livret2 oL2 = new Livret2(oDipDefault);
+            oL2.create1erJury();
+            oL2.oCandidat = oCand;
+            oCand.lstLivrets2.Add(oL2);
+            // Validation Complete
+            oL2.get1erJury().Decision = "10-Favorable";
+            foreach (DCLivret item in oL2.lstDCLivrets)
+            {
+                item.Decision = "10-Validé";
+            }
+
+            oL2.ValiderLivret2();
+
+            Assert.AreEqual(1, oCand.lstDiplomes.Count);
+            Assert.AreEqual("Validé", oCand.lstDiplomes[0].Statut);
+
+        }//ValiderL2Test
+        [TestMethod]
+        public void ValiderL2ValidationPArtielleTest()
+        {
+            int nId = 0;
+            nId = oCand.ID;
+            Diplome oDipDefault = Diplome.getDiplomeParDefaut();
+            Livret2 oL2 = new Livret2(oDipDefault);
+            oL2.create1erJury();
+            oL2.oCandidat = oCand;
+            oCand.lstLivrets2.Add(oL2);
+            // Validation Complete
+            oL2.get1erJury().Decision = "30-Validation Partielle";
+            Boolean b1 = true;
+            foreach (DCLivret item in oL2.lstDCLivrets)
+            {
+                if (b1)
+                {
+                    item.Decision = "10-Validé";
+                    b1 = false;
+                }
+                else
+                {
+                    item.Decision = "20-Refusé";
+
+                }
+            }
+
+            oL2.ValiderLivret2();
+
+            Assert.AreEqual(1, oCand.lstDiplomes.Count);
+            Assert.AreEqual("Validé partiellement", oCand.lstDiplomes[0].Statut);
+
+        }//ValiderL2Test
+
+        [TestMethod]
+        public void ValiderL2ValidationRefuseTest()
+        {
+            int nId = 0;
+            nId = oCand.ID;
+            Diplome oDipDefault = Diplome.getDiplomeParDefaut();
+            Livret2 oL2 = new Livret2(oDipDefault);
+            oL2.create1erJury();
+            oL2.oCandidat = oCand;
+            oCand.lstLivrets2.Add(oL2);
+            // Refus de validation
+            oL2.get1erJury().Decision = "20-Refusé";
+            Boolean b1 = true;
+            foreach (DCLivret item in oL2.lstDCLivrets)
+            {
+                    item.Decision = "20-Refusé";
+            }
+
+            oL2.ValiderLivret2();
+
+            Assert.AreEqual(1, oCand.lstDiplomes.Count);
+            Assert.AreEqual("Refusé", oCand.lstDiplomes[0].Statut);
+
+        }//ValiderL2ValidationRefuseTest
+
+        [TestMethod]
+        public void ValiderL2ValidationEcoursTest()
+        {
+            int nId = 0;
+            nId = oCand.ID;
+            Diplome oDipDefault = Diplome.getDiplomeParDefaut();
+            Livret2 oL2 = new Livret2(oDipDefault);
+            oL2.create1erJury();
+            oL2.oCandidat = oCand;
+            oCand.lstLivrets2.Add(oL2);
+
+            oL2.ValiderLivret2();
+
+            Assert.AreEqual(1, oCand.lstDiplomes.Count);
+            Assert.AreEqual("En cours", oCand.lstDiplomes[0].Statut);
+
+        }//ValiderL2ValidationRefuseTest
     }
-    }
+
+}

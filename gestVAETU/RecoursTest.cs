@@ -13,6 +13,7 @@ namespace GestVAETU
             int nId = 0;
 
             Livret1 oL1 = new Livret1();
+            oL1.create1erJury();
             oCand.lstLivrets1.Add(oL1);
             ctx.SaveChanges();
 

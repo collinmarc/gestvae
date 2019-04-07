@@ -72,11 +72,11 @@
     <Compile Include="DiplomeTest.cs" />
     <Compile Include="LivretTest.cs" />
     <Compile Include="DCLivretTest.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="CandidatVMTest.cs" />
     <Compile Include="ParamVMTest.cs" />
     <Compile Include="Livret1VMTest.cs" />
     <Compile Include="ContextTest.cs" />
+    <Compile Include="ValidationTest.cs" />
     <Compile Include="VMTest.cs" />
   </ItemGroup>
   <ItemGroup>

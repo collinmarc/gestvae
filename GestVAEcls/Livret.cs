@@ -207,6 +207,8 @@ namespace GestVAEcls
                 }
                 oDipCand.CalculerStatut();
 
+
+
             }
         }//ValiderLivret2
     }

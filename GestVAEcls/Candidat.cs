@@ -41,6 +41,7 @@ namespace GestVAEcls
         public String Tel3 { get; set; }
         public Boolean bHandicap { get; set; }
         public virtual ObservableCollection<DiplomeCand> lstDiplomes { get; set; }
+        // Il faut laisser les Virtual sur ces Collections même si on ne fait pas le Lazy Loading
         public virtual ObservableCollection<Livret1> lstLivrets1 { get; set; }
         public virtual ObservableCollection<Livret2> lstLivrets2 { get; set; }
 
@@ -56,6 +57,7 @@ namespace GestVAEcls
             Nationalite = "Française";
             NationaliteNaissance = "Française";
             Pays = "France";
+
 
         }
         public Candidat(String pNom) : this ()
@@ -73,6 +75,7 @@ namespace GestVAEcls
             }
             oReturn = new DiplomeCand(pDiplome, DateTime.Now);
             oReturn.Statut = pStatut;
+//            oReturn.oCandidat = this;
             this.lstDiplomes.Add(oReturn);
 
             return oReturn;

@@ -74,22 +74,13 @@ namespace GestVAETU
         {
 
             int nId = oCand.ID;
-            Diplome oDipDefaut = Diplome.getDiplomeParDefaut();
-            DiplomeCand oDipC = oCand.AddDiplome(oDipDefaut);
+            DiplomeCand oDipC = oCand.AddDiplome();
+            Context.instance.SaveChanges();
 
+            Context.Reset();
 
-            Assert.IsNotNull(oDipDefaut);
-            Assert.AreEqual(oDipDefaut.ID, oDipC.oDiplome.ID);
-            Assert.AreEqual(oDipDefaut.lstDomainesCompetences.Count, oDipC.lstDCCands.Count);
+            oCand = Context.instance.Candidats.Find(nId);
             Assert.AreEqual(1, oCand.lstDiplomes.Count);
-
-            ctx.SaveChanges();
-            ctx = Context.instance;
-
-            oCand = ctx.Candidats.Find(nId);
-            Assert.AreEqual(1, oCand.lstDiplomes.Count);
-            Assert.AreEqual(oDipDefaut.ID, oCand.lstDiplomes[0].oDiplome.ID);
-            Assert.AreEqual(oDipDefaut.lstDomainesCompetences.Count, oCand.lstDiplomes[0].oDiplome.lstDomainesCompetences.Count);
 
         }
     }

@@ -23,6 +23,7 @@ namespace GestVAE.VM
         public ObservableCollection<LivretVMBase> lstLivrets { get; set; }
         public DiplomeCandVM CurrentDiplomeCand { get; set; }
 
+
         private LivretVMBase _LivretVM;
         public LivretVMBase CurrentLivret
         {
@@ -52,7 +53,6 @@ namespace GestVAE.VM
             }
 
             DeleteLivretCommand = new RelayCommand<MyViewModel>(o => { DeleteCurrentLivret(); });
-
 
 
         }
@@ -449,10 +449,10 @@ namespace GestVAE.VM
 
         }//        public void DeleteLivret()
 
-        public Boolean Lock()
+        internal Boolean Lock(Int32 pIDUser)
         {
-            Context ctxLock = new Context();
-            ctxLock.Locks.Add(new LockCandidat(ID));
+            ContextLock ctxLock = new ContextLock();
+            ctxLock.Locks.Add(new LockCandidat(pIDUser,ID));
             ctxLock.SaveChanges();
             RaisePropertyChanged("IsLocked");
             RaisePropertyChanged("IsUnlocked");
@@ -462,7 +462,7 @@ namespace GestVAE.VM
         {
             get
             {
-                Context ctxLock = new Context();
+                ContextLock ctxLock = new ContextLock();
                 int nLock = ctxLock.Locks.Where(L => L.IDCandidat == ID).Count();
                 return (nLock > 0);
             }
@@ -474,10 +474,10 @@ namespace GestVAE.VM
                 return !IsLocked;
             }
         }
-        public Boolean UnLock()
+        internal Boolean UnLock(Int32 pIDUser)
         {
-            Context ctxLock = new Context();
-            ctxLock.Locks.RemoveRange(ctxLock.Locks.Where(L => L.IDCandidat == ID));
+            ContextLock ctxLock = new ContextLock();
+            ctxLock.Locks.RemoveRange(ctxLock.Locks.Where(L => L.IDCandidat == ID && L.IDUser == pIDUser));
             ctxLock.SaveChanges();
             RaisePropertyChanged("IsLocked");
             RaisePropertyChanged("IsUnlocked");
@@ -505,7 +505,41 @@ namespace GestVAE.VM
                 }
 
                 return bReturn;
-                
+
+            }
+        }
+        public Boolean IsL2Valide
+        {
+            get
+            {
+                Boolean bReturn = false;
+                foreach (LivretVMBase oLiv in lstLivrets)
+                {
+                    if (oLiv is Livret2VM)
+                    {
+                        Livret2VM oL2 = (Livret2VM)oLiv;
+                        // Si le L2 est clos => non Valide
+                        if (oL2.IsLivretNonClos)
+                        {
+                            // si le L2 est accepté => valide peu importe sa date de validité
+                            if (oL2.IsEtatAccepte)
+                            {
+                                bReturn = true;
+                            }
+                            else
+                            {
+                                // Si le L2 n'est pas Accepté , Si la date de validité est < Now => L2 Valide
+                                if (oL2.DateValidite >= DateTime.Now)
+                                {
+                                    bReturn = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return bReturn;
+
             }
         }
 

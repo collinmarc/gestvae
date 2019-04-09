@@ -219,7 +219,6 @@ namespace GestVAETU
             oCand.lstLivrets2.Add(oL2);
             // Refus de validation
             oL2.get1erJury().Decision = "20-Refusé";
-            Boolean b1 = true;
             foreach (DCLivret item in oL2.lstDCLivrets)
             {
                     item.Decision = "20-Refusé";

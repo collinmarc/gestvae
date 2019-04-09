@@ -272,7 +272,7 @@ namespace GestVAETU
             oCand = VM.CurrentCandidat;
             Assert.IsFalse(oCand.IsLocked);
 
-            oCand.Lock();
+            VM.LockCurrentCandidat();
 
             Assert.IsTrue(oCand.IsLocked);
             Assert.IsFalse(oCand.IsUnlocked);

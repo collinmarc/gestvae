@@ -118,6 +118,18 @@
     <Compile Include="Migrations\201903121421092_Param.Designer.cs">
       <DependentUpon>201903121421092_Param.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904081144246_2nd Context.cs" />
+    <Compile Include="Migrations\201904081144246_2nd Context.Designer.cs">
+      <DependentUpon>201904081144246_2nd Context.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904090639293_Lock retour dans context.cs" />
+    <Compile Include="Migrations\201904090639293_Lock retour dans context.Designer.cs">
+      <DependentUpon>201904090639293_Lock retour dans context.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904090702407_Lock IDUSER.cs" />
+    <Compile Include="Migrations\201904090702407_Lock IDUSER.Designer.cs">
+      <DependentUpon>201904090702407_Lock IDUSER.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -210,6 +222,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903121421092_Param.resx">
       <DependentUpon>201903121421092_Param.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904081144246_2nd Context.resx">
+      <DependentUpon>201904081144246_2nd Context.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904090639293_Lock retour dans context.resx">
+      <DependentUpon>201904090639293_Lock retour dans context.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904090702407_Lock IDUSER.resx">
+      <DependentUpon>201904090702407_Lock IDUSER.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

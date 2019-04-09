@@ -38,6 +38,7 @@ namespace GestVAE.VM
         public ObservableCollection<ParamTypeDemande> lstParamTypeDemande { get; set; }
         public ObservableCollection<ParamVecteurInformation> lstParamVecteurInformation { get; set; }
         private Boolean bCandidatAjoute = false;
+        private Int32 _IDUSER=0;
         public CandidatVM CurrentCandidat
         {
             get { return _candidatVM; }
@@ -79,6 +80,7 @@ namespace GestVAE.VM
             lstParamOrigine = new ObservableCollection<ParamOrigine>();
             lstParamTypeDemande = new ObservableCollection<ParamTypeDemande>();
             lstParamVecteurInformation = new ObservableCollection<ParamVecteurInformation>();
+            _IDUSER = new Random().Next(); // ID de l'application
 
             CreateCommands();
             //getData();
@@ -104,7 +106,8 @@ namespace GestVAE.VM
                                            );
             AjouteDiplomeCandCommand = new RelayCommand<MyViewModel>(o => { AjouteDiplomeCand(); }
                                            );
-            AjouteL1Command = new RelayCommand<MyViewModel>(o => { AjouteL1(); }
+            AjouteL1Command = new RelayCommand<MyViewModel>(o => { AjouteL1(); },
+                                                            o=> { return IsCurrentCandidatAddL1Available; }
                                            );
             AjoutePJL1Command = new RelayCommand<MyViewModel>(o => { AjoutePJL1(); }
                                            );
@@ -112,8 +115,9 @@ namespace GestVAE.VM
                                            );
             DeletePJCommand = new RelayCommand<MyViewModel>(o => { DeletePJ(); }
                                            );
-            AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); }
-                                           );
+            AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); },
+                                                            o => { return IsCurrentCandidatAddL2Available; }
+                                            );
             dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
                                            );
             ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); }
@@ -136,7 +140,7 @@ namespace GestVAE.VM
                                                         );
 
             UnLockCommand = new RelayCommand<MyViewModel>(o => { UnLockCurrentCandidat(); },
-                                                        o => { return this.IsCurrentCandidatLocked; }
+                                                        o => { return this.IsCurrentCandidatLockedByMe; }
                                                         );
             ExecSQLCommand = new RelayCommand<MyViewModel>(o => { ExecSQL(); }
                                                         );
@@ -629,7 +633,7 @@ namespace GestVAE.VM
             }
             if (!String.IsNullOrEmpty(rechVille))
             {
-                if (rechPrenom.Contains("%"))
+                if (rechVille.Contains("%"))
                 {
                     rq = rq.Where(c => c.Ville.Contains(rechVille.Replace("%", "")));
                 }
@@ -736,6 +740,7 @@ namespace GestVAE.VM
 
                 oLivVM.EtatLivret = LstEtatLivret2[1];
                 oLivVM.DateDemande = DateTime.Now;
+                oLivVM.DateValidite = DateTime.Now.AddDays(Properties.Settings.Default.DelaiValidite);
                 CurrentCandidat.CurrentLivret = oLivVM;
                 if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Count() > 0)
                 {
@@ -902,7 +907,7 @@ public void AjoutePJL1()
         {
             return (_ctx.ChangeTracker.HasChanges() || _modelhasChanges);
         }
-        public void ModelHasChanges()
+        public void SetModelHasChanges()
         {
             _modelhasChanges = true;
         }
@@ -916,7 +921,7 @@ public void AjoutePJL1()
 
                     if (MessageBoxShow("Etes-vous sur de souloir supprimer le candidat", "Suppression d'un candidat", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        CurrentCandidat.UnLock();
+                        CurrentCandidat.UnLock(_IDUSER);
                         _ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
                         lstCandidatVM.Remove(CurrentCandidat);
                     }
@@ -971,7 +976,7 @@ public void AjoutePJL1()
 
         public Boolean CleanAllLocks()
         {
-            Context ctxLock = new Context();
+            ContextLock ctxLock = new ContextLock();
             ctxLock.Locks.RemoveRange(ctxLock.Locks.ToList());
             return true;
         }
@@ -985,7 +990,7 @@ public void AjoutePJL1()
             {
                 if (!CurrentCandidat.IsLocked)
                 {
-                    CurrentCandidat.Lock();
+                    CurrentCandidat.Lock(_IDUSER);
                     _lstCandidatsLocked.Add(CurrentCandidat);
                     RaisePropertyChanged("IsCurrentCandidatLocked");
                 }
@@ -997,10 +1002,10 @@ public void AjoutePJL1()
             Context ctxLock = new Context();
             if (CurrentCandidat != null)
             {
-                CandidatVM oCand = _lstCandidatsLocked.Where(c => c.ID == CurrentCandidat.ID).FirstOrDefault();
+                CandidatVM oCand = _lstCandidatsLocked.Where(c => (c.ID == CurrentCandidat.ID)).FirstOrDefault();
                 if (oCand != null)
                 {
-                    oCand.UnLock();
+                    oCand.UnLock(_IDUSER);
                     _lstCandidatsLocked.Remove(oCand);
                 }
             }
@@ -1027,10 +1032,61 @@ public void AjoutePJL1()
                 Boolean bReturn = false;
                 if (CurrentCandidat != null)
                 {
-                    Context ctxLock = new Context();
                     if (CurrentCandidat.IsLocked)
                     {
                         bReturn = true;
+                    }
+                }
+                return bReturn;
+            }
+        }
+        /// <summary>
+        /// Le Candidat courant est-il locké par moi
+        /// </summary>
+        public Boolean IsCurrentCandidatLockedByMe
+        {
+            get
+            {
+                Boolean bReturn = _lstCandidatsLocked.Where(c=>c.ID == CurrentCandidat.ID).Count()>0;
+                return bReturn;
+            }
+        }
+        /// <summary>
+        /// L'ajout du Livret1 est-il Autorisé sur la candidat Courant
+        /// </summary>
+        public Boolean IsCurrentCandidatAddL1Available
+        {
+            get
+            {
+                Boolean bReturn = false;
+                if (CurrentCandidat == null)
+                {
+                    bReturn=  false;
+                }
+                if (IsCurrentCandidatLocked)
+                {
+                    // L'ajout d'un L1 n'est pas Disponible s'il y en a déja un de Valide
+                    bReturn = !  CurrentCandidat.IsL1Valide;
+                }
+                return bReturn;
+            }
+        }
+        public Boolean IsCurrentCandidatAddL2Available
+        {
+            get
+            {
+                Boolean bReturn = false;
+                if (CurrentCandidat == null)
+                {
+                    bReturn = false;
+                }
+                if (IsCurrentCandidatLocked)
+                {
+                    // L'ajout d'un L2 est possible s'il y  a un L1 de Valide
+                    if (CurrentCandidat.IsL1Valide)
+                    {
+                        // L'ajout d'un L2 est possible s'il n'y a  pas un autre L2 Valide
+                        bReturn = !(CurrentCandidat.IsL2Valide);
                     }
                 }
                 return bReturn;
@@ -1041,28 +1097,28 @@ public void AjoutePJL1()
         {
             foreach (CandidatVM oCand in _lstCandidatsLocked)
             {
-                oCand.UnLock();
+                oCand.UnLock(_IDUSER);
             }
             if (bCandidatAjoute)
             {
                 //Supppression du Candidat avec l'ID 0
                 Candidat oCand = new Candidat("CandidatFictifQuinestpasajouteenbase");
                 CandidatVM oCandVM = new CandidatVM(oCand);
-                oCandVM.UnLock();
+                oCandVM.UnLock(_IDUSER);
             }
         }
         public void UnlockAll()
         {
             if (MessageBoxShow("Etes-vous sur de vouloir déverrouiller TOUS les candidats ?", "Dévérouiller tous les candidats", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                Context ctxLock = new Context();
+                ContextLock ctxLock = new ContextLock();
                 ctxLock.Locks.RemoveRange(ctxLock.Locks.ToList());
                 ctxLock.SaveChanges();
             }
         }
         public Boolean IsAnyLock()
         {
-            Context ctxLock = new Context();
+            ContextLock ctxLock = new ContextLock();
             int nCount = ctxLock.Locks.ToList().Count();
             return (nCount > 0);
         }

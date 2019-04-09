@@ -50,7 +50,7 @@ namespace GestVAE
 
         private void dgRegion_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
-            getViewModel().ModelHasChanges();
+            getViewModel().SetModelHasChanges();
         }
     }
 }

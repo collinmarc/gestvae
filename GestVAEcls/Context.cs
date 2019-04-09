@@ -37,7 +37,6 @@ namespace GestVAEcls
 
         }
 
-        public DbSet<LockCandidat> Locks { get; set; }
         public DbSet<Candidat> Candidats { get; set; }
         public DbSet<Diplome> Diplomes { get; set; }
         public DbSet<DomaineCompetence> DomainesCompetences { get; set; }
@@ -55,6 +54,7 @@ namespace GestVAEcls
         public DbSet<MotifGeneralL2> dbMotifGeneralL2 { get; set; }
         public DbSet<Param> dbParam { get; set; }
 
+        public DbSet<LockCandidat> Locks { get; set; }
 
         public void DeleteOnCascade()
 
@@ -125,5 +125,33 @@ namespace GestVAEcls
                 }
             }
         }
+    }//Context
+    public class ContextLock : DbContext
+    {
+        private static Context _instance = null;
+        public static Context instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new Context();
+                }
+                return _instance;
+            }
+        }
+
+        public static void Reset()
+        {
+            _instance = new Context();
+        }
+        public ContextLock() : base("name=CSGESTVAE")
+        {
+
+        }
+
+        public DbSet<LockCandidat> Locks { get; set; }
+
+
     }
 }

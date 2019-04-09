@@ -108,6 +108,7 @@ namespace GestVAE
                 }
                 else
                 {
+                    VM.saveData();
                     VM.UnlockCandidats();
                 }
             }

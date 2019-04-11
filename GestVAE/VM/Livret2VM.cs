@@ -86,7 +86,7 @@ namespace GestVAE.VM
             }
         }
 
-        public String Numero
+        public override String Numero
         {
             get
             {

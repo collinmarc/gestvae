@@ -33,7 +33,6 @@ namespace GestVAE.VM
 
             oReturn.oDiplome = Diplome.getDiplomeParDefaut();
             TheItem = oReturn;
-            Numero = "L1" + DateTime.Now.ToString("yyyyMM") +"-"+ ParamVM.incrementLivret().ToString("00000");
 
 
         }
@@ -54,7 +53,7 @@ namespace GestVAE.VM
             }
         }
 
-        public String Numero
+        public override String Numero
         {
             get
             {
@@ -68,6 +67,43 @@ namespace GestVAE.VM
                     RaisePropertyChanged();
                 }
             }
+        }
+
+
+        public override String EtatLivret
+        {
+            get
+            {
+                return base.EtatLivret;
+            }
+            set
+            {
+                if (value != EtatLivret)
+                {
+                    TheLivret.EtatLivret = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("IsEtatEnvoye");
+                    RaisePropertyChanged("IsEtatRecu");
+                    RaisePropertyChanged("IsEtatRecuComplet");
+                    RaisePropertyChanged("IsEtatRecuIncomplet");
+                    RaisePropertyChanged("IsEtatRefuse");
+                    RaisePropertyChanged("IsEtatRecours");
+                    RaisePropertyChanged("IsEtatAccepte");
+                    RaisePropertyChanged("IsEtatFerme");
+                    if (IsEtatRecu && String.IsNullOrEmpty(Numero))
+                    {
+                        Numero = DateTime.Now.ToString("yyMM") + ParamVM.incrementLivret().ToString("00000");
+                    }
+
+
+                }
+            }
+        }
+
+
+        public Boolean IsValide()
+        {
+            return (IsLivretNonClos && DateValidite > DateTime.Now);
         }
 
         public String TypeDemande

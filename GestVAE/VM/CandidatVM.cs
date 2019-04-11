@@ -488,7 +488,9 @@ namespace GestVAE.VM
             RaisePropertyChanged("IsUnlocked");
             return true;
         }
-
+        /// <summary>
+        /// Rend Vrai s'il y a un Livret1 de valide
+        /// </summary>
         public Boolean IsL1Valide
         {
             get
@@ -498,17 +500,9 @@ namespace GestVAE.VM
                 {
                     if (oLiv is Livret1VM)
                     {
-                        if (oLiv.IsLivretNonClos)
+                        if (((Livret1VM)oLiv).IsValide())
                         {
-                            Livret1VM oL1 = (Livret1VM)oLiv;
-                            // qqsoit son etat c'est la date de validité qui fait foi
-                            //                        if (oL1.IsEtatAccepte)
-                            //                       {
-                            if (oL1.DateValidite > DateTime.Now)
-                            {
                                 bReturn = true;
-                            }
-                            //                       }
                         }
                     }
                 }
@@ -516,6 +510,23 @@ namespace GestVAE.VM
                 return bReturn;
 
             }
+        }
+        public Livret1VM getL1Valide()
+        {
+            Livret1VM oReturn = null;
+            foreach (LivretVMBase oLiv in lstLivrets)
+            {
+                if (oLiv is Livret1VM)
+                {
+                    if (((Livret1VM)oLiv).IsValide())
+                    {
+                        oReturn = (Livret1VM)oLiv;
+                    }
+                }
+            }
+
+
+            return oReturn;
         }
         public Boolean IsL2Valide
         {

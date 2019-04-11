@@ -48,7 +48,8 @@ namespace GestVAE.VM
             lstJuryVM = new ObservableCollection<JuryVM>();
             create1erJury();
         }
-  
+        public abstract String Numero { get; set; }
+
         public String Typestr
         {
             get
@@ -356,7 +357,7 @@ namespace GestVAE.VM
                 }
             }
         }
-        public String EtatLivret
+        public virtual String EtatLivret
         {
             get
             {

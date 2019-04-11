@@ -4,5 +4,6 @@
 #925: Quitter sans sauvegarder
 #933: FrmCandidat : Sexe non actif, Champs décalé
 #939: Mise a jours des Migrations automatique
+#927: Génération du Numero du Livret
 
 Build : 20190411 

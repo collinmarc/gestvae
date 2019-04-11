@@ -41,7 +41,8 @@ namespace GestVAETU
             }
             ctx.Candidats.RemoveRange(ctx.Candidats.ToList());
             ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
-                ctx.SaveChanges();
+            ctx.Locks.RemoveRange(ctx.Locks.ToList());
+            ctx.SaveChanges();
         }
         [TestInitialize]
         public void Setup()

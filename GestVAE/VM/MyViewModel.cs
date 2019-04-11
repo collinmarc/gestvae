@@ -757,6 +757,7 @@ namespace GestVAE.VM
             oLivVM.LstEtatLivret = LstEtatLivret1;
             oLivVM.EtatLivret = LstEtatLivret1[1];
             oLivVM.DateDemande = DateTime.Now;
+            oLivVM.DateValidite = DateTime.Now.AddYears(3);
             CurrentCandidat.CurrentLivret = oLivVM;
             if (!IsInTest)
             {
@@ -798,6 +799,12 @@ namespace GestVAE.VM
                 foreach (DCLivret oDCL in ((Livret2)oLivVM.TheLivret).lstDCLivrets)
                 {
                     oLivVM.lstDCLivret.Add(new DCLivretVM(oDCL));
+                }
+                // Récupération du L1Valide pour récupérer le numéro
+                Livret1VM oL1 = CurrentCandidat.getL1Valide();
+                if (oL1 != null)
+                { 
+                    oLivVM.Numero = oL1.Numero;
                 }
 
                 CurrentCandidat.CurrentLivret = oLivVM;

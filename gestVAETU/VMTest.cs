@@ -348,8 +348,8 @@ namespace GestVAETU
             //Ajout D'un L1
             VM.AjouteL1();
             VM.ValideretQuitterL1();
-            // Le L1 Rest non valide car l'état n'est pas bon
-            Assert.IsFalse(oCand.IsL1Valide);
+            // Le L1 est valide même si  l'état n'est pas bon
+            Assert.IsTrue(oCand.IsL1Valide);
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
             oL1.EtatLivret = String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
             oL1.DateValidite = DateTime.Now.AddYears(3);
@@ -385,5 +385,102 @@ namespace GestVAETU
             Assert.AreEqual(Num1 + 1, Num2);
         }
 
+        /// <summary>
+        /// Récupération du Livret1 Valide 
+        /// </summary>
+        [TestMethod]
+        public void getL1ValideTest()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouterCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Ajout du Livret1
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            // Date de validé > Aujourd'hui
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            VM.ValideretQuitterL1();
+            // il y a toujours un L1 Valide
+            Assert.IsTrue(VM.CurrentCandidat.IsL1Valide);
+            // Date de validé =  Hier
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
+            // il n'y a plus de L1 Valide
+            Assert.IsFalse(VM.CurrentCandidat.IsL1Valide);
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            // on lui affecte un numéro pour le Test
+            VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            // Date de validé > Aujourd'hui
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            // Il y a Maintenant un L1 de Valide
+            Assert.IsTrue(VM.CurrentCandidat.IsL1Valide);
+            // et c'est celui que l'on as Creeé
+            Assert.IsNotNull(VM.CurrentCandidat.getL1Valide());
+            Assert.AreEqual("TEST1", VM.CurrentCandidat.getL1Valide().Numero);
+
+
+
+        }
+        /// <summary>
+        /// Récupération du Numero du L1 sur le L2
+        /// </summary>
+        [TestMethod]
+        public void getNumL1ValideTest()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouterCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Ajout du Livret1
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            // Date de validé =  Hier
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
+            VM.ValideretQuitterL1();
+            // Ajout d'un Second Livret 
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            // on lui affecte un numéro pour le Test
+            VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            // Date de validé > Aujourd'hui
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+
+            // Ajout d'un L2
+            VM.AjouteL2();
+            VM.ValideretQuitterL2();
+            // Le Numero du L2 est  le même que le L1
+            Assert.AreEqual("TEST1", VM.CurrentCandidat.CurrentLivret.Numero);
+            Assert.AreEqual(1, ((Livret2VM)VM.CurrentCandidat.CurrentLivret).NumPassage);
+            // Ajout d'un Second L2
+            VM.AjouteL2();
+            VM.ValideretQuitterL2();
+            // Le Numero du L2 est  le même que le L1, mais le numero de passage a été incrémenté
+            Assert.AreEqual("TEST1", VM.CurrentCandidat.CurrentLivret.Numero);
+            Assert.AreEqual(2, ((Livret2VM)VM.CurrentCandidat.CurrentLivret).NumPassage);
+
+
+
+        }
     }
 }

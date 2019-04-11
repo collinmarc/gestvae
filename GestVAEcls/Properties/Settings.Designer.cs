@@ -26,8 +26,9 @@ namespace GestVAEcls.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\V11.0;Initial Catalog=GESTVAE;Persist Security Info=True;Us" +
-            "er ID=gestvae;Password=gestvae#123")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ICARE;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#;M" +
+            "ultipleActiveResultSets=trueSecurity Info=True;User ID=gestvae;Password=gestvae#" +
+            "123")]
         public string CSGESTVAE {
             get {
                 return ((string)(this["CSGESTVAE"]));
@@ -40,6 +41,28 @@ namespace GestVAEcls.Properties {
         public string NomDiplomeDefaut {
             get {
                 return ((string)(this["NomDiplomeDefaut"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FORTUNA;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#" +
+            ";MultipleActiveResultSets=true")]
+        public string GESTVAEPP {
+            get {
+                return ((string)(this["GESTVAEPP"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\V11.0;Initial Catalog=GESTVAE;User ID=gestvae;Password=gest" +
+            "vae#123#;MultipleActiveResultSets=true")]
+        public string GESTVAEDEV {
+            get {
+                return ((string)(this["GESTVAEDEV"]));
             }
         }
     }

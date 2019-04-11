@@ -80,7 +80,8 @@ namespace GestVAE.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ICARE;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ICARE;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#;M" +
+            "ultipleActiveResultSets=true")]
         public string CSGESTVAE {
             get {
                 return ((string)(this["CSGESTVAE"]));
@@ -89,28 +90,23 @@ namespace GestVAE.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DEV")]
-        public string dbMODE {
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FORTUNA;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#" +
+            ";MultipleActiveResultSets=true")]
+        public string CSGESTVAEPP {
             get {
-                return ((string)(this["dbMODE"]));
+                return ((string)(this["CSGESTVAEPP"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(localdb)\\V11.0")]
-        public string dbSRVDEV {
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\V11.0;Initial Catalog=GESTVAE;User ID=gestvae;Password=gest" +
+            "vae#123#;MultipleActiveResultSets=true")]
+        public string CSGESTVAEDV {
             get {
-                return ((string)(this["dbSRVDEV"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FORTUNA")]
-        public string dbSRVPP {
-            get {
-                return ((string)(this["dbSRVPP"]));
+                return ((string)(this["CSGESTVAEDV"]));
             }
         }
     }

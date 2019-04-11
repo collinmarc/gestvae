@@ -7,13 +7,13 @@ namespace GestVAEcls.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ADDTypeVecteurL1 : IMigrationMetadata
+    public sealed partial class Installdu11042019 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ADDTypeVecteurL1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Installdu11042019));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902260956001_ADD-TypeVecteurL1"; }
+            get { return "201904110802080_Install du 11-04-2019"; }
         }
         
         string IMigrationMetadata.Source

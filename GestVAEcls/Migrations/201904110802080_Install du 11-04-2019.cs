@@ -3,7 +3,7 @@ namespace GestVAEcls.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init3 : DbMigration
+    public partial class Installdu11042019 : DbMigration
     {
         public override void Up()
         {
@@ -21,7 +21,7 @@ namespace GestVAEcls.Migrations
                         IdVAE = c.String(),
                         IdSiscole = c.String(),
                         NomJeuneFille = c.String(),
-                        Nationnalite = c.String(),
+                        Nationalite = c.String(),
                         DateNaissance = c.DateTime(),
                         CPNaissance = c.String(),
                         VilleNaissance = c.String(),
@@ -53,6 +53,8 @@ namespace GestVAEcls.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Candidat_ID = c.Int(nullable: false),
+                        Diplome_ID = c.Int(nullable: false),
                         Statut = c.String(),
                         DateObtention = c.DateTime(),
                         NumeroDiplome = c.String(),
@@ -60,20 +62,20 @@ namespace GestVAEcls.Migrations
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oCandidat_ID = c.Int(nullable: false),
-                        oDiplome_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Candidats", t => t.oCandidat_ID, cascadeDelete: true)
-                .ForeignKey("dbo.Diplomes", t => t.oDiplome_ID, cascadeDelete: true)
-                .Index(t => t.oCandidat_ID)
-                .Index(t => t.oDiplome_ID);
+                .ForeignKey("dbo.Candidats", t => t.Candidat_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Diplomes", t => t.Diplome_ID, cascadeDelete: true)
+                .Index(t => t.Candidat_ID)
+                .Index(t => t.Diplome_ID);
             
             CreateTable(
                 "dbo.DomaineCompetenceCands",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Diplome_ID = c.Int(nullable: false),
+                        DomaineCompetence_ID = c.Int(),
                         Statut = c.String(),
                         DateObtention = c.DateTime(),
                         ModeObtention = c.String(),
@@ -82,14 +84,12 @@ namespace GestVAEcls.Migrations
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oDiplomeCand_ID = c.Int(nullable: false),
-                        oDomaineCompetence_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.DiplomeCands", t => t.oDiplomeCand_ID, cascadeDelete: true)
-                .ForeignKey("dbo.DomaineCompetences", t => t.oDomaineCompetence_ID)
-                .Index(t => t.oDiplomeCand_ID)
-                .Index(t => t.oDomaineCompetence_ID);
+                .ForeignKey("dbo.DiplomeCands", t => t.Diplome_ID, cascadeDelete: true)
+                .ForeignKey("dbo.DomaineCompetences", t => t.DomaineCompetence_ID)
+                .Index(t => t.Diplome_ID)
+                .Index(t => t.DomaineCompetence_ID);
             
             CreateTable(
                 "dbo.DomaineCompetences",
@@ -98,16 +98,16 @@ namespace GestVAEcls.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         Numero = c.Int(nullable: false),
                         Nom = c.String(),
+                        Diplome_ID = c.Int(nullable: false),
                         dateCreation = c.DateTime(nullable: false),
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oDiplome_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Diplomes", t => t.oDiplome_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Diplomes", t => t.Diplome_ID, cascadeDelete: true)
                 .Index(t => t.Numero)
-                .Index(t => t.oDiplome_ID);
+                .Index(t => t.Diplome_ID);
             
             CreateTable(
                 "dbo.Diplomes",
@@ -129,6 +129,8 @@ namespace GestVAEcls.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Numero = c.String(),
+                        TypeDemande = c.String(),
+                        VecteurInformation = c.String(),
                         DateDemande = c.DateTime(),
                         DateLimiteEnvoiEHESP = c.DateTime(),
                         DateLimiteReceptEHESP = c.DateTime(),
@@ -137,35 +139,34 @@ namespace GestVAEcls.Migrations
                         Date1ereDemandePieceManquantes = c.DateTime(),
                         Date2emeDemandePieceManquantes = c.DateTime(),
                         DateDemandePieceManquantesRetour = c.DateTime(),
-                        IsRecours = c.Boolean(nullable: false),
+                        DateReceptionPiecesManquantes = c.DateTime(),
+                        Candidat_ID = c.Int(nullable: false),
                         DateEcheance = c.DateTime(),
                         isContrat = c.Boolean(nullable: false),
-                        TypeDemande = c.String(),
-                        OrigineDemande = c.String(),
                         EtatLivret = c.String(),
                         DateEnvoiEHESP = c.DateTime(),
                         DateEnvoiCandidat = c.DateTime(),
                         DateReceptEHESP = c.DateTime(),
                         DateReceptEHESPComplet = c.DateTime(),
+                        Diplome_ID = c.Int(nullable: false),
                         isClos = c.Boolean(nullable: false),
                         dateCreation = c.DateTime(nullable: false),
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oCandidat_ID = c.Int(nullable: false),
-                        oDiplome_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Candidats", t => t.oCandidat_ID, cascadeDelete: true)
-                .ForeignKey("dbo.Diplomes", t => t.oDiplome_ID)
-                .Index(t => t.oCandidat_ID)
-                .Index(t => t.oDiplome_ID);
+                .ForeignKey("dbo.Candidats", t => t.Candidat_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Diplomes", t => t.Diplome_ID, cascadeDelete: true)
+                .Index(t => t.Candidat_ID)
+                .Index(t => t.Diplome_ID);
             
             CreateTable(
                 "dbo.EchangeL1",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Livret1_ID = c.Int(nullable: false),
                         DateEch = c.DateTime(),
                         MotifEch = c.String(),
                         DateEcheanceEch = c.DateTime(),
@@ -176,11 +177,10 @@ namespace GestVAEcls.Migrations
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oLivret_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Livret1", t => t.oLivret_ID, cascadeDelete: true)
-                .Index(t => t.oLivret_ID);
+                .ForeignKey("dbo.Livret1", t => t.Livret1_ID, cascadeDelete: true)
+                .Index(t => t.Livret1_ID);
             
             CreateTable(
                 "dbo.Juries",
@@ -198,18 +198,48 @@ namespace GestVAEcls.Migrations
                         MotifGeneral = c.String(),
                         MotifDetail = c.String(),
                         MotifCommentaire = c.String(),
+                        Livret1_ID = c.Int(),
+                        Livret2_ID = c.Int(),
+                        DateNotificationJury = c.DateTime(),
+                        DateNotificationJuryRecours = c.DateTime(),
+                        IsRecours = c.Boolean(nullable: false),
                         dateCreation = c.DateTime(nullable: false),
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oLivret1_ID = c.Int(),
-                        oLivret2_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Livret1", t => t.oLivret1_ID)
-                .ForeignKey("dbo.Livret2", t => t.oLivret2_ID)
-                .Index(t => t.oLivret1_ID)
-                .Index(t => t.oLivret2_ID);
+                .ForeignKey("dbo.Livret1", t => t.Livret1_ID)
+                .ForeignKey("dbo.Livret2", t => t.Livret2_ID)
+                .Index(t => t.Livret1_ID)
+                .Index(t => t.Livret2_ID);
+            
+            CreateTable(
+                "dbo.Recours",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        DateDepot = c.DateTime(),
+                        TypeRecours = c.Int(nullable: false),
+                        MotifRecours = c.String(),
+                        MotifRecoursCommentaire = c.String(),
+                        NomJury = c.String(),
+                        DateLimiteJury = c.DateTime(),
+                        DateJury = c.DateTime(),
+                        LieuJury = c.String(),
+                        Decision = c.String(),
+                        MotifGeneral = c.String(),
+                        MotifDetail = c.String(),
+                        MotifCommentaire = c.String(),
+                        Jury_ID = c.Int(nullable: false),
+                        dateCreation = c.DateTime(nullable: false),
+                        dateModif = c.DateTime(nullable: false),
+                        bDeleted = c.Boolean(nullable: false),
+                        AttSup = c.String(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Juries", t => t.Jury_ID, cascadeDelete: true)
+                .Index(t => t.Jury_ID);
             
             CreateTable(
                 "dbo.Livret2",
@@ -217,9 +247,15 @@ namespace GestVAEcls.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Numero = c.String(),
+                        NumPassage = c.Int(nullable: false),
+                        IsOuvertureApresRecours = c.Boolean(nullable: false),
                         DateDemande = c.DateTime(),
                         DateLimiteEnvoiEHESP = c.DateTime(),
                         DateLimiteReceptEHESP = c.DateTime(),
+                        Date1ereDemandePieceManquantes = c.DateTime(),
+                        Date2emeDemandePieceManquantes = c.DateTime(),
+                        DateDemandePieceManquantesRetour = c.DateTime(),
+                        DateReceptionPiecesManquantes = c.DateTime(),
                         DatePrevJury1 = c.DateTime(),
                         DatePrevJury2 = c.DateTime(),
                         SessionJury = c.String(),
@@ -228,28 +264,27 @@ namespace GestVAEcls.Migrations
                         IsAttestationOK = c.Boolean(nullable: false),
                         IsCNIOK = c.Boolean(nullable: false),
                         IsDispenseArt2 = c.Boolean(nullable: false),
+                        NumDiplome = c.String(),
+                        Candidat_ID = c.Int(nullable: false),
                         DateEcheance = c.DateTime(),
                         isContrat = c.Boolean(nullable: false),
-                        TypeDemande = c.String(),
-                        OrigineDemande = c.String(),
                         EtatLivret = c.String(),
                         DateEnvoiEHESP = c.DateTime(),
                         DateEnvoiCandidat = c.DateTime(),
                         DateReceptEHESP = c.DateTime(),
                         DateReceptEHESPComplet = c.DateTime(),
+                        Diplome_ID = c.Int(nullable: false),
                         isClos = c.Boolean(nullable: false),
                         dateCreation = c.DateTime(nullable: false),
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oCandidat_ID = c.Int(nullable: false),
-                        oDiplome_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Candidats", t => t.oCandidat_ID, cascadeDelete: true)
-                .ForeignKey("dbo.Diplomes", t => t.oDiplome_ID)
-                .Index(t => t.oCandidat_ID)
-                .Index(t => t.oDiplome_ID);
+                .ForeignKey("dbo.Candidats", t => t.Candidat_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Diplomes", t => t.Diplome_ID, cascadeDelete: true)
+                .Index(t => t.Candidat_ID)
+                .Index(t => t.Diplome_ID);
             
             CreateTable(
                 "dbo.DCLivrets",
@@ -283,6 +318,7 @@ namespace GestVAEcls.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Livret2_ID = c.Int(nullable: false),
                         DateEch = c.DateTime(),
                         MotifEch = c.String(),
                         DateEcheanceEch = c.DateTime(),
@@ -293,11 +329,10 @@ namespace GestVAEcls.Migrations
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oLivret_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Livret2", t => t.oLivret_ID, cascadeDelete: true)
-                .Index(t => t.oLivret_ID);
+                .ForeignKey("dbo.Livret2", t => t.Livret2_ID, cascadeDelete: true)
+                .Index(t => t.Livret2_ID);
             
             CreateTable(
                 "dbo.MembreJuries",
@@ -308,21 +343,22 @@ namespace GestVAEcls.Migrations
                         College = c.String(),
                         Origine = c.String(),
                         Region = c.String(),
+                        Livret2_ID = c.Int(nullable: false),
                         dateCreation = c.DateTime(nullable: false),
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oLivret2_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Livret2", t => t.oLivret2_ID)
-                .Index(t => t.oLivret2_ID);
+                .ForeignKey("dbo.Livret2", t => t.Livret2_ID, cascadeDelete: true)
+                .Index(t => t.Livret2_ID);
             
             CreateTable(
                 "dbo.PieceJointeL2",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Livret2_ID = c.Int(nullable: false),
                         Categorie = c.String(),
                         Libelle = c.String(),
                         IsRecu = c.Boolean(nullable: false),
@@ -331,17 +367,17 @@ namespace GestVAEcls.Migrations
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oLivret_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Livret2", t => t.oLivret_ID, cascadeDelete: true)
-                .Index(t => t.oLivret_ID);
+                .ForeignKey("dbo.Livret2", t => t.Livret2_ID, cascadeDelete: true)
+                .Index(t => t.Livret2_ID);
             
             CreateTable(
                 "dbo.PieceJointeL1",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Livret1_ID = c.Int(nullable: false),
                         Categorie = c.String(),
                         Libelle = c.String(),
                         IsRecu = c.Boolean(nullable: false),
@@ -350,37 +386,10 @@ namespace GestVAEcls.Migrations
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        oLivret_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Livret1", t => t.oLivret_ID, cascadeDelete: true)
-                .Index(t => t.oLivret_ID);
-            
-            CreateTable(
-                "dbo.Recours",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        DateDepot = c.DateTime(),
-                        TypeRecours = c.Int(nullable: false),
-                        MotifRecours = c.String(),
-                        MotifRecoursCommentaire = c.String(),
-                        NomJury = c.String(),
-                        DateJury = c.DateTime(),
-                        LieuJury = c.String(),
-                        Decision = c.String(),
-                        MotifGeneral = c.String(),
-                        MotifDetail = c.String(),
-                        MotifCommentaire = c.String(),
-                        dateCreation = c.DateTime(nullable: false),
-                        dateModif = c.DateTime(nullable: false),
-                        bDeleted = c.Boolean(nullable: false),
-                        AttSup = c.String(),
-                        oLivret_ID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Livret1", t => t.oLivret_ID, cascadeDelete: true)
-                .Index(t => t.oLivret_ID);
+                .ForeignKey("dbo.Livret1", t => t.Livret1_ID, cascadeDelete: true)
+                .Index(t => t.Livret1_ID);
             
             CreateTable(
                 "dbo.MotifGeneralL1",
@@ -400,12 +409,12 @@ namespace GestVAEcls.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        MotifGL1_ID = c.Int(nullable: false),
                         Libelle = c.String(),
                         dateCreation = c.DateTime(nullable: false),
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        MotifGL1_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.MotifGeneralL1", t => t.MotifGL1_ID, cascadeDelete: true)
@@ -429,16 +438,29 @@ namespace GestVAEcls.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        MotifGL2_ID = c.Int(nullable: false),
                         Libelle = c.String(),
                         dateCreation = c.DateTime(nullable: false),
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        MotifGL2_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.MotifGeneralL2", t => t.MotifGL2_ID, cascadeDelete: true)
                 .Index(t => t.MotifGL2_ID);
+            
+            CreateTable(
+                "dbo.Params",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        NumLivret = c.Int(nullable: false),
+                        dateCreation = c.DateTime(nullable: false),
+                        dateModif = c.DateTime(nullable: false),
+                        bDeleted = c.Boolean(nullable: false),
+                        AttSup = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.ParamColleges",
@@ -467,6 +489,47 @@ namespace GestVAEcls.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
+                "dbo.ParamTypeDemandes",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Nom = c.String(),
+                        dateCreation = c.DateTime(nullable: false),
+                        dateModif = c.DateTime(nullable: false),
+                        bDeleted = c.Boolean(nullable: false),
+                        AttSup = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.ParamVecteurInformations",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Nom = c.String(),
+                        dateCreation = c.DateTime(nullable: false),
+                        dateModif = c.DateTime(nullable: false),
+                        bDeleted = c.Boolean(nullable: false),
+                        AttSup = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.LockCandidats",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        IDLockCandidat = c.Int(nullable: false),
+                        IDUser = c.Int(nullable: false),
+                        IDCandidat = c.Int(nullable: false),
+                        dateCreation = c.DateTime(nullable: false),
+                        dateModif = c.DateTime(nullable: false),
+                        bDeleted = c.Boolean(nullable: false),
+                        AttSup = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
                 "dbo.PieceJointeCategories",
                 c => new
                     {
@@ -485,16 +548,16 @@ namespace GestVAEcls.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Categorie_ID = c.Int(nullable: false),
                         Libelle = c.String(),
                         dateCreation = c.DateTime(nullable: false),
                         dateModif = c.DateTime(nullable: false),
                         bDeleted = c.Boolean(nullable: false),
                         AttSup = c.String(),
-                        CategoriePJ_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.PieceJointeCategories", t => t.CategoriePJ_ID, cascadeDelete: true)
-                .Index(t => t.CategoriePJ_ID);
+                .ForeignKey("dbo.PieceJointeCategories", t => t.Categorie_ID, cascadeDelete: true)
+                .Index(t => t.Categorie_ID);
             
             CreateTable(
                 "dbo.Regions",
@@ -513,67 +576,71 @@ namespace GestVAEcls.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.PieceJointeItems", "CategoriePJ_ID", "dbo.PieceJointeCategories");
+            DropForeignKey("dbo.PieceJointeItems", "Categorie_ID", "dbo.PieceJointeCategories");
             DropForeignKey("dbo.MotifDetailleL2", "MotifGL2_ID", "dbo.MotifGeneralL2");
             DropForeignKey("dbo.MotifDetailleL1", "MotifGL1_ID", "dbo.MotifGeneralL1");
-            DropForeignKey("dbo.Livret1", "oDiplome_ID", "dbo.Diplomes");
-            DropForeignKey("dbo.Livret1", "oCandidat_ID", "dbo.Candidats");
-            DropForeignKey("dbo.Recours", "oLivret_ID", "dbo.Livret1");
-            DropForeignKey("dbo.PieceJointeL1", "oLivret_ID", "dbo.Livret1");
-            DropForeignKey("dbo.Livret2", "oDiplome_ID", "dbo.Diplomes");
-            DropForeignKey("dbo.Livret2", "oCandidat_ID", "dbo.Candidats");
-            DropForeignKey("dbo.PieceJointeL2", "oLivret_ID", "dbo.Livret2");
-            DropForeignKey("dbo.MembreJuries", "oLivret2_ID", "dbo.Livret2");
-            DropForeignKey("dbo.Juries", "oLivret2_ID", "dbo.Livret2");
-            DropForeignKey("dbo.EchangeL2", "oLivret_ID", "dbo.Livret2");
+            DropForeignKey("dbo.Livret1", "Diplome_ID", "dbo.Diplomes");
+            DropForeignKey("dbo.Livret1", "Candidat_ID", "dbo.Candidats");
+            DropForeignKey("dbo.PieceJointeL1", "Livret1_ID", "dbo.Livret1");
+            DropForeignKey("dbo.Livret2", "Diplome_ID", "dbo.Diplomes");
+            DropForeignKey("dbo.Livret2", "Candidat_ID", "dbo.Candidats");
+            DropForeignKey("dbo.PieceJointeL2", "Livret2_ID", "dbo.Livret2");
+            DropForeignKey("dbo.MembreJuries", "Livret2_ID", "dbo.Livret2");
+            DropForeignKey("dbo.Juries", "Livret2_ID", "dbo.Livret2");
+            DropForeignKey("dbo.EchangeL2", "Livret2_ID", "dbo.Livret2");
             DropForeignKey("dbo.DCLivrets", "oLivret2_ID", "dbo.Livret2");
             DropForeignKey("dbo.DCLivrets", "oDomaineCompetence_ID", "dbo.DomaineCompetences");
-            DropForeignKey("dbo.Juries", "oLivret1_ID", "dbo.Livret1");
-            DropForeignKey("dbo.EchangeL1", "oLivret_ID", "dbo.Livret1");
-            DropForeignKey("dbo.DiplomeCands", "oDiplome_ID", "dbo.Diplomes");
-            DropForeignKey("dbo.DiplomeCands", "oCandidat_ID", "dbo.Candidats");
-            DropForeignKey("dbo.DomaineCompetenceCands", "oDomaineCompetence_ID", "dbo.DomaineCompetences");
-            DropForeignKey("dbo.DomaineCompetences", "oDiplome_ID", "dbo.Diplomes");
-            DropForeignKey("dbo.DomaineCompetenceCands", "oDiplomeCand_ID", "dbo.DiplomeCands");
-            DropIndex("dbo.PieceJointeItems", new[] { "CategoriePJ_ID" });
+            DropForeignKey("dbo.Juries", "Livret1_ID", "dbo.Livret1");
+            DropForeignKey("dbo.Recours", "Jury_ID", "dbo.Juries");
+            DropForeignKey("dbo.EchangeL1", "Livret1_ID", "dbo.Livret1");
+            DropForeignKey("dbo.DiplomeCands", "Diplome_ID", "dbo.Diplomes");
+            DropForeignKey("dbo.DiplomeCands", "Candidat_ID", "dbo.Candidats");
+            DropForeignKey("dbo.DomaineCompetenceCands", "DomaineCompetence_ID", "dbo.DomaineCompetences");
+            DropForeignKey("dbo.DomaineCompetences", "Diplome_ID", "dbo.Diplomes");
+            DropForeignKey("dbo.DomaineCompetenceCands", "Diplome_ID", "dbo.DiplomeCands");
+            DropIndex("dbo.PieceJointeItems", new[] { "Categorie_ID" });
             DropIndex("dbo.MotifDetailleL2", new[] { "MotifGL2_ID" });
             DropIndex("dbo.MotifDetailleL1", new[] { "MotifGL1_ID" });
-            DropIndex("dbo.Recours", new[] { "oLivret_ID" });
-            DropIndex("dbo.PieceJointeL1", new[] { "oLivret_ID" });
-            DropIndex("dbo.PieceJointeL2", new[] { "oLivret_ID" });
-            DropIndex("dbo.MembreJuries", new[] { "oLivret2_ID" });
-            DropIndex("dbo.EchangeL2", new[] { "oLivret_ID" });
+            DropIndex("dbo.PieceJointeL1", new[] { "Livret1_ID" });
+            DropIndex("dbo.PieceJointeL2", new[] { "Livret2_ID" });
+            DropIndex("dbo.MembreJuries", new[] { "Livret2_ID" });
+            DropIndex("dbo.EchangeL2", new[] { "Livret2_ID" });
             DropIndex("dbo.DCLivrets", new[] { "oLivret2_ID" });
             DropIndex("dbo.DCLivrets", new[] { "oDomaineCompetence_ID" });
-            DropIndex("dbo.Livret2", new[] { "oDiplome_ID" });
-            DropIndex("dbo.Livret2", new[] { "oCandidat_ID" });
-            DropIndex("dbo.Juries", new[] { "oLivret2_ID" });
-            DropIndex("dbo.Juries", new[] { "oLivret1_ID" });
-            DropIndex("dbo.EchangeL1", new[] { "oLivret_ID" });
-            DropIndex("dbo.Livret1", new[] { "oDiplome_ID" });
-            DropIndex("dbo.Livret1", new[] { "oCandidat_ID" });
-            DropIndex("dbo.DomaineCompetences", new[] { "oDiplome_ID" });
+            DropIndex("dbo.Livret2", new[] { "Diplome_ID" });
+            DropIndex("dbo.Livret2", new[] { "Candidat_ID" });
+            DropIndex("dbo.Recours", new[] { "Jury_ID" });
+            DropIndex("dbo.Juries", new[] { "Livret2_ID" });
+            DropIndex("dbo.Juries", new[] { "Livret1_ID" });
+            DropIndex("dbo.EchangeL1", new[] { "Livret1_ID" });
+            DropIndex("dbo.Livret1", new[] { "Diplome_ID" });
+            DropIndex("dbo.Livret1", new[] { "Candidat_ID" });
+            DropIndex("dbo.DomaineCompetences", new[] { "Diplome_ID" });
             DropIndex("dbo.DomaineCompetences", new[] { "Numero" });
-            DropIndex("dbo.DomaineCompetenceCands", new[] { "oDomaineCompetence_ID" });
-            DropIndex("dbo.DomaineCompetenceCands", new[] { "oDiplomeCand_ID" });
-            DropIndex("dbo.DiplomeCands", new[] { "oDiplome_ID" });
-            DropIndex("dbo.DiplomeCands", new[] { "oCandidat_ID" });
+            DropIndex("dbo.DomaineCompetenceCands", new[] { "DomaineCompetence_ID" });
+            DropIndex("dbo.DomaineCompetenceCands", new[] { "Diplome_ID" });
+            DropIndex("dbo.DiplomeCands", new[] { "Diplome_ID" });
+            DropIndex("dbo.DiplomeCands", new[] { "Candidat_ID" });
             DropTable("dbo.Regions");
             DropTable("dbo.PieceJointeItems");
             DropTable("dbo.PieceJointeCategories");
+            DropTable("dbo.LockCandidats");
+            DropTable("dbo.ParamVecteurInformations");
+            DropTable("dbo.ParamTypeDemandes");
             DropTable("dbo.ParamOrigines");
             DropTable("dbo.ParamColleges");
+            DropTable("dbo.Params");
             DropTable("dbo.MotifDetailleL2");
             DropTable("dbo.MotifGeneralL2");
             DropTable("dbo.MotifDetailleL1");
             DropTable("dbo.MotifGeneralL1");
-            DropTable("dbo.Recours");
             DropTable("dbo.PieceJointeL1");
             DropTable("dbo.PieceJointeL2");
             DropTable("dbo.MembreJuries");
             DropTable("dbo.EchangeL2");
             DropTable("dbo.DCLivrets");
             DropTable("dbo.Livret2");
+            DropTable("dbo.Recours");
             DropTable("dbo.Juries");
             DropTable("dbo.EchangeL1");
             DropTable("dbo.Livret1");

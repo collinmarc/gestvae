@@ -54,85 +54,9 @@
     <Compile Include="DCLivret.cs" />
     <Compile Include="Lock.cs" />
     <Compile Include="MembreJury.cs" />
-    <Compile Include="Migrations\201902192127516_Init3.cs" />
-    <Compile Include="Migrations\201902192127516_Init3.Designer.cs">
-      <DependentUpon>201902192127516_Init3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902201520044_ForeignKey.cs" />
-    <Compile Include="Migrations\201902201520044_ForeignKey.Designer.cs">
-      <DependentUpon>201902201520044_ForeignKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902210728218_FK2.cs" />
-    <Compile Include="Migrations\201902210728218_FK2.Designer.cs">
-      <DependentUpon>201902210728218_FK2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902220739483_MAJ-DOCS.cs" />
-    <Compile Include="Migrations\201902220739483_MAJ-DOCS.Designer.cs">
-      <DependentUpon>201902220739483_MAJ-DOCS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902220755191_MAJ-NonClos.cs" />
-    <Compile Include="Migrations\201902220755191_MAJ-NonClos.Designer.cs">
-      <DependentUpon>201902220755191_MAJ-NonClos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902220756398_FK DiplomeCand.cs" />
-    <Compile Include="Migrations\201902220756398_FK DiplomeCand.Designer.cs">
-      <DependentUpon>201902220756398_FK DiplomeCand.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902221146001_L2 numPassage.cs" />
-    <Compile Include="Migrations\201902221146001_L2 numPassage.Designer.cs">
-      <DependentUpon>201902221146001_L2 numPassage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902221653393_testEnum.cs" />
-    <Compile Include="Migrations\201902221653393_testEnum.Designer.cs">
-      <DependentUpon>201902221653393_testEnum.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902260834237_FKDiplomeID.cs" />
-    <Compile Include="Migrations\201902260834237_FKDiplomeID.Designer.cs">
-      <DependentUpon>201902260834237_FKDiplomeID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902260935095_OuvertureAprèsRecours.cs" />
-    <Compile Include="Migrations\201902260935095_OuvertureAprèsRecours.Designer.cs">
-      <DependentUpon>201902260935095_OuvertureAprèsRecours.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902260937012_OuvertureAprèsRecours2.cs" />
-    <Compile Include="Migrations\201902260937012_OuvertureAprèsRecours2.Designer.cs">
-      <DependentUpon>201902260937012_OuvertureAprèsRecours2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902260956001_ADD-TypeVecteurL1.cs" />
-    <Compile Include="Migrations\201902260956001_ADD-TypeVecteurL1.Designer.cs">
-      <DependentUpon>201902260956001_ADD-TypeVecteurL1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902272100471_Recours-Jury.cs" />
-    <Compile Include="Migrations\201902272100471_Recours-Jury.Designer.cs">
-      <DependentUpon>201902272100471_Recours-Jury.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903052109146_Lock.cs" />
-    <Compile Include="Migrations\201903052109146_Lock.Designer.cs">
-      <DependentUpon>201903052109146_Lock.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903071634102_Nationnalité.cs" />
-    <Compile Include="Migrations\201903071634102_Nationnalité.Designer.cs">
-      <DependentUpon>201903071634102_Nationnalité.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903121421092_Param.cs" />
-    <Compile Include="Migrations\201903121421092_Param.Designer.cs">
-      <DependentUpon>201903121421092_Param.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904081144246_2nd Context.cs" />
-    <Compile Include="Migrations\201904081144246_2nd Context.Designer.cs">
-      <DependentUpon>201904081144246_2nd Context.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904090639293_Lock retour dans context.cs" />
-    <Compile Include="Migrations\201904090639293_Lock retour dans context.Designer.cs">
-      <DependentUpon>201904090639293_Lock retour dans context.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904090702407_Lock IDUSER.cs" />
-    <Compile Include="Migrations\201904090702407_Lock IDUSER.Designer.cs">
-      <DependentUpon>201904090702407_Lock IDUSER.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904101654307_NumDiplome sur Livret2.cs" />
-    <Compile Include="Migrations\201904101654307_NumDiplome sur Livret2.Designer.cs">
-      <DependentUpon>201904101654307_NumDiplome sur Livret2.cs</DependentUpon>
+    <Compile Include="Migrations\201904110802080_Install du 11-04-2019.cs" />
+    <Compile Include="Migrations\201904110802080_Install du 11-04-2019.Designer.cs">
+      <DependentUpon>201904110802080_Install du 11-04-2019.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
@@ -179,65 +103,8 @@
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902192127516_Init3.resx">
-      <DependentUpon>201902192127516_Init3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902201520044_ForeignKey.resx">
-      <DependentUpon>201902201520044_ForeignKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902210728218_FK2.resx">
-      <DependentUpon>201902210728218_FK2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902220739483_MAJ-DOCS.resx">
-      <DependentUpon>201902220739483_MAJ-DOCS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902220755191_MAJ-NonClos.resx">
-      <DependentUpon>201902220755191_MAJ-NonClos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902220756398_FK DiplomeCand.resx">
-      <DependentUpon>201902220756398_FK DiplomeCand.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902221146001_L2 numPassage.resx">
-      <DependentUpon>201902221146001_L2 numPassage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902221653393_testEnum.resx">
-      <DependentUpon>201902221653393_testEnum.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902260834237_FKDiplomeID.resx">
-      <DependentUpon>201902260834237_FKDiplomeID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902260935095_OuvertureAprèsRecours.resx">
-      <DependentUpon>201902260935095_OuvertureAprèsRecours.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902260937012_OuvertureAprèsRecours2.resx">
-      <DependentUpon>201902260937012_OuvertureAprèsRecours2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902260956001_ADD-TypeVecteurL1.resx">
-      <DependentUpon>201902260956001_ADD-TypeVecteurL1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902272100471_Recours-Jury.resx">
-      <DependentUpon>201902272100471_Recours-Jury.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903052109146_Lock.resx">
-      <DependentUpon>201903052109146_Lock.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903071634102_Nationnalité.resx">
-      <DependentUpon>201903071634102_Nationnalité.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903121421092_Param.resx">
-      <DependentUpon>201903121421092_Param.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904081144246_2nd Context.resx">
-      <DependentUpon>201904081144246_2nd Context.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904090639293_Lock retour dans context.resx">
-      <DependentUpon>201904090639293_Lock retour dans context.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904090702407_Lock IDUSER.resx">
-      <DependentUpon>201904090702407_Lock IDUSER.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904101654307_NumDiplome sur Livret2.resx">
-      <DependentUpon>201904101654307_NumDiplome sur Livret2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904110802080_Install du 11-04-2019.resx">
+      <DependentUpon>201904110802080_Install du 11-04-2019.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

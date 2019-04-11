@@ -18,7 +18,7 @@ namespace GestVAETU
             VM.Recherche();
             Assert.AreEqual(0, VM.lstCandidatVM.Count);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
 
@@ -35,7 +35,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel();
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -70,23 +70,23 @@ namespace GestVAETU
             // GIVER 5 Candidats existent dans la base
             MyViewModel VM = new MyViewModel();
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             VM.CurrentCandidat.Nom = "TEST1";
             VM.CurrentCandidat.Prenom = "Prenom1";
             VM.CurrentCandidat.Ville = "VILLE1";
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             VM.CurrentCandidat.Nom = "TEST2";
             VM.CurrentCandidat.Prenom = "Prenom2";
             VM.CurrentCandidat.Ville = "VILLE2";
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             VM.CurrentCandidat.Nom = "TEST3";
             VM.CurrentCandidat.Prenom = "Prenom3";
             VM.CurrentCandidat.Ville = "VILLE3";
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             VM.CurrentCandidat.Nom = "TEST4";
             VM.CurrentCandidat.Prenom = "Prenom4";
             VM.CurrentCandidat.Ville = "VILLE4";
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             VM.CurrentCandidat.Nom = "TEST5";
             VM.CurrentCandidat.Prenom = "Prenom5";
             VM.CurrentCandidat.Ville = "VILLE5";
@@ -108,7 +108,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel();
 
-                VM.AddCandidat();
+                VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -157,7 +157,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel();
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -204,7 +204,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel();
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -249,7 +249,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel();
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -294,11 +294,11 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel();
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST2";
             VM.saveData();
@@ -334,11 +334,11 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel();
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST2";
             VM.saveData();
@@ -374,11 +374,11 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST2";
             VM.saveData();
@@ -420,11 +420,11 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST2";
             VM.saveData();
@@ -455,11 +455,11 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST2";
             VM.saveData();
@@ -491,11 +491,11 @@ namespace GestVAETU
     {
         MyViewModel VM = new MyViewModel(true);
 
-        VM.AddCandidat();
+        VM.AjouterCandidat();
         CandidatVM oCan = VM.CurrentCandidat;
         oCan.Nom = "TEST1";
 
-        VM.AddCandidat();
+        VM.AjouterCandidat();
         oCan = VM.CurrentCandidat;
         oCan.Nom = "TEST2";
         VM.saveData();
@@ -533,7 +533,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -573,7 +573,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -613,7 +613,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -673,7 +673,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -710,7 +710,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -747,7 +747,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -788,7 +788,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -829,7 +829,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -875,7 +875,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AddCandidat();
+            VM.AjouterCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();

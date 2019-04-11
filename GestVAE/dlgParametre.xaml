@@ -26,6 +26,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Région : " Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
             <DataGrid Name="dgRegion" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding lstRegionVM}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
@@ -146,10 +147,18 @@
                     <KeyBinding Key="Delete"  />
                 </DataGrid.InputBindings>
             </DataGrid>
-            
-            
-            
-            <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="9"  IsCancel="True" HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="10"/>
+            <TextBlock Text="Numération : " Grid.Row="9" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <UniformGrid Grid.Row="9" Grid.Column="10" Rows="1" Columns="4">
+                <Label>Candidat :</Label>
+                <TextBox Text="{Binding ParamNumCandidat}"></TextBox>
+
+                <Label>Livret :</Label>
+                <TextBox Text="{Binding ParamNumLivret}"></TextBox>
+            </UniformGrid>
+
+
+
+            <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="10"  IsCancel="True" HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" Margin="10"/>
 
         </Grid>
     </ScrollViewer>

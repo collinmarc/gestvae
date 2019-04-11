@@ -368,5 +368,22 @@ namespace GestVAETU
             VM.DeleteCurrentCandidat();
             VM.saveData();
         }
+        [TestMethod]
+        public void NumCandidatTest()
+        {
+            MyViewModel VM = new MyViewModel();
+            VM.AjouterCandidat();
+            CandidatVM oCand = VM.CurrentCandidat;
+
+            Assert.IsFalse(String.IsNullOrEmpty(oCand.IdVAE));
+            Assert.IsTrue(oCand.IdVAE.StartsWith("3"));
+            Assert.AreEqual(oCand.IdVAE.Substring(1,2),DateTime.Now.ToString("yy"));
+            Int32 Num1 = Convert.ToInt32(oCand.IdVAE.Substring(3));
+            VM.AjouterCandidat();
+            oCand = VM.CurrentCandidat;
+            Int32 Num2 = Convert.ToInt32(oCand.IdVAE.Substring(3));
+            Assert.AreEqual(Num1 + 1, Num2);
+        }
+
     }
 }

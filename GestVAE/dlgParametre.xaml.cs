@@ -46,6 +46,7 @@ namespace GestVAE
         public void setContexte(MyViewModel pModel)
         {
             this.DataContext = pModel;
+
         }
 
         private void dgRegion_AddingNewItem(object sender, AddingNewItemEventArgs e)

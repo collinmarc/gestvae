@@ -137,7 +137,7 @@ namespace GestVAE.VM
             UnLockAllCommand = new RelayCommand<MyViewModel>(o => { UnlockAll(); },
                                                             o => { return IsAnyLock(); }
                                           );
-            _AddCandidatCommand = new RelayCommand<CandidatVM>(o => { AddCandidat(); }
+            _AddCandidatCommand = new RelayCommand<CandidatVM>(o => { AjouterCandidat(); }
                                            );
             _dlgParamCommand = new RelayCommand<MyViewModel>(o => { CalldlgParam(); }
                                            );
@@ -431,12 +431,10 @@ namespace GestVAE.VM
             {
 
                 // Créatino du CAFDES si Necessaire
-                CSDebug.TraceINFO("MyViwModel.getParam : GetDiplome");
                 Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
 
                 if (oDipCAFDES == null)
                 {
-                    CSDebug.TraceINFO("MyViwModel.getParam : CreateDiplome");
                     oDipCAFDES = new Diplome("CAFDES");
                     oDipCAFDES.addDomainecompetence("DC1");
                     oDipCAFDES.addDomainecompetence("DC2");
@@ -446,7 +444,6 @@ namespace GestVAE.VM
                     _ctx.Diplomes.Add(oDipCAFDES);
                 }
 
-                CSDebug.TraceINFO("MyViwModel.getParam : Region");
                 _lstRegionVM.Clear();
                 foreach (Region item in _ctx.Regions)
                 {
@@ -455,7 +452,6 @@ namespace GestVAE.VM
                 }
                 RaisePropertyChanged("lstRegionVM");
 
-                CSDebug.TraceINFO("MyViwModel.getParam : Diplome");
                 _lstDiplomeVM.Clear();
                 foreach (Diplome item in _ctx.Diplomes)
                 {
@@ -464,7 +460,6 @@ namespace GestVAE.VM
                 }
                 RaisePropertyChanged("lstDiplomeVM");
 
-                CSDebug.TraceINFO("MyViwModel.getParam : PJ");
                 _lstPieceJointeCategorie.Clear();
                 foreach (PieceJointeCategorie item in _ctx.pieceJointeCategories)
                 {
@@ -473,7 +468,6 @@ namespace GestVAE.VM
                 }
                 RaisePropertyChanged("lstPieceJointeCategorie");
 
-                CSDebug.TraceINFO("MyViwModel.getParam : Motif");
                 _lstMotifGL1.Clear();
                 foreach (MotifGeneralL1 item in _ctx.dbMotifGeneralL1)
                 {
@@ -562,13 +556,17 @@ namespace GestVAE.VM
 
             RaisePropertyChanged("lstCandidatsVM");
         }
-        public void AddCandidat()
+        public void AjouterCandidat()
         {
-            Candidat oCand = new Candidat("...");
+            Candidat oCand = new Candidat("[Nouveau candidat]");
             _ctx.Candidats.Add(oCand);
             CandidatVM oCandVM = new CandidatVM(oCand);
             oCandVM.Nationnalite = "Française";
             oCandVM.NationnaliteNaissance = "Française";
+            if (String.IsNullOrEmpty(oCandVM.IdVAE))
+            {
+                oCandVM.IdVAE = "3" + DateTime.Now.ToString("yy") + ParamVM.incrementCandidat().ToString("00000");
+            }
             lstCandidatVM.Add(oCandVM);
             CurrentCandidat = oCandVM;
             RaisePropertyChanged("lstCandidatVM");
@@ -1290,6 +1288,73 @@ public void AjoutePJL1()
             get
             {
                 return CurrentCandidat != null;
+            }
+        }
+        /// <summary>
+        /// Prochain Numero de candidat
+        /// </summary>
+        public Int32 ParamNumCandidat {
+            get
+            {
+                Int32 nReturn = 0;
+                using (Context ctx = new Context())
+                {
+                    Param objParam = _ctx.dbParam.FirstOrDefault();
+                    if (objParam != null)
+                    {
+                        nReturn = objParam.NumCandidat;
+                    }
+                }
+                return nReturn;
+            }
+            set
+            {
+                if (value != ParamNumCandidat)
+                {
+                    Context ctx = new Context();
+                    Param objParam = _ctx.dbParam.FirstOrDefault();
+                    if (objParam != null)
+                    {
+                        objParam.NumCandidat = value;
+                    }
+                    ctx.SaveChanges();
+
+                }
+            }
+        }
+        /// <summary>
+        /// Prochain Numero de candidat
+        /// </summary>
+        public Int32 ParamNumLivret
+        {
+            get
+            {
+                Int32 nReturn = 0;
+                using (Context ctx = new Context())
+                {
+                    Param objParam = _ctx.dbParam.FirstOrDefault();
+                    if (objParam != null)
+                    {
+                        nReturn = objParam.NumLivret;
+                    }
+                }
+                return nReturn;
+            }
+            set
+            {
+                if (value != ParamNumLivret)
+                {
+                    using (Context ctx = new Context())
+                    {
+                        Param objParam = _ctx.dbParam.FirstOrDefault();
+                        if (objParam != null)
+                        {
+                            objParam.NumLivret = value;
+                        }
+                        ctx.SaveChanges();
+                    }
+
+                }
             }
         }
 

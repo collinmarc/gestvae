@@ -54,6 +54,21 @@ namespace GestVAE.VM
             ctx.SaveChanges();
             return nReturn;
         }
+        public static Int32 incrementCandidat()
+        {
+            Context ctx = new Context();
+            Param oParam = ctx.dbParam.FirstOrDefault();
+            if (oParam == null)
+            {
+                oParam = new Param();
+                oParam.NumLivret = 1;
+                oParam.NumCandidat = 1;
+                ctx.dbParam.Add(oParam);
+            }
+            Int32 nReturn = oParam.NumCandidat++;
+            ctx.SaveChanges();
+            return nReturn;
+        }
 
     }
 }

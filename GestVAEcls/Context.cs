@@ -34,7 +34,12 @@ namespace GestVAEcls
         }
         public Context() : base("name=CSGESTVAE")
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, GestVAEcls.Migrations.Configuration>());
 
+        }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Candidat> Candidats { get; set; }

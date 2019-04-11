@@ -132,6 +132,9 @@
     <Compile Include="dlgDiplome.xaml.cs">
       <DependentUpon>dlgDiplome.xaml</DependentUpon>
     </Compile>
+    <Compile Include="dlgApropos.xaml.cs">
+      <DependentUpon>dlgApropos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="dlgParametre.xaml.cs">
       <DependentUpon>dlgParametre.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,10 @@
     <Compile Include="VM\RegionVM.cs" />
     <Compile Include="VM\VMBase.cs" />
     <Page Include="dlgDiplome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="dlgApropos.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -228,6 +235,9 @@
     </Resource>
     <Resource Include="IMG\Save_6530_32.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="SourcesDonnees\GESTVAE Candidats.odc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201904110802080_Install du 11-04-2019.Designer.cs">
       <DependentUpon>201904110802080_Install du 11-04-2019.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904111712389_Test.cs" />
+    <Compile Include="Migrations\201904111712389_Test.Designer.cs">
+      <DependentUpon>201904111712389_Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -85,7 +89,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="T1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -105,6 +108,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904110802080_Install du 11-04-2019.resx">
       <DependentUpon>201904110802080_Install du 11-04-2019.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904111712389_Test.resx">
+      <DependentUpon>201904111712389_Test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

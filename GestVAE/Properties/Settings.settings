@@ -42,5 +42,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=(localdb)\V11.0;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#;MultipleActiveResultSets=true</Value>
     </Setting>
+    <Setting Name="NUMVERSION" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">V20191104</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

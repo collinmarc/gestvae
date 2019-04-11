@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
@@ -39,7 +40,7 @@ namespace GestVAE.VM
         public ObservableCollection<ParamTypeDemande> lstParamTypeDemande { get; set; }
         public ObservableCollection<ParamVecteurInformation> lstParamVecteurInformation { get; set; }
         private Boolean bCandidatAjoute = false;
-        private Int32 _IDUSER=0;
+        private Int32 _ContextID=0;
         public CandidatVM CurrentCandidat
         {
             get { return _candidatVM; }
@@ -47,10 +48,47 @@ namespace GestVAE.VM
                
                 _candidatVM = value;
                 RaisePropertyChanged("IsCurrentCandidatLockable");
+                RaisePropertyChanged("IsCurrentCandidatSelected");
                 RaisePropertyChanged(); }
         }
         public DiplomeCandVM CurrentDiplomeCand{get;set;}
+        public String AppVersion
+        {
+            get { return Properties.Settings.Default.NUMVERSION; }
+        }
+        public String ContextID
+        {
+            get { return String.Format("{0}", _ContextID); }
+        }
 
+        public String DBVersion
+        {
+        get {
+                String strReturn = "";
+                Context ctx = Context.instance;
+                ctx.Database.Connection.Open();
+                DbCommand oCmd = ctx.Database.Connection.CreateCommand();
+                oCmd.CommandText = "SELECT MigrationId from __MigrationHistory ORDER BY MigrationId ";
+                DbDataReader oReader =   oCmd.ExecuteReader();
+                while (oReader.Read())
+                {
+                    strReturn = oReader.GetString(0);
+                }
+                oReader.Close();
+                ctx.Database.Connection.Close();
+                if (strReturn!= "")
+                {
+                    String[] tab = strReturn.Split('_');
+                    if (tab.Length >0)
+                    {
+                        strReturn = tab[0];
+                    }
+
+                }
+
+                return strReturn;
+            }
+        }//DBVersion
 
         public Boolean IsBusy
         {
@@ -81,7 +119,7 @@ namespace GestVAE.VM
             lstParamOrigine = new ObservableCollection<ParamOrigine>();
             lstParamTypeDemande = new ObservableCollection<ParamTypeDemande>();
             lstParamVecteurInformation = new ObservableCollection<ParamVecteurInformation>();
-            _IDUSER = new Random().Next(); // ID de l'application
+            _ContextID = new Random().Next(); // ID de l'application
 
             CreateCommands();
             //getData();
@@ -102,6 +140,8 @@ namespace GestVAE.VM
             _AddCandidatCommand = new RelayCommand<CandidatVM>(o => { AddCandidat(); }
                                            );
             _dlgParamCommand = new RelayCommand<MyViewModel>(o => { CalldlgParam(); }
+                                           );
+            dlgAProposCommand = new RelayCommand<MyViewModel>(o => { CalldlgAPropos(); }
                                            );
             _RechercherCommand = new RelayCommand<MyViewModel>(o => { Recherche(); }
                                            );
@@ -552,8 +592,9 @@ namespace GestVAE.VM
         {
             get { return _AddCandidatCommand; }
         }
-        private ICommand _dlgParamCommand;
+        public ICommand dlgAProposCommand { get; set; }
 
+        private ICommand _dlgParamCommand;
         public ICommand dlgParamCommand
         {
             get { return _dlgParamCommand; }
@@ -840,6 +881,12 @@ public void AjoutePJL1()
             oDlg.setContexte(this);
             oDlg.ShowDialog();
         }
+        public void CalldlgAPropos()
+        {
+            dlgAPropos oDlg = new dlgAPropos();
+            oDlg.setContexte(this);
+            oDlg.ShowDialog();
+        }
 
         public void ValideretQuitterL1()
         {
@@ -981,7 +1028,7 @@ public void AjoutePJL1()
 
                     if (MessageBoxShow("Etes-vous sur de souloir supprimer le candidat", "Suppression d'un candidat", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        CurrentCandidat.UnLock(_IDUSER);
+                        CurrentCandidat.UnLock(_ContextID);
                         _ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
                         lstCandidatVM.Remove(CurrentCandidat);
                     }
@@ -1049,7 +1096,7 @@ public void AjoutePJL1()
             {
                 if (!CurrentCandidat.IsLocked)
                 {
-                    CurrentCandidat.Lock(_IDUSER);
+                    CurrentCandidat.Lock(_ContextID);
                     RaisePropertyChanged("IsCurrentCandidatLocked");
                 }
             }
@@ -1062,7 +1109,7 @@ public void AjoutePJL1()
             {
                 if (IsCurrentCandidatLockedByMe)
                 { 
-                    CurrentCandidat.UnLock(_IDUSER);
+                    CurrentCandidat.UnLock(_ContextID);
                 }
             }
             return true;
@@ -1107,7 +1154,7 @@ public void AjoutePJL1()
                 if (CurrentCandidat != null)
                 {
                     ContextLock ctxLock = new ContextLock();
-                    int nLock = ctxLock.Locks.Where(L => L.IDCandidat == CurrentCandidat.ID && L.IDUser == _IDUSER).Count();
+                    int nLock = ctxLock.Locks.Where(L => L.IDCandidat == CurrentCandidat.ID && L.IDUser == _ContextID).Count();
                     bReturn = (nLock > 0);
                 }
                 return bReturn;
@@ -1158,7 +1205,7 @@ public void AjoutePJL1()
         public void UnlockCandidats()
         {
             ContextLock ctxLock = new ContextLock();
-            ctxLock.Locks.RemoveRange(ctxLock.Locks.Where(L => L.IDUser == _IDUSER));
+            ctxLock.Locks.RemoveRange(ctxLock.Locks.Where(L => L.IDUser == _ContextID));
             ctxLock.SaveChanges();
             RaisePropertyChanged("IsCurrentCandidatLocked");
             RaisePropertyChanged("IsCurrentCandidatLockedByMe");
@@ -1235,6 +1282,13 @@ public void AjoutePJL1()
                 oResult = MessageBox.Show(pMessage, pCaption, pButton, pIcon);
             }
             return oResult;
+        }
+
+        public Boolean IsCurrentCandidatSelected {
+            get
+            {
+                return CurrentCandidat != null;
+            }
         }
 
     }

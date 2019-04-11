@@ -109,5 +109,14 @@ namespace GestVAE.Properties {
                 return ((string)(this["CSGESTVAEDV"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("V20191104")]
+        public string NUMVERSION {
+            get {
+                return ((string)(this["NUMVERSION"]));
+            }
+        }
     }
 }

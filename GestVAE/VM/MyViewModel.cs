@@ -985,10 +985,12 @@ public void AjoutePJL1()
                 {
                     DbEntityEntry  oEntity = oLiv.getEntity();
                     DbPropertyValues oValues = oEntity.CurrentValues;
+#if _DEBUG_
                     foreach (String name in oValues.PropertyNames)
                     {
                             Console.WriteLine(String.Format("{0} = Original = {1}, current = {2}", name, oEntity.Property(name).OriginalValue, oEntity.Property(name).CurrentValue));
                     }
+#endif
                     ResetCurrentLivret();
                     CloseAction();
                 }

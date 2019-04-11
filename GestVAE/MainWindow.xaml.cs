@@ -101,14 +101,13 @@ namespace GestVAE
         {
             if (VM.HasChanges())
             {
-                if (MessageBox.Show("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                if (MessageBox.Show("Attention, certaines modifications seront perdues.\nVoulez-vous quitter sans sauvegarder?", "ATTENTION", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                     == MessageBoxResult.No)
                 {
                     e.Cancel = true;
                 }
                 else
                 {
-                    VM.saveData();
                     VM.UnlockCandidats();
                 }
             }

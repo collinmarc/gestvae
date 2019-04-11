@@ -34,17 +34,14 @@
             <Setter Property="ShowGridLines" Value="False"/>
             <Setter Property="Background" Value="#FF90A4C1"/>
         </Style>
-        <Style x:Key="CustTextBox" TargetType="{x:Type TextBox}" >
-            <Setter Property="Margin" Value="0,10,10,0"/>
-        </Style>
-        <Style TargetType="TextBox" x:Key="TextBoxReadOnlyStyle" BasedOn="{StaticResource CustTextBox}">
+        <Style TargetType="TextBox" x:Key="TextBoxReadOnlyStyle"  BasedOn="{StaticResource tbCoinsArrondis}">
             <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
         </Style>
         <Style TargetType="RadioButton" x:Key="RadioButtonReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=IsUnlocked}"/>
+            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
         </Style>
-        <Style TargetType="ComboBox" x:Key="ComboboxReadOnlyStyle" >
-            <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
+        <Style TargetType="ComboBox" x:Key="ComboboxReadOnlyStyle" BasedOn="{StaticResource ComboCoinsArrondis}">
+            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
         </Style>
         <Style TargetType="DatePicker" x:Key="DatePickerReadOnlyStyle" >
             <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
@@ -113,18 +110,18 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"   >Identifiant VAE:</Label>
                     <TextBox Grid.Row="0" Grid.Column="1" Margin="5" 
-                             Name="tbRechIdentVAE" HorizontalAlignment="Stretch"/>
+                             Name="tbRechIdentVAE" HorizontalAlignment="Stretch" Style="{DynamicResource tbCoinsArrondis}"/>
                     <Label Grid.Row="0" Grid.Column="3" >SISCOLE :</Label>
                     <TextBox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="4" Margin="5" 
-                             Name="tbRechIdentSISCOLE" HorizontalAlignment="Stretch"/>
+                             Name="tbRechIdentSISCOLE" HorizontalAlignment="Stretch" Style="{DynamicResource tbCoinsArrondis}"/>
                     <Label Grid.Row="1" Grid.Column="0" >Nom:</Label>
                     <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="5"
-                             Name="tbRechNom" />
+                             Name="tbRechNom" Style="{DynamicResource tbCoinsArrondis}" />
                     <Label Grid.Row="2" Grid.Column="0" >Prénom:</Label>
                     <TextBox  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" 
-                              Name="tbRechPrénom" Margin="5" />
+                              Name="tbRechPrénom" Margin="5" Style="{DynamicResource tbCoinsArrondis}" />
                     <Label  Grid.Row="3" Grid.Column="0" >Ville:</Label>
-                    <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbRechVille" Margin="5" ></TextBox>
+                    <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbRechVille" Margin="5" Style="{DynamicResource tbCoinsArrondis}" ></TextBox>
 
                     <Label  Grid.Row="4" Grid.Column="0"  Content="Date de &#xD;&#xA;naissance :" />
                     <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center"/>
@@ -170,7 +167,7 @@
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="_0" Grid.Row ="0" MinHeight="100" VerticalAlignment="Stretch"
-                              ItemsSource="{Binding lstCandidatVM}" SelectedItem="{Binding CurrentCandidat}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding"  Margin="10" BorderThickness="0">
+                              ItemsSource="{Binding lstCandidatVM}" SelectedItem="{Binding CurrentCandidat}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding"  Margin="10" BorderThickness="0" Style="{DynamicResource MyDataGridStyle}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID VAE" IsReadOnly="true" Binding="{Binding IdVAE}" Width="1*"/>
                             <DataGridTextColumn Header="SISCOLE" IsReadOnly="true" Binding="{Binding IdSiscole}" Width="1*"/>
@@ -181,8 +178,6 @@
                         <DataGrid.InputBindings>
                             <KeyBinding Key="Delete" Command="{Binding DeleteCandidatCommand}" />
                         </DataGrid.InputBindings>
-
-
                     </DataGrid>
                     <Button x:Name="cbAddCandidat" Content="Ajout candidat" Grid.Row ="1" Style="{DynamicResource StyleBtn}" Height="30" Margin="10" Command="{Binding AddCandidatCommand}"/>
 
@@ -248,8 +243,8 @@
                             <CheckBox   IsChecked="{Binding bHandicap}" Style="{DynamicResource CheckBoxReadOnlyStyle}" VerticalAlignment="Center"/>
                         </UniformGrid>
                         <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26"  Margin="0,3" >Civilité :</Label>
-                        <ComboBox x:Name="cbxCivilite" Grid.Row="3"  Grid.Column="1" IsEditable="False" Margin="0,10,0,0" 
-                              Text="{Binding Civilite}" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{DynamicResource ComboboxReadOnlyStyle}" IsHitTestVisible="True" IsSynchronizedWithCurrentItem="True"
+                        <ComboBox x:Name="cbxCivilite" Grid.Row="3"  Grid.Column="1" IsEditable="False"  
+                              Text="{Binding Civilite}" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ComboboxReadOnlyStyle}" 
                               >
                             <ComboBoxItem Content="Monsieur"/>
                             <ComboBoxItem Content="Madame"/>
@@ -316,7 +311,7 @@
                             <DataGrid Name="gridLstDiplome" VerticalAlignment="Top" 
                                       ItemsSource="{Binding lstDiplomesCandVMs}" 
                                       SelectedItem="{Binding CurrentDiplomeCand}"
-                                      AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding" MouseDoubleClick="gridLstDiplome_MouseDoubleClick" Margin="0,0,10,0">
+                                      AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding" MouseDoubleClick="gridLstDiplome_MouseDoubleClick" Margin="0,0,10,0" Style="{DynamicResource MyDataGridStyle}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Nom" IsReadOnly="true" Binding="{Binding NomDiplome}"/>
                                     <DataGridTextColumn Header="Obtention" Binding="{Binding DateObtentionDiplome, StringFormat='dd/MM/yyyy'}"/>
@@ -342,7 +337,7 @@
                               SelectedItem="{Binding CurrentLivret}"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                               CellEditEnding="gridLstLivrets_CellEditEnding" 
-                              MouseDoubleClick="gridLstLivrets_MouseDoubleClick" IsReadOnly="True"
+                              MouseDoubleClick="gridLstLivrets_MouseDoubleClick" IsReadOnly="True" Style="{DynamicResource MyDataGridStyle}"
                               >
                                 <DataGrid.InputBindings>
                                     <KeyBinding Key="Delete" Command="{Binding DeleteLivretCommand}" />

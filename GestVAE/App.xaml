@@ -60,6 +60,28 @@
                 </Setter>
                 
             </Style>
+            <Style x:Key="tbCoinsArrondis" TargetType="{x:Type TextBox}" >
+                <Setter Property="Margin" Value="0,10,10,0"/>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+            <Style x:Key="ComboCoinsArrondis" TargetType="{x:Type ComboBox}" >
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+            <Style x:Key="MyDataGridStyle" TargetType="{x:Type DataGrid}" >
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                    </Style>
+                </Style.Resources>
+            </Style>
+
         </ResourceDictionary>
   </Application.Resources>
 </Application>

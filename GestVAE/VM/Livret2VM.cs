@@ -69,12 +69,19 @@ namespace GestVAE.VM
             {
                 return TheLivret.oDiplome.Nom;
             }
-            set
+        }
+        public String StatutDiplomeCandidat
+        {
+            get
             {
-                if (value != NomDiplome)
+                DiplomeCandVM oDip = getCurrentCandidat().lstDiplomesCandVMs.Where(d => d.oDiplome.ID == TheLivret.oDiplome.ID).FirstOrDefault();
+                if (oDip != null)
                 {
-                    TheLivret.oDiplome.Nom = value;
-                    RaisePropertyChanged();
+                    return oDip.StatutDiplome;
+                }
+                else
+                {
+                    return "";
                 }
             }
         }
@@ -95,6 +102,21 @@ namespace GestVAE.VM
             }
         }
 
+        public String NumeroDiplome
+        {
+            get
+            {
+                return oL2.NumDiplome;
+            }
+            set
+            {
+                if (value != NumeroDiplome)
+                {
+                    oL2.NumDiplome = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         public Int32 NumPassage
         {
             get
@@ -622,6 +644,8 @@ namespace GestVAE.VM
         {
                 return new CandidatVM(oL2.oCandidat);
         }
+
+
 
     }
 }

@@ -23,6 +23,11 @@ namespace GestVAE.VM
         public ObservableCollection<LivretVMBase> lstLivrets { get; set; }
         public DiplomeCandVM CurrentDiplomeCand { get; set; }
 
+        public DiplomeCandVM getDiplomeCand(Livret2VM pL2)
+        {
+            return lstDiplomesCandVMs.Where(d => d.oDiplome.ID == pL2.TheLivret.oDiplome.ID).FirstOrDefault();
+        }
+
 
         private LivretVMBase _LivretVM;
         public LivretVMBase CurrentLivret
@@ -385,7 +390,7 @@ namespace GestVAE.VM
             }
             foreach (LivretVMBase item in lstLivrets)
             {
-                if (item.Typestr == "LIVRET1")
+                if (item.Typestr == Livret1.TYPELIVRET)
                 {
                     if (_ctx.Entry<Livret1>((Livret1)item.TheLivret).State == System.Data.Entity.EntityState.Detached)
                     {
@@ -396,7 +401,7 @@ namespace GestVAE.VM
                         TheCandidat.lstLivrets1.Remove((Livret1)item.TheLivret);
                     }
                 }
-                if (item.Typestr == "LIVRET2")
+                if (item.Typestr == Livret2.TYPELIVRET)
                 {
                     if (_ctx.Entry<Livret2>((Livret2)item.TheLivret).State == System.Data.Entity.EntityState.Detached)
                     {
@@ -493,13 +498,17 @@ namespace GestVAE.VM
                 {
                     if (oLiv is Livret1VM)
                     {
-                        Livret1VM oL1 = (Livret1VM)oLiv;
-                        if (oL1.IsEtatAccepte)
+                        if (oLiv.IsLivretNonClos)
                         {
+                            Livret1VM oL1 = (Livret1VM)oLiv;
+                            // qqsoit son etat c'est la date de validité qui fait foi
+                            //                        if (oL1.IsEtatAccepte)
+                            //                       {
                             if (oL1.DateValidite > DateTime.Now)
                             {
                                 bReturn = true;
                             }
+                            //                       }
                         }
                     }
                 }

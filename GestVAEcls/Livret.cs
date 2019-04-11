@@ -68,6 +68,8 @@ namespace GestVAEcls
     }
     public class Livret1 : Livret
     {
+        static public String TYPELIVRET { get { return "LIVRET1"; } }
+
         public String Numero { get; set; }
         public String TypeDemande { get; set; }
         public String VecteurInformation { get; set; }
@@ -90,7 +92,7 @@ namespace GestVAEcls
 
         public Livret1():base()
         {
-            Typestr = "LIVRET1";
+            Typestr = TYPELIVRET;
             lstPiecesJointes = new ObservableCollection<PieceJointeL1>();
             lstEchanges = new ObservableCollection<EchangeL1>();
 
@@ -100,6 +102,7 @@ namespace GestVAEcls
     }
     public class Livret2 : Livret
     {
+        static public String TYPELIVRET { get { return "LIVRET2"; } }
 
         public String Numero { get; set; }
         public Int32 NumPassage { get; set; }
@@ -119,6 +122,7 @@ namespace GestVAEcls
         public Boolean IsAttestationOK { get; set; }
         public Boolean IsCNIOK { get; set; }
         public Boolean IsDispenseArt2 { get; set; }
+        public String NumDiplome { get; set; }
         public virtual ObservableCollection<PieceJointeL2> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
         public virtual ObservableCollection<DCLivret> lstDCLivrets { get; set; }
@@ -130,7 +134,7 @@ namespace GestVAEcls
 
         public Livret2():base()
         {
-            Typestr = "LIVRET2";
+            Typestr = TYPELIVRET;
             lstPiecesJointes = new ObservableCollection<PieceJointeL2>();
             lstEchanges = new ObservableCollection<EchangeL2>();
             lstDCLivrets = new ObservableCollection<DCLivret>();

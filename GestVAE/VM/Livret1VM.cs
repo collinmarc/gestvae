@@ -116,12 +116,11 @@ namespace GestVAE.VM
             }
         }
         public Boolean IsConvention {
-            get { return !TheLivret.isContrat; }
+            get { return !IsContrat; }
             set {
                 if (value != IsConvention)
                 {
-                    TheLivret.isContrat = !value;
-                    RaisePropertyChanged();
+                    IsContrat = !value;
                 }
             }
         }

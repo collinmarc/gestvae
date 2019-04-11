@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -742,9 +743,9 @@ namespace GestVAE.VM
                 oLivVM.DateDemande = DateTime.Now;
                 oLivVM.DateValidite = DateTime.Now.AddDays(Properties.Settings.Default.DelaiValidite);
                 CurrentCandidat.CurrentLivret = oLivVM;
-                if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Count() > 0)
+                if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
                 {
-                    int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == "LIVRET2").Select(l => ((Livret2VM)l).NumPassage).Max();
+                    int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
                     oLivVM.NumPassage = nbL2 + 1;
                 }
                 // Récupération du diplome du candidat (si présent)
@@ -861,8 +862,11 @@ public void AjoutePJL1()
         public void ValideretQuitterL2()
         {
             Livret2VM oL2VM = (Livret2VM)CurrentCandidat.CurrentLivret;
-            // Validation du conenu du Livret
+
+            // Validation du contenu du Livret
             oL2VM.Commit();
+            // Mise à jour du diplome du candidat
+            UpdateDiplomeCand(oL2VM);
             // Si le livret est Nouveau => Ajout dans la Collection des Livrets
             if (oL2VM.IsNew)
             {
@@ -874,6 +878,56 @@ public void AjoutePJL1()
             }
         }
 
+        private void UpdateDiplomeCand(Livret2VM pLivret)
+        {
+
+            DiplomeCandVM oDip = CurrentCandidat.getDiplomeCand(pLivret); 
+            if (oDip != null)
+            {
+                if (pLivret.IsDecisionJuryFavorable)
+                {
+                    oDip.StatutDiplome = oDip.LstStatutDiplome[0];
+                    foreach (DomaineCompetenceCand item in oDip.lstDCCands)
+                    {
+                        item.Statut = oDip.LstStatutModule[0];
+                    }
+                    oDip.DateObtentionDiplome = pLivret.DateJury;
+                    oDip.NumeroDiplome = pLivret.NumeroDiplome;
+                }
+                if (pLivret.IsEtatRefuse)
+                {
+                    oDip.StatutDiplome = oDip.LstStatutDiplome[2];
+                    foreach (DomaineCompetenceCand item in oDip.lstDCCands)
+                    {
+                        item.Statut = oDip.LstStatutModule[1];
+                    }
+                }
+                if (pLivret.IsDecisionJuryPartielle)
+                {
+                    oDip.StatutDiplome = oDip.LstStatutDiplome[1];
+                    foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
+                    {
+                        DomaineCompetenceCand oDCCand =  oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
+                        if (oDCCand != null)
+                        {
+                            if (item.isDecisionFavorable)
+                            {
+                                oDCCand.Statut = "Validé";
+                                oDCCand.DateObtention = pLivret.DateJury;
+                            }
+                            else
+                            {
+                                oDCCand.Statut = "Refusé";
+                                oDCCand.DateObtention = pLivret.DateJury;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+
         public void QuitterLivret()
         {
             LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
@@ -882,6 +936,12 @@ public void AjoutePJL1()
                 if (MessageBoxShow("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                     == MessageBoxResult.Yes)
                 {
+                    DbEntityEntry  oEntity = oLiv.getEntity();
+                    DbPropertyValues oValues = oEntity.CurrentValues;
+                    foreach (String name in oValues.PropertyNames)
+                    {
+                            Console.WriteLine(String.Format("{0} = Original = {1}, current = {2}", name, oEntity.Property(name).OriginalValue, oEntity.Property(name).CurrentValue));
+                    }
                     ResetCurrentLivret();
                     CloseAction();
                 }
@@ -981,7 +1041,6 @@ public void AjoutePJL1()
             return true;
         }
 
-        private List<CandidatVM> _lstCandidatsLocked = new List<CandidatVM>();
 
         public Boolean LockCurrentCandidat()
         {
@@ -991,7 +1050,6 @@ public void AjoutePJL1()
                 if (!CurrentCandidat.IsLocked)
                 {
                     CurrentCandidat.Lock(_IDUSER);
-                    _lstCandidatsLocked.Add(CurrentCandidat);
                     RaisePropertyChanged("IsCurrentCandidatLocked");
                 }
             }
@@ -1002,11 +1060,9 @@ public void AjoutePJL1()
             Context ctxLock = new Context();
             if (CurrentCandidat != null)
             {
-                CandidatVM oCand = _lstCandidatsLocked.Where(c => (c.ID == CurrentCandidat.ID)).FirstOrDefault();
-                if (oCand != null)
-                {
-                    oCand.UnLock(_IDUSER);
-                    _lstCandidatsLocked.Remove(oCand);
+                if (IsCurrentCandidatLockedByMe)
+                { 
+                    CurrentCandidat.UnLock(_IDUSER);
                 }
             }
             return true;
@@ -1047,7 +1103,13 @@ public void AjoutePJL1()
         {
             get
             {
-                Boolean bReturn = _lstCandidatsLocked.Where(c=>c.ID == CurrentCandidat.ID).Count()>0;
+                Boolean bReturn = false;
+                if (CurrentCandidat != null)
+                {
+                    ContextLock ctxLock = new ContextLock();
+                    int nLock = ctxLock.Locks.Where(L => L.IDCandidat == CurrentCandidat.ID && L.IDUser == _IDUSER).Count();
+                    bReturn = (nLock > 0);
+                }
                 return bReturn;
             }
         }
@@ -1095,21 +1157,16 @@ public void AjoutePJL1()
 
         public void UnlockCandidats()
         {
-            foreach (CandidatVM oCand in _lstCandidatsLocked)
-            {
-                oCand.UnLock(_IDUSER);
-            }
-            if (bCandidatAjoute)
-            {
-                //Supppression du Candidat avec l'ID 0
-                Candidat oCand = new Candidat("CandidatFictifQuinestpasajouteenbase");
-                CandidatVM oCandVM = new CandidatVM(oCand);
-                oCandVM.UnLock(_IDUSER);
-            }
+            ContextLock ctxLock = new ContextLock();
+            ctxLock.Locks.RemoveRange(ctxLock.Locks.Where(L => L.IDUser == _IDUSER));
+            ctxLock.SaveChanges();
+            RaisePropertyChanged("IsCurrentCandidatLocked");
+            RaisePropertyChanged("IsCurrentCandidatLockedByMe");
+
         }
         public void UnlockAll()
         {
-            if (MessageBoxShow("Etes-vous sur de vouloir déverrouiller TOUS les candidats ?", "Dévérouiller tous les candidats", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBoxShow("Etes-vous sur de vouloir déverrouiller TOUS les candidats ?", "Déverrouiller tous les candidats", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 ContextLock ctxLock = new ContextLock();
                 ctxLock.Locks.RemoveRange(ctxLock.Locks.ToList());

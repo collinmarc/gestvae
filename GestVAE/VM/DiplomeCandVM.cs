@@ -76,16 +76,15 @@ namespace GestVAE.VM
         }
         public void CalcStatutDiplome()
         {
-            String Statut = "Validé";
-            foreach (DomaineCompetenceCand item in lstDCCands)
-            {
-                if (item.Statut!="Validé")
-                {
-                    Statut = "Validé Partiellement";
-                }
+            Int32 nbRefusé = 0;
 
-            }
-            StatutDiplome = Statut;
+            nbRefusé = lstDCCands.Where(d => d.Statut == "Refusé").Count();
+            if (nbRefusé ==0)
+                { StatutDiplome = LstStatutDiplome[0]; }
+            if (nbRefusé == lstDCCands.Count())
+                { StatutDiplome = LstStatutDiplome[2]; }
+            if (nbRefusé >0 && nbRefusé< lstDCCands.Count())
+                { StatutDiplome = LstStatutDiplome[1]; }
         }
         public DateTime? DateObtentionDiplome
         {

@@ -477,28 +477,28 @@ namespace GestVAE.VM
         {
             get
             {
-                return (getNumDecisionJury() < (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                return (getNumDecisionJury() != (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
             }
         }
         public Boolean IsDecisionJuryDefavorable
         {
             get
             {
-                return (getNumDecisionJury() >= (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
             }
         }
         public Boolean IsDecisionJuryRecoursFavorable
         {
             get
             {
-                return (getNumDecisionJuryRecours() < (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                return (getNumDecisionJuryRecours() != (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
             }
         }
         public Boolean IsDecisionJuryRecoursDefavorable
         {
             get
             {
-                return (getNumDecisionJuryRecours() >= (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                return (getNumDecisionJuryRecours() == (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
             }
         }
         private void setEtatLivret()

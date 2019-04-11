@@ -2,6 +2,7 @@
 using GestVAE.VM;
 using GestVAEcls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace GestVAETU
 {
@@ -440,7 +441,7 @@ namespace GestVAETU
 
             // Ajout du Livret1
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE + "-Favorable";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable",MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE );
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             // L'ajout de L1 n'est plus possible
@@ -475,7 +476,7 @@ namespace GestVAETU
 
             // Ajout du Livret1
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE + "-Favorable";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable",MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE );
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             VM.ValideretQuitterL1();
             // L'ajout de L1 Devient possible 
@@ -511,8 +512,8 @@ namespace GestVAETU
 
         // Ajout du Livret1
         VM.AjouteL1();
-        VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE + "-DéFavorable";
-            // Date de validé > Ajourd'hui
+        VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable",MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE );
+            // Date de validité > Ajourd'hui
         VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
         VM.ValideretQuitterL1();
         // L'ajout de L1 Est impossible
@@ -551,7 +552,7 @@ namespace GestVAETU
 
             // Ajout du Livret1
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE + "-DéFavorable";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable",MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE );
             // Date de validé > Ajourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
@@ -629,7 +630,7 @@ namespace GestVAETU
 
             // Ajout du Livret1 Favorable Date de valiité > Aujourd'hui
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE + "-Favorable";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable",MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE );
             // Date de validé > Ajourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
@@ -644,24 +645,273 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
             // Decision = Favorable DateValidité > Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE + "-Favorable";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable",MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
             // Decision = Favorable DateValidité < Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE + "-Favorable";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
             // Decision = DéFavorable DateValidité < Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE + "-DéFavorable";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
             // Decision = DéFavorable DateValidité > Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE + "-DéFavorable";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
 
 
 
         }//GestVAE016
+
+        /// <summary>
+        /// Validation Totale du L2 =>creation du diplome
+        /// </summary>
+        [TestMethod]
+        public void GESTVAE017()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AddCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Le candidat a obtenu le diplome
+            Assert.IsFalse(VM.CurrentCandidat.IsCAFDES);
+
+            VM.LockCurrentCandidat();
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            VM.ValideretQuitterL1();
+            VM.AjouteL2();
+            // Decision = Favorable DateValidité > Now
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            VM.ValideretQuitterL2();
+
+            // Le candidat a obtenu le diplome
+            Assert.IsTrue(VM.CurrentCandidat.IsCAFDES);
+
+        }//GestVAE017
+        /// <summary>
+        /// Validation totale du L2 => Même si la date de décision est dépassée le candiat a son diplome A Vie !!!
+        /// </summary>
+        [TestMethod]
+        public void GESTVAE017b()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AddCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Le candidat a obtenu le diplome
+            Assert.IsFalse(VM.CurrentCandidat.IsCAFDES);
+
+            VM.LockCurrentCandidat();
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            VM.ValideretQuitterL1();
+            VM.AjouteL2();
+            // Decision = Favorable DateValidité > Now
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
+            VM.ValideretQuitterL2();
+
+            // Le candidat a obtenu le diplome
+            Assert.IsTrue(VM.CurrentCandidat.IsCAFDES);
+
+        }//GestVAE017b
+        /// <summary>
+        /// Refus de Validation totale du L2 => Le candidat n'a pas son diplome
+        /// </summary>
+        [TestMethod]
+        public void GESTVAE018()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AddCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Le candidat a obtenu le diplome
+            Assert.IsFalse(VM.CurrentCandidat.IsCAFDES);
+
+            VM.LockCurrentCandidat();
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            VM.ValideretQuitterL1();
+            VM.AjouteL2();
+            // Decision = Favorable DateValidité > Now
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
+            VM.ValideretQuitterL2();
+
+            // Le candidat n'a pas obtenu le diplome
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
+            Assert.IsNotNull(oDip);
+            Assert.AreEqual("Refusé", oDip.StatutDiplome);
+
+        }//GestVAE018
+
+        /// <summary>
+        ///Validation Partielle du L2 => Le candidat n'a pas son diplome
+        /// </summary>
+        [TestMethod]
+        public void GESTVAE019()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AddCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Le candidat a obtenu le diplome
+            Assert.IsFalse(VM.CurrentCandidat.IsCAFDES);
+
+            VM.LockCurrentCandidat();
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            VM.ValideretQuitterL1();
+            VM.AjouteL2();
+            // Decision = Validation Partielle > Now
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
+            VM.ValideretQuitterL2();
+
+            // Le candidat n'a pas obtenu le diplome
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
+            Assert.IsNotNull(oDip);
+            Assert.AreEqual("Validé Partiellement", oDip.StatutDiplome);
+
+        }//GestVAE019
+
+        /// <summary>
+        ///Validation Partielle du L2 => Le candidat n'a pas son diplome, les DCCans sont Mise à jour
+        /// </summary>
+        [TestMethod]
+        public void GESTVAE020()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AddCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Le candidat a obtenu le diplome
+            Assert.IsFalse(VM.CurrentCandidat.IsCAFDES);
+
+            VM.LockCurrentCandidat();
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            VM.ValideretQuitterL1();
+            VM.AjouteL2();
+            // Decision = Validation Partielle > Now
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            oL2.lstDCLivretAValider[0].Decision = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            oL2.lstDCLivretAValider[1].Decision = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            oL2.lstDCLivretAValider[2].Decision = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            oL2.lstDCLivretAValider[3].Decision = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            VM.ValideretQuitterL2();
+
+            // Le candidat n'a pas obtenu le diplome
+            DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
+            Assert.IsNotNull(oDip);
+            Assert.AreEqual("Validé Partiellement", oDip.StatutDiplome);
+            Assert.AreEqual("Validé", oDip.lstDCCands[0].Statut);
+            Assert.AreEqual("Refusé", oDip.lstDCCands[1].Statut);
+            Assert.AreEqual("Validé", oDip.lstDCCands[2].Statut);
+            Assert.AreEqual("Refusé", oDip.lstDCCands[3].Statut);
+
+        }//GestVAE020
+
+        [TestMethod]
+        public void GESTVAE021()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AddCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Le candidat a obtenu le diplome
+            Assert.IsFalse(VM.CurrentCandidat.IsCAFDES);
+
+            VM.LockCurrentCandidat();
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            VM.ValideretQuitterL1();
+            VM.AjouteL2();
+            // Decision = Validation Partielle > Now
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Validation Totale", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            //Saisie du numéro de diplome
+            oL2.DateJury = DateTime.Now.AddDays(-1);
+            oL2.NumeroDiplome = "123546";
+            VM.ValideretQuitterL2();
+
+            // Le candidat a obtenu le diplome
+            DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
+            Assert.IsNotNull(oDip);
+            Assert.AreEqual(oL2.DateJury, oDip.DateObtentionDiplome);
+            Assert.AreEqual(oL2.NumeroDiplome, oDip.NumeroDiplome);
+
+
+        }//GestVAE021
+
     }//class ValidationTest
 }

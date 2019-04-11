@@ -12,7 +12,7 @@
     xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
     x:Class="GestVAE.MainWindow"
         mc:Ignorable="d"
-        Title="EHESP : Gestion VAE" Height="847.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp.ico" WindowStyle="ThreeDBorderWindow" Closing="window_Closing">
+        Title="EHESP : Gestion VAE" Height="847.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp.ico" WindowStyle="ThreeDBorderWindow" Closing="window_Closing" >
 
     <!--    <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" CanExecute="SaveCommand_CanExecute" />
@@ -52,7 +52,7 @@
         <Style TargetType="CheckBox" x:Key="CheckBoxReadOnlyStyle" >
             <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
         </Style>
-        <Style TargetType="Button" x:Key="ButtonReadOnlyStyle" >
+        <Style TargetType="Button" x:Key="ButtonReadOnlyStyle" BasedOn="{StaticResource StyleBtn}" >
             <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
         </Style>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
@@ -68,7 +68,7 @@
                 <Button Name="btnSave" Command="{Binding SaveCommand}" ToolTip="Sauvegarder"  >
                     Sauvegarder
                 </Button>
-                <Button Name="btnLock" Command="{Binding LockCommand}" Content="Vérrouiller" />
+                <Button Name="btnLock" Command="{Binding LockCommand}" Content="Verrouiller" />
                 <Button Name="btnUnLock" Command="{Binding UnLockCommand}" Content="Déverrouiller" />
                 <Button Name="btnUnlockAll" Command="{Binding UnLockAllCommand}" Content="Tout déverrouiller" />
                 <Button Name="btnParam" Command="{Binding dlgParamCommand}" Content="Paramètres" />
@@ -157,7 +157,8 @@
                     <ComboBox Grid.Row="8" Grid.Column="1" Name="cbxEtatL2" Margin="5" Grid.ColumnSpan="2"
                               SelectedItem="{Binding rechEtatL2}" ItemsSource="{Binding LstEtatLivret2}" IsEditable="True"></ComboBox>
 
-                    <Button  Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" Command="{Binding RechercherCommand}" Margin="10">Rechercher</Button>
+                    <Button  Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" 
+                             Command="{Binding RechercherCommand}" Margin="10" Style="{DynamicResource StyleBtn}">Rechercher</Button>
 
 
                 </Grid>
@@ -182,9 +183,7 @@
 
 
                     </DataGrid>
-                    <Button x:Name="cbAddCandidat" Content="Ajout candidat" Grid.Row ="1"
-                                Height="30" Margin="10" Command="{Binding AddCandidatCommand}"
-                                />
+                    <Button x:Name="cbAddCandidat" Content="Ajout candidat" Grid.Row ="1" Style="{DynamicResource StyleBtn}" Height="30" Margin="10" Command="{Binding AddCandidatCommand}"/>
 
                 </Grid>
 
@@ -352,7 +351,7 @@
                             </DataGrid>
 
                             <UniformGrid Name="pnlBoutonsLivrets" Margin="0,10,10,10">
-                                <Button x:Name="btnAddLivret1" Margin="0,0,10,0"    
+                                <Button x:Name="btnAddLivret1" Margin="0,0,10,0"     
                                 Command="{Binding DataContext.AjouteL1Command, ElementName=window}" Style="{DynamicResource ButtonReadOnlyStyle}"
                                 >Ajout Livret 1
                                 </Button>

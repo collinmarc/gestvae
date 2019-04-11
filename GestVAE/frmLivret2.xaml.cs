@@ -42,7 +42,6 @@ namespace GestVAE
         {
             InitializeComponent();
             //Recours oLiv;
-            tbDiplome.SetBinding(TextBox.TextProperty, "NomDiplome");
             tbNumLivret.SetBinding(TextBox.TextProperty, "Numero");
 
             // cbxEtatLivret.SetBinding(ComboBox.TextProperty, "EtatLivret");

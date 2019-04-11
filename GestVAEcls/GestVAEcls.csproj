@@ -130,6 +130,10 @@
     <Compile Include="Migrations\201904090702407_Lock IDUSER.Designer.cs">
       <DependentUpon>201904090702407_Lock IDUSER.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904101654307_NumDiplome sur Livret2.cs" />
+    <Compile Include="Migrations\201904101654307_NumDiplome sur Livret2.Designer.cs">
+      <DependentUpon>201904101654307_NumDiplome sur Livret2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -231,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904090702407_Lock IDUSER.resx">
       <DependentUpon>201904090702407_Lock IDUSER.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904101654307_NumDiplome sur Livret2.resx">
+      <DependentUpon>201904101654307_NumDiplome sur Livret2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

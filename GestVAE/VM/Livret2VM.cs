@@ -639,10 +639,38 @@ namespace GestVAE.VM
             {
                 strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
             }
-            if (LstEtatLivret != null)
+            if (!String.IsNullOrEmpty(strKey))
             {
-                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
-                EtatLivret = strEtat;
+                if (LstEtatLivret != null)
+                {
+                    strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
+                    EtatLivret = strEtat;
+                }
+            }
+            if (IsEtatSansSuite)
+            {
+                IsLivretClos = true;
+            }
+
+        }
+        /// <summary>
+        /// Un Livret En cours est un Livert non Clos que n'est Ni Accepté, ni refusé
+        /// </summary>
+        /// <returns></returns>
+        public Boolean IsLivretEnCours()
+        {
+            Boolean bReturn = false;
+            if (!IsLivretClos)
+            {
+                bReturn = (!IsEtatAccepte && !IsEtatRefuse);
+            }
+            return bReturn;
+        }
+        public Boolean IsDecisionValidationPartielle
+        {
+            get
+            {
+                return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
             }
         }
 

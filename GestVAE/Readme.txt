@@ -7,5 +7,6 @@
 #927: Génération du Numero du Livret
 #931: L2 : Date de Validité
 #928: L1: Date de validité
+#934: Ajout d'un L2 sur un L2 en validation Partielle
 
 Build : 20190411 

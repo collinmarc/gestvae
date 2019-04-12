@@ -528,7 +528,10 @@ namespace GestVAE.VM
 
             return oReturn;
         }
-        public Boolean IsL2Valide
+        /// <summary>
+        /// Rend Vrai si on a un L2 EnCours de traitement dans la date de validité n'est pas échue
+        /// </summary>
+        public Boolean ISL2EnCours
         {
             get
             {
@@ -539,21 +542,33 @@ namespace GestVAE.VM
                     {
                         Livret2VM oL2 = (Livret2VM)oLiv;
                         // Si le L2 est clos => non Valide
-                        if (oL2.IsLivretNonClos)
+                        if (oL2.IsLivretEnCours())
                         {
-                            // si le L2 est accepté => valide peu importe sa date de validité
-                            if (oL2.IsEtatAccepte)
-                            {
-                                bReturn = true;
-                            }
-                            else
-                            {
-                                // Si le L2 n'est pas Accepté , Si la date de validité est < Now => L2 Valide
-                                if (oL2.DateValidite >= DateTime.Now)
-                                {
-                                    bReturn = true;
-                                }
-                            }
+                            bReturn = true;
+                        }
+                    }
+                }
+
+                return bReturn;
+
+            }
+        }
+        /// <summary>
+        /// Rend Vrai si le candidat a au moins 1 Livret2 en Décision partielle
+        /// </summary>
+        public Boolean ISL2EnValidationPartielle
+        {
+            get
+            {
+                Boolean bReturn = false;
+                foreach (LivretVMBase oLiv in lstLivrets)
+                {
+                    if (oLiv is Livret2VM)
+                    {
+                        Livret2VM oL2 = (Livret2VM)oLiv;
+                        if (oL2.IsDecisionValidationPartielle )
+                        {
+                            bReturn = true;
                         }
                     }
                 }

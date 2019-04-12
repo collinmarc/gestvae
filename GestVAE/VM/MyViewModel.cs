@@ -1192,6 +1192,13 @@ public void AjoutePJL1()
                 return bReturn;
             }
         }
+
+        /// <summary>
+        /// A-t-on le droit d'ajouter un L2
+        /// => Il faut un L1 Valide
+        /// OU
+        /// => Un L2 dont la décision est Validation Partielle
+        /// </summary>
         public Boolean IsCurrentCandidatAddL2Available
         {
             get
@@ -1203,12 +1210,18 @@ public void AjoutePJL1()
                 }
                 if (IsCurrentCandidatLocked)
                 {
-                    // L'ajout d'un L2 est possible s'il y  a un L1 de Valide
-                    if (CurrentCandidat.IsL1Valide)
+                    // L'ajout d'un L2 est possible s'il y  a un L1 de Valide ET qu'il n'y a  pas un autre L2 Valide
+                    if (CurrentCandidat.IsL1Valide && ! CurrentCandidat.ISL2EnCours)
                     {
-                        // L'ajout d'un L2 est possible s'il n'y a  pas un autre L2 Valide
-                        bReturn = !(CurrentCandidat.IsL2Valide);
+                        bReturn = true;
                     }
+                    // OU SI s'il a un L2 En validation partielle
+                    if (CurrentCandidat.ISL2EnValidationPartielle)
+                    {
+                        bReturn = true;
+                    }
+
+
                 }
                 return bReturn;
             }

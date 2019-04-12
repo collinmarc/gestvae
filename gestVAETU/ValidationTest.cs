@@ -628,8 +628,9 @@ namespace GestVAETU
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
             VM.LockCurrentCandidat();
 
-            // Ajout du Livret1 Favorable Date de valiité > Aujourd'hui
+            // Ajout du Livret1 Favorable Date de validité > Aujourd'hui
             VM.AjouteL1();
+            Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
             VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable",MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE );
             // Date de validé > Ajourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
@@ -637,30 +638,30 @@ namespace GestVAETU
 
             // Ajout d'un Livret2 (non complet)
             VM.AjouteL2();
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL2();
             //Ajout de L2 impossible car L2 en cours
-            Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
-            // Le L2 est périmé => L'ajout de L2 est possible
-            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
-            Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
-            // Decision = Favorable DateValidité > Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable",MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
-            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
-            Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
-            // Decision = Favorable DateValidité < Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
-            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
-            Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
-            // Decision = DéFavorable DateValidité < Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
-            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
-            Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
-            // Decision = DéFavorable DateValidité > Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
-            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            Assert.IsTrue(VM.CurrentCandidat.ISL2EnCours);
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
 
+            // Le L2 est Validé Partiellement => on peut Ajouter un L2
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Validation Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
+            Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
+
+            // Même Si le Livret1 est echue
+            oL1.DateValidite = DateTime.Now.AddDays(-1);
+            Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
+
+            // Et même Si on Lui ajoute un L2 Refusé
+            VM.AjouteL2();
+            Livret2VM oL2bis = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Refus de validation", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            oL2bis.DateValidite = DateTime.Now.AddDays(1);
+            VM.ValideretQuitterL2();
+
+            Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
 
 
         }//GestVAE016

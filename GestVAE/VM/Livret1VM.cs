@@ -492,10 +492,17 @@ namespace GestVAE.VM
             {
                 strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
             }
-            if (LstEtatLivret != null)
+            if (!String.IsNullOrEmpty(strKey))
             {
-                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
-                EtatLivret = strEtat;
+                if (LstEtatLivret != null)
+                {
+                    strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
+                    EtatLivret = strEtat;
+                }
+            }
+            if (IsEtatSansSuite)
+            {
+                IsLivretClos = true;
             }
         }
     }

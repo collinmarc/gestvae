@@ -931,6 +931,13 @@ namespace GestVAE.VM
                 return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
             }
         }
+        public Boolean IsEtatSansSuite
+        {
+            get
+            {
+                return (getNumetat() == (int)MyEnums.EtatL1.ETAT_L1_SANS_SUITE);
+            }
+        }
 
         public override Boolean Reset()
         {

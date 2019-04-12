@@ -482,5 +482,88 @@ namespace GestVAETU
 
 
         }
+        /// <summary>
+        /// La date de validité du L2 est celle du L1 (Sans recours)
+        /// </summary>
+        [TestMethod]
+        public void DateValiditeL2ApresL1Test()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouterCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Ajout du Livret1
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            // on lui affecte un numéro pour le Test
+            VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.CommentaireJuryRecours = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            // Date de validité > Aujourd'hui
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddYears(3);
+
+            // Ajout d'un L2
+            VM.AjouteL2();
+            VM.ValideretQuitterL2();
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            // Le Numero du L2 est  le même que le L1
+            Assert.AreEqual("TEST1", oL2.Numero);
+            Assert.AreEqual(1, oL2.NumPassage);
+            Assert.AreEqual(false, oL2.IsOuvertureApresRecours);
+            Assert.AreEqual(oL1.DateValidite, oL2.DateValidite);
+
+        }
+        /// <summary>
+        /// La date de validité du L2 est celle du L1 (Après un Recours Favorable)
+        /// </summary>
+        [TestMethod]
+        public void DateValiditeL2ApresL1Test2()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouterCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            VM.Recherche();
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            // Ajout du Livret1
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            // on lui affecte un numéro pour le Test
+            VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-DeFavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.IsRecoursDemande = true;
+            VM.CurrentCandidat.CurrentLivret.CommentaireJuryRecours = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            // Date de validité > Aujourd'hui
+            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddYears(3);
+
+            // Ajout d'un L2
+            VM.AjouteL2();
+            VM.ValideretQuitterL2();
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            // Le Numero du L2 est  le même que le L1
+            Assert.AreEqual("TEST1", oL2.Numero);
+            Assert.AreEqual(1, oL2.NumPassage);
+            Assert.AreEqual(true, oL2.IsOuvertureApresRecours);
+            Assert.AreEqual(oL1.DateValidite, oL2.DateValidite);
+
+        }
     }
 }

@@ -5,5 +5,6 @@
 #933: FrmCandidat : Sexe non actif, Champs décalé
 #939: Mise a jours des Migrations automatique
 #927: Génération du Numero du Livret
+#931: L2 : Date de Validité
 
 Build : 20190411 

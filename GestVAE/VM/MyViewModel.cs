@@ -15,6 +15,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -119,7 +120,11 @@ namespace GestVAE.VM
             lstParamOrigine = new ObservableCollection<ParamOrigine>();
             lstParamTypeDemande = new ObservableCollection<ParamTypeDemande>();
             lstParamVecteurInformation = new ObservableCollection<ParamVecteurInformation>();
-            _ContextID = new Random().Next(); // ID de l'application
+            // génération d'un Numéro d'ID
+            // on attends 1 ms pour être sur que 2 contextes ne sont pas créés en même temps (CF test de validation)
+            // Pas parfait mais je n'ai pas envie de changer le type du contexteID dans la base.
+            Thread.Sleep(1);
+            _ContextID = Convert.ToInt32(DateTime.Now.ToString("fffffff"));
 
             CreateCommands();
             //getData();
@@ -805,6 +810,11 @@ namespace GestVAE.VM
                 if (oL1 != null)
                 { 
                     oLivVM.Numero = oL1.Numero;
+                    oLivVM.DateValidite = oL1.DateValidite;
+                    if (oL1.IsRecoursDemande)
+                    {
+                        oLivVM.IsOuvertureApresRecours = true;
+                    }
                 }
 
                 CurrentCandidat.CurrentLivret = oLivVM;
@@ -848,11 +858,6 @@ public void AjoutePJL1()
             oLiv.IsLivretClos = true;
             ValideretQuitterL1();
             AjouteL2();
-            Livret2VM oLiv2 = (Livret2VM)CurrentCandidat.CurrentLivret;
-            if (oLiv.IsRecoursDemande )
-            {
-                oLiv2.IsOuvertureApresRecours = true;
-            }
             if (!IsInTest)
             {
                 CloseAction();

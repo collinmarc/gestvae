@@ -359,8 +359,9 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="0*" />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <!--                        
                     <RadioButton Content="Homme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="15" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}"/>
@@ -375,15 +376,20 @@
                         <Label Grid.Row="2" Grid.Column="0"  VerticalAlignment="Center" Content="Commentaire :" />
                         <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch"/>
 
-                        <Label VerticalAlignment="Center"  Grid.Row="3" Grid.Column="0" Content="Date notification du recours: " />
-                        <DatePicker  Grid.Row="3" Grid.Column="1" x:Name="dtpDateNotificationJuryRecours" HorizontalAlignment="Left" Width="125" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateDepotRecours}"/>
 
-                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2"/>
+                        <Label VerticalAlignment="Center"  Grid.Row="3" Grid.Column="0" Content="Date du jury de recours: " />
+                        <DatePicker  Grid.Row="3" Grid.Column="1" x:Name="dtpDateJuryRecours" HorizontalAlignment="Left" Width="125" 
+                                     DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateDepotRecours}"
+                                     SelectedDate="{Binding DateJuryRecours}"/>
 
                         <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Content="Décision du jury de recours :"/>
                         <ComboBox  Grid.Row="4" Grid.Column="1" x:Name="cbxDecisionRecours" Grid.ColumnSpan="2" />
-                        <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Content="Commentaire:" />
-                        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbCommentaireRecours" HorizontalAlignment="Stretch"/>
+                        <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Content="Commentaire:" />
+                        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbCommentaireRecours" HorizontalAlignment="Stretch"/>
+
+                        <Label Grid.Row="6" Grid.Column="0" Content="Date notification du recours: " />
+                        <DatePicker  Grid.Row="6" Grid.Column="1" x:Name="dtpDateNotificationJuryRecours" HorizontalAlignment="Left" Width="125" 
+                                     DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJuryRecours}"/>
                     </Grid>
 
 

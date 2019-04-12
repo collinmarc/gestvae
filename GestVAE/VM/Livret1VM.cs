@@ -104,14 +104,25 @@ namespace GestVAE.VM
         {
             if (IsEtatAccepte)
             {
+                DateTime DateRef=DateTime.Now;
                 if (IsRecoursDemande)
                 {
-                    DateValidite = DateJuryRecours.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                    if (DateJuryRecours != null)
+                    {
+                        DateRef = DateJuryRecours.Value;
+                    }
+                    else
+                    {
+                        DateRef = DateJury.Value;
+
+                    }
                 }
                 else
                 {
-                    DateValidite = DateJury.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                    DateRef = DateJury.Value;
                 }
+                DateValidite = DateRef.AddYears(Properties.Settings.Default.DelaiValidite);
+
             }
             if (IsEtatRefuse)
             {
@@ -121,7 +132,7 @@ namespace GestVAE.VM
 
         public Boolean IsValide()
         {
-            return (IsLivretNonClos && DateValidite > DateTime.Now);
+            return (IsLivretNonClos && IsEtatAccepte && DateValidite > DateTime.Now);
         }
 
         public String TypeDemande

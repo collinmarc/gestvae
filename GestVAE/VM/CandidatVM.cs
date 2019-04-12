@@ -33,7 +33,17 @@ namespace GestVAE.VM
         public LivretVMBase CurrentLivret
         {
             get { return _LivretVM; }
-            set { _LivretVM = value; CurrentLivret.IsCandidatLocked = IsLocked; }
+            set
+            {
+                if (value != CurrentLivret)
+                {
+                    _LivretVM = value;
+                    if (CurrentLivret != null)
+                    {
+                        CurrentLivret.IsCandidatLocked = IsLocked;
+                    }
+                }
+            }
         }
 
         public CandidatVM(Candidat pCandidat):base(pCandidat)
@@ -57,7 +67,8 @@ namespace GestVAE.VM
                 lstLivrets.Add(oLivret);
             }
 
-            DeleteLivretCommand = new RelayCommand<MyViewModel>(o => { DeleteCurrentLivret(); });
+            DeleteLivretCommand = new RelayCommand<CandidatVM>(c => { DeleteCurrentLivret(); },
+                                                                c=> { return IsDeletePossible(); });
 
 
         }
@@ -418,7 +429,36 @@ namespace GestVAE.VM
         }
 
          public ICommand DeleteLivretCommand { get; set; }
-                                        
+
+        public Boolean IsDeletePossible()
+        {
+            Boolean bReturn = false;
+            if (CurrentLivret != null)
+            {
+                if (IsLocked)
+                {
+                    if (CurrentLivret is Livret1VM)
+                    {
+                        bReturn = true;
+                        // C'est impossible si on n'a 1 Livret2
+                        foreach (LivretVMBase oLiv in lstLivrets)
+                        {
+                            if (oLiv is Livret2VM)
+                            {
+                                bReturn = false;
+                            }
+                        }
+                    }
+                    if (CurrentLivret is Livret2VM)
+                    {
+                        // C'est impossible si Le Livret n'est pas Clos
+                        bReturn = CurrentLivret.IsLivretClos;
+                    }
+                }
+            }
+
+            return bReturn;
+        }
 
         /// <summary>
         /// Suppression du Livert Courant
@@ -427,30 +467,37 @@ namespace GestVAE.VM
         {
             Debug.Assert(CurrentLivret != null);
 
-            LivretVMBase pLiv = CurrentLivret;
-            pLiv.ClearDCs();
-            if (!pLiv.IsNew)
+            LivretVMBase oLiv = CurrentLivret;
+            oLiv.IsDeleted = true;
+            lstLivrets.Remove(oLiv);
+            RaisePropertyChanged("lstLivrets");
+            oLiv.ClearDCs();
+            if (!oLiv.IsNew)
             {
-                foreach (JuryVM oJ in CurrentLivret.lstJuryVM)
+                foreach (JuryVM oJ in oLiv.lstJuryVM)
                 {
-                    foreach (RecoursVM oR in oJ.lstRecoursVM)
-                    {
-                        _ctx.Entry<Recours>((Recours)oR.TheItem).State = System.Data.Entity.EntityState.Deleted;
-
-                    }
-                    _ctx.Entry<Jury>((Jury)oJ.TheItem).State = System.Data.Entity.EntityState.Deleted;
+                    oLiv.TheLivret.lstJurys.Remove(((Jury)oJ.TheItem));
 
                 }
-                _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
+
+                if (oLiv is Livret1VM)
+                {
+                    TheCandidat.lstLivrets1.Remove((Livret1)oLiv.TheLivret);
+
+                }
+                else
+                {
+                    TheCandidat.lstLivrets2.Remove((Livret2)oLiv.TheLivret);
+
+                }
+                _ctx.Entry<Livret>((Livret)oLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
+
             }
             else
             {
                 // Detache l'entity
-                _ctx.Entry<Livret>((Livret)pLiv.TheLivret).State = System.Data.Entity.EntityState.Detached;
+                _ctx.Entry<Livret>((Livret)oLiv.TheLivret).State = System.Data.Entity.EntityState.Detached;
             }
-            CurrentLivret.IsDeleted = true;
-            lstLivrets.Remove(pLiv);
-            RaisePropertyChanged("lstLivrets");
 
         }//        public void DeleteLivret()
 

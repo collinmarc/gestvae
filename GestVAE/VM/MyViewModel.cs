@@ -1204,24 +1204,23 @@ public void AjoutePJL1()
             get
             {
                 Boolean bReturn = false;
-                if (CurrentCandidat == null)
+                if (CurrentCandidat != null)
                 {
-                    bReturn = false;
-                }
-                if (IsCurrentCandidatLocked)
-                {
-                    // L'ajout d'un L2 est possible s'il y  a un L1 de Valide ET qu'il n'y a  pas un autre L2 Valide
-                    if (CurrentCandidat.IsL1Valide && ! CurrentCandidat.ISL2EnCours)
+                    if (CurrentCandidat.IsLocked)
                     {
-                        bReturn = true;
-                    }
-                    // OU SI s'il a un L2 En validation partielle
-                    if (CurrentCandidat.ISL2EnValidationPartielle)
-                    {
-                        bReturn = true;
-                    }
+                        // L'ajout d'un L2 est possible s'il y  a un L1 de Valide ET qu'il n'y a  pas un autre L2 Valide
+                        if (CurrentCandidat.IsL1Valide && !CurrentCandidat.ISL2EnCours)
+                        {
+                            bReturn = true;
+                        }
+                        // OU SI s'il a un L2 En validation partielle
+                        if (CurrentCandidat.ISL2EnValidationPartielle)
+                        {
+                            bReturn = true;
+                        }
 
 
+                    }
                 }
                 return bReturn;
             }

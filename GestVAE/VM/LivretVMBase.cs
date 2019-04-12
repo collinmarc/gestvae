@@ -502,25 +502,7 @@ namespace GestVAE.VM
                 return (getNumDecisionJuryRecours() == (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
             }
         }
-        private void setEtatLivret()
-        {
-            String strEtat = EtatLivret;
-            String strKey = "";
-            if (IsDecisionJuryFavorable || (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursFavorable))
-            {
-                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
-            }
-            if ((IsDecisionJuryDefavorable && !IsRecoursDemande) ||
-                (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursDefavorable))
-            {
-                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
-            }
-            if (LstEtatLivret != null)
-            {
-                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
-                EtatLivret = strEtat;
-            }
-        }
+        protected abstract  void setEtatLivret();
         public Boolean IsRecoursDemande
         {
             get

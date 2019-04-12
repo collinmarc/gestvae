@@ -525,23 +525,6 @@ namespace GestVAE.VM
                 return ((getNumDecisionJury() >= (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
             }
         }
-        private void setEtatLivret()
-        {
-            String strEtat = EtatLivret;
-            String strKey = "";
-            if (IsDecisionJuryFavorable || IsDecisionJuryPartielle)
-            {
-                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
-                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
-                EtatLivret = strEtat;
-            }
-            if (IsDecisionJuryDefavorable)
-            {
-                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
-                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
-                EtatLivret = strEtat;
-            }
-        }
 
 
 
@@ -643,6 +626,24 @@ namespace GestVAE.VM
         public override CandidatVM getCurrentCandidat()
         {
                 return new CandidatVM(oL2.oCandidat);
+        }
+        protected override void setEtatLivret()
+        {
+            String strEtat = EtatLivret;
+            String strKey = "";
+            if (IsDecisionJuryFavorable || (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursFavorable))
+            {
+                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+            }
+            if (IsDecisionJuryDefavorable )
+            {
+                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
+            }
+            if (LstEtatLivret != null)
+            {
+                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
+                EtatLivret = strEtat;
+            }
         }
 
 

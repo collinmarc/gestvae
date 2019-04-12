@@ -372,14 +372,14 @@ namespace GestVAETU
         public void NumCandidatTest()
         {
             MyViewModel VM = new MyViewModel();
-            VM.AjouterCandidat();
+            VM.AjouteCandidat();
             CandidatVM oCand = VM.CurrentCandidat;
 
             Assert.IsFalse(String.IsNullOrEmpty(oCand.IdVAE));
             Assert.IsTrue(oCand.IdVAE.StartsWith("3"));
             Assert.AreEqual(oCand.IdVAE.Substring(1,2),DateTime.Now.ToString("yy"));
             Int32 Num1 = Convert.ToInt32(oCand.IdVAE.Substring(3));
-            VM.AjouterCandidat();
+            VM.AjouteCandidat();
             oCand = VM.CurrentCandidat;
             Int32 Num2 = Convert.ToInt32(oCand.IdVAE.Substring(3));
             Assert.AreEqual(Num1 + 1, Num2);
@@ -393,7 +393,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AjouterCandidat();
+            VM.AjouteCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -440,7 +440,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AjouterCandidat();
+            VM.AjouteCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -490,7 +490,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AjouterCandidat();
+            VM.AjouteCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();
@@ -531,7 +531,7 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel(true);
 
-            VM.AjouterCandidat();
+            VM.AjouteCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
             oCan.Nom = "TEST1";
             VM.saveData();

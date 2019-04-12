@@ -94,12 +94,30 @@ namespace GestVAE.VM
                     {
                         Numero = DateTime.Now.ToString("yyMM") + ParamVM.incrementLivret().ToString("00000");
                     }
-
+                    SetDateValidite();
 
                 }
             }
         }
 
+        private void SetDateValidite()
+        {
+            if (IsEtatAccepte)
+            {
+                if (IsRecoursDemande)
+                {
+                    DateValidite = DateJuryRecours.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                }
+                else
+                {
+                    DateValidite = DateJury.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                }
+            }
+            if (IsEtatRefuse)
+            {
+                DateValidite = DateJury;
+            }
+        }
 
         public Boolean IsValide()
         {
@@ -460,6 +478,25 @@ namespace GestVAE.VM
         public  override CandidatVM getCurrentCandidat()
         { 
                 return new CandidatVM(oL1.oCandidat);
+        }
+        protected override void setEtatLivret()
+        {
+            String strEtat = EtatLivret;
+            String strKey = "";
+            if (IsDecisionJuryFavorable || (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursFavorable))
+            {
+                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+            }
+            if ((IsDecisionJuryDefavorable && !IsRecoursDemande) ||
+                (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursDefavorable))
+            {
+                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
+            }
+            if (LstEtatLivret != null)
+            {
+                strEtat = LstEtatLivret.Find(x => x.StartsWith(strKey));
+                EtatLivret = strEtat;
+            }
         }
     }
 }

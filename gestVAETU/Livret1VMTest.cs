@@ -32,5 +32,36 @@ namespace GestVAETU
             Assert.AreEqual(Num1 + 1, Num2);
 
         }
+        [TestMethod]
+        public void TestDateDeValiditéL1()
+        {
+
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouteCandidat();
+            CandidatVM oCand = VM.CurrentCandidat;
+
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+
+            Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
+
+            Assert.AreEqual(oL1.DateDemande.Value.AddYears(3), oL1.DateValidite);
+            oL1.EtatLivret = String.Format("{0:D}-RecuComplet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            Assert.AreEqual(oL1.DateDemande.Value.AddYears(3), oL1.DateValidite);
+            oL1.DateJury = (DateTime.Now.AddDays(2));
+            oL1.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            Assert.AreEqual(oL1.DateJury.Value.AddYears(3), oL1.DateValidite);
+            oL1.DecisionJury = String.Format("{0:D}-Defavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            Assert.AreEqual(oL1.DateJury, oL1.DateValidite);
+            oL1.IsRecoursDemande = true;
+            oL1.DateJuryRecours = oL1.DateJury.Value.AddDays(5);
+            oL1.DecisionJuryRecours = String.Format("{0:D}-Defavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            Assert.AreEqual(oL1.DateJury, oL1.DateValidite);
+            oL1.DecisionJuryRecours = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            Assert.AreEqual(oL1.DateJuryRecours.Value.AddYears(3), oL1.DateValidite);
+
+
+        }
     }
 }

@@ -6,5 +6,6 @@
 #939: Mise a jours des Migrations automatique
 #927: Génération du Numero du Livret
 #931: L2 : Date de Validité
+#928: L1: Date de validité
 
 Build : 20190411 

@@ -25,37 +25,64 @@ namespace GestVAETU.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Paramètre {
+        [global::System.Configuration.DefaultSettingValueAttribute("CAFDES")]
+        public string NomDiplomeDefaut {
             get {
-                return ((string)(this["Paramètre"]));
+                return ((string)(this["NomDiplomeDefaut"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("PP")]
-        public string dbMODE {
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public string DelaiEnvoiL1 {
             get {
-                return ((string)(this["dbMODE"]));
+                return ((string)(this["DelaiEnvoiL1"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(localdb)\\V11.0")]
-        public string dbSRVDEV {
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public string DelaiReceptionL1 {
             get {
-                return ((string)(this["dbSRVDEV"]));
+                return ((string)(this["DelaiReceptionL1"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FORTUNA")]
-        public string dbSRVPP {
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public string DelaiJuryL1 {
             get {
-                return ((string)(this["dbSRVPP"]));
+                return ((string)(this["DelaiJuryL1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public string DelaiValidite {
+            get {
+                return ((string)(this["DelaiValidite"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public string DelaiDepotRecours {
+            get {
+                return ((string)(this["DelaiDepotRecours"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("V20191104")]
+        public string NUMVERSION {
+            get {
+                return ((string)(this["NUMVERSION"]));
             }
         }
     }

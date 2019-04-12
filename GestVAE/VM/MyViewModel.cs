@@ -142,7 +142,7 @@ namespace GestVAE.VM
             UnLockAllCommand = new RelayCommand<MyViewModel>(o => { UnlockAll(); },
                                                             o => { return IsAnyLock(); }
                                           );
-            _AddCandidatCommand = new RelayCommand<CandidatVM>(o => { AjouterCandidat(); }
+            _AddCandidatCommand = new RelayCommand<CandidatVM>(o => { AjouteCandidat(); }
                                            );
             _dlgParamCommand = new RelayCommand<MyViewModel>(o => { CalldlgParam(); }
                                            );
@@ -561,7 +561,7 @@ namespace GestVAE.VM
 
             RaisePropertyChanged("lstCandidatsVM");
         }
-        public void AjouterCandidat()
+        public void AjouteCandidat()
         {
             Candidat oCand = new Candidat("[Nouveau candidat]");
             _ctx.Candidats.Add(oCand);
@@ -762,7 +762,7 @@ namespace GestVAE.VM
             oLivVM.LstEtatLivret = LstEtatLivret1;
             oLivVM.EtatLivret = LstEtatLivret1[1];
             oLivVM.DateDemande = DateTime.Now;
-            oLivVM.DateValidite = DateTime.Now.AddYears(3);
+            oLivVM.DateValidite = oLivVM.DateDemande.Value.AddYears(Properties.Settings.Default.DelaiValidite);
             CurrentCandidat.CurrentLivret = oLivVM;
             if (!IsInTest)
             {
@@ -786,7 +786,7 @@ namespace GestVAE.VM
 
                 oLivVM.EtatLivret = LstEtatLivret2[1];
                 oLivVM.DateDemande = DateTime.Now;
-                oLivVM.DateValidite = DateTime.Now.AddDays(Properties.Settings.Default.DelaiValidite);
+                oLivVM.DateValidite = DateTime.Now.AddYears(Properties.Settings.Default.DelaiValidite);
                 CurrentCandidat.CurrentLivret = oLivVM;
                 if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
                 {

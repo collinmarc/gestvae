@@ -389,7 +389,7 @@
 
                         <Label Grid.Row="6" Grid.Column="0" Content="Date notification du recours: " />
                         <DatePicker  Grid.Row="6" Grid.Column="1" x:Name="dtpDateNotificationJuryRecours" HorizontalAlignment="Left" Width="125" 
-                                     DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJuryRecours}"/>
+                                     DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
                     </Grid>
 
 

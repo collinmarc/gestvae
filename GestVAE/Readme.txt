@@ -9,5 +9,6 @@
 #928: L1: Date de validité
 #934: Ajout d'un L2 sur un L2 en validation Partielle
 #918: Suppression d'un L1 avec PJ et jury
+#900: L1 (Jury) : Calcul de date Limite de Recours
 
 Build : 20190411 

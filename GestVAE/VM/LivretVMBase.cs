@@ -521,6 +521,10 @@ namespace GestVAE.VM
                 if (value != IsRecoursDemande)
                 {
                     oJury.IsRecours = value;
+                    if (DateJury.HasValue)
+                    {
+                        DateLimiteRecours = DateJury.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
+                    }
                     RaisePropertyChanged();
                 }
             }
@@ -626,7 +630,7 @@ namespace GestVAE.VM
             }
         }
 
-        public DateTime? DateDepot
+        public DateTime? DateDepotRecours
         {
             get
             {
@@ -634,9 +638,13 @@ namespace GestVAE.VM
             }
             set
             {
-                if (value != DateDepot)
+                if (value != DateDepotRecours)
                 {
                     oJury.oRecours.DateDepot = value;
+                    if (DateDepotRecours.HasValue)
+                    {
+                        DateLimiteJuryRecours = DateDepotRecours.Value.AddMonths(1);
+                    }
 
                     RaisePropertyChanged();
                 }

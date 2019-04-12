@@ -25,7 +25,7 @@ namespace GestVAETU
 
             Livret1VM oLiv = (Livret1VM)oCand.CurrentLivret;
             oLiv.IsRecoursDemande = true;
-            oLiv.DateDepot = DateTime.Now;
+            oLiv.DateDepotRecours = DateTime.Now;
             oLiv.DecisionJuryRecours = "TEST";
             Assert.IsTrue(VM.saveData());
 
@@ -202,7 +202,7 @@ namespace GestVAETU
 
             Livret1VM oLiv = (Livret1VM)oCand.CurrentLivret;
             oLiv.IsRecoursDemande = true;
-            oLiv.DateDepot = DateTime.Now;
+            oLiv.DateDepotRecours = DateTime.Now;
             oLiv.DecisionJuryRecours = "TEST";
             Assert.IsTrue(VM.saveData());
 

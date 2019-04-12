@@ -10,5 +10,6 @@
 #934: Ajout d'un L2 sur un L2 en validation Partielle
 #918: Suppression d'un L1 avec PJ et jury
 #900: L1 (Jury) : Calcul de date Limite de Recours
+#932: L1 : Motif du recours sur L1
 
 Build : 20190411 

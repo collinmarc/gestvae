@@ -399,6 +399,11 @@ namespace GestVAE.VM
                 {
                     oL2.DatePrevJury1 = value;
                     RaisePropertyChanged();
+                    if (DatePrevJury1.HasValue)
+                    {
+                            DatePrevJury2 = DatePrevJury1.Value.AddDays(3);
+
+                    }
                 }
             }
         }

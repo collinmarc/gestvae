@@ -100,20 +100,23 @@ namespace GestVAE.VM
         }
         public void AjoutePJ(String pstrLivret)
         {
-            // Récupération de la première catégorie
-            String strCat = lstCategoriePJ[0];
-            PieceJointeLivretVM opjVM = new PieceJointeLivretVM(pstrLivret);
-            opjVM.Categorie = strCat;
-            // Récupération du libellé
-            if (opjVM.lstLibellePJ.Count > 0)
+            if (lstCategoriePJ.Count > 0)
             {
-                opjVM.Libelle = opjVM.lstLibellePJ[0];
+                // Récupération de la première catégorie
+                String strCat = lstCategoriePJ[0];
+                PieceJointeLivretVM opjVM = new PieceJointeLivretVM(pstrLivret);
+                opjVM.Categorie = strCat;
+                // Récupération du libellé
+                if (opjVM.lstLibellePJ.Count > 0)
+                {
+                    opjVM.Libelle = opjVM.lstLibellePJ[0];
+                }
+                // Ajout dans la collection
+                lstPieceJointe.Add(opjVM);
+                RaisePropertyChanged("lstPieceJointe");
             }
-            // Ajout dans la collection
-            lstPieceJointe.Add(opjVM);
-            RaisePropertyChanged("lstPieceJointe");
         }
-
+         
         public abstract List<String> lstCategoriePJ
         { get; }
 
@@ -917,7 +920,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET);
+                return IsEtatRecuComplet || IsEtatRecuIncomplet;
             }
         }
         public Boolean IsEtatRecuComplet

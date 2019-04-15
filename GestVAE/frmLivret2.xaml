@@ -190,88 +190,89 @@
             <TabItem x:Name="tabLivret" Header="Livret" Margin="0">
                 <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretNonClos}" >
                     <StackPanel Orientation="Horizontal" />
-                    <Grid x:Name="grdTypeOrigine" >
+                    <Grid Name="grdPiecesJointes" Margin="10" 
+                          Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}"
+>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="40*"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-
-                    </Grid>
-
-
-                    <UniformGrid Columns="3" Margin="10">
-                        <StackPanel Orientation="Vertical">
-                            <Label Content="Pièces jointes :"/>
-                            <TextBlock x:Name="tbPieceJointes"  Foreground="{Binding ResultatPiecesJointesColor}" Margin="10"/>
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
+                            <Label Content="Pièces manquantes :" Foreground="#FF0078D7" FontWeight="Bold"/>
+                            <TextBlock x:Name="tbPieceJointes"  Foreground="{Binding ResultatPiecesJointesColor}" Margin="10" Text="RESULAT"/>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Date 1ere demande   :"/>
-                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}"></DatePicker>
+                                <Label Content="Date 1er courrier pièces manquantes  :"/>
+                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Date 2eme demande :"/>
-                                <DatePicker Name="dtpDate2emeDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}"></DatePicker>
+                                <Label Content="Date 2nd courrier pièces manquantes :"/>
+                                <DatePicker Name="dtpDate2ndDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}"></DatePicker>
+
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0">
                             <StackPanel Orientation="Horizontal">
-
-                                <Label Name="lblDateRetourPM" Content="Date de retour demandée :"/>
-                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemandePieceManquantesRetour}"></DatePicker>
+                                <Label Name="lblDateRetourPM" Content="Date de retour 1er courrier  :"/>
+                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemandePieceManquantesRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate1ereDemandePJ}"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label Name="lblDateReceptPM" Content="Date réception :" Width="153"/>
-                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes}"></DatePicker>
+                                <Label Name="lblDateReceptPM" Content="Date de retour 2nd courrier :" />
+                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
-                    </UniformGrid>
-                    <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A" 
+                        <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                                     ItemsSource="{Binding lstPieceJointe, UpdateSourceTrigger=PropertyChanged}" 
                                     SelectedItem="{Binding selectedPJ}"
                                     AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"
                                     Margin="10" RowHeaderWidth="0" 
                                     CellEditEnding="dgPiecesjointes_CellEditEnding" >
-                        <DataGrid.Resources>
-                            <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
-                        </DataGrid.Resources>
-                        <DataGrid.InputBindings>
-                            <KeyBinding Key="Delete" Command="{Binding VM.DeletePJCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
-                        </DataGrid.InputBindings>
+                            <DataGrid.Resources>
+                                <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
+                            </DataGrid.Resources>
+                            <DataGrid.InputBindings>
+                                <KeyBinding Key="Delete" Command="{Binding VM.DeletePJCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
+                            </DataGrid.InputBindings>
 
-                        <DataGrid.Columns>
-                            <DataGridComboBoxColumn Header="Catégorie" 
+                            <DataGrid.Columns>
+                                <DataGridComboBoxColumn Header="Catégorie" 
                                                         SelectedItemBinding="{Binding Categorie}" 
                                                         ItemsSource="{Binding Data.lstCategoriePJ, Source={StaticResource proxy}}"
                                                         Width="3*"/>
-                            <DataGridComboBoxColumn Header="Libellé" 
+                                <DataGridComboBoxColumn Header="Libellé" 
                                                         SelectedItemBinding="{Binding Libelle}" 
                                                         Width="3*">
-                                <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
-                                <DataGridComboBoxColumn.ElementStyle>
-                                    <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding lstLibellePJ}" />
-                                    </Style>
-                                </DataGridComboBoxColumn.ElementStyle>
-                                <DataGridComboBoxColumn.EditingElementStyle>
-                                    <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding lstLibellePJ}" />
-                                    </Style>
-                                </DataGridComboBoxColumn.EditingElementStyle>
+                                    <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
+                                    <DataGridComboBoxColumn.ElementStyle>
+                                        <Style TargetType="{x:Type ComboBox}">
+                                            <Setter Property="ItemsSource" Value="{Binding lstLibellePJ}" />
+                                        </Style>
+                                    </DataGridComboBoxColumn.ElementStyle>
+                                    <DataGridComboBoxColumn.EditingElementStyle>
+                                        <Style TargetType="{x:Type ComboBox}">
+                                            <Setter Property="ItemsSource" Value="{Binding lstLibellePJ}" />
+                                        </Style>
+                                    </DataGridComboBoxColumn.EditingElementStyle>
 
-                            </DataGridComboBoxColumn>
-                            <!--ItemsSource="{Binding Data.lstLibellePJL1 ,Source={StaticResource proxy}}"-->
-                            <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
-                            <DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>
-                        </DataGrid.Columns>
+                                </DataGridComboBoxColumn>
+                                <!--ItemsSource="{Binding Data.lstLibellePJL1 ,Source={StaticResource proxy}}"-->
+                                <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
+                                <!--<DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>-->
+                            </DataGrid.Columns>
 
-                    </DataGrid>
-                    <Button x:Name="btnAddPJ" BorderThickness="0"  Margin="10" Command="{Binding DataContext.AjoutePJL2Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" Content="Ajouter"/>
+                        </DataGrid>
+                        <Button x:Name="btnAddPJ" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                            Command="{Binding DataContext.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 
+                            Content="Ajouter pièce jointe"
+                            Style="{DynamicResource StyleBtn}"/>
+                    </Grid>
 
                 </StackPanel>
             </TabItem>

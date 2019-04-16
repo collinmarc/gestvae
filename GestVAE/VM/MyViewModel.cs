@@ -52,7 +52,6 @@ namespace GestVAE.VM
                 RaisePropertyChanged("IsCurrentCandidatSelected");
                 RaisePropertyChanged(); }
         }
-        public DiplomeCandVM CurrentDiplomeCand{get;set;}
         public String AppVersion
         {
             get { return Properties.Settings.Default.NUMVERSION; }

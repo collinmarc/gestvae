@@ -69,7 +69,6 @@ namespace GestVAE
         private void gridLstDiplome_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             dlgDiplomeCand odlg = new dlgDiplomeCand();
-            DiplomeCandVM obj = (DiplomeCandVM)gridLstDiplome.SelectedItem;
             odlg.setContexte(VM);
 
             odlg.ShowDialog();

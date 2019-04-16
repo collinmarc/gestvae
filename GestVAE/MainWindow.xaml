@@ -313,9 +313,10 @@
                                       SelectedItem="{Binding CurrentDiplomeCand}"
                                       AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding" MouseDoubleClick="gridLstDiplome_MouseDoubleClick" Margin="0,0,10,0" Style="{DynamicResource MyDataGridStyle}">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Nom" IsReadOnly="true" Binding="{Binding NomDiplome}"/>
+                                    <DataGridTextColumn Header="Nom" Binding="{Binding NomDiplome}"/>
+                                    <DataGridTextColumn Header="Statut" Binding="{Binding StatutDiplome}"/>
                                     <DataGridTextColumn Header="Obtention" Binding="{Binding DateObtentionDiplome, StringFormat='dd/MM/yyyy'}"/>
-                                    <DataGridTextColumn Header="Numero" Binding="{Binding NumeroDiplome}"/>
+                                    <DataGridTextColumn Header="Numéro" Binding="{Binding NumeroDiplome}"/>
                                 </DataGrid.Columns>
                                 <DataGrid.InputBindings>
                                     <KeyBinding Key="Delete" Command="{Binding  DataContext.DeleteDiplomeCandCommand, ElementName=window}" />

@@ -8,7 +8,7 @@
         xmlns:localCLS="clr-namespace:GestVAEcls"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplomeCand"
         mc:Ignorable="d"
-        Title="Détail du diplôme d'un candidat" Height="386" Width="600" Icon="IMG/diplome.ico">
+        Title="Détail du diplôme d'un candidat" Height="320" Width="622" Icon="IMG/diplome.ico">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style x:Key="CustTextBox" TargetType="{x:Type TextBox}" >
@@ -21,7 +21,7 @@
             <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
         </Style>
         <Style TargetType="ComboBox" x:Key="ComboboxReadOnlyStyle" >
-            <Setter Property="IsReadOnly" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
+            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
         </Style>
         <Style TargetType="DatePicker" x:Key="DatePickerReadOnlyStyle" >
             <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
@@ -33,30 +33,48 @@
             <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
         </Style>
         <Style TargetType="DataGrid" x:Key="DataGridReadOnlyStyle" >
-            <Setter Property="IsReadOnly" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
+            <Setter Property="IsReadOnly" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
         </Style>
     </Window.Resources>
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFBCF5DB" Offset="0"/>
-            <GradientStop Color="#FF496659" Offset="1"/>
-        </LinearGradientBrush>
-    </Window.Background>
-    <Canvas Margin="0,0,553,353">
-        <Button x:Name ="btnOK" Content="OK" Canvas.Left="357" Canvas.Top="286" Width="75" Click="btnOK_Click"/>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="10">
+            <Label Content="Nom du diplôme :"/>
+            <ComboBox x:Name="cbxNomdiplome"
+                  Width="120" 
+                  Style="{DynamicResource ComboboxReadOnlyStyle}"
+                  ItemsSource="{Binding CurrentCandidat.CurrentDiplomeCand.LstDiplomes}"
+                  SelectedItem="{Binding CurrentCandidat.CurrentDiplomeCand.oDiplome}"
+                  DisplayMemberPath="Nom"/>
+
+ 
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="10">
+            <Label Content="Statut :"/>
+            <ComboBox x:Name="cbxStatutdiplome" HorizontalAlignment="Stretch" Style="{DynamicResource ComboboxReadOnlyStyle}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="10">
+            <Label Content="Date d'obtention : " />
+            <DatePicker Name ="dtDateObtention"  Style="{DynamicResource DatePickerReadOnlyStyle}" />
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="10">
+            <Label Content="Numéro  : "/>
+            <TextBox Name ="tbNumero" Width="150"  Style="{DynamicResource TextBoxReadOnlyStyle}"/>
+        </StackPanel>
 
 
-        <Label Content="Nom du diplôme :" Canvas.Left="8" Canvas.Top="6"/>
-        <ComboBox x:Name="cbxNomdiplome"
-                  Canvas.Left="145" Canvas.Top="10" Width="120" 
-                  SelectionChanged="cbxNomdiplome_SelectionChanged" Style="{DynamicResource ComboboxReadOnlyStyle}"/>
-        <Button x:Name="btnAddDiplome" Grid.Row ="15" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnAddDiplome_Click" Canvas.Left="279" Canvas.Top="10">
-            <Image Source="IMG/add.png" Margin="0,0,10,0" Height="17" Width="18" RenderTransformOrigin="0.639,0.059" />
-        </Button>
-        <Label Content="Statut :" Canvas.Left="329" Canvas.Top="6"/>
-        <ComboBox x:Name="cbxStatutdiplome" Canvas.Left="391" Canvas.Top="6" Width="120" Style="{DynamicResource ComboboxReadOnlyStyle}"/>
-        <DataGrid x:Name="dgDC" Height="170" Canvas.Left="10" Canvas.Top="102" Width="501" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
-                  ItemsSource="{Binding CurrentDiplomeCand.lstDCCands}"
+        <DataGrid x:Name="dgDC" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" Margin="10"
+                  ItemsSource="{Binding CurrentCandidat.CurrentDiplomeCand.lstDCCands}"
                   CellEditEnding="dgDC_CellEditEnding" Style="{DynamicResource DataGridReadOnlyStyle}">
             <DataGrid.Resources>
                 <localVM:DiplomeCandVM x:Key="ComboItems"  />
@@ -72,9 +90,7 @@
                 <DataGridTextColumn Header="Commentaire" Binding="{Binding Commentaire}"  />
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Date d'obtention : " Canvas.Left="8" Canvas.Top="36"/>
-        <DatePicker Name ="dtDateObtention" Canvas.Left="145" Canvas.Top="38" Style="{DynamicResource DatePickerReadOnlyStyle}" />
-        <Label Content="Numéro  : " Canvas.Left="8" Canvas.Top="62"/>
-        <TextBox Name ="tbNumero" Height="23" Canvas.Left="145" TextWrapping="Wrap"  Canvas.Top="67" Width="120" Style="{DynamicResource TextBoxReadOnlyStyle}"/>
-    </Canvas>
+
+        <Button x:Name ="btnOK" Content="OK" Grid.Row="3"  Grid.Column="1" Width="50" Margin ="10" HorizontalAlignment="Right" Click="btnOK_Click"/>
+    </Grid>
 </Window>

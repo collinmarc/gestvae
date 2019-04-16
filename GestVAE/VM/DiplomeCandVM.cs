@@ -431,7 +431,6 @@ namespace GestVAE.VM
             {
                 List<Diplome> oReturn;
                 oReturn = (from obj in _ctx.Diplomes
-                           where obj.bDeleted == false
                            select obj).ToList<Diplome>();
 
                 return oReturn;

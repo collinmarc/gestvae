@@ -31,17 +31,13 @@ namespace GestVAE
         public dlgDiplomeCand()
         {
             InitializeComponent();
-            cbxNomdiplome.SetBinding(ComboBox.SelectedItemProperty, "CurrentDiplomeCand.oDiplome");
-            cbxNomdiplome.SetBinding(ComboBox.ItemsSourceProperty, "CurrentDiplomeCand.LstDiplomes");
-            cbxNomdiplome.DisplayMemberPath = "Nom";
-            cbxNomdiplome.SelectedValuePath = "Nom";
 
-            cbxStatutdiplome.SetBinding(ComboBox.SelectedValueProperty, "CurrentDiplomeCand.StatutDiplome");
-            cbxStatutdiplome.SetBinding(ComboBox.ItemsSourceProperty, "CurrentDiplomeCand.LstStatutDiplome");
+            cbxStatutdiplome.SetBinding(ComboBox.SelectedValueProperty, "CurrentCandidat.CurrentDiplomeCand.StatutDiplome");
+            cbxStatutdiplome.SetBinding(ComboBox.ItemsSourceProperty, "CurrentCandidat.CurrentDiplomeCand.LstStatutDiplome");
 
 
-            dtDateObtention.SetBinding(DatePicker.SelectedDateProperty, "CurrentDiplomeCand.DateObtentionDiplome");
-            tbNumero.SetBinding(TextBox.TextProperty, "CurrentDiplomeCand.NumeroDiplome");
+            dtDateObtention.SetBinding(DatePicker.SelectedDateProperty, "CurrentCandidat.CurrentDiplomeCand.DateObtentionDiplome");
+            tbNumero.SetBinding(TextBox.TextProperty, "CurrentCandidat.CurrentDiplomeCand.NumeroDiplome");
         }
 
 
@@ -69,21 +65,9 @@ namespace GestVAE
                 }
             }
 
-            DiplomeCandVM oDipCandVM = VM.CurrentDiplomeCand;
+            DiplomeCandVM oDipCandVM = VM.CurrentCandidat.CurrentDiplomeCand;
             oDipCandVM.CalcStatutDiplome();
 
-        }
-
-        private void btnAddDiplome_Click(object sender, RoutedEventArgs e)
-        {
-            dlgDiplome odlg = new dlgDiplome();
-            DiplomeVM odiplomeVM = new DiplomeVM();
-            odlg.setContexte(odiplomeVM);
-            odlg.ShowDialog();
-
-            VM.CurrentDiplomeCand.RefreshlstDiplome();
-            //cbxNomdiplome.SetBinding(ComboBox.ItemsSourceProperty, "");
-            //cbxNomdiplome.ItemsSource = ((DiplomeCandVM)this.DataContext).LstDiplomes;
         }
 
         private void cbxNomdiplome_SelectionChanged(object sender, SelectionChangedEventArgs e)

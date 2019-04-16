@@ -13,5 +13,6 @@
 #932: L1 : Motif du recours sur L1
 #940: L1-L2 :Les dates de pièces manquantes sont activées uniquement si Dossier Recu
 #942: Les pièces jointes ne sont pas dans la base de données
+#943: La Gestion des diplomes ne fonctionne pas
 
 Build : 20190411 

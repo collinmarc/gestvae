@@ -63,6 +63,52 @@ namespace GestVAEcls.Migrations
             Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (26, 13, N'La copie du dernier relevé de décision de jury qui vous a été adressé', 2019-04-15, 2019-04-15,0,N'')");
             Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (27, 14, N'Votre convention ou contrat relatif à un parcours de validation des acquis de l''expérience dûment complété et signé (en 3 exemplaires)', 2019-04-15, 2019-04-15,0,N'')");
             Sql("SET IDENTITY_INSERT [dbo].[PieceJointeItems] OFF");
+
+            Sql("DELETE FROM  MotifGeneralL1");
+            Sql("SET IDENTITY_INSERT [dbo].[MotifGeneralL1] ON");
+            Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (1, N'Pas d''activité dans au moins 1 DC',2019-02-07 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (2, N'Pas d''activité dans au moins 2 DC',2019-02-07 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (3, N'Pas d''activité dans au moins 3 DC',2019-02-26,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (4, N'Pas d''activité dans au moins 4 DC',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (5, N'L''objet des activités mentionnées dans le DC1 ne porte pas sur les politiques sanitaires et sociales.',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (6, N'Dernière expérience en lien avec le diplôme date de plus de 10 ans.',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (7, N'Expérience de moins de 3 ans équivalent temps plein en lien avec le référentiel de compétences CAFDES, à la date de l''analyse du livret de recevabilité',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (8, N'Pièces manquantes demandées non réceptionnées dans le délai imparti.',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("SET IDENTITY_INSERT [dbo].[MotifGeneralL1] OFF");
+
+            Sql("DELETE FROM  [dbo].[ParamTypeDemandes] ");
+            Sql("SET IDENTITY_INSERT [dbo].[ParamTypeDemandes] ON");
+            Sql("INSERT INTO [dbo].[ParamTypeDemandes] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (1, N'Courrier', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamTypeDemandes] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (2, N'Téléphone', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamTypeDemandes] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (3, N'Mail', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamTypeDemandes] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (4, N'Retrait au secretariat VAE', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamTypeDemandes] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (5, N'Non renseigné', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamTypeDemandes] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (6, N'Fax', 2019-02-26,2019-02-26,0, N'')");
+            Sql("SET IDENTITY_INSERT [dbo].[ParamTypeDemandes] OFF");
+            Sql("DELETE FROM  [dbo].[ParamVecteurInformations]");
+            Sql("SET IDENTITY_INSERT [dbo].[ParamVecteurInformations] ON");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (1, N'EHESP(autre)', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (2, N'Site EHESP', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (3, N'Etablissement de formation CAFDES', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (4, N'Site établissements de formation CAFDES', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (5, N'Organisme de formation (suite à une prestation)', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (6, N'Directeur, RH', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (7, N'Collègues', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (8, N'DRASS', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (9, N'PIC/PRC', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (10, N'ASH', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (11, N'Gazette des communes', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (12, N'Direction', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (13, N'TSA', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (14, N'Autres', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (15, N'Presse', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (16, N'Salon Géront''Expo', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (17, N'Pole Emploi', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (18, N'ASP (CNASEA)', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (19, N'Internet (Autres sites...)', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (20, N'Non renseigné', 2019-02-26,2019-02-26,0, N'')");
+            Sql("SET IDENTITY_INSERT [dbo].[ParamVecteurInformations] OFF");
+
         }
 
         public override void Down()

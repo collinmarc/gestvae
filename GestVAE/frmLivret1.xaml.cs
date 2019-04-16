@@ -44,7 +44,6 @@ namespace GestVAE
             ckIsClos.SetBinding(CheckBox.IsCheckedProperty, "IsLivretClos");
 
 
-            tbPieceJointes.SetBinding(TextBlock.TextProperty, "ResultatPiecesJointes");
 
 
             dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, "DateJury");
@@ -68,7 +67,7 @@ namespace GestVAE
             // Recours
             dtpDateNotificationJuryRecours.SetBinding(DatePicker.SelectedDateProperty, "DateNotificationJuryRecours");
 
-            dtpDateDepotRecours.SetBinding(DatePicker.SelectedDateProperty, "DateDepot");
+            dtpDateDepotRecours.SetBinding(DatePicker.SelectedDateProperty, "DateDepotRecours");
 
             tbMotifRecours.SetBinding(TextBox.TextProperty, "MotifRecours");
 

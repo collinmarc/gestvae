@@ -228,48 +228,54 @@
                                 <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}"></DatePicker>
                             </StackPanel>
                         </StackPanel>
-                        <DataGrid x:Name="dgPiecesjointes" Background="#FFF90A0A"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                                    ItemsSource="{Binding lstPieceJointe, UpdateSourceTrigger=PropertyChanged}" 
+                        <DataGrid x:Name="dgPiecesjointes"   Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                    ItemsSource="{Binding lstPieceJointe}" 
                                     SelectedItem="{Binding selectedPJ}"
                                     AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"
                                     Margin="10" RowHeaderWidth="0" 
                                     CellEditEnding="dgPiecesjointes_CellEditEnding" >
-                            <DataGrid.Resources>
-                                <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
-                            </DataGrid.Resources>
                             <DataGrid.InputBindings>
-                                <KeyBinding Key="Delete" Command="{Binding VM.DeletePJCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
+                                <KeyBinding Key="Delete" Command="{Binding VM.DeletePJCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
                             </DataGrid.InputBindings>
 
                             <DataGrid.Columns>
-                                <DataGridComboBoxColumn Header="Catégorie" 
-                                                        SelectedItemBinding="{Binding Categorie}" 
-                                                        ItemsSource="{Binding Data.lstCategoriePJ, Source={StaticResource proxy}}"
-                                                        Width="3*"/>
-                                <DataGridComboBoxColumn Header="Libellé" 
-                                                        SelectedItemBinding="{Binding Libelle}" 
-                                                        Width="3*">
-                                    <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
-                                    <DataGridComboBoxColumn.ElementStyle>
-                                        <Style TargetType="{x:Type ComboBox}">
-                                            <Setter Property="ItemsSource" Value="{Binding lstLibellePJ}" />
+                                <DataGridTextColumn Width="3*" Header="Catégorie" Binding="{Binding Categorie}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
                                         </Style>
-                                    </DataGridComboBoxColumn.ElementStyle>
-                                    <DataGridComboBoxColumn.EditingElementStyle>
-                                        <Style TargetType="{x:Type ComboBox}">
-                                            <Setter Property="ItemsSource" Value="{Binding lstLibellePJ}" />
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Width="10*" Header="Libellé" Binding="{Binding Libelle}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
                                         </Style>
-                                    </DataGridComboBoxColumn.EditingElementStyle>
-
-                                </DataGridComboBoxColumn>
-                                <!--ItemsSource="{Binding Data.lstLibellePJL1 ,Source={StaticResource proxy}}"-->
-                                <DataGridCheckBoxColumn Header="Recu" Binding="{Binding IsRecu}" Width="1*"/>
-                                <!--<DataGridCheckBoxColumn Header="OK" Binding="{Binding IsOK}" Width="1*"/>-->
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridCheckBoxColumn Header="Reçu"  Binding="{Binding IsRecu}" Width="1*"/>
                             </DataGrid.Columns>
 
                         </DataGrid>
-                        <Button x:Name="btnAddPJ" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                            Command="{Binding DataContext.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 
+                        <ComboBox Name="cbxCategoriePJ" HorizontalAlignment="Stretch" Margin="10" Grid.Row="2"
+                            SelectedValue="{Binding CategoriePJ}" 
+                            ItemsSource="{Binding lstCategoriePJ}"
+                                  DisplayMemberPath="Categorie"
+                        />
+
+                        <ComboBox Name="cbxLibellePJ" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="2" 
+                            SelectedValue="{Binding LibellePJ}" 
+                            ItemsSource="{Binding lstLibellePJ}">
+                            <ComboBox.ItemTemplate >
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Libelle}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+
+                        <Button x:Name="btnAddPJ" Grid.Row="2" Grid.Column="2" Margin="10"
+                            Command="{Binding DataContext.AjoutePJL2Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" 
                             Content="Ajouter pièce jointe"
                             Style="{DynamicResource StyleBtn}"/>
                     </Grid>

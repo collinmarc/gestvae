@@ -66,13 +66,9 @@
     <Compile Include="Migrations\201904111833519_Param.NumCandidat.Designer.cs">
       <DependentUpon>201904111833519_Param.NumCandidat.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904111959376_Param.Test.cs" />
-    <Compile Include="Migrations\201904111959376_Param.Test.Designer.cs">
-      <DependentUpon>201904111959376_Param.Test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904112004128_Param.Test undo.cs" />
-    <Compile Include="Migrations\201904112004128_Param.Test undo.Designer.cs">
-      <DependentUpon>201904112004128_Param.Test undo.cs</DependentUpon>
+    <Compile Include="Migrations\201904150849157_AddPJ.cs" />
+    <Compile Include="Migrations\201904150849157_AddPJ.Designer.cs">
+      <DependentUpon>201904150849157_AddPJ.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
@@ -127,11 +123,8 @@
     <EmbeddedResource Include="Migrations\201904111833519_Param.NumCandidat.resx">
       <DependentUpon>201904111833519_Param.NumCandidat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904111959376_Param.Test.resx">
-      <DependentUpon>201904111959376_Param.Test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904112004128_Param.Test undo.resx">
-      <DependentUpon>201904112004128_Param.Test undo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904150849157_AddPJ.resx">
+      <DependentUpon>201904150849157_AddPJ.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

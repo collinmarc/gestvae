@@ -100,16 +100,20 @@ namespace GestVAE.VM
         }
         public void AjoutePJ(String pstrLivret)
         {
-            if (lstCategoriePJ.Count > 0)
+            if (CategoriePJ!= null)
             {
-                // Récupération de la première catégorie
-                String strCat = lstCategoriePJ[0];
+                // Récupération de la catégorie
+                String strCat = CategoriePJ.Categorie;
                 PieceJointeLivretVM opjVM = new PieceJointeLivretVM(pstrLivret);
                 opjVM.Categorie = strCat;
                 // Récupération du libellé
-                if (opjVM.lstLibellePJ.Count > 0)
+                if (LibellePJ != null)
                 {
-                    opjVM.Libelle = opjVM.lstLibellePJ[0];
+                    opjVM.Libelle = LibellePJ.Libelle;
+                }
+                else
+                {
+                    opjVM.Libelle = CategoriePJ.lstPJItems[0].Libelle;
                 }
                 // Ajout dans la collection
                 lstPieceJointe.Add(opjVM);
@@ -117,21 +121,6 @@ namespace GestVAE.VM
             }
         }
          
-        public abstract List<String> lstCategoriePJ
-        { get; }
-
-        public void DeletePJ()
-
-        {
-            PieceJointeLivretVM oPJ = selectedPJ;
-            if (!oPJ.IsNew)
-            {
-                _ctx.Entry<PieceJointe>(oPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
-
-            }
-            lstPieceJointe.Remove(selectedPJ);
-            RaisePropertyChanged("lstPieceJointe");
-        }
         public List<String> LstEtatLivret { get; set; }
 
         public abstract void ClearDCs();
@@ -988,6 +977,70 @@ namespace GestVAE.VM
         }
 
         public abstract CandidatVM getCurrentCandidat();
+
+        private PieceJointeCategorie _CategoriePJ;
+        public PieceJointeCategorie CategoriePJ
+        {
+            get { return _CategoriePJ; }
+            set {
+                if (value != _CategoriePJ)
+                {
+                    _CategoriePJ = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("lstLibellePJ");
+                }
+            }
+        }
+
+        private PieceJointeItem _LibellePJ;
+        public PieceJointeItem LibellePJ
+        {
+            get
+            {
+                return _LibellePJ;
+            }
+            set
+            {
+                if (value != LibellePJ)
+                {
+                    _LibellePJ = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public abstract List<PieceJointeCategorie> lstCategoriePJ
+        { get; }
+        public List<PieceJointeItem> lstLibellePJ
+        {
+            get
+            {
+                if (CategoriePJ != null)
+                {
+                    return (from item in CategoriePJ.lstPJItems
+                            select item).ToList();
+                }
+                else
+                {
+                    return new List<PieceJointeItem>();
+                }
+            }
+        }
+
+        public void DeletePJ()
+
+        {
+            if (selectedPJ != null)
+            {
+                PieceJointeLivretVM oPJ = selectedPJ;
+                if (!oPJ.IsNew)
+                {
+                    _ctx.Entry<PieceJointe>(oPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
+
+                }
+                lstPieceJointe.Remove(selectedPJ);
+                RaisePropertyChanged("lstPieceJointe");
+            }
+        }
 
     }
 }

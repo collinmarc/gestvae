@@ -155,11 +155,14 @@ namespace GestVAE.VM
             AjouteL1Command = new RelayCommand<MyViewModel>(o => { AjouteL1(); },
                                                             o=> { return IsCurrentCandidatAddL1Available; }
                                            );
-            AjoutePJL1Command = new RelayCommand<MyViewModel>(o => { AjoutePJL1(); }
+            AjoutePJL1Command = new RelayCommand<MyViewModel>(o => { AjoutePJL1(); },
+                                                              o => { return IsAjoutPJPossible(); }
                                            );
-            AjoutePJL2Command = new RelayCommand<MyViewModel>(o => { AjoutePJL2(); }
+            AjoutePJL2Command = new RelayCommand<MyViewModel>(o => { AjoutePJL2(); },
+                                                                o=> { return IsAjoutPJPossible(); }
                                            );
-            DeletePJCommand = new RelayCommand<MyViewModel>(o => { DeletePJ(); }
+            DeletePJCommand = new RelayCommand<MyViewModel>(o => { DeletePJ(); },
+                                                            o => { return IsDeletePJPossible(); }
                                            );
             AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); },
                                                             o => { return IsCurrentCandidatAddL2Available; }
@@ -845,6 +848,7 @@ public void AjoutePJL1()
         }
         public void DeletePJ()
         {
+           
             LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
             oLiv.DeletePJ();
         }
@@ -1380,6 +1384,31 @@ public void AjoutePJL1()
 
                 }
             }
+        }//ParamNumLivret
+
+        private Boolean IsAjoutPJPossible()
+        {
+            Boolean bReturn = false;
+            if (CurrentCandidat != null)
+            {
+                if (CurrentCandidat.CurrentLivret != null)
+                {
+                    bReturn = (CurrentCandidat.CurrentLivret.CategoriePJ != null && CurrentCandidat.CurrentLivret.LibellePJ != null);
+                }
+            }
+            return bReturn;
+        }
+        private Boolean IsDeletePJPossible()
+        {
+            Boolean bReturn = false;
+            if (CurrentCandidat != null)
+            {
+                if (CurrentCandidat.CurrentLivret != null)
+                {
+                    bReturn = (CurrentCandidat.CurrentLivret.selectedPJ != null );
+                }
+            }
+            return bReturn;
         }
 
     }

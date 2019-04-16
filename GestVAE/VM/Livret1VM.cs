@@ -250,13 +250,13 @@ namespace GestVAE.VM
         /// <summary>
         /// Liste des Catégories de pièces jointes pour le Livret1
         /// </summary>
-        public override List<String> lstCategoriePJ
+        public override List<PieceJointeCategorie> lstCategoriePJ
         {
             get
             {
                 return (from item in _ctx.pieceJointeCategories
                         where item.Livret == "L1"
-                        select item.Categorie).ToList<String>();
+                        select item).ToList();
             }
         }
 
@@ -443,7 +443,6 @@ namespace GestVAE.VM
         }
 
 
- 
         public override void Commit()
         {
             base.Commit();

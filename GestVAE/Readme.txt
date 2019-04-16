@@ -12,5 +12,6 @@
 #900: L1 (Jury) : Calcul de date Limite de Recours
 #932: L1 : Motif du recours sur L1
 #940: L1-L2 :Les dates de pièces manquantes sont activées uniquement si Dossier Recu
+#942: Les pièces jointes ne sont pas dans la base de données
 
 Build : 20190411 

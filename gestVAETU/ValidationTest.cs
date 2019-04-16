@@ -484,7 +484,7 @@ namespace GestVAETU
         }
 
     /// <summary>
-    /// Ajout de L1Décision défavorable
+    /// Ajout de L1 - Décision défavorable
     /// </summary>
     [TestMethod]
     public void GESTVAE013()
@@ -513,12 +513,12 @@ namespace GestVAETU
         // Ajout du Livret1
         VM.AjouteL1();
         VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable",MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE );
-            // Date de validité > Ajourd'hui
+            // Date de validité = demain
         VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
         VM.ValideretQuitterL1();
-        // L'ajout de L1 Est impossible
-        Assert.IsFalse(VM.AjouteL1Command.CanExecute(null));
-       // Modification de la date de Validié < Ajourd'hui
+        // L'ajout de L1 Est possible qq soit sa date de validité
+        Assert.IsTrue(VM.AjouteL1Command.CanExecute(null));
+       // Modification de la date de Validié < Aujourd'hui
         VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
         VM.ValideretQuitterL1();
         // L'ajout de L1 Est Possible
@@ -557,12 +557,12 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             // L'ajout de L2 Est impossible car le L1 n'est pas valide
-            Assert.IsFalse(VM.AjouteL1Command.CanExecute(null));
+            Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
             // Modification de la date de Validié < Ajourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             VM.ValideretQuitterL1();
             // L'ajout de L2 Est impossible car le L1 n'est pas valide
-            Assert.IsTrue(VM.AjouteL1Command.CanExecute(null));
+            Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
         }
 
         /// <summary>

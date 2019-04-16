@@ -7,13 +7,13 @@ namespace GestVAEcls.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ParamTestundo : IMigrationMetadata
+    public sealed partial class AddPJ : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ParamTestundo));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPJ));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904112004128_Param.Test undo"; }
+            get { return "201904150849157_AddPJ"; }
         }
         
         string IMigrationMetadata.Source

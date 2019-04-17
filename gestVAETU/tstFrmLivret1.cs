@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GestVAETU
 {
-    [TestClass]
+    [TestClass, Ignore]
     public class tstFrmLivret1
     {
         [TestMethod]

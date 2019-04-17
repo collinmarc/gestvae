@@ -134,6 +134,14 @@ namespace GestVAE.VM
         {
             return (IsLivretNonClos && IsEtatAccepte && DateValidite > DateTime.Now);
         }
+        /// <summary>
+        /// Un livret1 est Encours s'il est non clos avec une date de validité > now
+        /// </summary>
+        /// <returns></returns>
+        public Boolean IsEncours()
+        {
+            return (IsLivretNonClos  && DateValidite > DateTime.Now);
+        }
 
         public String TypeDemande
         {
@@ -277,7 +285,11 @@ namespace GestVAE.VM
                     RaisePropertyChanged();
                     if (!IsEtatRecu)
                     {
-                        DateLimiteEnvoiEHESP = DateDemande.Value.AddDays(Properties.Settings.Default.DelaiEnvoiL1);
+                        if (DateDemande != null)
+                        {
+                            DateLimiteEnvoiEHESP = DateDemande.Value.AddDays(Properties.Settings.Default.DelaiEnvoiL1);
+                            DateValidite = DateDemande.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                        }
                     }
                 }
             }
@@ -328,6 +340,10 @@ namespace GestVAE.VM
                 {
                     oL1.DateReceptEHESP = value;
                     RaisePropertyChanged();
+                    if (value != null)
+                    {
+                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                    }
                 }
             }
         }
@@ -340,10 +356,15 @@ namespace GestVAE.VM
                 {
                     oL1.DateReceptEHESPComplet = value;
                     RaisePropertyChanged();
-                    if (IsEtatRecu)
+                    if (IsEtatRecu && value != null)
                     {
                         DateLimiteJury = DateReceptEHESPComplet.Value.AddDays(Properties.Settings.Default.DelaiJuryL1);
                     }
+                    if (value != null)
+                    {
+                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                    }
+
                 }
             }
         }

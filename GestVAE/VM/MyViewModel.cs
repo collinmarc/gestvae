@@ -813,6 +813,7 @@ namespace GestVAE.VM
                 { 
                     oLivVM.Numero = oL1.Numero;
                     oLivVM.DateValidite = oL1.DateValidite;
+                    oLivVM.DateLimiteReceptEHESP = oL1.DateValidite;
                     if (oL1.IsRecoursDemande)
                     {
                         oLivVM.IsOuvertureApresRecours = true;
@@ -853,14 +854,19 @@ public void AjoutePJL1()
         }
 
 
-
+        /// <summary>
+        /// Créer le Livret2 puis Cloturer le Livret1
+        /// </summary>
         public void CloturerL1etCreerL2()
         {
-              Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
+            // Validation du Livret1
+            Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
+            ValideretQuitterL1();
+            // Création du Livret2 (Recupération du Livret1)
+            AjouteL2(); 
             // CloturerLivret1
             oLiv.IsLivretClos = true;
-            ValideretQuitterL1();
-            AjouteL2();
+            // Fermeture de la fenêtre du Livret2
             if (!IsInTest)
             {
                 CloseAction();
@@ -1189,8 +1195,8 @@ public void AjoutePJL1()
                 }
                 if (IsCurrentCandidatLocked)
                 {
-                    // L'ajout d'un L1 n'est pas Disponible s'il y en a déja un de Valide
-                    bReturn = !  CurrentCandidat.IsL1Valide;
+                    // L'ajout d'un L1 n'est pas Disponible s'il y en a déja un EnCours
+                    bReturn = !  CurrentCandidat.IsL1Encours;
                 }
                 return bReturn;
             }

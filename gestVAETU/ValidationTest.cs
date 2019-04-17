@@ -516,8 +516,8 @@ namespace GestVAETU
             // Date de validité = demain
         VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
         VM.ValideretQuitterL1();
-        // L'ajout de L1 Est possible qq soit sa date de validité
-        Assert.IsTrue(VM.AjouteL1Command.CanExecute(null));
+        // L'ajout de L1 n'est pas possible S'il y a un L1 en cours
+        Assert.IsFalse(VM.AjouteL1Command.CanExecute(null));
        // Modification de la date de Validié < Aujourd'hui
         VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
         VM.ValideretQuitterL1();

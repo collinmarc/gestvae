@@ -536,6 +536,29 @@ namespace GestVAE.VM
             return true;
         }
         /// <summary>
+        /// Rend Vrai s'il y a un Livret1 En cours (DateValidite>Now)
+        /// </summary>
+        public Boolean IsL1Encours
+        {
+            get
+            {
+                Boolean bReturn = false;
+                foreach (LivretVMBase oLiv in lstLivrets)
+                {
+                    if (oLiv is Livret1VM)
+                    {
+                        if (((Livret1VM)oLiv).IsEncours())
+                        {
+                            bReturn = true;
+                        }
+                    }
+                }
+
+                return bReturn;
+
+            }
+        }
+        /// <summary>
         /// Rend Vrai s'il y a un Livret1 de valide
         /// </summary>
         public Boolean IsL1Valide

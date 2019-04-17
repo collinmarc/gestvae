@@ -348,8 +348,9 @@ namespace GestVAETU
             //Ajout D'un L1
             VM.AjouteL1();
             VM.ValideretQuitterL1();
-            // Le L1 est valide même si  l'état n'est pas bon
-            Assert.IsTrue(oCand.IsL1Valide);
+            // Le L1 est EnCours même si  l'état n'est pas bon
+            Assert.IsFalse(oCand.IsL1Valide);
+            Assert.IsTrue(oCand.IsL1Encours);
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
             oL1.EtatLivret = String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
             oL1.DateValidite = DateTime.Now.AddYears(3);
@@ -410,12 +411,15 @@ namespace GestVAETU
             // Date de validé > Aujourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
-            // il y a toujours un L1 Valide
-            Assert.IsTrue(VM.CurrentCandidat.IsL1Valide);
+            // le L1 n'est pas Valide
+            Assert.IsFalse(VM.CurrentCandidat.IsL1Valide);
+            // Mais il est encours
+            Assert.IsTrue(VM.CurrentCandidat.IsL1Encours);
             // Date de validé =  Hier
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             // il n'y a plus de L1 Valide
             Assert.IsFalse(VM.CurrentCandidat.IsL1Valide);
+            Assert.IsFalse(VM.CurrentCandidat.IsL1Encours);
             VM.AjouteL1();
             VM.ValideretQuitterL1();
             // on lui affecte un numéro pour le Test
@@ -547,10 +551,10 @@ namespace GestVAETU
             VM.ValideretQuitterL1();
             Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
             // on lui affecte un numéro pour le Test
-            VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
+//            VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
             VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-DeFavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
             VM.CurrentCandidat.CurrentLivret.IsRecoursDemande = true;
-            VM.CurrentCandidat.CurrentLivret.CommentaireJuryRecours = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.DecisionJuryRecours = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
             // Date de validité > Aujourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddYears(3);
 
@@ -559,7 +563,7 @@ namespace GestVAETU
             VM.ValideretQuitterL2();
             Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             // Le Numero du L2 est  le même que le L1
-            Assert.AreEqual("TEST1", oL2.Numero);
+            Assert.AreEqual(oL1.Numero, oL2.Numero);
             Assert.AreEqual(1, oL2.NumPassage);
             Assert.AreEqual(true, oL2.IsOuvertureApresRecours);
             Assert.AreEqual(oL1.DateValidite, oL2.DateValidite);

@@ -63,5 +63,32 @@ namespace GestVAETU
 
 
         }
+        /// <summary>
+        /// 0000941: L2 : La Date Limite de réception = Date de validité du L1.
+        /// </summary>
+        [TestMethod]
+        public void TestDateDeValiditéL1L2()
+        {
+
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouteCandidat();
+            CandidatVM oCand = VM.CurrentCandidat;
+
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+
+            Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
+            // Jury = Après-demain
+            oL1.DateJury = (DateTime.Now.AddDays(2));
+            oL1.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+
+            VM.CloturerL1etCreerL2();
+            Assert.IsTrue(VM.CurrentCandidat.CurrentLivret is Livret2VM);
+            Assert.AreEqual(oL1.DateValidite, ((Livret2VM)VM.CurrentCandidat.CurrentLivret).DateLimiteReceptEHESP);
+
+
+
+        }
     }
 }

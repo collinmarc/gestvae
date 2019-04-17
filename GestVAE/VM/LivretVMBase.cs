@@ -181,8 +181,16 @@ namespace GestVAE.VM
                 if (value != DateJury)
                 {
                     oJury.DateJury = value;
-                    DateLimiteRecours = value.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
                     RaisePropertyChanged();
+                    if (value != null)
+                    {
+                        DateLimiteRecours = value.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
+                    }
+                    if (value != null)
+                    {
+                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                    }
+
                 }
             }
         }
@@ -208,6 +216,11 @@ namespace GestVAE.VM
 
                     RaisePropertyChanged();
                 }
+                if (value != null)
+                {
+                    DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                }
+
             }
         }
         public DateTime? DateNotificationJuryRecours
@@ -232,6 +245,11 @@ namespace GestVAE.VM
 
                     RaisePropertyChanged();
                 }
+                if (value != null)
+                {
+                    DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                }
+
             }
         }
         public DateTime? HeureJury

@@ -569,5 +569,34 @@ namespace GestVAETU
             Assert.AreEqual(oL1.DateValidite, oL2.DateValidite);
 
         }
+        /// <summary>
+        /// Vérifie le résultat de l recherche s'il y a des modifs en cours
+        /// </summary>
+        [TestMethod]
+        public void DateRechercheAvecModif()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouteCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TEST1";
+            VM.saveData();
+
+            VM = new MyViewModel(true);
+            VM.rechNom = "TEST1";
+            Assert.IsTrue(VM.Recherche());
+
+            //Lock du candidat sur POSTE1
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.CurrentCandidat.Prenom = "P1";
+
+            Assert.IsTrue(VM.HasChanges());
+
+            // En mode test , il n'est pas possible de faire une recherche après un Modif
+            Assert.IsFalse(VM.Recherche());
+            Assert.IsTrue(VM.Recherche(true)); // Mode Force
+
+
+        }
     }
 }

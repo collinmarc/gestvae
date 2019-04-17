@@ -106,8 +106,17 @@ namespace GestVAE.VM
 
         public MyViewModel()
         {
-            Context.Reset();
             IsInTest = false;
+            Reset();
+            //getData();
+        }
+        public MyViewModel(Boolean pIsInTest) :this()
+        {
+            IsInTest = pIsInTest;
+        }
+        private void Reset()
+        {
+            Context.Reset();
             _ctx = Context.instance;
             _lstCandidatVM = new ObservableCollection<CandidatVM>();
             _lstRegionVM = new ObservableCollection<RegionVM>();
@@ -126,13 +135,8 @@ namespace GestVAE.VM
             _ContextID = Convert.ToInt32(DateTime.Now.ToString("fffffff"));
 
             CreateCommands();
-            //getData();
-        }
-        public MyViewModel(Boolean pIsInTest) :this()
-        {
-            IsInTest = pIsInTest;
-        }
 
+        }
         private void CreateCommands()
         {
             _SaveCommand = new SaveCommand(o => { saveData(); },
@@ -643,108 +647,130 @@ namespace GestVAE.VM
         public String rechEtatL1 { get; set; }
         public String rechEtatL2 { get; set; }
 
-        public void Recherche()
+        public Boolean Recherche(Boolean pForce = false)
         {
-            IQueryable<Candidat> rq;
-
-            rq = _ctx.Candidats;
-            if (!String.IsNullOrEmpty(rechIdentifiantVAE))
+            Boolean bReturn = true;
+            // S'il y a des Modif et que je suis pas en mode force
+            if (HasChanges() && ! pForce )
             {
-                rq = rq.Where(c => c.IdVAE.Equals(rechIdentifiantVAE));
-            }
-            if (!String.IsNullOrEmpty(rechIdentifiantSISCOLE))
-            {
-                rq = rq.Where(c => c.IdSiscole.Equals(rechIdentifiantSISCOLE));
-            }
-            if (!String.IsNullOrEmpty(rechNom))
-            {
-                if (rechNom.Contains("%"))
+                bReturn = false;
+                if (!IsInTest)
                 {
-                    rq = rq.Where(c => c.Nom.Contains(rechNom.Replace("%","")));
+                    if (MessageBox.Show("Attention, certaines modifications seront perdues.\nVoulez-vous Continuer sans sauvegarder?", "ATTENTION", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+    == MessageBoxResult.Yes)
+                    {
+                        UnlockCandidats();
+                        Reset();
+                        bReturn = true;
+                    }
+
+                }
+            }
+            if (bReturn)
+            {
+                IQueryable<Candidat> rq;
+
+                rq = _ctx.Candidats;
+                if (!String.IsNullOrEmpty(rechIdentifiantVAE))
+                {
+                    rq = rq.Where(c => c.IdVAE.Equals(rechIdentifiantVAE));
+                }
+                if (!String.IsNullOrEmpty(rechIdentifiantSISCOLE))
+                {
+                    rq = rq.Where(c => c.IdSiscole.Equals(rechIdentifiantSISCOLE));
+                }
+                if (!String.IsNullOrEmpty(rechNom))
+                {
+                    if (rechNom.Contains("%"))
+                    {
+                        rq = rq.Where(c => c.Nom.Contains(rechNom.Replace("%", "")));
+                    }
+                    else
+                    {
+                        rq = rq.Where(c => c.Nom.Equals(rechNom));
+                    }
+                }
+                if (!String.IsNullOrEmpty(rechPrenom))
+                {
+                    if (rechPrenom.Contains("%"))
+                    {
+                        rq = rq.Where(c => c.Prenom.Contains(rechPrenom.Replace("%", "")));
+                    }
+                    else
+                    {
+                        rq = rq.Where(c => c.Prenom.Equals(rechPrenom));
+                    }
+                }
+                if (!String.IsNullOrEmpty(rechVille))
+                {
+                    if (rechVille.Contains("%"))
+                    {
+                        rq = rq.Where(c => c.Ville.Contains(rechVille.Replace("%", "")));
+                    }
+                    else
+                    {
+                        rq = rq.Where(c => c.Ville.Contains(rechVille));
+                    }
+                }
+                if (rechDateNaissance != null)
+                {
+                    rq = rq.Where(c => c.DateNaissance.Value.Equals(rechDateNaissance.Value));
+
+                }
+                if (!String.IsNullOrEmpty(rechEtatL1))
+                {
+                    rq = rq.Where(c => c.lstLivrets1.Where(L1 => L1.EtatLivret == rechEtatL1).Count() > 0);
+
+                }
+                if (!String.IsNullOrEmpty(rechEtatL2))
+                {
+                    rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.EtatLivret == rechEtatL2).Count() > 0);
+
+                }
+                if (rechDateReceptL1Deb != null)
+                {
+                    rq = rq.Where(c => c.lstLivrets1.Where(L1 => L1.DateReceptEHESP >= rechDateReceptL1Deb).Count() > 0);
+                }
+                if (rechDateReceptL1Fin != null)
+                {
+                    rq = rq.Where(c => c.lstLivrets1.Where(L1 => L1.DateReceptEHESP <= rechDateReceptL1Fin).Count() > 0);
+
+                }
+                if (rechDateReceptL2Deb != null)
+                {
+                    rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.DateReceptEHESP >= rechDateReceptL2Deb).Count() > 0);
+                }
+                if (rechDateReceptL2Fin != null)
+                {
+                    rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.DateReceptEHESP <= rechDateReceptL2Fin).Count() > 0);
+
+                }
+                if (rechbHandicap)
+                {
+                    rq = rq.Where(c => c.bHandicap);
+
+                }
+                _lstCandidatVM.Clear();
+                foreach (Candidat item in rq)
+                {
+
+                    CandidatVM oCand = new CandidatVM(item);
+                    _lstCandidatVM.Add(oCand);
+                }
+                if (_lstCandidatVM.Count > 0)
+                {
+                    CurrentCandidat = _lstCandidatVM[0];
                 }
                 else
                 {
-                    rq = rq.Where(c => c.Nom.Equals(rechNom));
+                    CurrentCandidat = null;
                 }
+                RaisePropertyChanged("lstCandidatVM");
+                RaisePropertyChanged("CurrentCandidat");
             }
-            if (!String.IsNullOrEmpty(rechPrenom))
-            {
-                if (rechPrenom.Contains("%"))
-                {
-                    rq = rq.Where(c => c.Prenom.Contains(rechPrenom.Replace("%", "")));
-                }
-                else
-                {
-                    rq = rq.Where(c => c.Prenom.Equals(rechPrenom));
-                }
-            }
-            if (!String.IsNullOrEmpty(rechVille))
-            {
-                if (rechVille.Contains("%"))
-                {
-                    rq = rq.Where(c => c.Ville.Contains(rechVille.Replace("%", "")));
-                }
-                else
-                {
-                    rq = rq.Where(c => c.Ville.Contains(rechVille));
-                }
-            }
-            if (rechDateNaissance != null)
-            {
-                rq = rq.Where(c => c.DateNaissance.Value.Equals(rechDateNaissance.Value));
+            return bReturn;
+        }//recherche
 
-            }
-            if (!String.IsNullOrEmpty(rechEtatL1))
-            {
-                rq = rq.Where(c => c.lstLivrets1.Where(L1=>L1.EtatLivret==rechEtatL1).Count()>0);
-
-            }
-            if (!String.IsNullOrEmpty(rechEtatL2))
-            {
-                rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.EtatLivret == rechEtatL2).Count() > 0);
-
-            }
-            if (rechDateReceptL1Deb != null)
-            {
-                rq = rq.Where(c => c.lstLivrets1.Where(L1 => L1.DateReceptEHESP >= rechDateReceptL1Deb).Count() > 0);
-            }
-            if (rechDateReceptL1Fin != null)
-            {
-                rq = rq.Where(c => c.lstLivrets1.Where(L1 => L1.DateReceptEHESP <= rechDateReceptL1Fin).Count() > 0);
-
-            }
-            if (rechDateReceptL2Deb != null)
-            {
-                rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.DateReceptEHESP >= rechDateReceptL2Deb).Count() > 0);
-            }
-            if (rechDateReceptL2Fin != null)
-            {
-                rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.DateReceptEHESP <= rechDateReceptL2Fin).Count() > 0);
-
-            }
-            if (rechbHandicap )
-            {
-                rq = rq.Where(c => c.bHandicap);
-
-            }
-            _lstCandidatVM.Clear();
-            foreach (Candidat item in rq)
-            {
-
-                CandidatVM oCand = new CandidatVM(item);
-                _lstCandidatVM.Add(oCand);
-            }
-            if (_lstCandidatVM.Count > 0)
-            { 
-                CurrentCandidat = _lstCandidatVM[0];
-            }
-            else
-            {
-                CurrentCandidat =null;
-            }
-            RaisePropertyChanged("lstCandidatVM");
-            RaisePropertyChanged("CurrentCandidat");
-        }
         public void AjouteDiplomeCand()
         {
             CandidatVM oCandVM = CurrentCandidat;

@@ -169,11 +169,12 @@
                     <DataGrid x:Name="_0" Grid.Row ="0" MinHeight="100" VerticalAlignment="Stretch"
                               ItemsSource="{Binding lstCandidatVM}" SelectedItem="{Binding CurrentCandidat}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding"  Margin="10" BorderThickness="0" Style="{DynamicResource MyDataGridStyle}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID VAE" IsReadOnly="true" Binding="{Binding IdVAE}" Width="1*"/>
-                            <DataGridTextColumn Header="SISCOLE" IsReadOnly="true" Binding="{Binding IdSiscole}" Width="1*"/>
-                            <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="2*"/>
-                            <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}" Width="2*"/>
-                            <DataGridTextColumn Header="Date naiss." Binding="{Binding DateNaissance}" Width="1*"/>
+                            <DataGridTextColumn Header="ID VAE" IsReadOnly="true" Binding="{Binding IdVAE}" Width="2*"/>
+                            <DataGridTextColumn Header="SISCOLE" IsReadOnly="true" Binding="{Binding IdSiscole}" Width="2*"/>
+                            <DataGridTextColumn Header="Nom" IsReadOnly="true" Binding="{Binding Nom}" Width="3*"/>
+                            <DataGridTextColumn Header="Prénom" IsReadOnly="true" Binding="{Binding Prenom}" Width="3*"/>
+                            <DataGridTextColumn Header="Date naiss." IsReadOnly="true" Binding="{Binding DateNaissance,StringFormat='dd/MM/yyyy'}" Width="2*"/>
+                            <DataGridCheckBoxColumn Header="Verr." IsReadOnly="true" Binding="{Binding IsLocked, Mode=OneWay}" Width="1*"/>
                         </DataGrid.Columns>
                         <DataGrid.InputBindings>
                             <KeyBinding Key="Delete" Command="{Binding DeleteCandidatCommand}" />

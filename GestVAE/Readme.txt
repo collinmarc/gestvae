@@ -15,5 +15,6 @@
 #942: Les pièces jointes ne sont pas dans la base de données
 #943: La Gestion des diplomes ne fonctionne pas
 #941: L2 : La Date Limite de réception = Date de validité du L1.
+#944: Alerte sur les candidats verrouillés en recherche
 
 Build : 20190411 

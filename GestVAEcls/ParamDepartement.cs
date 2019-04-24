@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace GestVAEcls
 {
-    public  class ParamOrigine : GestVAEBase
+    public  class ParamDepartement : GestVAEBase
     {
         public String Nom { get; set; }
 
-        public ParamOrigine()
+        public ParamDepartement()
         {
             Nom = "";
         }
-        public ParamOrigine(String pNom) : this()
+        public ParamDepartement(String pNom) : this()
         {
             Nom = pNom;
         }
-    }
+    }// Class ParamDepartement
 
-}// Class Origine
+}

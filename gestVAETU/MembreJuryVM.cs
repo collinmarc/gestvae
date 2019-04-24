@@ -35,8 +35,8 @@ namespace GestVAE.VM
         }
         public String Origine
         {
-            get { return TheMembreJury.Origine; }
-            set { TheMembreJury.Origine = value;RaisePropertyChanged(); }
+            get { return TheMembreJury.dptDomicile; }
+            set { TheMembreJury.dptDomicile = value;RaisePropertyChanged(); }
         }
         public String College
         {

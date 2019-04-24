@@ -237,13 +237,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4699CAE9A7B0191AB7EF0BB5F5DCADDF"
+        "MsmKey" = "8:_44259EDC0348EEE6A3DF42AEF2635D40"
         "OwnerKey" = "8:_3698190E8AF14CB3A3A0F1E8A0D8CF55"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_46C1EE3031C487E33517BE9BDBDD5C56"
+        "MsmKey" = "8:_4699CAE9A7B0191AB7EF0BB5F5DCADDF"
         "OwnerKey" = "8:_3698190E8AF14CB3A3A0F1E8A0D8CF55"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -556,7 +556,7 @@
         "Entry"
         {
         "MsmKey" = "8:_EDF5BAE734F42503D0F7086FC3D9D66C"
-        "OwnerKey" = "8:_46C1EE3031C487E33517BE9BDBDD5C56"
+        "OwnerKey" = "8:_44259EDC0348EEE6A3DF42AEF2635D40"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -605,12 +605,6 @@
         {
         "MsmKey" = "8:_FDEE11D4737308EC4A8F70F3C195BF44"
         "OwnerKey" = "8:_3698190E8AF14CB3A3A0F1E8A0D8CF55"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_ED3868EFD8AFA283F4F6A0A87DCFAD58"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -736,7 +730,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_46C1EE3031C487E33517BE9BDBDD5C56"
+        "OwnerKey" = "8:_44259EDC0348EEE6A3DF42AEF2635D40"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1061,6 +1055,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_BEBA0A78917039DCB4BF281D94B9F730"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_ED3868EFD8AFA283F4F6A0A87DCFAD58"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -2088,20 +2088,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4699CAE9A7B0191AB7EF0BB5F5DCADDF"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_44259EDC0348EEE6A3DF42AEF2635D40"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Text.Encoding, Version=4.0.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            "AssemblyAsmDisplayName" = "8:GestVAEcls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_4699CAE9A7B0191AB7EF0BB5F5DCADDF"
+                    "_44259EDC0348EEE6A3DF42AEF2635D40"
                     {
-                    "Name" = "8:System.Text.Encoding.dll"
+                    "Name" = "8:GestVAEcls.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Text.Encoding.dll"
+            "SourcePath" = "8:GestVAEcls.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_758CB9900BE541B4A64F3D741BD73223"
@@ -2119,20 +2119,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_46C1EE3031C487E33517BE9BDBDD5C56"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4699CAE9A7B0191AB7EF0BB5F5DCADDF"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:GestVAEcls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:System.Text.Encoding, Version=4.0.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_46C1EE3031C487E33517BE9BDBDD5C56"
+                    "_4699CAE9A7B0191AB7EF0BB5F5DCADDF"
                     {
-                    "Name" = "8:GestVAEcls.dll"
+                    "Name" = "8:System.Text.Encoding.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:GestVAEcls.dll"
+            "SourcePath" = "8:System.Text.Encoding.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_758CB9900BE541B4A64F3D741BD73223"
@@ -3644,12 +3644,12 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:gestVAE"
         "ProductCode" = "8:{6143D5E6-41DF-44F8-8E99-696E9F1A6BED}"
-        "PackageCode" = "8:{346F4F34-268C-4217-821C-5B3D2B42FAB8}"
+        "PackageCode" = "8:{1C00D1EF-2A16-44B1-82B7-85909B9BC50A}"
         "UpgradeCode" = "8:{A4442766-10E4-4285-900C-D95A9C2BD4E4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:TRUE"
-        "DetectNewerInstalledVersion" = "11:TRUE"
+        "RemovePreviousVersions" = "11:FALSE"
+        "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.0.0"
         "Manufacturer" = "8:EHESP"
@@ -4199,7 +4199,7 @@
             "Folder" = "8:_758CB9900BE541B4A64F3D741BD73223"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
+            "Vital" = "11:FALSE"
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"

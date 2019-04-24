@@ -37,7 +37,7 @@ namespace GestVAE.VM
         private CandidatVM _candidatVM;
         public Action CloseAction { get; set; }
         public ObservableCollection<ParamCollege> lstParamCollege { get; set; }
-        public ObservableCollection<ParamOrigine> lstParamOrigine { get; set; }
+        public ObservableCollection<ParamDepartement> lstParamDepartement { get; set; }
         public ObservableCollection<ParamTypeDemande> lstParamTypeDemande { get; set; }
         public ObservableCollection<ParamVecteurInformation> lstParamVecteurInformation { get; set; }
         private Boolean bCandidatAjoute = false;
@@ -125,7 +125,7 @@ namespace GestVAE.VM
             _lstMotifGL1 = new ObservableCollection<MotifGeneralL1>();
             _lstMotifGL2 = new ObservableCollection<MotifGeneralL2>();
             lstParamCollege = new ObservableCollection<ParamCollege>();
-            lstParamOrigine = new ObservableCollection<ParamOrigine>();
+            lstParamDepartement = new ObservableCollection<ParamDepartement>();
             lstParamTypeDemande = new ObservableCollection<ParamTypeDemande>();
             lstParamVecteurInformation = new ObservableCollection<ParamVecteurInformation>();
             // génération d'un Numéro d'ID
@@ -336,15 +336,15 @@ namespace GestVAE.VM
                 {
                     item.Commit();
                 }
-                foreach (ParamOrigine item in lstParamOrigine)
+                foreach (ParamDepartement item in lstParamDepartement)
                 {
-                    if (_ctx.Entry<ParamOrigine>(item).State == System.Data.Entity.EntityState.Detached)
+                    if (_ctx.Entry<ParamDepartement>(item).State == System.Data.Entity.EntityState.Detached)
                     {
-                        _ctx.dbParamOrigine.Add(item);
+                        _ctx.dbParamDepartement.Add(item);
                     }
-                    if (_ctx.Entry<ParamOrigine>(item).State == System.Data.Entity.EntityState.Deleted)
+                    if (_ctx.Entry<ParamDepartement>(item).State == System.Data.Entity.EntityState.Deleted)
                     {
-                        _ctx.dbParamOrigine.Remove(item);
+                        _ctx.dbParamDepartement.Remove(item);
                     }
                 }
                 foreach (ParamCollege item in lstParamCollege)
@@ -498,10 +498,10 @@ namespace GestVAE.VM
                 {
                     lstParamCollege.Add(item);
                 }
-                lstParamOrigine.Clear();
-                foreach (ParamOrigine item in _ctx.dbParamOrigine)
+                lstParamDepartement.Clear();
+                foreach (ParamDepartement item in _ctx.dbParamDepartement)
                 {
-                    lstParamOrigine.Add(item);
+                    lstParamDepartement.Add(item);
                 }
                 lstParamTypeDemande.Clear();
                 foreach (ParamTypeDemande item in _ctx.dbParamTypeDemande)

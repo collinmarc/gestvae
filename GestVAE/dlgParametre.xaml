@@ -17,7 +17,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="80"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -35,8 +35,20 @@
                 </DataGrid.Columns>
 
             </DataGrid>
-            <TextBlock Text="Diplome : " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+
+            <TextBlock Text="Départements : " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <DataGrid Name="dgDepartement" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding lstParamDepartement}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Département" Binding="{Binding Nom}" CanUserResize="False" SortDirection="Ascending" Width="*"/>
+                </DataGrid.Columns>
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Delete"  />
+                </DataGrid.InputBindings>
+
+            </DataGrid>
+
+            <TextBlock Text="Diplome : " Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1">
                 <DataGrid Name="dgDiplome"  ItemsSource="{Binding lstDiplomeVM}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" Margin="10">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nom" Binding="{Binding NomDiplome}" CanUserResize="False" SortDirection="Ascending" Width="1*"/>
@@ -53,8 +65,8 @@
                 </DataGrid>
             </StackPanel>
 
-            <TextBlock Text="Pieces jointes : " Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="Pieces jointes : " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
                 <DataGrid Name="dgCatPJ"  ItemsSource="{Binding lstPieceJointeCategorie}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
                     <DataGrid.Resources>
                         <localVM:ListVM x:Key="ComboItems"  />
@@ -75,8 +87,8 @@
                 </DataGrid>
             </StackPanel>
 
-            <TextBlock Text="Motif refus L1 : " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
+            <TextBlock Text="Motif refus L1 : " Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
                 <DataGrid Name="dgMotifGL1"  ItemsSource="{Binding lstMotifGL1}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Motif" Binding="{Binding Libelle}" CanUserResize="False" SortDirection="Ascending" Width="3*"/>
@@ -92,8 +104,8 @@
                 </DataGrid>
             </StackPanel>
 
-            <TextBlock Text="Motif refus L2 : " Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-            <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
+            <TextBlock Text="Motif refus L2 : " Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <StackPanel Orientation="Vertical" Grid.Row="5" Grid.Column="1">
                 <DataGrid Name="dgMotifGL2"  ItemsSource="{Binding lstMotifGL2}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Motif" Binding="{Binding Libelle}" CanUserResize="False" SortDirection="Ascending" Width="3*"/>
@@ -109,23 +121,13 @@
                 </DataGrid>
             </StackPanel>
 
-            <TextBlock Text="Collège : " Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-            <DataGrid Name="dgCollege" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding lstParamCollege}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
+            <TextBlock Text="Collège : " Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <DataGrid Name="dgCollege" Grid.Row="6" Grid.Column="1" ItemsSource="{Binding lstParamCollege}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Collège" Binding="{Binding Nom}" CanUserResize="False" SortDirection="Ascending" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
 
-            <TextBlock Text="Origine : " Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-            <DataGrid Name="dgOrigine" Grid.Row="6" Grid.Column="1" ItemsSource="{Binding lstParamOrigine}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Origine" Binding="{Binding Nom}" CanUserResize="False" SortDirection="Ascending" Width="*"/>
-                </DataGrid.Columns>
-                <DataGrid.InputBindings>
-                    <KeyBinding Key="Delete"  />
-                </DataGrid.InputBindings>
-
-            </DataGrid>
 
             <TextBlock Text="Type de la demande : " Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
             <DataGrid Name="dgTypeDemande" Grid.Row="7" Grid.Column="1" ItemsSource="{Binding lstParamTypeDemande}" AutoGenerateColumns="False" Margin="10" AddingNewItem="dgRegion_AddingNewItem">

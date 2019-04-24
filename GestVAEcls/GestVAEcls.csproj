@@ -70,6 +70,18 @@
     <Compile Include="Migrations\201904150849157_AddPJ.Designer.cs">
       <DependentUpon>201904150849157_AddPJ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904241347122_College-Departement.cs" />
+    <Compile Include="Migrations\201904241347122_College-Departement.Designer.cs">
+      <DependentUpon>201904241347122_College-Departement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904241415583_dpt-jury.cs" />
+    <Compile Include="Migrations\201904241415583_dpt-jury.Designer.cs">
+      <DependentUpon>201904241415583_dpt-jury.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904241508522_Install-du-24042019.cs" />
+    <Compile Include="Migrations\201904241508522_Install-du-24042019.Designer.cs">
+      <DependentUpon>201904241508522_Install-du-24042019.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -78,7 +90,7 @@
     <Compile Include="ParamVecteurInformation.cs" />
     <Compile Include="PieceJointeBase.cs" />
     <Compile Include="ParamCollege.cs" />
-    <Compile Include="ParamOrigine.cs" />
+    <Compile Include="ParamDepartement.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Recours.cs" />
     <Compile Include="Jury.cs" />
@@ -125,6 +137,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904150849157_AddPJ.resx">
       <DependentUpon>201904150849157_AddPJ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904241347122_College-Departement.resx">
+      <DependentUpon>201904241347122_College-Departement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904241415583_dpt-jury.resx">
+      <DependentUpon>201904241415583_dpt-jury.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904241508522_Install-du-24042019.resx">
+      <DependentUpon>201904241508522_Install-du-24042019.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

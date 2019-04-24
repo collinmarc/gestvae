@@ -16,5 +16,7 @@
 #943: La Gestion des diplomes ne fonctionne pas
 #941: L2 : La Date Limite de réception = Date de validité du L1.
 #944: Alerte sur les candidats verrouillés en recherche
+#945: Ajout des données
+#946: Ajout des département dans les membres de jurys
 
 Build : 20190411 

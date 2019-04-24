@@ -33,10 +33,15 @@ namespace GestVAE.VM
             get { return TheMembreJury.Nom; }
             set { TheMembreJury.Nom = value; RaisePropertyChanged(); }
         }
-        public String Origine
+        public String DptDomicile
         {
-            get { return TheMembreJury.Origine; }
-            set { TheMembreJury.Origine = value;RaisePropertyChanged(); }
+            get { return TheMembreJury.DptDomicile; }
+            set { TheMembreJury.DptDomicile = value;RaisePropertyChanged(); }
+        }
+        public String DptTravail
+        {
+            get { return TheMembreJury.DptTravail; }
+            set { TheMembreJury.DptTravail = value; RaisePropertyChanged(); }
         }
         public String College
         {

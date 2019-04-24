@@ -12,7 +12,8 @@ namespace GestVAEcls
     {
         public String Nom { get; set; }
         public String College { get; set; }
-        public String Origine { get; set; }
+        public String DptDomicile { get; set; }
+        public String DptTravail { get; set; }
         public String Region { get; set; }
         public virtual int Livret2_ID { get; set; }
         [ForeignKey("Livret2_ID")]
@@ -24,7 +25,8 @@ namespace GestVAEcls
         {
             Nom = "";
             College = "";
-            Origine = "";
+            DptDomicile = "";
+            DptTravail = "";
             Region = "";
         }
     }

@@ -7,6 +7,7 @@ namespace GestVAEcls.Migrations
     {
         public override void Up()
         {
+            Sql("DELETE FROM  PieceJointeCategories");
             Sql("SET IDENTITY_INSERT [dbo].[PieceJointeCategories] ON");
             Sql("INSERT INTO [dbo].[PieceJointeCategories] ([ID], [Livret], [Categorie], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (3, N'L1', N'EMPLOI', 2019-04-15 , 2019-04-15, 0, NULL)");
             Sql("INSERT INTO [dbo].[PieceJointeCategories] ([ID], [Livret], [Categorie], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (4, N'L1', N'SI MOINS DE 3 ANS ET QU''IL Y AURA 3 ANS LE JOUR DU JURY', 2019-04-15, 2019-04-15, 0, N'')");
@@ -32,10 +33,12 @@ namespace GestVAEcls.Migrations
             Sql("INSERT INTO [dbo].[PieceJointeCategories] ([ID], [Livret], [Categorie], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (24, N'L2', N'ANNEXES', 2019-04-15, 2019-04-15, 0, N'')");
             Sql("INSERT INTO [dbo].[PieceJointeCategories] ([ID], [Livret], [Categorie], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (25, N'L2', N'2EME PASSAGE', 2019-04-15, 2019-04-15, 0, N'')");
             Sql("INSERT INTO [dbo].[PieceJointeCategories] ([ID], [Livret], [Categorie], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (26, N'L2', N'ENGAGEMENT PARCOURS', 2019-04-15, 2019-04-15, 0, N'')");
+
             Sql("SET IDENTITY_INSERT [dbo].[PieceJointeCategories] OFF");
 
+            Sql("DELETE FROM  PieceJointeItems");
             Sql("SET IDENTITY_INSERT [dbo].[PieceJointeItems] ON");
-            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (1, 3, N'Un justification de votre emploi actuel', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (1, 3, N'Une justification de votre emploi actuel', 2019-04-15, 2019-04-15,0,N'')");
             Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (2, 3, N'Les copies justifiant des emplois et activités bénévoles mentionnés en page 7 et 8 (certificats de travail et/ou attestations)', 2019-04-15, 2019-04-15,0,N'')");
             Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (3, 3, N'De plus l''expérience que vous avez choisi datant de plus de 10 ans, ne peut pas être l''unique expérience de travail développée', 2019-04-15, 2019-04-15,0,N'')");
             Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (4, 4, N'Au (date des ans), une attestation signée de votre employeur indiquant que vous êtes toujours en poste', 2019-04-15, 2019-04-15,0,N'')");
@@ -62,6 +65,34 @@ namespace GestVAEcls.Migrations
             Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (25, 13, N'La copie de relevé de décision de jury', 2019-04-15, 2019-04-15,0,N'')");
             Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (26, 13, N'La copie du dernier relevé de décision de jury qui vous a été adressé', 2019-04-15, 2019-04-15,0,N'')");
             Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (27, 14, N'Votre convention ou contrat relatif à un parcours de validation des acquis de l''expérience dûment complété et signé (en 3 exemplaires)', 2019-04-15, 2019-04-15,0,N'')");
+
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (28, 15, N'Une justification de votre emploi actuel', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (29, 15, N'Les copies justifiant des emplois et activités bénévoles mentionnés en page 7 et 8 (certificats de travail et/ou attestations)', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (30, 15, N'De plus l''expérience que vous avez choisi datant de plus de 10 ans, ne peut pas être l''unique expérience de travail développée', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (31, 16, N'Au (date des ans), une attestation signée de votre employeur indiquant que vous êtes toujours en poste', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (32, 17, N'La copie du compte rendu du conseil d''administration attestant de votre élection au sein du bureau en tant que président de l''association(nom de l''association)', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (33, 18, N'Le relevé de parcours de formation au sein du groupe COMPASS', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (34, 18, N'La copie de votre diplome CAFERUIS', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (35, 18, N'La copie des diplômes et/ou certificats des formations', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (36, 19, N'La description d''une seconde expérience car l''expérience qui constitue votre Livret2 à ce jour ne permet pas de justifier d''au moins 3 années d''activités équivalent Temps plein (voir page 10 de la notice d''accompagnement pour remplir le Livret2)', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (37, 19, N'Si vous ne souhaitez pas développer une seconde expérience, vous voudrez bien fournir une attestation sur l''honneur mentionnant au jury vôtre choix de ne développer qu''une seule expérience qui concerne éventuellement les expériences précédentes', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (38, 20, N'Le sommaire de votre livret de présentation des acquis de l''expérience.', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (39, 21, N'La signature originale de l''attestation sur l''honneur  et de la demande d''inscription en vue de l''obtention du CAFDES (voir Page 5 du Livret 2)', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (40, 22, N'La page explicative du livret2 où figure un cadre sur votre identitié à compléter ainsi qu''un cadre réservé à l''administration', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (41, 22, N'La page de couverture complétée de votre nom, prénom et numéro de dossier', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (42, 22, N'Le tableau rubrique 2 (vos expériences salariées) dûment complété', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (43, 22, N'Le tableau rubrique 3 (votre parcours de formation) dûment complété', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (44, 22, N'Le point 4.1.1 : Votre emploi ou votre fonction bénévole dûment complété', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (45, 22, N'Le point 4.2.4 : votre quatrième situation de travail (gestion économique, financière et logistique d''un établissement ou d''un service)', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (46, 22, N'Le point 5.3 : Analyse globale de votre expérience n° 2', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (47, 23, N'Le tableau de synthèse des documents annexes', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (48, 23, N'Le tableau de synthèse des documents annexes dûment complété des fonction en lien avec les annexes', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (49, 24, N'Vos annexes en français dûment traduites en français par un traducteur assermenté', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (50, 24, N'Vos certificats de travail ou attestations non anonymisés', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (51, 24, N'4 exemplaires supplémentaires de l''ensemble des annexes', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (52, 25, N'La copie de relevé de décision de jury', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (53, 25, N'La copie du dernier relevé de décision de jury qui vous a été adressé', 2019-04-15, 2019-04-15,0,N'')");
+            Sql("INSERT INTO [dbo].[PieceJointeItems] ([ID], [Categorie_ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (54, 26, N'Votre convention ou contrat relatif à un parcours de validation des acquis de l''expérience dûment complété et signé (en 3 exemplaires)', 2019-04-15, 2019-04-15,0,N'')");
             Sql("SET IDENTITY_INSERT [dbo].[PieceJointeItems] OFF");
 
             Sql("DELETE FROM  MotifGeneralL1");
@@ -75,6 +106,18 @@ namespace GestVAEcls.Migrations
             Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (7, N'Expérience de moins de 3 ans équivalent temps plein en lien avec le référentiel de compétences CAFDES, à la date de l''analyse du livret de recevabilité',2019-02-26 ,2019-02-07, 0, N'')");
             Sql("INSERT INTO [dbo].[MotifGeneralL1] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (8, N'Pièces manquantes demandées non réceptionnées dans le délai imparti.',2019-02-26 ,2019-02-07, 0, N'')");
             Sql("SET IDENTITY_INSERT [dbo].[MotifGeneralL1] OFF");
+
+            Sql("DELETE FROM  MotifGeneralL2");
+            Sql("SET IDENTITY_INSERT [dbo].[MotifGeneralL2] ON");
+            Sql("INSERT INTO [dbo].[MotifGeneralL2] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (1, N'Pas d''activité dans au moins 1 DC',2019-02-07 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL2] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (2, N'Pas d''activité dans au moins 2 DC',2019-02-07 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL2] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (3, N'Pas d''activité dans au moins 3 DC',2019-02-26,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL2] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (4, N'Pas d''activité dans au moins 4 DC',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL2] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (5, N'L''objet des activités mentionnées dans le DC1 ne porte pas sur les politiques sanitaires et sociales.',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL2] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (6, N'Dernière expérience en lien avec le diplôme date de plus de 10 ans.',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL2] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (7, N'Expérience de moins de 3 ans équivalent temps plein en lien avec le référentiel de compétences CAFDES, à la date de l''analyse du livret de recevabilité',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("INSERT INTO [dbo].[MotifGeneralL2] ([ID], [Libelle], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (8, N'Pièces manquantes demandées non réceptionnées dans le délai imparti.',2019-02-26 ,2019-02-07, 0, N'')");
+            Sql("SET IDENTITY_INSERT [dbo].[MotifGeneralL2] OFF");
 
             Sql("DELETE FROM  [dbo].[ParamTypeDemandes] ");
             Sql("SET IDENTITY_INSERT [dbo].[ParamTypeDemandes] ON");
@@ -108,6 +151,13 @@ namespace GestVAEcls.Migrations
             Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (19, N'Internet (Autres sites...)', 2019-02-26,2019-02-26,0, N'')");
             Sql("INSERT INTO [dbo].[ParamVecteurInformations] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (20, N'Non renseigné', 2019-02-26,2019-02-26,0, N'')");
             Sql("SET IDENTITY_INSERT [dbo].[ParamVecteurInformations] OFF");
+            Sql("DELETE FROM  [dbo].[ParamColleges]");
+            Sql("SET IDENTITY_INSERT [dbo].[ParamColleges] ON");
+            Sql("INSERT INTO [dbo].[ParamColleges] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (1, N'1 - représentant de l''Etat ou d''une collectivité territoriale ou personne qualifiée', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamColleges] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (2, N'2 – formateur issu d''un établissement de formation public ou privé préparant au CAFDES', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamColleges] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (3, N'3 – représentant qualifié du secteur professionnel Employeur', 2019-02-26,2019-02-26,0, N'')");
+            Sql("INSERT INTO [dbo].[ParamColleges] ([ID], [Nom], [dateCreation], [dateModif], [bDeleted], [AttSup]) VALUES (4, N'4 -  représentant qualifié du secteur professionnel Salarié', 2019-02-26,2019-02-26,0, N'')");
+            Sql("SET IDENTITY_INSERT [dbo].[ParamColleges] OFF");
 
         }
 

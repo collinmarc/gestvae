@@ -51,7 +51,7 @@ namespace GestVAEcls
         public DbSet<Recours> dbRecours { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<ParamCollege> dbParamCollege { get; set; }
-        public DbSet<ParamOrigine> dbParamOrigine { get; set; }
+        public DbSet<ParamDepartement> dbParamDepartement { get; set; }
         public DbSet<ParamTypeDemande> dbParamTypeDemande { get; set; }
         public DbSet<ParamVecteurInformation> dbParamVecteurInformation { get; set; }
         public DbSet<PieceJointeCategorie> pieceJointeCategories { get; set; }

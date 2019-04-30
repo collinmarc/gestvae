@@ -1,4 +1,8 @@
-﻿Build :
+﻿Build : 
+#947 : Initialistion de la base pour les versions > 201904029
+
+
+Build : 20190429
 #923 : FrmCandidat Désactivé si le candiat est null
 #937 : Ajout d'un numéro de version
 #925: Quitter sans sauvegarder

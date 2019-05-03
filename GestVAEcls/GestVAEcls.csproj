@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201904241508522_Install-du-24042019.Designer.cs">
       <DependentUpon>201904241508522_Install-du-24042019.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904301405335_CreateViewJury.cs" />
+    <Compile Include="Migrations\201904301405335_CreateViewJury.Designer.cs">
+      <DependentUpon>201904301405335_CreateViewJury.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -146,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904241508522_Install-du-24042019.resx">
       <DependentUpon>201904241508522_Install-du-24042019.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904301405335_CreateViewJury.resx">
+      <DependentUpon>201904301405335_CreateViewJury.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -327,6 +327,7 @@
                             <Button Name="cbAddDiplome" 
                                 Command="{Binding DataContext.AjouteDiplomeCandCommand, 
                             RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Margin="0,0,10,0" Style="{DynamicResource ButtonReadOnlyStyle}" 
+                                    Visibility="Hidden"
                                 >Ajouter</Button>
 
                         </StackPanel>

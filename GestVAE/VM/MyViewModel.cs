@@ -202,7 +202,7 @@ namespace GestVAE.VM
 
         public ObservableCollection<CandidatVM> lstCandidatVM
         {
-            get => _lstCandidatVM;
+            get {return _lstCandidatVM;}
             set
             {
                 if (value != _lstCandidatVM)
@@ -214,7 +214,7 @@ namespace GestVAE.VM
         }
         public ObservableCollection<RegionVM> lstRegionVM
         {
-            get => _lstRegionVM;
+            get {return _lstRegionVM;}
             set
             {
                 if (value != _lstRegionVM)
@@ -226,22 +226,22 @@ namespace GestVAE.VM
         }
         public ObservableCollection<DiplomeVM> lstDiplomeVM
         {
-            get => _lstDiplomeVM;
+            get {return  _lstDiplomeVM;}
 
         }
         public ObservableCollection<PieceJointeCategorie> lstPieceJointeCategorie
         {
-            get => _lstPieceJointeCategorie;
+            get {return  _lstPieceJointeCategorie;}
 
         }
         public ObservableCollection<MotifGeneralL1> lstMotifGL1
         {
-            get => _lstMotifGL1;
+            get {return  _lstMotifGL1;}
 
         }
         public ObservableCollection<MotifGeneralL2> lstMotifGL2
         {
-            get => _lstMotifGL2;
+            get { return _lstMotifGL2; }
         }
         public List<String> LstEtatLivret1
         {

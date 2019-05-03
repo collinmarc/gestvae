@@ -24,6 +24,7 @@ namespace GestVAEcls
         public DateTime? DateNaissance { get; set; }
         public String CPNaissance { get; set; }
         public String VilleNaissance { get; set; }
+        public String DptNaissance { get; set; }
         public String NationaliteNaissance { get; set; }
         public String Adresse { get; set; }
         public String CodePostal { get; set; }

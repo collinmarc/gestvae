@@ -154,6 +154,11 @@ namespace GestVAE.VM
             get { return TheCandidat.NationaliteNaissance; }
             set { TheCandidat.NationaliteNaissance = value; RaisePropertyChanged(); }
         }
+        public String DptNaissance
+        {
+            get { return TheCandidat.DptNaissance; }
+            set { TheCandidat.DptNaissance = value; RaisePropertyChanged(); }
+        }
 
 
         private DiplomeCandVM diplomeCAFDESCandidat

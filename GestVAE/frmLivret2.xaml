@@ -104,10 +104,14 @@
                            ItemsSource="{Binding lstDCLivret, UpdateSourceTrigger=PropertyChanged}" 
                             AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" 
                           CellEditEnding="dgDCLivret_CellEditEnding" Style="{DynamicResource DataGridReadOnlyStyle}">
+                    <DataGrid.Resources>
+                        <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
+                    </DataGrid.Resources>
+
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="2*" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="2*" IsReadOnly="True"/>
-                        <DataGridCheckBoxColumn Header="A Valider ?" Binding="{Binding IsAValider, UpdateSourceTrigger=LostFocus}" Width="1*" IsReadOnly="False"/>
+                        <DataGridCheckBoxColumn Header="A Valider ?" Binding="{Binding IsAValider, UpdateSourceTrigger=LostFocus}" Width="1*" IsReadOnly="{Binding Data.IsLivretNotEnCours}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -119,7 +123,7 @@
                         IsEnabled="{Binding IsLivretNonClos}" >
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Numéro de passage :" Width ="150"></Label>
-                    <xctk:IntegerUpDown   Width="100" Value="{Binding NumPassage}" Margin="0,5"/>
+                    <xctk:IntegerUpDown   Width="100" Value="{Binding NumPassage}" Margin="0,5" IsReadOnly="{Binding IsLivretNotEnCours}"/>
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" />

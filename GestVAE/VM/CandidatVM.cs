@@ -617,7 +617,7 @@ namespace GestVAE.VM
                     {
                         Livret2VM oL2 = (Livret2VM)oLiv;
                         // Si le L2 est clos => non Valide
-                        if (oL2.IsLivretEnCours())
+                        if (oL2.IsLivretEnCours)
                         {
                             bReturn = true;
                         }
@@ -641,7 +641,7 @@ namespace GestVAE.VM
                     if (oLiv is Livret2VM)
                     {
                         Livret2VM oL2 = (Livret2VM)oLiv;
-                        if (oL2.IsDecisionValidationPartielle )
+                        if (oL2.IsDecisionJuryPartielle )
                         {
                             bReturn = true;
                         }

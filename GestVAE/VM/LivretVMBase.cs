@@ -952,6 +952,16 @@ namespace GestVAE.VM
                 return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
             }
         }
+        /// <summary>
+        /// Rend vrai si le livret est en cours d'examen 
+        /// </summary>
+        public Boolean IsEtatEnCours
+        {
+            get
+            {
+                return ! (IsEtatAccepte  || IsEtatRefuse) ;
+            }
+        }
         public Boolean IsEtatSansSuite
         {
             get

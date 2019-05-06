@@ -676,24 +676,24 @@ namespace GestVAE.VM
         /// Un Livret En cours est un Livert non Clos que n'est Ni Accepté, ni refusé
         /// </summary>
         /// <returns></returns>
-        public Boolean IsLivretEnCours()
-        {
-            Boolean bReturn = false;
-            if (!IsLivretClos)
-            {
-                bReturn = (!IsEtatAccepte && !IsEtatRefuse);
-            }
-            return bReturn;
-        }
-        public Boolean IsDecisionValidationPartielle
+        public Boolean IsLivretEnCours
         {
             get
             {
-                return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
+                Boolean bReturn = false;
+                if (!IsLivretClos)
+                {
+                    bReturn = (!IsEtatAccepte && !IsEtatRefuse);
+                }
+                return bReturn;
             }
         }
-
-
+        public Boolean IsLivretNotEnCours
+        {
+            get {
+                return !IsLivretEnCours;
+            }
+        }
 
     }
 }

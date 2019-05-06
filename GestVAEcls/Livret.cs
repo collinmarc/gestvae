@@ -158,7 +158,7 @@ namespace GestVAEcls
 
         }
         /// <summary>
-        /// initialisation des stattus des domaindes de compétences du Livret
+        /// initialisation des stattus des domaines de compétences du Livret
         /// </summary>
         /// <param name="pdiplomeCand"></param>
         public void InitDCLivrets(DiplomeCand pdiplomeCand )

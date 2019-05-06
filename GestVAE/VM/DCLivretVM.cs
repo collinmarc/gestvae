@@ -41,6 +41,14 @@ namespace GestVAE.VM
             {
                 return TheDCLivret.Statut;
             }
+            set
+            {
+                if (Statut != value)
+                {
+                    TheDCLivret.Statut = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
         public String ModeObtention
         {
@@ -79,6 +87,7 @@ namespace GestVAE.VM
                         MotifGeneral = "";
                         MotifDetaille = "";
                         MotifCommentaire = "";
+                        Statut = "Validé";
                     }
                     RaisePropertyChanged();
                 }

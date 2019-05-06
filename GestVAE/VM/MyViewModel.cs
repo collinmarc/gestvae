@@ -957,7 +957,10 @@ public void AjoutePJL1()
             // Validation du contenu du Livret
             oL2VM.Commit();
             // Mise à jour du diplome du candidat
-            UpdateDiplomeCand(oL2VM);
+            if (oL2VM.IsEtatAccepte)
+            {
+                UpdateDiplomeCand(oL2VM);
+            }
             // Si le livret est Nouveau => Ajout dans la Collection des Livrets
             if (oL2VM.IsNew)
             {
@@ -972,33 +975,14 @@ public void AjoutePJL1()
         private void UpdateDiplomeCand(Livret2VM pLivret)
         {
 
-            DiplomeCandVM oDip = CurrentCandidat.getDiplomeCand(pLivret); 
+            DiplomeCandVM oDip = CurrentCandidat.getDiplomeCand(pLivret);
             if (oDip != null)
             {
-                if (pLivret.IsDecisionJuryFavorable)
-                {
-                    oDip.StatutDiplome = oDip.LstStatutDiplome[0];
-                    foreach (DomaineCompetenceCand item in oDip.lstDCCands)
-                    {
-                        item.Statut = oDip.LstStatutModule[0];
-                    }
-                    oDip.DateObtentionDiplome = pLivret.DateJury;
-                    oDip.NumeroDiplome = pLivret.NumeroDiplome;
-                }
-                if (pLivret.IsEtatRefuse)
-                {
-                    oDip.StatutDiplome = oDip.LstStatutDiplome[2];
-                    foreach (DomaineCompetenceCand item in oDip.lstDCCands)
-                    {
-                        item.Statut = oDip.LstStatutModule[1];
-                    }
-                }
                 if (pLivret.IsDecisionJuryPartielle)
                 {
-                    oDip.StatutDiplome = oDip.LstStatutDiplome[1];
                     foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
                     {
-                        DomaineCompetenceCand oDCCand =  oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
+                        DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
                         if (oDCCand != null)
                         {
                             if (item.isDecisionFavorable)
@@ -1015,6 +999,27 @@ public void AjoutePJL1()
                     }
 
                 }
+                else
+                {
+                    if (pLivret.IsDecisionJuryFavorable)
+                    {
+                        foreach (DomaineCompetenceCand item in oDip.lstDCCands)
+                        {
+                            item.Statut = oDip.LstStatutModule[0];
+                        }
+                        oDip.DateObtentionDiplome = pLivret.DateJury;
+                        oDip.NumeroDiplome = pLivret.NumeroDiplome;
+                    }
+                    if (pLivret.IsDecisionJuryDefavorable)
+                    {
+                        foreach (DomaineCompetenceCand item in oDip.lstDCCands)
+                        {
+                            item.Statut = oDip.LstStatutModule[1];
+                        }
+                    }
+                }
+                oDip.CalcStatutDiplome();
+
             }
 
         }
@@ -1027,15 +1032,18 @@ public void AjoutePJL1()
                 if (MessageBoxShow("Attention, certaines modifications seront perdues, voulez-vous continuer?", "ATTENTION", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                     == MessageBoxResult.Yes)
                 {
-                    DbEntityEntry  oEntity = oLiv.getEntity();
-                    DbPropertyValues oValues = oEntity.CurrentValues;
+                    DbEntityEntry oEntity = oLiv.getEntity();
+                    if (oEntity.State != EntityState.Detached)
+                    { 
 #if _DEBUG_
+                    DbPropertyValues oValues = oEntity.CurrentValues;
                     foreach (String name in oValues.PropertyNames)
                     {
                             Console.WriteLine(String.Format("{0} = Original = {1}, current = {2}", name, oEntity.Property(name).OriginalValue, oEntity.Property(name).CurrentValue));
                     }
 #endif
                     ResetCurrentLivret();
+                }
                     CloseAction();
                 }
             }

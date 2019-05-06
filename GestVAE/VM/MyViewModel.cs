@@ -885,7 +885,7 @@ public void AjoutePJL1()
         {
             // Validation du Livret1
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
-            oLiv.DateEnvoiL2 = DateTime.Now
+            oLiv.DateEnvoiL2 = DateTime.Now;
             ValideretQuitterL1();
             // Création du Livret2 (Recupération du Livret1)
             AjouteL2(); 

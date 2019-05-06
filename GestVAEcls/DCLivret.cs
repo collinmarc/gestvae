@@ -20,7 +20,7 @@ namespace GestVAEcls
         public DCLivret(DomaineCompetence pDC) : base()
         {
             oDomaineCompetence = pDC;
-            IsAValider = true;
+            IsAValider = false;
             Decision = "";
             MotifGeneral = "";
             MotifDetail = "";

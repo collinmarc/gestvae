@@ -11,8 +11,9 @@
 #958: frm Livret2 : Reçu complet
 #959: frmLivret2 : Recu complet : Onglet jury
 0000960: frm Livret2 : Recçu incomplet , validation partielle
-	0000961: frm Livret2 : Recçu incomplet , validation partielle
-	0000965: frm Livret2 :envoyé : numéro de passage
+0000961: frm Livret2 : Recçu incomplet , validation partielle
+0000965: frm Livret2 :envoyé : numéro de passage
+0000966: frm Livret2 : Reçu incomplet
 
 Build : 20190429
 #923 : FrmCandidat Désactivé si le candiat est null

@@ -154,7 +154,7 @@
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" 
                         IsEnabled="{Binding IsLivretNonClos}" >
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date poste par le candidat : " Width="160" />
+                    <Label Content="Date cachet de la poste  : " Width="160" />
                     <DatePicker x:Name="dtpEnvoiCandidat"  SelectedDate="{Binding DateEnvoiCandidat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
                                 />
                 </StackPanel>
@@ -221,11 +221,11 @@
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0">
                             <StackPanel Orientation="Horizontal">
-                                <Label Name="lblDateRetourPM" Content="Date de retour 1er courrier  :"/>
+                                <Label Name="lblDateRetourPM" Content="Date de retour demandée   :"/>
                                 <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemandePieceManquantesRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate1ereDemandePJ}"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label Name="lblDateReceptPM" Content="Date de retour 2nd courrier :" />
+                                <Label Name="lblDateReceptPM" Content="Date de réception pièces manquantes : :" />
                                 <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}"></DatePicker>
                             </StackPanel>
                         </StackPanel>

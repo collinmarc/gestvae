@@ -5,7 +5,7 @@
 #951: L1 Envoyé :Pas de date de validité , Pas de Type de Livret
 #952: 	0000952: frm Livret 1 : Recu incomplet
 #953: frmLivret1 : reçu complet
-
+#954:frmLivret1 : Onglet recevabilité
 
 Build : 20190429
 #923 : FrmCandidat Désactivé si le candiat est null

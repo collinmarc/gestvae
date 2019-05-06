@@ -4,6 +4,7 @@
 #950: L1 Demandé :Pas de date de validité , Pas de Type de Livret
 #951: L1 Envoyé :Pas de date de validité , Pas de Type de Livret
 #952: 	0000952: frm Livret 1 : Recu incomplet
+#953: frmLivret1 : reçu complet
 
 
 Build : 20190429

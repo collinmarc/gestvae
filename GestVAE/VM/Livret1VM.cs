@@ -391,10 +391,19 @@ namespace GestVAE.VM
                 {
                     oL1.Date1ereDemandePieceManquantes = value;
                     RaisePropertyChanged();
+                    RaisePropertyChanged("IsDate1ereDemandePieceManquantesNull");
 
                 }
             }
         }
+        public Boolean IsDate1ereDemandePieceManquantesNull
+        {
+            get
+            {
+                return Date1ereDemandePieceManquantes.HasValue;
+            }
+        }
+
         public DateTime? Date2emeDemandePieceManquantes
         {
             get { return oL1.Date2emeDemandePieceManquantes; }
@@ -404,8 +413,16 @@ namespace GestVAE.VM
                 {
                     oL1.Date2emeDemandePieceManquantes = value;
                     RaisePropertyChanged();
-
+                    RaisePropertyChanged("IsDate2emeDemandePieceManquantesNull");
                 }
+            }
+        }
+
+        public Boolean IsDate2emeDemandePieceManquantesNull
+        {
+            get
+            {
+                return Date2emeDemandePieceManquantes.HasValue;
             }
         }
         public DateTime? DateDemandePieceManquantesRetour

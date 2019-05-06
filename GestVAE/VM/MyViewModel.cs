@@ -40,7 +40,6 @@ namespace GestVAE.VM
         public ObservableCollection<ParamDepartement> lstParamDepartement { get; set; }
         public ObservableCollection<ParamTypeDemande> lstParamTypeDemande { get; set; }
         public ObservableCollection<ParamVecteurInformation> lstParamVecteurInformation { get; set; }
-        private Boolean bCandidatAjoute = false;
         private Int32 _ContextID=0;
         public CandidatVM CurrentCandidat
         {
@@ -581,7 +580,6 @@ namespace GestVAE.VM
             lstCandidatVM.Add(oCandVM);
             CurrentCandidat = oCandVM;
             RaisePropertyChanged("lstCandidatVM");
-            bCandidatAjoute = true;
         }
 
 

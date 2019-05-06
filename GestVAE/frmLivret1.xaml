@@ -120,16 +120,16 @@
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" 
                         IsEnabled="{Binding IsLivretModifiable}" >
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date 1ere réception : " Width="150" />
+                    <Label Content="Date 1ere réception : " Width="160" />
                     <DatePicker x:Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" IsEnabled="{Binding IsLivretModifiable}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpenvoiEHESP}" 
                                 />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date réception complet : " Width="150" />
+                    <Label Content="Date courrier complétude :" Width="160" />
                     <DatePicker x:Name="dtpReceptComplet"  SelectedDate="{Binding DateReceptEHESPComplet}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpenvoiEHESP}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date Validité : "  Width="150"  VerticalContentAlignment="Center"/>
+                    <Label Content="Date Validité : "  Width="160"  VerticalContentAlignment="Center"/>
                     <DatePicker x:Name="dtpValidite"     HorizontalAlignment="Left"
                             SelectedDate="{Binding DateValidite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="29" Width="100" Style="{DynamicResource DatePickerReadOnlyStyle}"
                             />
@@ -202,19 +202,19 @@
                                 <Label Content="Date 1er courrier pièces manquantes  :"/>
                                 <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}"></DatePicker>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsDate1ereDemandePieceManquantesNull,Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Label Content="Date 2nd courrier pièces manquantes :"/>
                                 <DatePicker Name="dtpDate2ndDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}"></DatePicker>
 
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0">
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0" Visibility="{Binding IsDate1ereDemandePieceManquantesNull,Converter={StaticResource BooleanToVisibilityConverter}}" >
                             <StackPanel Orientation="Horizontal">
-                                <Label Name="lblDateRetourPM" Content="Date de retour 1er courrier  :"/>
+                                <Label Name="lblDateRetourPM" Content="Date de retour demandée                    :"/>
                                 <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemandePieceManquantesRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate1ereDemandePJ}"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label Name="lblDateReceptPM" Content="Date de retour 2nd courrier :" />
+                                <Label Name="lblDateReceptPM" Content="Date de réception pièces manquantes :" />
                                 <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}"></DatePicker>
                             </StackPanel>
                         </StackPanel>

@@ -401,25 +401,21 @@
                               Visibility="{Binding IsDecisionJuryPartielle, Converter={StaticResource BooleanToVisibilityConverter}}" 
                               Content="Dispense des dispositions prévues à l'article 2"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" 
-                                Visibility="{Binding IsDecisionJuryFavorable, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Label Content="Numero de diplôme:" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tbNumeroDiplome" Margin="0" VerticalAlignment="Center" Width="100"
-                                    Text="{Binding NumeroDiplome}"/>
-                    </StackPanel>
+                                Visibility="{Binding IsDecisionJuryFavorable, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Label Content="Date de validité:" VerticalAlignment="Center"/>
-                        <DatePicker x:Name="dtpDateValidite" Margin="0" VerticalAlignment="Center"
-                                    SelectedDate="{Binding DateValidite}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2">
-                        <Label VerticalAlignment="Center" Content="  Date de notification :"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+                        <Label VerticalAlignment="Center" Content="  Date de notification du jury:"/>
                         <DatePicker x:Name="dtpDateNotificationJury" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" Width="100"
                                 SelectedDate="{Binding DateNotificationJury}"
                                     DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}">
                         </DatePicker>
 
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Label Content="Date de validité:" VerticalAlignment="Center"/>
+                        <DatePicker x:Name="dtpDateValidite" Margin="0" VerticalAlignment="Center"
+                                    SelectedDate="{Binding DateValidite}"/>
                     </StackPanel>
 
                     <DataGrid x:Name="dgDCLivretDecision"

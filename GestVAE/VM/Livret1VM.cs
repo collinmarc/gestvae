@@ -439,6 +439,18 @@ namespace GestVAE.VM
             }
         }
 
+        public DateTime? DateEnvoiL2
+        {
+            get { return oL1.DateEnvoiL2; }
+            set
+            {
+                if (value != DateEnvoiL2)
+                {
+                    oL1.DateEnvoiL2 = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public DateTime? DateLimiteJury
         {

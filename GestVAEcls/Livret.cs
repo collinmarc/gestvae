@@ -79,6 +79,7 @@ namespace GestVAEcls
         public DateTime? DateLimiteReceptEHESP { get; set; }
         public DateTime? DateLimiteJury { get; set; }
         public DateTime? DateValidite { get; set; }
+        public DateTime? DateEnvoiL2 { get; set; }
         public DateTime? Date1ereDemandePieceManquantes { get; set; }
         public DateTime? Date2emeDemandePieceManquantes { get; set; }
         public DateTime? DateDemandePieceManquantesRetour { get; set; }

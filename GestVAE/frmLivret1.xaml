@@ -113,6 +113,11 @@
                     <DatePicker x:Name="dtpenvoiEHESP" SelectedDate="{Binding DateEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateDemande}" 
                                 />
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatAccepte, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Label Content="Date envoi Livret2 : " Width="150" />
+                    <DatePicker x:Name="dtpenvoiL2" SelectedDate="{Binding DateEnvoiL2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateDemande}" 
+                                />
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
 
@@ -292,7 +297,7 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
-                        <Label Content="Date :" VerticalAlignment="Center"/>
+                        <Label Content="Date de recevabilité :" VerticalAlignment="Center"/>
                         <DatePicker x:Name="dtpDateJury" Margin="0" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}"  />
                     </StackPanel>
                     <Grid Grid.Row="0" Grid.Column="1" >
@@ -315,8 +320,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label Content="Lieu :" Grid.Column="0" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tbLieuJury"  Grid.Column="1" VerticalAlignment="Center" Margin="0,0,9,0"  />
 
                     </Grid>
 

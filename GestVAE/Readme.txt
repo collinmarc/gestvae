@@ -2,6 +2,9 @@
 #947 : Initialistion de la base pour les versions > 201904029
 #948: Fiche candidat
 #950: L1 Demandé :Pas de date de validité , Pas de Type de Livret
+#951: L1 Envoyé :Pas de date de validité , Pas de Type de Livret
+#952: 	0000952: frm Livret 1 : Recu incomplet
+
 
 Build : 20190429
 #923 : FrmCandidat Désactivé si le candiat est null

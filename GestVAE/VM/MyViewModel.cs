@@ -1442,5 +1442,59 @@ public void AjoutePJL1()
             return bReturn;
         }
 
+
+        /*
+                        <ComboBoxItem Content="Régions"/>
+                <ComboBoxItem Content="Départements"/>
+                <ComboBoxItem Content="Diplômes"/>
+                <ComboBoxItem Content="Pièces jointes"/>
+                <ComboBoxItem Content="Motif refus L1"/>
+                <ComboBoxItem Content="Motif refus L2"/>
+                <ComboBoxItem Content="Collèges jury"/>
+                <ComboBoxItem Content="Type de la demande"/>
+                <ComboBoxItem Content="Vecteur d'information"/>
+                <ComboBoxItem Content="Numérotation"/>
+*/
+
+        private String _NomParametre = "Régions";
+
+        public String NomParametre
+        {
+            get { return _NomParametre; }
+            set {
+                _NomParametre = value;
+                RaisePropertyChanged("IsParamRegion");
+                RaisePropertyChanged("IsParamDepartement");
+                RaisePropertyChanged("IsParamDiplome");
+                RaisePropertyChanged("IsParamPJ");
+                RaisePropertyChanged("IsParamMotifRefusL1");
+                RaisePropertyChanged("IsParamMotifRefusL2");
+                RaisePropertyChanged("IsParamColleges");
+                RaisePropertyChanged("IsParamTypeDemande");
+                RaisePropertyChanged("IsParamVecteur");
+                RaisePropertyChanged("IsParamNumerotation");
+            }
+        }
+
+        private Boolean NomParametreEquals(String pNom)
+        {
+            Boolean bReturn = false;
+            if (NomParametre != null)
+            {
+                bReturn = NomParametre.Equals(pNom);
+            }
+            return bReturn;
+        }
+        public Boolean IsParamRegion { get { return NomParametreEquals("Régions"); } }
+        public Boolean IsParamDepartement { get { return NomParametreEquals("Départements"); } }
+        public Boolean IsParamDiplome { get { return NomParametreEquals("Diplômes"); } }
+        public Boolean IsParamPJ { get { return NomParametreEquals("Pièces jointes"); } }
+        public Boolean IsParamMotifRefusL1 { get { return NomParametreEquals("Motif refus L1"); } }
+        public Boolean IsParamMotifRefusL2 { get { return NomParametreEquals("Motif refus L2"); } }
+        public Boolean IsParamColleges { get { return NomParametreEquals("Collèges jury"); } }
+        public Boolean IsParamTypeDemande { get { return NomParametreEquals("Type de la demande"); } }
+        public Boolean IsParamVecteur { get { return NomParametreEquals("Vecteur d'information"); } }
+        public Boolean IsParamNumerotation { get { return NomParametreEquals("Numérotation"); } }
+
     }
 }

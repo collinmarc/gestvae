@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201905031409374_DepartementNaissance.Designer.cs">
       <DependentUpon>201905031409374_DepartementNaissance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905060834073_PieceJointesL1.cs" />
+    <Compile Include="Migrations\201905060834073_PieceJointesL1.Designer.cs">
+      <DependentUpon>201905060834073_PieceJointesL1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -160,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905031409374_DepartementNaissance.resx">
       <DependentUpon>201905031409374_DepartementNaissance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905060834073_PieceJointesL1.resx">
+      <DependentUpon>201905060834073_PieceJointesL1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

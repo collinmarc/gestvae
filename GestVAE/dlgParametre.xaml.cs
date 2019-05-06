@@ -41,7 +41,8 @@ namespace GestVAE
         {
             return (MyViewModel)this.DataContext;
         }
-
+        public MyViewModel VM { get { return (MyViewModel)this.DataContext; }
+            }
 
         public void setContexte(MyViewModel pModel)
         {
@@ -53,5 +54,7 @@ namespace GestVAE
         {
             getViewModel().SetModelHasChanges();
         }
+
+
     }
 }

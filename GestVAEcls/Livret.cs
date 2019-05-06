@@ -115,6 +115,7 @@ namespace GestVAEcls
         public DateTime? Date2emeDemandePieceManquantes { get; set; }
         public DateTime? DateDemandePieceManquantesRetour { get; set; }
         public DateTime? DateReceptionPiecesManquantes { get; set; }
+        public DateTime? DateEnvoiCourrierJury { get; set; }
         public DateTime? DatePrevJury1 { get; set; }
         public DateTime? DatePrevJury2 { get; set; }
         public String SessionJury { get; set; }

@@ -9,6 +9,7 @@
 #955: Fiche candidat : ajout d'un bouton supprimer Livret
 #957: frm Livret2 : Recçu incomplet
 #958: frm Livret2 : Reçu complet
+#959: frmLivret2 : Recu complet : Onglet jury
 
 Build : 20190429
 #923 : FrmCandidat Désactivé si le candiat est null

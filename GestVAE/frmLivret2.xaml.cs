@@ -52,7 +52,7 @@ namespace GestVAE
             ckIsOuvertureApresRecours.SetBinding(CheckBox.IsCheckedProperty, "IsOuvertureApresRecours");
 
 
-
+            dtpDateEnvoiCourierJury.SetBinding(DatePicker.SelectedDateProperty, "DateEnvoiCourrierJury");
             dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, "DateJury");
             tpHeureConvoc.SetBinding(TimePicker.ValueProperty, "HeureConvoc");
             tpHeureJury.SetBinding(TimePicker.ValueProperty, "HeureJury");

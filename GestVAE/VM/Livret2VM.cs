@@ -391,6 +391,18 @@ namespace GestVAE.VM
             }
         }
 
+        public DateTime? DateEnvoiCourrierJury
+        {
+            get { return oL2.DateEnvoiCourrierJury; }
+            set
+            {
+                if (value != DateEnvoiCourrierJury)
+                {
+                    oL2.DateEnvoiCourrierJury = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         public DateTime? DatePrevJury1
         {
             get { return oL2.DatePrevJury1; }

@@ -68,7 +68,7 @@ namespace GestVAE.VM
             }
 
             DeleteLivretCommand = new RelayCommand<CandidatVM>(c => { DeleteCurrentLivret(); },
-                                                                c=> { return IsDeletePossible(); });
+                                                                c=> { return IsDeletePossible; });
 
 
         }
@@ -435,34 +435,37 @@ namespace GestVAE.VM
 
          public ICommand DeleteLivretCommand { get; set; }
 
-        public Boolean IsDeletePossible()
+        public Boolean IsDeletePossible
         {
-            Boolean bReturn = false;
-            if (CurrentLivret != null)
+            get
             {
-                if (IsLocked)
+                Boolean bReturn = false;
+                if (CurrentLivret != null)
                 {
-                    if (CurrentLivret is Livret1VM)
+                    if (IsLocked)
                     {
-                        bReturn = true;
-                        // C'est impossible si on n'a 1 Livret2
-                        foreach (LivretVMBase oLiv in lstLivrets)
+                        if (CurrentLivret is Livret1VM)
                         {
-                            if (oLiv is Livret2VM)
+                            bReturn = true;
+                            // C'est impossible si on n'a 1 Livret2
+                            foreach (LivretVMBase oLiv in lstLivrets)
                             {
-                                bReturn = false;
+                                if (oLiv is Livret2VM)
+                                {
+                                    bReturn = false;
+                                }
                             }
                         }
-                    }
-                    if (CurrentLivret is Livret2VM)
-                    {
-                        // C'est impossible si Le Livret n'est pas Clos
-                        bReturn = CurrentLivret.IsLivretClos;
+                        if (CurrentLivret is Livret2VM)
+                        {
+                            // C'est impossible si Le Livret n'est pas Clos
+                            bReturn = CurrentLivret.IsLivretClos;
+                        }
                     }
                 }
-            }
 
-            return bReturn;
+                return bReturn;
+            }
         }
 
         /// <summary>

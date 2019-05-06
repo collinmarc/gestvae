@@ -14,6 +14,7 @@
 0000961: frm Livret2 : Recçu incomplet , validation partielle
 0000965: frm Livret2 :envoyé : numéro de passage
 0000966: frm Livret2 : Reçu incomplet
+0000929: Ajout d'un raccourci pour effectuer la Sauvegarde
 
 Build : 20190429
 #923 : FrmCandidat Désactivé si le candiat est null

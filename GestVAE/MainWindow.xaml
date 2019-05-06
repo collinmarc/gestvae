@@ -57,16 +57,19 @@
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
     </Window.Resources>
     <Window.InputBindings>
-        <KeyBinding  Key="F12" Command="{Binding ExecSQLCommand}"></KeyBinding>
+        <KeyBinding  Key="F12" Modifiers ="Alt" Command="{Binding ExecSQLCommand}"></KeyBinding>
+        <KeyBinding  Key="S" Modifiers="Alt"  Command="{Binding SaveCommand}"></KeyBinding>
+        <KeyBinding  Key="V" Modifiers="Alt"  Command="{Binding LockCommand}"></KeyBinding>
+        <KeyBinding  Key="D" Modifiers="Alt"  Command="{Binding UnLockCommand}"></KeyBinding>
     </Window.InputBindings>
     <DockPanel     Cursor="{Binding IsBusy, Converter={StaticResource BoolToCursor}}">
         <ToolBarTray DockPanel.Dock="Top" >
             <ToolBar>
-                <Button Name="btnSave" Command="{Binding SaveCommand}" ToolTip="Sauvegarder"  >
-                    Sauvegarder
+                <Button Name="btnSave" Command="{Binding SaveCommand}" ToolTip="Sauvegarder (Alt-S)">
+                    <AccessText>Sauvegarder</AccessText>
                 </Button>
-                <Button Name="btnLock" Command="{Binding LockCommand}" Content="Verrouiller" />
-                <Button Name="btnUnLock" Command="{Binding UnLockCommand}" Content="Déverrouiller" />
+                <Button Name="btnLock" Command="{Binding LockCommand}" Content="Verrouiller" ToolTip="Verouiller le candidat (Alt-V)" />
+                <Button Name="btnUnLock" Command="{Binding UnLockCommand}" Content="Déverrouiller" ToolTip="Déverouiller le candidat (Alt-D)"/>
                 <Button Name="btnUnlockAll" Command="{Binding UnLockAllCommand}" Content="Tout déverrouiller" />
                 <Button Name="btnParam" Command="{Binding dlgParamCommand}" Content="Paramètres" />
                 <Button Name="btnAPropos" Command="{Binding dlgAProposCommand}" Content="?" />

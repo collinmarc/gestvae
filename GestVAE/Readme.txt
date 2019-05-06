@@ -8,6 +8,7 @@
 #954:frmLivret1 : Onglet recevabilité
 #955: Fiche candidat : ajout d'un bouton supprimer Livret
 #957: frm Livret2 : Recçu incomplet
+#958: frm Livret2 : Reçu complet
 
 Build : 20190429
 #923 : FrmCandidat Désactivé si le candiat est null

@@ -371,8 +371,7 @@
                                 >Ajout Livret 1
                                 </Button>
                                 <Button x:Name="btnAddLivret2" Margin="0,0,5,0" 
-                                Command="{Binding DataContext.AjouteL2Command, ElementName=window}" Style="{DynamicResource ButtonReadOnlyStyle}"
-                                        IsEnabled="{Binding IsL1Valide}">
+                                Command="{Binding DataContext.AjouteL2Command, ElementName=window}" Style="{DynamicResource ButtonReadOnlyStyle}" IsEnabled="{Binding IsAddL2Available}">
                                     Ajout Livret 2
                                 </Button>
                                 <Button x:Name="btnSupprLivret" Margin="5,0,0,0"

@@ -61,15 +61,6 @@ namespace GestVAE.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int DelaiValidite {
-            get {
-                return ((int)(this["DelaiValidite"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("60")]
         public int DelaiDepotRecours {
             get {
@@ -112,7 +103,16 @@ namespace GestVAE.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("V20191104")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int DelaiValidite {
+            get {
+                return ((int)(this["DelaiValidite"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("V20190429")]
         public string NUMVERSION {
             get {
                 return ((string)(this["NUMVERSION"]));

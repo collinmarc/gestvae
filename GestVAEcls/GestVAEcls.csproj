@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201905060958548_EnvoiL2.Designer.cs">
       <DependentUpon>201905060958548_EnvoiL2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905071437089_Updateview.cs" />
+    <Compile Include="Migrations\201905071437089_Updateview.Designer.cs">
+      <DependentUpon>201905071437089_Updateview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -174,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905060958548_EnvoiL2.resx">
       <DependentUpon>201905060958548_EnvoiL2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905071437089_Updateview.resx">
+      <DependentUpon>201905071437089_Updateview.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

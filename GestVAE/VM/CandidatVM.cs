@@ -656,5 +656,24 @@ namespace GestVAE.VM
             }
         }
 
+        public Boolean IsAddL2Available
+        {
+            get
+                {
+                Boolean bReturn = false;
+                // L'ajout d'un L2 est possible s'il y  a un L1 de Valide ET qu'il n'y a  pas un autre L2 Valide
+                if (IsL1Valide && !ISL2EnCours)
+                {
+                    bReturn = true;
+                }
+                // OU SI s'il a un L2 En validation partielle
+                if (ISL2EnValidationPartielle)
+                {
+                    bReturn = true;
+                }
+                return bReturn;
+            }
+        }
+
     }
 }

@@ -296,8 +296,9 @@ namespace GestVAE.VM
             }
             set { }
         }
-
-        public  List<String> LstDecisionL2Module
+        public String DecisionL2ModuleFavorable { get { return LstDecisionL2Module[0]; } }
+        public String DecisionL2ModuleDeFavorable { get { return LstDecisionL2Module[1]; } }
+        public List<String> LstDecisionL2Module
         {
             get
             {

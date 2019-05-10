@@ -157,6 +157,11 @@ namespace GestVAETU
             nId = oCand.ID;
             Diplome oDipDefault = Diplome.getDiplomeParDefaut();
             Livret2 oL2 = new Livret2(oDipDefault);
+            // Tous les DC sont a Valider
+            foreach (DCLivret item in oL2.lstDCLivrets)
+            {
+                item.IsAValider = true;
+            }
             oL2.create1erJury();
             oL2.oCandidat = oCand;
             oCand.lstLivrets2.Add(oL2);
@@ -180,6 +185,11 @@ namespace GestVAETU
             nId = oCand.ID;
             Diplome oDipDefault = Diplome.getDiplomeParDefaut();
             Livret2 oL2 = new Livret2(oDipDefault);
+            // Tous les DC sont a Valider
+            foreach (DCLivret item in oL2.lstDCLivrets)
+            {
+                item.IsAValider = true;
+            }
             oL2.create1erJury();
             oL2.oCandidat = oCand;
             oCand.lstLivrets2.Add(oL2);
@@ -214,6 +224,12 @@ namespace GestVAETU
             nId = oCand.ID;
             Diplome oDipDefault = Diplome.getDiplomeParDefaut();
             Livret2 oL2 = new Livret2(oDipDefault);
+            // Tous les DC sont a Valider
+            foreach (DCLivret item in oL2.lstDCLivrets)
+            {
+                item.IsAValider = true;
+            }
+
             oL2.create1erJury();
             oL2.oCandidat = oCand;
             oCand.lstLivrets2.Add(oL2);

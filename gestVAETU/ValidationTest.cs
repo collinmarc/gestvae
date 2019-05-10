@@ -759,7 +759,7 @@ namespace GestVAETU
 
             //Lock du candidat sur POSTE1
             VM.CurrentCandidat = VM.lstCandidatVM[0];
-            // Le candidat a obtenu le diplome
+            // Le candidat n'a pas obtenu le CAFDES
             Assert.IsFalse(VM.CurrentCandidat.IsCAFDES);
 
             VM.LockCurrentCandidat();
@@ -809,13 +809,20 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            // Tous les DC sont a Valider
+            foreach (DCLivretVM item in oL2.lstDCLivret)
+            { item.IsAValider = true; }
             // Decision = Validation Partielle > Now
             VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
+            oL2.lstDCLivret[0].Decision = oL2.DecisionL2ModuleFavorable;
+            oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleDeFavorable;
+            oL2.lstDCLivret[2].Decision = oL2.DecisionL2ModuleFavorable;
+            oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleDeFavorable;
             VM.ValideretQuitterL2();
 
             // Le candidat n'a pas obtenu le diplome
-            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
             Assert.IsNotNull(oDip);
             Assert.AreEqual("Validé Partiellement", oDip.StatutDiplome);
@@ -850,8 +857,12 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
-            // Decision = Validation Partielle > Now
             Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            // Tous les DC sont a Valider
+            foreach (DCLivretVM item in oL2.lstDCLivret)
+            { item.IsAValider = true; }
+
+            // Decision = Validation Partielle > Now
             VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             oL2.lstDCLivretAValider[0].Decision = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);

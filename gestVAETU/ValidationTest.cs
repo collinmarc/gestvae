@@ -871,6 +871,7 @@ namespace GestVAETU
             oL2.lstDCLivretAValider[3].Decision = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
             VM.ValideretQuitterL2();
 
+
             // Le candidat n'a pas obtenu le diplome
             DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
             Assert.IsNotNull(oDip);

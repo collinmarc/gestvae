@@ -102,6 +102,26 @@
     <Compile Include="Migrations\201905071437089_Updateview.Designer.cs">
       <DependentUpon>201905071437089_Updateview.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905141329577_DateRecept2emeRetour.cs" />
+    <Compile Include="Migrations\201905141329577_DateRecept2emeRetour.Designer.cs">
+      <DependentUpon>201905141329577_DateRecept2emeRetour.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905141347385_L2DateRecept2emeRetour.cs" />
+    <Compile Include="Migrations\201905141347385_L2DateRecept2emeRetour.Designer.cs">
+      <DependentUpon>201905141347385_L2DateRecept2emeRetour.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905141416137_ISnonRecu.cs" />
+    <Compile Include="Migrations\201905141416137_ISnonRecu.Designer.cs">
+      <DependentUpon>201905141416137_ISnonRecu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905141509486_PaysNaissance.cs" />
+    <Compile Include="Migrations\201905141509486_PaysNaissance.Designer.cs">
+      <DependentUpon>201905141509486_PaysNaissance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905141528446_Diplomes.cs" />
+    <Compile Include="Migrations\201905141528446_Diplomes.Designer.cs">
+      <DependentUpon>201905141528446_Diplomes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -181,6 +201,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905071437089_Updateview.resx">
       <DependentUpon>201905071437089_Updateview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905141329577_DateRecept2emeRetour.resx">
+      <DependentUpon>201905141329577_DateRecept2emeRetour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905141347385_L2DateRecept2emeRetour.resx">
+      <DependentUpon>201905141347385_L2DateRecept2emeRetour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905141416137_ISnonRecu.resx">
+      <DependentUpon>201905141416137_ISnonRecu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905141509486_PaysNaissance.resx">
+      <DependentUpon>201905141509486_PaysNaissance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905141528446_Diplomes.resx">
+      <DependentUpon>201905141528446_Diplomes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -786,8 +786,9 @@ namespace GestVAE.VM
             CandidatVM oCandVM = CurrentCandidat;
             Livret1VM oLivVM = new Livret1VM(CurrentCandidat.IsLocked);
             oLivVM.LstEtatLivret = LstEtatLivret1;
-            oLivVM.EtatLivret = LstEtatLivret1[1];
+            oLivVM.EtatLivret = LstEtatLivret1[2];
             oLivVM.DateDemande = DateTime.Now;
+            oLivVM.DateEnvoiEHESP = DateTime.Now;
             oLivVM.DateValidite = oLivVM.DateDemande.Value.AddYears(Properties.Settings.Default.DelaiValidite);
             CurrentCandidat.CurrentLivret = oLivVM;
             if (!IsInTest)
@@ -1266,6 +1267,11 @@ public void AjoutePJL1()
             ctxLock.SaveChanges();
             RaisePropertyChanged("IsCurrentCandidatLocked");
             RaisePropertyChanged("IsCurrentCandidatLockedByMe");
+            foreach (CandidatVM oCand in lstCandidatVM)
+            {
+                oCand.RaisePropertyChanged("IsLocked");
+            };
+
 
         }
         public void UnlockAll()

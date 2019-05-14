@@ -50,6 +50,7 @@ namespace GestVAEcls
         public virtual Diplome oDiplome { get; set; }
         public String Statut { get; set; }
         public DateTime? DateObtention { get; set; }
+        public String ModeObtention { get; set; }
         public String NumeroDiplome { get; set; }
 
         public virtual ObservableCollection<DomaineCompetenceCand> lstDCCands { get; set; }

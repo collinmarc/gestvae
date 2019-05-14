@@ -8,7 +8,7 @@
         xmlns:localCLS="clr-namespace:GestVAEcls"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplomeCand"
         mc:Ignorable="d"
-        Title="Détail du diplôme d'un candidat" Height="320" Width="622" Icon="IMG/diplome.ico">
+        Title="Détail du diplôme d'un candidat" Height="366" Width="622" Icon="IMG/diplome.ico">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style x:Key="CustTextBox" TargetType="{x:Type TextBox}" >
@@ -36,11 +36,12 @@
             <Setter Property="IsReadOnly" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
         </Style>
     </Window.Resources>
-    <Grid >
+    <Grid Margin="0,0,2,2" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="150"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -56,7 +57,7 @@
                   SelectedItem="{Binding CurrentCandidat.CurrentDiplomeCand.oDiplome}"
                   DisplayMemberPath="Nom"/>
 
- 
+
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="10">
             <Label Content="Statut :"/>
@@ -68,19 +69,26 @@
 
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="10">
-            <Label Content="Numéro  : "/>
-            <TextBox Name ="tbNumero" Width="150"  Style="{DynamicResource TextBoxReadOnlyStyle}"/>
+            <Label Content="Numéro  : " VerticalAlignment="Center"/>
+            <TextBox Name ="tbNumero" Width="150"  Style="{DynamicResource TextBoxReadOnlyStyle}" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10">
+            <Label Content="Mode d'obtention  : " VerticalAlignment="Center"/>
+            <ComboBox x:Name="cbxModeObtention" HorizontalAlignment="Stretch" Style="{DynamicResource ComboboxReadOnlyStyle}" SelectedValuePath="Content" >
+                <ComboBoxItem Content="VAE" />
+                <ComboBoxItem Content="Post-Formation"/>
+            </ComboBox>
         </StackPanel>
 
 
-        <DataGrid x:Name="dgDC" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" Margin="10"
+        <DataGrid x:Name="dgDC" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" Margin="10"
                   ItemsSource="{Binding CurrentCandidat.CurrentDiplomeCand.lstDCCands}"
                   CellEditEnding="dgDC_CellEditEnding" Style="{DynamicResource DataGridReadOnlyStyle}">
             <DataGrid.Resources>
                 <localVM:DiplomeCandVM x:Key="ComboItems"  />
             </DataGrid.Resources>
             <DataGrid.Visibility>
-                <Binding Converter="{StaticResource BooleanToVisibilityConverter}" Path="CurrentDiplomeCand.IsDCCands"/>
+                <Binding Converter="{StaticResource BooleanToVisibilityConverter}" Path="CurrentCandidat.CurrentDiplomeCand.IsDCCands"/>
             </DataGrid.Visibility>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding NomDomaineCompetence}" IsReadOnly="true" />
@@ -91,6 +99,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name ="btnOK" Content="OK" Grid.Row="3"  Grid.Column="1" Width="50" Margin ="10" HorizontalAlignment="Right" Click="btnOK_Click"/>
+        <Button x:Name ="btnOK" Content="OK" Grid.Row="4"  Grid.Column="1" Width="50"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnOK_Click" Height="20" Margin="0,0,10,10"/>
     </Grid>
 </Window>

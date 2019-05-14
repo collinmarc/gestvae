@@ -19,6 +19,7 @@ namespace GestVAETU
             oCand.Nom = "COLLIN";
             oCand.Prenom = "MArc";
             oCand.DptNaissance = "56-Morbihan";
+            oCand.PaysNaissance = "France";
 
             ctx.Candidats.Add(oCand);
 
@@ -33,11 +34,13 @@ namespace GestVAETU
                      select obj).First<Candidat>();
             Assert.AreEqual("COLLIN", oCand.Nom);
             Assert.AreEqual("MArc", oCand.Prenom);
-            Assert.AreEqual(oCand.DptNaissance , "56-Morbihan");
+            Assert.AreEqual(oCand.DptNaissance, "56-Morbihan");
+            Assert.AreEqual(oCand.PaysNaissance, "France");
 
             oCand.Nom = "THOMAS";
             oCand.Prenom = "JF";
             oCand.DptNaissance = "35-Ile et Vilaine";
+            oCand.PaysNaissance = "Espagne";
 
             ctx.SaveChanges();
             ctx = Context.instance;
@@ -47,7 +50,8 @@ namespace GestVAETU
                      select obj).First<Candidat>();
             Assert.AreEqual("THOMAS", oCand.Nom);
             Assert.AreEqual("JF", oCand.Prenom);
-            Assert.AreEqual(oCand.DptNaissance , "35-Ile et Vilaine");
+            Assert.AreEqual(oCand.DptNaissance, "35-Ile et Vilaine");
+            Assert.AreEqual(oCand.PaysNaissance, "Espagne");
 
 
             ctx.Candidats.Remove(oCand);

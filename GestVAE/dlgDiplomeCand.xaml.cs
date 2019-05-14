@@ -35,6 +35,7 @@ namespace GestVAE
             cbxStatutdiplome.SetBinding(ComboBox.SelectedValueProperty, "CurrentCandidat.CurrentDiplomeCand.StatutDiplome");
             cbxStatutdiplome.SetBinding(ComboBox.ItemsSourceProperty, "CurrentCandidat.CurrentDiplomeCand.LstStatutDiplome");
 
+            cbxModeObtention.SetBinding(ComboBox.SelectedValueProperty, "CurrentCandidat.CurrentDiplomeCand.ModeObtention");
 
             dtDateObtention.SetBinding(DatePicker.SelectedDateProperty, "CurrentCandidat.CurrentDiplomeCand.DateObtentionDiplome");
             tbNumero.SetBinding(TextBox.TextProperty, "CurrentCandidat.CurrentDiplomeCand.NumeroDiplome");

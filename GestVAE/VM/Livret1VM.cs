@@ -174,30 +174,6 @@ namespace GestVAE.VM
             }
         }
 
-        public Boolean IsContrat {
-            get {
-                return TheLivret.isContrat;
-            }
-
-            set
-            {
-                if (value != IsContrat)
-                {
-                    TheLivret.isContrat = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        public Boolean IsConvention {
-            get { return !IsContrat; }
-            set {
-                if (value != IsConvention)
-                {
-                    IsContrat = !value;
-                }
-            }
-        }
-
 
         public String ResultatPiecesJointes
         {
@@ -425,14 +401,27 @@ namespace GestVAE.VM
                 return Date2emeDemandePieceManquantes.HasValue;
             }
         }
-        public DateTime? DateDemandePieceManquantesRetour
+        public DateTime? DateDemande1erRetour
         {
-            get { return oL1.DateDemandePieceManquantesRetour; }
+            get { return oL1.DateDemande1erRetour; }
             set
             {
-                if (value != DateDemandePieceManquantesRetour)
+                if (value != DateDemande1erRetour)
                 {
-                    oL1.DateDemandePieceManquantesRetour = value;
+                    oL1.DateDemande1erRetour = value;
+                    RaisePropertyChanged();
+
+                }
+            }
+        }
+        public DateTime? DateDemande2emeRetour
+        {
+            get { return oL1.DateDemande2emeRetour; }
+            set
+            {
+                if (value != DateDemande2emeRetour)
+                {
+                    oL1.DateDemande2emeRetour = value;
                     RaisePropertyChanged();
 
                 }

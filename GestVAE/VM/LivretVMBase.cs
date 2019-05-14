@@ -440,6 +440,43 @@ namespace GestVAE.VM
             get { return !IsLivretClos; }
             set { IsLivretClos = !value; }
         }
+        public Boolean IsContrat
+        {
+            get
+            {
+                return TheLivret.IsContrat;
+            }
+
+            set
+            {
+                if (value != IsContrat)
+                {
+                    TheLivret.IsContrat = value;
+                }
+            }
+        }
+        public Boolean IsConvention
+        {
+            get { return TheLivret.IsConvention; }
+            set
+            {
+                if (value != IsConvention)
+                {
+                    TheLivret.IsConvention = value;
+                }
+            }
+        }
+        public Boolean IsNonRecu
+        {
+            get { return TheLivret.IsNonRecu; }
+            set
+            {
+                if (value != IsNonRecu)
+                {
+                    TheLivret.IsNonRecu = value;
+                }
+            }
+        }
 
 
         private int getNumetat()

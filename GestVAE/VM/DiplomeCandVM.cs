@@ -74,6 +74,21 @@ namespace GestVAE.VM
                 }
             }
         }
+        public String ModeObtention
+        {
+            get
+            {
+                return TheDiplomeCand.ModeObtention;
+            }
+            set
+            {
+                if (value != ModeObtention)
+                {
+                    TheDiplomeCand.ModeObtention = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         public void CalcStatutDiplome()
         {
             Int32 nbRefusé = 0;

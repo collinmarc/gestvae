@@ -14,7 +14,9 @@ namespace GestVAEcls
         public DateTime? DateEcheance { get; set; }
         [NotMapped]
         public String Typestr { get; set; }
-        public Boolean isContrat { get; set; }
+        public Boolean IsContrat { get; set; }
+        public Boolean IsConvention { get; set; }
+        public Boolean IsNonRecu { get; set; }
 
         private String _EtatLivret;
         public String EtatLivret {
@@ -82,7 +84,8 @@ namespace GestVAEcls
         public DateTime? DateEnvoiL2 { get; set; }
         public DateTime? Date1ereDemandePieceManquantes { get; set; }
         public DateTime? Date2emeDemandePieceManquantes { get; set; }
-        public DateTime? DateDemandePieceManquantesRetour { get; set; }
+        public DateTime? DateDemande1erRetour { get; set; }
+        public DateTime? DateDemande2emeRetour { get; set; }
         public DateTime? DateReceptionPiecesManquantes { get; set; }
         public virtual ObservableCollection<PieceJointeL1> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL1> lstEchanges { get; set; }
@@ -113,7 +116,8 @@ namespace GestVAEcls
         public DateTime? DateLimiteReceptEHESP { get; set; }
         public DateTime? Date1ereDemandePieceManquantes { get; set; }
         public DateTime? Date2emeDemandePieceManquantes { get; set; }
-        public DateTime? DateDemandePieceManquantesRetour { get; set; }
+        public DateTime? DateDemande1erRetour { get; set; }
+        public DateTime? DateDemande2emeRetour { get; set; }
         public DateTime? DateReceptionPiecesManquantes { get; set; }
         public DateTime? DateEnvoiCourrierJury { get; set; }
         public DateTime? DatePrevJury1 { get; set; }

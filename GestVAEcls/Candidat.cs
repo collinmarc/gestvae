@@ -26,6 +26,7 @@ namespace GestVAEcls
         public String VilleNaissance { get; set; }
         public String DptNaissance { get; set; }
         public String NationaliteNaissance { get; set; }
+        public String PaysNaissance { get; set; }
         public String Adresse { get; set; }
         public String CodePostal { get; set; }
         public String Ville { get; set; }
@@ -58,8 +59,7 @@ namespace GestVAEcls
             Nationalite = "Française";
             NationaliteNaissance = "Française";
             Pays = "France";
-
-
+            PaysNaissance = "France";
         }
         public Candidat(String pNom) : this ()
         {

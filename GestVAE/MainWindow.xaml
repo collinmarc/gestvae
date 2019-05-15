@@ -171,6 +171,9 @@
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="_0" Grid.Row ="0" MinHeight="100" VerticalAlignment="Stretch"
                               ItemsSource="{Binding lstCandidatVM}" SelectedItem="{Binding CurrentCandidat}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding"  Margin="10" BorderThickness="0" Style="{DynamicResource MyDataGridStyle}">
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+                        </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID VAE" IsReadOnly="true" Binding="{Binding IdVAE}" Width="2*"/>
                             <DataGridTextColumn Header="SISCOLE" IsReadOnly="true" Binding="{Binding IdSiscole}" Width="2*"/>

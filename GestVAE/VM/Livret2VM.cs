@@ -67,7 +67,14 @@ namespace GestVAE.VM
         {
             get
             {
-                return TheLivret.oDiplome.Nom;
+                if (TheLivret.oDiplome == null)
+                {
+                    return "";
+                }
+                else
+                {
+                    return TheLivret.oDiplome.Nom;
+                }
             }
         }
         public String StatutDiplomeCandidat

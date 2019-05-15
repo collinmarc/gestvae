@@ -1,4 +1,4 @@
-﻿Build : 
+﻿Build : 20190515
 #947 : Initialistion de la base pour les versions > 201904029
 #948: Fiche candidat
 #950: L1 Demandé :Pas de date de validité , Pas de Type de Livret
@@ -15,6 +15,7 @@
 0000965: frm Livret2 :envoyé : numéro de passage
 0000966: frm Livret2 : Reçu incomplet
 0000929: Ajout d'un raccourci pour effectuer la Sauvegarde
+Reponses1405
 
 Build : 20190429
 #923 : FrmCandidat Désactivé si le candiat est null

@@ -349,7 +349,7 @@ namespace GestVAE.VM
 
         public DiplomeCandVM AjoutDiplomeCand()
         {
-            DiplomeCand oDiplCand = TheCandidat.AddDiplome(pStatut:"Refusé");
+            DiplomeCand oDiplCand = TheCandidat.AddDiplome(pStatut:"");
             DiplomeCandVM oDiplomeCand = new DiplomeCandVM(oDiplCand);
             lstDiplomesCandVMs.Add(oDiplomeCand);
             RaisePropertyChanged("lstDiplomesCandVMs");

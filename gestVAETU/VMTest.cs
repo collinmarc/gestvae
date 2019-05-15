@@ -598,5 +598,39 @@ namespace GestVAETU
 
 
         }
+        /// <summary>
+        /// Vérifie le résultat de l recherche s'il y a des modifs en cours
+        /// </summary>
+        [TestMethod]
+        public void CreationDiplomeCandModeObtentionEtstatusTest()
+        {
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouteCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            Assert.AreEqual(0, oCan.lstDiplomesCandVMs.Count);
+            oCan.Nom = "TEST1";
+            VM.saveData();
+            VM.AjouteL2();
+            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.ValideretQuitterL2();
+            // Un diplome a bienété crée
+            Assert.AreEqual(1, oCan.lstDiplomesCandVMs.Count);
+            DiplomeCandVM oDip = oCan.lstDiplomesCandVMs.First();
+            Assert.AreEqual("VAE", oDip.ModeObtention);
+            Assert.AreEqual("Validé", oDip.StatutDiplome);
+
+            foreach (GestVAEcls.DomaineCompetenceCand item in oDip.lstDCCands)
+            {
+                Assert.AreEqual("VAE", item.ModeObtention);
+                Assert.AreEqual("Validé", item.Statut);
+
+            }
+
+
+
+
+
+        }
     }
 }

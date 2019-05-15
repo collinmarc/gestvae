@@ -824,7 +824,9 @@ namespace GestVAE.VM
                 DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
                 if (oDiplomeCandidat == null)
                 {
-                    oDiplomeCandidat = CurrentCandidat.AjoutDiplomeCand().TheDiplomeCand;
+                    DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand();
+                    oDiplomeCandidat = oDipCandVM.TheDiplomeCand;
+                    oDipCandVM.ModeObtention = "VAE";
                 }
 
                 ((Livret2)oLivVM.TheLivret).InitDCLivrets(oDiplomeCandidat);
@@ -990,6 +992,7 @@ public void AjoutePJL1()
                             {
                                 oDCCand.Statut = "Validé";
                                 oDCCand.DateObtention = pLivret.DateJury;
+                                oDCCand.ModeObtention = "VAE";
                             }
                             else
                             {
@@ -1007,6 +1010,8 @@ public void AjoutePJL1()
                         foreach (DomaineCompetenceCand item in oDip.lstDCCands)
                         {
                             item.Statut = oDip.LstStatutModule[0];
+                            item.DateObtention = pLivret.DateJury;
+                            item.ModeObtention = "VAE";
                         }
                         oDip.DateObtentionDiplome = pLivret.DateJury;
                         oDip.NumeroDiplome = pLivret.NumeroDiplome;
@@ -1016,6 +1021,8 @@ public void AjoutePJL1()
                         foreach (DomaineCompetenceCand item in oDip.lstDCCands)
                         {
                             item.Statut = oDip.LstStatutModule[1];
+                            item.DateObtention = pLivret.DateJury;
+                            item.ModeObtention = "VAE";
                         }
                     }
                 }

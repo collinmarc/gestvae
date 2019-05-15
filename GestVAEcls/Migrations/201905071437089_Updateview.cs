@@ -56,6 +56,19 @@ namespace GestVAEcls.Migrations
 
         public override void Down()
         {
+            Sql(@"DROP VIEW [dbo].[Livret1_NonClos] ");
+            Sql(@"CREATE VIEW [dbo].[Livret1_NonClos]
+                    AS
+                    SELECT        dbo.Livret1.*
+                    FROM            dbo.Livret1
+                    WHERE        (isClos = 0)");
+            Sql(@"DROP VIEW [dbo].[Livret2_NonClos] ");
+            Sql(@"CREATE VIEW [dbo].[Livret2_NonClos]
+                    AS
+                    SELECT        dbo.Livret2.*
+                    FROM            dbo.Livret2
+                    WHERE        (isClos = 0)");
+
             Sql(@"DROP VIEW [dbo].[RQ_L1_DOC] ");
             Sql(@"CREATE VIEW [dbo].[RQ_L1_DOC]
                     AS

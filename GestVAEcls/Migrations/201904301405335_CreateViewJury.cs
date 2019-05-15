@@ -7,7 +7,20 @@ namespace GestVAEcls.Migrations
     {
         public override void Up()
         {
-//            Sql(@"DROP VIEW IF EXISTS [dbo].[L2_MEMBRES_JURY] "); 
+            Sql(@"DROP VIEW [dbo].[Livret1_NonClos] ");
+            Sql(@"CREATE VIEW [dbo].[Livret1_NonClos]
+                    AS
+                    SELECT        dbo.Livret1.*
+                    FROM            dbo.Livret1
+                    WHERE        (isClos = 0)");
+            Sql(@"DROP VIEW [dbo].[Livret2_NonClos] ");
+            Sql(@"CREATE VIEW [dbo].[Livret2_NonClos]
+                    AS
+                    SELECT        dbo.Livret2.*
+                    FROM            dbo.Livret2
+                    WHERE        (isClos = 0)");
+
+            //            Sql(@"DROP VIEW IF EXISTS [dbo].[L2_MEMBRES_JURY] "); 
             Sql(@"CREATE VIEW [dbo].[L2_MEMBRES_JURY] AS 
                     SELECT        dbo.Candidats.ID, dbo.Candidats.Nom, dbo.Candidats.Prenom, dbo.Candidats.Prenom2, dbo.Candidats.Prenom3, dbo.Candidats.Sexe, dbo.Candidats.IdVAE, dbo.Candidats.IdSiscole, dbo.Candidats.DateNaissance,
                                              dbo.Candidats.Adresse, dbo.Candidats.CodePostal, dbo.Candidats.Ville, dbo.Candidats.Region, dbo.Candidats.Pays, dbo.Livret2.Numero, dbo.Livret2.NumPassage, dbo.Juries.DateJury, dbo.Juries.HeureJury,

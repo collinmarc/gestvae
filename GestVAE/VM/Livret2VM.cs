@@ -687,6 +687,19 @@ namespace GestVAE.VM
                 return !IsLivretEnCours;
             }
         }
+        /// <summary>
+        /// Rend le numéro de l'onglet a Afficher par défaut
+        /// </summary>
+        public Int32 getNumTab
+        {
+            get
+            {
+                if (IsEtatRecu)
+                    return 1;
+                else
+                    return 0;
+            }
+        }
 
     }
 }

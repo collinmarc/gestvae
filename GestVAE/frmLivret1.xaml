@@ -145,14 +145,6 @@
                             />
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="3">
-
-
-            </StackPanel>
-
-
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" />
 
         </Grid>
 

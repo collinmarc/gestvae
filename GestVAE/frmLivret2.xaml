@@ -105,13 +105,13 @@
                             AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" 
                           CellEditEnding="dgDCLivret_CellEditEnding" Style="{DynamicResource DataGridReadOnlyStyle}">
                     <DataGrid.Resources>
-                        <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
+                        <VM:BindingProxy x:Key="proxy" Data="{Binding VM.CurrentCandidat.CurrentLivret, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="2*" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="2*" IsReadOnly="True"/>
-                        <DataGridCheckBoxColumn Header="A Valider ?" Binding="{Binding IsAValider, UpdateSourceTrigger=LostFocus}" Width="1*" IsReadOnly="{Binding Data.IsLivretNotEnCours}"/>
+                        <DataGridCheckBoxColumn Header="A Valider ?" Binding="{Binding IsAValider}" Width="1*" IsReadOnly="{Binding Data.IsLivretNotEnCours,Source={StaticResource proxy}}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -146,7 +146,8 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date réception pièces manquantes : " Width="200" />
-                    <DatePicker x:Name="dtpReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateDemande}" 
+                    <DatePicker x:Name="dtpReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}" 
+                                DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" 
                                 />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -193,9 +194,10 @@
 
         <TabControl x:Name="TabL2" Grid.Row="2" 
                     
-                    HorizontalAlignment="Stretch" Margin="10" Style="{DynamicResource TabControlReadOnlyStyle}" >
+                    HorizontalAlignment="Stretch" Margin="10"
+                    SelectedIndex="{Binding getNumTab,Mode=OneTime}">
             <TabItem x:Name="tabLivret" Header="Livret" Margin="0">
-                <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretNonClos}" >
+                <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretModifiable}" >
                     <StackPanel Orientation="Horizontal" />
                     <Grid Name="grdPiecesJointes" Margin="10" 
                           Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -291,7 +293,7 @@
             <TabItem x:Name="tabJury" Header="Jury" 
                     Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}" Height="22" VerticalAlignment="Top"
                      >
-                <Grid x:Name="grdJury1"  HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretNonClos}" >
+                <Grid x:Name="grdJury1"  HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretModifiable}" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto" />

@@ -2,6 +2,7 @@
 #970 : Connexion à la base de données
 Icone dans la barre des taches
 0000977: Recherche Candidat : Mettre en surbrillance le premier Candidat
+0000971: FrmL1 et frmL2 : Onglet Jury
 
 Build : 20190515
 #947 : Initialistion de la base pour les versions > 201904029

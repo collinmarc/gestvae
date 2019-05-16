@@ -340,7 +340,7 @@
                                       AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding" MouseDoubleClick="gridLstDiplome_MouseDoubleClick" Margin="0,0,10,0" Style="{DynamicResource MyDataGridStyle}"
                                       HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Nom" Binding="{Binding NomDiplome}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Nom" Binding="{Binding NomDiplome, Mode=OneWay}" IsReadOnly="True"/>
                                     <DataGridTextColumn Header="Statut" Binding="{Binding StatutDiplome}" IsReadOnly="True"/>
                                     <DataGridTextColumn Header="Obtention" Binding="{Binding DateObtentionDiplome, StringFormat='dd/MM/yyyy'}"/>
                                     <DataGridTextColumn Header="Mode" Binding="{Binding ModeObtention}" IsReadOnly="True"/>

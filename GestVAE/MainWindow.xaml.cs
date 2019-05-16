@@ -82,6 +82,7 @@ namespace GestVAE
         private void gridLstLivrets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Window ofrm = null;
+            VM.CurrentCandidat.CurrentLivret = (LivretVMBase)gridLstLivrets.SelectedItem;
             VM.CurrentCandidat.CurrentLivret.IsCandidatLocked = VM.CurrentCandidat.IsLocked;
             if (VM.CurrentCandidat.CurrentLivret.Typestr==Livret1.TYPELIVRET)
             {

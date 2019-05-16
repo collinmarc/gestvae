@@ -815,7 +815,6 @@ namespace GestVAE.VM
                 oLivVM.EtatLivret = LstEtatLivret2[1];
                 oLivVM.DateDemande = DateTime.Now;
                 oLivVM.DateValidite = DateTime.Now.AddYears(Properties.Settings.Default.DelaiValidite);
-                CurrentCandidat.CurrentLivret = oLivVM;
                 if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
                 {
                     int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
@@ -891,15 +890,14 @@ public void AjoutePJL1()
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
             oLiv.DateEnvoiL2 = DateTime.Now;
             ValideretQuitterL1();
-            // Création du Livret2 (Recupération du Livret1)
-            AjouteL2(); 
-            // CloturerLivret1
-            oLiv.IsLivretClos = true;
-            // Fermeture de la fenêtre du Livret2
             if (!IsInTest)
             {
                 CloseAction();
             }
+            // Création du Livret2 (Recupération du Livret1)
+            AjouteL2(); 
+            // CloturerLivret1
+            oLiv.IsLivretClos = true;
         }
 
         public void CloturerL2()

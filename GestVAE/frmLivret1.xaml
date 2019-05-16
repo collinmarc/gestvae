@@ -95,7 +95,8 @@
                     </CheckBox.InputBindings>
                 </CheckBox>
                 <Label Content="Diplome :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="tbDiplome" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsEnabled="{Binding IsLivretModifiable}"/>
+                <TextBox x:Name="tbDiplome" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsEnabled="{Binding IsLivretModifiable}"
+                         Text="{Binding NomDiplome,Mode=OneWay}"/>
 
 
 

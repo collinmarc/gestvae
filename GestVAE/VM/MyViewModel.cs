@@ -845,6 +845,7 @@ namespace GestVAE.VM
                     {
                         oLivVM.IsOuvertureApresRecours = true;
                     }
+                    oL1.DateEnvoiL2 = DateTime.Now;
                 }
 
                 CurrentCandidat.CurrentLivret = oLivVM;

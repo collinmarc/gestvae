@@ -768,7 +768,7 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
-            // Decision = Favorable DateValidité > Now
+            // Decision = DéFavorable DateValidité > Now
             VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             VM.ValideretQuitterL2();
@@ -777,7 +777,8 @@ namespace GestVAETU
             Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
             Assert.IsNotNull(oDip);
-            Assert.AreEqual("Refusé", oDip.StatutDiplome);
+            // L'état du diplome n'est pas modifié
+            Assert.AreEqual("", oDip.StatutDiplome);
 
         }//GestVAE018
 
@@ -921,7 +922,6 @@ namespace GestVAETU
             DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
             Assert.IsNotNull(oDip);
             Assert.AreEqual(oL2.DateJury, oDip.DateObtentionDiplome);
-            Assert.AreEqual(oL2.NumeroDiplome, oDip.NumeroDiplome);
 
 
         }//GestVAE021

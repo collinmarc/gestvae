@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +33,13 @@ namespace GestVAEcls
         {
             _instance = new Context();
         }
+#if DEBUG
+        public Context() : base("name=CSGESTVAEDEV")
+#else
         public Context() : base("name=CSGESTVAE")
+#endif
         {
+            Trace.WriteLine("Context : SQLServer = " + this.Database.Connection.DataSource);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, GestVAEcls.Migrations.Configuration>());
 
         }
@@ -150,7 +156,11 @@ namespace GestVAEcls
         {
             _instance = new Context();
         }
+#if DEBUG
+        public ContextLock() : base("name=CSGESTVAEDEV")
+#else
         public ContextLock() : base("name=CSGESTVAE")
+#endif
         {
 
         }

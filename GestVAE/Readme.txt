@@ -1,4 +1,7 @@
-﻿Build : 20190515
+﻿Build : 
+#970 : Connexion à la base de données
+
+Build : 20190515
 #947 : Initialistion de la base pour les versions > 201904029
 #948: Fiche candidat
 #950: L1 Demandé :Pas de date de validité , Pas de Type de Livret

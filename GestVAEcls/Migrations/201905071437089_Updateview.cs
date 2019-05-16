@@ -7,6 +7,7 @@ namespace GestVAEcls.Migrations
     {
         public override void Up()
         {
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "Updateview " + "start");
             Sql(@"DROP VIEW [dbo].[RQ_L1_DOC] ");
             Sql(@"CREATE VIEW [dbo].[RQ_L1_DOC]
                     AS
@@ -52,6 +53,7 @@ namespace GestVAEcls.Migrations
                          dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
                     ");
 
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "Updateview " + "End");
         }
 
         public override void Down()

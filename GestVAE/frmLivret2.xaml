@@ -450,6 +450,8 @@
                                                         SelectedValueBinding="{Binding Decision}" 
                                                         ItemsSource="{Binding Data.LstDecisionL2Module, Source={StaticResource proxy}}"
                                                         Width="2*"/>
+                            <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
+                            <!--                            
                             <DataGridComboBoxColumn x:Name="dgColMotifGeneral" Header="Motif général" 
                                                         SelectedItemBinding="{Binding MotifGeneral, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         ItemsSource="{Binding Data.LstMotifGL2, Source={StaticResource proxy}}"
@@ -458,7 +460,6 @@
                             <DataGridComboBoxColumn x:Name="dgColMotifDetaille" Header="Motif détail" 
                                                         SelectedItemBinding="{Binding MotifDetaille}" 
                                                         Width="1*">
-                                <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
                                         <Setter Property="ItemsSource" Value="{Binding lstMotifDetaille}" />
@@ -471,6 +472,7 @@
                                 </DataGridComboBoxColumn.EditingElementStyle>
 
                             </DataGridComboBoxColumn>
+                            -->
                             <DataGridTextColumn Header="Commentaire" 
                                                 Binding="{Binding MotifCommentaire}" 
                                                 Width="1*" />

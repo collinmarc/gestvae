@@ -6,6 +6,7 @@ Icone dans la barre des taches
 0000974: frmL1 : Cloturer et Creer L2
 0000973: frmCandidtat : Liste des Livrets : Date de validité
 0000975: frmCandidat : Ajout de L2
+0000976: frmL2 : Validation Partielle (Motif G et Motif D)
 
 Build : 20190515
 #947 : Initialistion de la base pour les versions > 201904029

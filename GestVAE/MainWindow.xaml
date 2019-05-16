@@ -363,7 +363,9 @@
                               SelectedItem="{Binding CurrentLivret}"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                               CellEditEnding="gridLstLivrets_CellEditEnding" 
-                              MouseDoubleClick="gridLstLivrets_MouseDoubleClick" IsReadOnly="True" Style="{DynamicResource MyDataGridStyle}"
+                              MouseDoubleClick="gridLstLivrets_MouseDoubleClick"
+                              IsReadOnly="True" 
+                              Style="{DynamicResource MyDataGridStyle}"
                                 >
                                 <DataGrid.InputBindings>
                                     <KeyBinding Key="Delete" Command="{Binding DeleteLivretCommand}" />
@@ -372,7 +374,7 @@
                                     <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
                                     <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}"/>
                                     <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret}"/>
-                                    <DataGridTextColumn Header="Validité" Binding="{Binding DateValidite, StringFormat='dd/MM/yyyy'}"/>
+                                    <DataGridTextColumn Header="Validité" Binding="{Binding DateValidite2, StringFormat='dd/MM/yyyy', Mode=OneWay}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
 

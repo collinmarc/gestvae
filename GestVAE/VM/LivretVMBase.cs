@@ -85,6 +85,25 @@ namespace GestVAE.VM
 
             }
         }
+        public DateTime? DateValidite2
+        {
+            get
+            {
+                if (this is Livret1VM)
+                {
+                    if (IsEtatAccepte)
+                    {
+                        return ((Livret1)TheLivret).DateValidite;
+                    }
+                    else { return null; }
+                }
+                else
+                {
+                    return null; 
+
+                }
+            }
+        }
         public virtual void Commit() {
             foreach (JuryVM item in lstJuryVM)
             {

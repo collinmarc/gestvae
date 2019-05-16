@@ -1,5 +1,7 @@
 ﻿Build : 
 #970 : Connexion à la base de données
+Icone dans la barre des taches
+0000977: Recherche Candidat : Mettre en surbrillance le premier Candidat
 
 Build : 20190515
 #947 : Initialistion de la base pour les versions > 201904029

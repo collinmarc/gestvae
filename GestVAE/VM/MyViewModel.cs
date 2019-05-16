@@ -757,7 +757,8 @@ namespace GestVAE.VM
                 }
                 if (_lstCandidatVM.Count > 0)
                 {
-                    CurrentCandidat = _lstCandidatVM[0];
+//                    CurrentCandidat = _lstCandidatVM[0];
+                    
                 }
                 else
                 {

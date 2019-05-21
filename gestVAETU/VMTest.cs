@@ -352,7 +352,7 @@ namespace GestVAETU
             Assert.IsFalse(oCand.IsL1Valide);
             Assert.IsTrue(oCand.IsL1Encours);
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
-            oL1.EtatLivret = String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+            oL1.EtatLivret = String.Format("{0:D}-Favorable", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
             oL1.DateValidite = DateTime.Now.AddYears(3);
             // Le L1 Devient Valide
             Assert.IsTrue(oCand.IsL1Valide);

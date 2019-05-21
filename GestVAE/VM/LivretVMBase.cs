@@ -82,6 +82,8 @@ namespace GestVAE.VM
                 {
                     ((Livret2)TheLivret).DateValidite = value;
                 }
+                RaisePropertyChanged();
+                RaisePropertyChanged("DateValidite2");
 
             }
         }
@@ -184,7 +186,7 @@ namespace GestVAE.VM
                 }
             }
         }
-        public DateTime? DateJury
+        public virtual DateTime? DateJury
         {
             get
             {
@@ -203,15 +205,6 @@ namespace GestVAE.VM
                 {
                     oJury.DateJury = value;
                     RaisePropertyChanged();
-                    if (value != null)
-                    {
-                        DateLimiteRecours = value.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
-                    }
-                    if (value != null)
-                    {
-                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
-                    }
-
                 }
             }
         }

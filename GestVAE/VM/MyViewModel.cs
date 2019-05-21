@@ -252,8 +252,8 @@ namespace GestVAE.VM
                 oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
                 oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
                 oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
-                oReturn.Add(String.Format("{0:D}-Refusé", MyEnums.EtatL1.ETAT_L1_REFUSE));
-                oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
+                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.EtatL1.ETAT_L1_REFUSE));
+                oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
                 return oReturn;
             }
             set { }
@@ -267,7 +267,7 @@ namespace GestVAE.VM
                 oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
                 oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
                 oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
-                oReturn.Add(String.Format("{0:D}-Refusé", MyEnums.EtatL1.ETAT_L1_REFUSE));
+                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.EtatL1.ETAT_L1_REFUSE));
                 //                oReturn.Add(String.Format("{0:D}-Recours", MyEnums.EtatL1.ETAT_L1_RECOURS));
                 oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
                 return oReturn;

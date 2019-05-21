@@ -14,9 +14,6 @@
     <Setting Name="DelaiJuryL1" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">60</Value>
     </Setting>
-    <Setting Name="DelaiDepotRecours" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">60</Value>
-    </Setting>
     <Setting Name="CSGESTVAE" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
@@ -42,8 +39,11 @@
     <Setting Name="DelaiValidite" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">3</Value>
     </Setting>
+    <Setting Name="DelaiDepotRecours" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
     <Setting Name="NUMVERSION" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">V20190429</Value>
+      <Value Profile="(Default)">V20190515</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -441,6 +441,26 @@ namespace GestVAE.VM
             }
         }
 
+        public override DateTime? DateJury
+        {
+            get
+            {
+                return base.DateJury;
+            }
+            set
+            {
+                if (value != DateJury)
+                {
+                    base.DateJury = value;
+                    if (value != null)
+                    {
+                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                        DateLimiteRecours = value.Value.AddMonths(Properties.Settings.Default.DelaiDepotRecours);
+                    }
+
+                }
+            }
+        }
         public DateTime? DateLimiteJury
         {
             get { return oL1.DateLimiteJury; }

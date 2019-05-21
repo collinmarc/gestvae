@@ -22,7 +22,7 @@ namespace GestVAETU
             oRec.TypeRecours = EnumTypeRecours.Contentieux;
             oRec.MotifRecours = "AAAA";
             oRec.NomJury = "BBBB";
-            oRec.Decision = "Accepté";
+            oRec.Decision = "50-Favorable";
 
             oL1.get1erJury().lstRecours.Add(oRec);
             ctx.SaveChanges();

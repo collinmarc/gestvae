@@ -7,9 +7,15 @@ Icone dans la barre des taches
 0000973: frmCandidtat : Liste des Livrets : Date de validité
 0000975: frmCandidat : Ajout de L2
 0000976: frmL2 : Validation Partielle (Motif G et Motif D)
+0000984: frmL2 : Date Limite
+0000980: FrmCandidat
+0000981: frmL1
+frmL1 : Date de jury : Refresh date Lmite et date limite de recours
+0000983: Etat Accepté-Refusé => Favorable,Défavorable
+
 
 Build : 20190515
-#947 : Initialistion de la base pour les versions > 201904029
+#947 : Initialisation de la base pour les versions > 201904029
 #948: Fiche candidat
 #950: L1 Demandé :Pas de date de validité , Pas de Type de Livret
 #951: L1 Envoyé :Pas de date de validité , Pas de Type de Livret

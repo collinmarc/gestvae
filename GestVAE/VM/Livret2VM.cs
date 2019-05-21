@@ -489,6 +489,7 @@ namespace GestVAE.VM
                 }
             }
         }
+
         public DateTime? DateLimiteJury
         {
             get { return oL2.DateLimiteJury; }

@@ -150,10 +150,7 @@
                                 DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" 
                                 />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date limite réception :" Width="200"  />
-                    <DatePicker x:Name="dtpLimiteReceptEHESP" SelectedDate="{Binding DateLimiteReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" Style="{DynamicResource DatePickerReadOnlyStyle}" />
-                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
 
             </StackPanel>

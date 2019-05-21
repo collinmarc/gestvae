@@ -136,6 +136,8 @@ namespace GestVAE.VM
                 }
                 // Ajout dans la collection
                 lstPieceJointe.Add(opjVM);
+                CategoriePJ = null;
+                LibellePJ = null;
                 RaisePropertyChanged("lstPieceJointe");
             }
         }

@@ -789,8 +789,8 @@ namespace GestVAE.VM
             Livret1VM oLivVM = new Livret1VM(CurrentCandidat.IsLocked);
             oLivVM.LstEtatLivret = LstEtatLivret1;
             oLivVM.EtatLivret = LstEtatLivret1[2];
-            oLivVM.DateDemande = DateTime.Now;
-            oLivVM.DateEnvoiEHESP = DateTime.Now;
+            oLivVM.DateDemande = oCandVM.DateCreation;
+            oLivVM.DateEnvoiEHESP = oCandVM.DateCreation;
             oLivVM.DateValidite = oLivVM.DateDemande.Value.AddYears(Properties.Settings.Default.DelaiValidite);
             CurrentCandidat.CurrentLivret = oLivVM;
             if (!IsInTest)

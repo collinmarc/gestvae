@@ -66,6 +66,18 @@ namespace GestVAE.VM
         {
             get { return TheItem.ID; }
         }
+        public DateTime DateCreation
+        {
+            get { return TheItem.dateCreation; }
+            set
+            {
+                if (value != DateCreation)
+                {
+                    TheItem.dateCreation = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public abstract DbEntityEntry getEntity();
 

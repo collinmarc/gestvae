@@ -632,5 +632,30 @@ namespace GestVAETU
 
 
         }
+
+        [TestMethod]
+        public void testCreateL1()
+        {
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.AddCandidatCommand.Execute(null);
+            CandidatVM oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND";
+            oCand.DateCreation = DateTime.Now.AddDays(-1);
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            VM.saveData();
+            VM.getData();
+            Assert.IsTrue(VM.SetCurrentCandidat("TESTCAND"));
+            Livret1VM oLiv = (Livret1VM) VM.CurrentCandidat.lstLivrets[0];
+
+            Assert.AreEqual(VM.CurrentCandidat.DateCreation, oLiv.DateDemande);
+            Assert.AreEqual(VM.CurrentCandidat.DateCreation, oLiv.DateEnvoiEHESP);
+
+
+        }
+
     }
 }

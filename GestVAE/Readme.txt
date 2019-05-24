@@ -14,6 +14,7 @@ frmL1 : Date de jury : Refresh date Lmite et date limite de recours
 0000983: Etat Accepté-Refusé => Favorable,Défavorable
 0000978: Mettre à null les dates inutiles
 0000992: La date de validité d'un L2 ne change pas
+0000989: Les nouveaux Candidats n'apparaissent pas sur les extractions
 
 Build : 20190515
 #947 : Initialisation de la base pour les versions > 201904029

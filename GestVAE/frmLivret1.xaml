@@ -155,7 +155,7 @@
             <TabItem x:Name="tabLivret" Header="Livret1" Margin="0">
                 <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretModifiable}" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal" >
-                        <RadioButton x:Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10"/>
+                        <RadioButton x:Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
                         <RadioButton x:Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
                         <RadioButton x:Name="rbIsNonRecu" Content="Non Reçu" IsChecked="{Binding IsNonRecu,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
                     </StackPanel>

@@ -579,6 +579,7 @@ namespace GestVAE.VM
             }
             lstCandidatVM.Add(oCandVM);
             CurrentCandidat = oCandVM;
+            LockCurrentCandidat();
             RaisePropertyChanged("lstCandidatVM");
         }
 

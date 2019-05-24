@@ -365,7 +365,6 @@ namespace GestVAE.VM
                     if (IsEtatRecu)
                     {
                         DateLimiteJury = DateReceptEHESPComplet.Value.AddDays(Properties.Settings.Default.DelaiJuryL1);
-                        DateValidite = DateTime.MaxValue;
                     }
                 }
             }

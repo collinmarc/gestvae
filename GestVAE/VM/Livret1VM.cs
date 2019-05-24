@@ -259,14 +259,6 @@ namespace GestVAE.VM
                 {
                     oL1.DateDemande = value;
                     RaisePropertyChanged();
-                    if (!IsEtatRecu)
-                    {
-                        if (DateDemande != null)
-                        {
-                            DateLimiteEnvoiEHESP = DateDemande.Value.AddDays(Properties.Settings.Default.DelaiEnvoiL1);
-                            DateValidite = DateDemande.Value.AddYears(Properties.Settings.Default.DelaiValidite);
-                        }
-                    }
                 }
             }
         }
@@ -316,10 +308,6 @@ namespace GestVAE.VM
                 {
                     oL1.DateReceptEHESP = value;
                     RaisePropertyChanged();
-                    if (value != null)
-                    {
-                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
-                    }
                 }
             }
         }
@@ -335,10 +323,6 @@ namespace GestVAE.VM
                     if (IsEtatRecu && value != null)
                     {
                         DateLimiteJury = DateReceptEHESPComplet.Value.AddDays(Properties.Settings.Default.DelaiJuryL1);
-                    }
-                    if (value != null)
-                    {
-                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
                     }
 
                 }
@@ -457,6 +441,7 @@ namespace GestVAE.VM
                         DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
                         DateLimiteRecours = value.Value.AddMonths(Properties.Settings.Default.DelaiDepotRecours);
                     }
+                    RaisePropertyChanged();
 
                 }
             }

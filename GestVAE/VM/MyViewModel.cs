@@ -814,7 +814,6 @@ namespace GestVAE.VM
 
                 oLivVM.EtatLivret = LstEtatLivret2[1];
                 oLivVM.DateDemande = DateTime.Now;
-                oLivVM.DateValidite = DateTime.Now.AddYears(Properties.Settings.Default.DelaiValidite);
                 if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
                 {
                     int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();

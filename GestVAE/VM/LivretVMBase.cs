@@ -205,6 +205,10 @@ namespace GestVAE.VM
                 {
                     oJury.DateJury = value;
                     RaisePropertyChanged();
+                    if (DateJury == null)
+                    {
+                        IsRecoursDemande = false;
+                    }
                 }
             }
         }
@@ -410,6 +414,15 @@ namespace GestVAE.VM
                     RaisePropertyChanged("IsEtatRecours");
                     RaisePropertyChanged("IsEtatAccepte");
                     RaisePropertyChanged("IsEtatFerme");
+                    if (!IsEtatRecuComplet)
+                    {
+                        DateJury = null;
+                        DateNotificationJury = null;
+                        LieuJury = "";
+                        HeureConvoc = null;
+                        HeureJury = null;
+                        DecisionJury = "";
+                    }
                 }
             }
         }
@@ -586,8 +599,16 @@ namespace GestVAE.VM
                         if (DateJury.HasValue)
                         {
                             DateLimiteRecours = DateJury.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
+                            MotifRecours = MotifGeneralJury;
                         }
-                        MotifRecours = MotifGeneralJury;
+                    }
+                    else
+                    {
+                        DateDepotRecours = null;
+                        DateJuryRecours = null;
+                        MotifGeneralJuryRecours = "";
+                        MotifRecours = "";
+                        MotifRecoursCommentaire = "";
                     }
                     RaisePropertyChanged();
                 }

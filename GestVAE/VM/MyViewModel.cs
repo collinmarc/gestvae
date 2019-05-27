@@ -197,6 +197,8 @@ namespace GestVAE.VM
                                                         );
             DecloturerLivretCommand= new RelayCommand<MyViewModel>(o => { DecloturerLivret(); }
                                                         );
+            DoubleClickCandidat = new RelayCommand<MyViewModel>(o => { DoubleClickSurCandidat(); }
+                                                        );
         }
 
         public ObservableCollection<CandidatVM> lstCandidatVM
@@ -625,6 +627,7 @@ namespace GestVAE.VM
         public ICommand CloturerL1etCreerL2Command { get; set; }
         public ICommand CloturerL2Command { get; set; }
         public ICommand DecloturerLivretCommand { get; set; }
+        public ICommand DoubleClickCandidat { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand DeleteCandidatCommand { get; set; }
         public ICommand DeleteDiplomeCandCommand { get; set; }
@@ -1341,6 +1344,13 @@ public void AjoutePJL1()
                 {
                     CurrentCandidat.CurrentLivret.IsLivretClos = false;
                 }
+            }
+        }
+        public void DoubleClickSurCandidat()
+        {
+            if (CurrentCandidat != null)
+            {
+                LockCurrentCandidat();
             }
         }
 

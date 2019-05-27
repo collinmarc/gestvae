@@ -18,6 +18,7 @@ frmL1 : Date de jury : Refresh date Lmite et date limite de recours
 0000990: Case contrat , convention, non recue disparait
 0000979: Date de création sur la fiche Candidat
 0000991: Ajout des pièces jointes dans extractions L1 et L2
+0000994: Dbl-Click sur candidat = Lock
 
 
 Build : 20190515

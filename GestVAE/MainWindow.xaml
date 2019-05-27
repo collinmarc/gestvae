@@ -186,6 +186,9 @@
                         </DataGrid.Columns>
                         <DataGrid.InputBindings>
                             <KeyBinding Key="Delete" Command="{Binding DeleteCandidatCommand}" />
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                    Command="{Binding DoubleClickCandidat}"
+                                    />
                         </DataGrid.InputBindings>
                     </DataGrid>
                     <Button x:Name="cbAddCandidat" Content="Ajout candidat" Grid.Row ="1" Style="{DynamicResource StyleBtn}" Height="30" Margin="10" Command="{Binding AddCandidatCommand}"/>

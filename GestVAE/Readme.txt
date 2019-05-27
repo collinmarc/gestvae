@@ -1,4 +1,4 @@
-﻿Build : 
+﻿Build : V20190527
 #970 : Connexion à la base de données
 Icone dans la barre des taches
 0000977: Recherche Candidat : Mettre en surbrillance le premier Candidat
@@ -19,7 +19,7 @@ frmL1 : Date de jury : Refresh date Lmite et date limite de recours
 0000979: Date de création sur la fiche Candidat
 0000991: Ajout des pièces jointes dans extractions L1 et L2
 0000994: Dbl-Click sur candidat = Lock
-
+0000993: Regrouper les Cols Etat Civil dans RQ_L1_DOC et RQ_L2_DOC
 
 Build : 20190515
 #947 : Initialisation de la base pour les versions > 201904029

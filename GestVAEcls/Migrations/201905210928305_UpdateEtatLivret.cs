@@ -2,11 +2,14 @@ namespace GestVAEcls.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+    using System.Diagnostics;
+
     public partial class UpdateEtatLivret : DbMigration
     {
         public override void Up()
         {
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "UpdateEtatLivret " + "start");
+
             // Maj des états de Livret1
             Sql("UPDATE LIVRET1 SET EtatLivret = '50-Défavorable' where EtatLivret = '50-Refusé'");
             Sql("UPDATE LIVRET1 SET EtatLivret = '70-Favorable' where EtatLivret = '70-Accepté'");
@@ -100,6 +103,7 @@ FROM            dbo.Juries LEFT OUTER JOIN
                                              dbo.Juries LEFT OUTER JOIN
                                              dbo.Recours ON dbo.Juries.ID = dbo.Recours.Jury_ID ON dbo.Livret1_NonClos.ID = dbo.Juries.Livret1_ID
                 ");
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "UpdateEtatLivret " + "end");
         }
 
         public override void Down()

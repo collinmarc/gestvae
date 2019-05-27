@@ -240,9 +240,9 @@
     <Resource Include="IMG\Save_6530_32.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Readme.txt">
+    <Content Include="Readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="SourcesDonnees\GESTVAE Candidats.odc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

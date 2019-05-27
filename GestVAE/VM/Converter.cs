@@ -74,8 +74,6 @@ namespace GestVAE
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool boolValue = (bool)value;
-
-
             return boolValue;
         }
     }

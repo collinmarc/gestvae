@@ -479,7 +479,7 @@ namespace GestVAE.VM
                 if (value != IsContrat)
                 {
                     TheLivret.IsContrat = value;
-                    RaisePropertyChanged();
+//                    RaisePropertyChanged();
                 }
             }
         }
@@ -491,7 +491,7 @@ namespace GestVAE.VM
                 if (value != IsConvention)
                 {
                     TheLivret.IsConvention = value;
-                    RaisePropertyChanged();
+//                    RaisePropertyChanged();
                 }
             }
         }
@@ -503,7 +503,7 @@ namespace GestVAE.VM
                 if (value != IsNonRecu)
                 {
                     TheLivret.IsNonRecu = value;
-                    RaisePropertyChanged();
+//                    RaisePropertyChanged();
                 }
             }
         }

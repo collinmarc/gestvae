@@ -93,6 +93,10 @@ namespace GestVAE
             m_oLivret = (Livret1VM) pViewModel.CurrentCandidat.CurrentLivret;
             // Mise a jour de la liste des Etat pour faire fonctionner le Set Etat
             m_oLivret.LstEtatLivret = pViewModel.LstEtatLivret1;
+            // Bind Manuel car incompréhensible
+            rbcontrat.IsChecked = m_oLivret.IsContrat;
+            rbconvention.IsChecked = m_oLivret.IsConvention;
+            rbIsNonRecu.IsChecked = m_oLivret.IsNonRecu;
 
             pViewModel.CloseAction = new Action(() => this.Close());
         }
@@ -120,5 +124,18 @@ namespace GestVAE
             m_oLivret.RaisePropertyChanged("ResultatPiecesJointesColor");
         }
 
-   }
+        private void cbValider_Unloaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // Bind Manuel car incompréhensible
+            m_oLivret.IsContrat = rbcontrat.IsChecked.Value;
+            m_oLivret.IsConvention = rbconvention.IsChecked.Value;
+            m_oLivret.IsNonRecu = rbIsNonRecu.IsChecked.Value;
+
+        }
+    }
 }

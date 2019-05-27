@@ -139,6 +139,14 @@
     <Compile Include="Migrations\201905270705378_ColEtatcivilDansExtraction.Designer.cs">
       <DependentUpon>201905270705378_ColEtatcivilDansExtraction.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905270957397_RQ_L2_PJ.cs" />
+    <Compile Include="Migrations\201905270957397_RQ_L2_PJ.Designer.cs">
+      <DependentUpon>201905270957397_RQ_L2_PJ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905271018431_V20191527.cs" />
+    <Compile Include="Migrations\201905271018431_V20191527.Designer.cs">
+      <DependentUpon>201905271018431_V20191527.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -245,6 +253,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905270705378_ColEtatcivilDansExtraction.resx">
       <DependentUpon>201905270705378_ColEtatcivilDansExtraction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905270957397_RQ_L2_PJ.resx">
+      <DependentUpon>201905270957397_RQ_L2_PJ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905271018431_V20191527.resx">
+      <DependentUpon>201905271018431_V20191527.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

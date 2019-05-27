@@ -8,7 +8,7 @@
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="window" x:Class="GestVAE.frmLivret1" 
         mc:Ignorable="d"
-        Title="Gestion du Livret 1" Height="1062" Width="1063" Icon="IMG/LivretN.ico">
+        Title="Gestion du Livret 1" Height="1062" Width="1063" Icon="IMG/LivretN.ico" Unloaded="window_Unloaded">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"/>
@@ -155,9 +155,14 @@
             <TabItem x:Name="tabLivret" Header="Livret1" Margin="0">
                 <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretModifiable}" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal" >
+                        <!--
                         <RadioButton x:Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
                         <RadioButton x:Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
                         <RadioButton x:Name="rbIsNonRecu" Content="Non Reçu" IsChecked="{Binding IsNonRecu,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+                        -->
+                        <RadioButton x:Name="rbcontrat" Content="Contrat" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+                        <RadioButton x:Name="rbconvention" Content="Convention"  GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+                        <RadioButton x:Name="rbIsNonRecu" Content="Non Reçu"  GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
                     </StackPanel>
                     <Grid x:Name="grdTypeOrigine" >
                         <Grid.RowDefinitions>
@@ -453,7 +458,7 @@
         <UniformGrid Grid.Row="3" >
             <Button x:Name="cbValider"  Margin="10" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et Quitter"
                     IsEnabled="{Binding IsLivretModifiable}"
-                    Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}"/>
+                    Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Unloaded="cbValider_Unloaded"/>
 
             <Button x:Name="cbQuitter" Margin="10" 
                     Command="{Binding DataContext.CloseCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 

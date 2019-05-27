@@ -428,7 +428,7 @@ namespace GestVAE.VM
             }
             set { }
         }
-        public List<String> LstModeObtention
+        private List<String> LstModeObtention
         {
             get
             {

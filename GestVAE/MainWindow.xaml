@@ -323,7 +323,7 @@
                         <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="15" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5,10,5,8" VerticalAlignment="Center" Style="{DynamicResource DatePickerReadOnlyStyle}" Height="24"/>
                         <Button x:Name="btnAddDiplomeCand" Grid.Row ="20" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,10,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                             Command="{ Binding DataContext.AjouteDiplomeCandCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="21" Width="32"/>
-                        <StackPanel Grid.Row ="20" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="0,3" Height="52">
+                        <StackPanel Grid.Row ="20" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="0">
                             <StackPanel Orientation="Horizontal" >
                                 <Label>DEIS :</Label>
                                 <CheckBox Name="chkIsDEIS" IsChecked="{Binding IsDEIS}" VerticalAlignment="Center" Style="{DynamicResource CheckBoxReadOnlyStyle}"/>

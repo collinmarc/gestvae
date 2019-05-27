@@ -11,6 +11,7 @@ namespace GestVAEcls.Migrations
         
         public override void Down()
         {
+
         }
     }
 }

@@ -122,6 +122,7 @@ FROM            dbo.Livret2 INNER JOIN
                          dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID"
         );
 
+
         }
     }
 }

@@ -81,6 +81,7 @@ FROM            dbo.Livret2 INNER JOIN
                             dbo.RQ_L2_PJ ON dbo.Livret2.ID = dbo.RQ_L2_PJ.LIVRET2_ID"
         );
 
+
         }
 
         public override void Down()

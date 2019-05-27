@@ -163,6 +163,7 @@ FROM            dbo.Juries LEFT OUTER JOIN
         );
             Sql(@"DROP VIEW [dbo].[RQ_L1_PJ]");
 
+
         }
     }
 }

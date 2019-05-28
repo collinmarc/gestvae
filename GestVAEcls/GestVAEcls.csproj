@@ -147,6 +147,10 @@
     <Compile Include="Migrations\201905271018431_V20191527.Designer.cs">
       <DependentUpon>201905271018431_V20191527.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905280935072_RQ_L1_DOCUpdate.cs" />
+    <Compile Include="Migrations\201905280935072_RQ_L1_DOCUpdate.Designer.cs">
+      <DependentUpon>201905280935072_RQ_L1_DOCUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -259,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905271018431_V20191527.resx">
       <DependentUpon>201905271018431_V20191527.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905280935072_RQ_L1_DOCUpdate.resx">
+      <DependentUpon>201905280935072_RQ_L1_DOCUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

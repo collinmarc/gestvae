@@ -231,6 +231,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="SQL\DROPCREATE_RQ_L1_DOC_V20190527.sql" />
     <Resource Include="IMG\Save.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

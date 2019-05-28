@@ -1,4 +1,8 @@
-﻿Build : V20190527
+﻿Build : 
+	0000989: Les nouveaux Candidats n'apparaissent pas sur les extractions
+
+
+Build : V20190527
 #970 : Connexion à la base de données
 Icone dans la barre des taches
 0000977: Recherche Candidat : Mettre en surbrillance le premier Candidat

@@ -45,7 +45,6 @@ namespace GestVAE
 
 
 
-            dtpDateJury.SetBinding(DatePicker.SelectedDateProperty, "DateJury");
 
             cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
             cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");

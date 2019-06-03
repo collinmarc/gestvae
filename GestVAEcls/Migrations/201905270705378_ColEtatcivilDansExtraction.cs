@@ -3,13 +3,43 @@ namespace GestVAEcls.Migrations
     using System;
     using System.Data.Entity.Migrations;
     using System.Diagnostics;
+    using System.Linq; 
 
     public partial class ColEtatcivilDansExtraction : DbMigration
     {
+        private static bool Exists(string tableName)
+        {
+            using (var context = new Context())
+            {
+                var count = context.Database.SqlQuery<int>("SELECT COUNT(OBJECT_ID(@p0, 'U'))", tableName);
+
+                return count.Any() && count.First() > 0;
+            }
+        }
+
         public override void Up()
         {
             Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ColEtatcivilDansExtraction " + "start");
-            Sql(@"DROP VIEW [dbo].[RQ_L1_DOC]");
+
+            if (Exists("RQ_L1_PJ"))
+            {
+                Sql(@"DROP VIEW [dbo].[RQ_L1_PJ]");
+
+            }
+            Sql(@"CREATE VIEW [dbo].[RQ_L1_PJ]
+                AS
+                    SELECT        LIVRET1_ID,
+                                                 (SELECT        Libelle + CHAR(10)
+                                                   FROM            PieceJointeL1
+                                                   WHERE        Libelle IS NOT NULL AND L1.Livret1_ID = PieceJointeL1.Livret1_ID FOR XML Path('')) AS Piecejointe
+                    FROM            PieceJointeL1 L1
+                    GROUP BY Livret1_ID
+                ");
+
+            if (Exists("[dbo].[RQ_L1_DOC]"))
+            {
+                Sql(@"DROP VIEW [dbo].[RQ_L1_DOC]");
+            }
             Sql(@"CREATE VIEW[dbo].[RQ_L1_DOC]
                     AS
                     SELECT        

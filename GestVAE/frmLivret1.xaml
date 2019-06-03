@@ -302,7 +302,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
                         <Label Content="Date de recevabilité :" VerticalAlignment="Center"/>
-                        <DatePicker x:Name="dtpDateJury" Margin="0" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}"  />
+                        <DatePicker x:Name="dtpDateJury" Margin="0" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}" SelectedDate="{Binding DateJury}" />
                     </StackPanel>
                     <Grid Grid.Row="0" Grid.Column="1" >
                         <Grid.ColumnDefinitions>

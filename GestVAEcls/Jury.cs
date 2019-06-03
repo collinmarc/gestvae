@@ -38,7 +38,7 @@ namespace GestVAEcls
         public Jury() : base()
         {
             NomJury = "";
-            DateJury = DateTime.Now;
+            DateJury = null;
             LieuJury = "";
             Decision = "";
             MotifCommentaire = "";

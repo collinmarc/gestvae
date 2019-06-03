@@ -1,6 +1,6 @@
 ﻿Build : 
-	0000989: Les nouveaux Candidats n'apparaissent pas sur les extractions
-
+0000989: Les nouveaux Candidats n'apparaissent pas sur les extractions
+0000996: L1: Date de recevalivité doit être à NULL par defaut.
 
 Build : V20190527
 #970 : Connexion à la base de données

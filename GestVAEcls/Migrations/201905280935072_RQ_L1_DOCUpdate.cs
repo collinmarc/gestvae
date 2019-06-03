@@ -2,17 +2,28 @@ namespace GestVAEcls.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
+    using System.Linq;
     
     public partial class RQ_L1_DOCUpdate : DbMigration
     {
+        private static bool Exists(string tableName)
+        {
+            using (var context = new Context())
+            {
+                var count = context.Database.SqlQuery<int>("SELECT COUNT(OBJECT_ID(@p0, 'U'))", tableName);
+
+                return count.Any() && count.First() > 0;
+            }
+        }
+
         public override void Up()
         {
 
             /****** Object:  View [dbo].[RQ_L1_DOC]    Script Date: 28/05/2019 11:14:38 ******/
-            Sql(@"DROP VIEW[dbo].[RQ_L1_DOC]");
+                Sql(@"DROP VIEW [dbo].[RQ_L1_DOC]");
 
 
-            Sql(@"CREATE VIEW[dbo].[RQ_L1_DOC]
+            Sql(@"CREATE VIEW [dbo].[RQ_L1_DOC]
         AS
           SELECT        dbo.Candidats.Civilite, dbo.Candidats.Nom, dbo.Candidats.Prenom, dbo.Candidats.Prenom2, dbo.Candidats.Prenom3, dbo.Candidats.Sexe, dbo.Candidats.ID, dbo.Candidats.IdVAE, dbo.Candidats.IdSiscole, 
                          dbo.Candidats.NomJeuneFille, dbo.Candidats.Nationalite, dbo.Candidats.DateNaissance, dbo.Candidats.VilleNaissance, dbo.Candidats.NationaliteNaissance, dbo.Candidats.DptNaissance, dbo.Candidats.PaysNaissance, 
@@ -40,7 +51,11 @@ FROM            dbo.RQ_L1_PJ RIGHT OUTER JOIN
 
     public override void Down()
         {
-            Sql(@"DROP VIEW[dbo].[RQ_L1_DOC]");
+            if (Exists("RQ_L1_DOC"))
+            {
+                Sql(@"DROP VIEW[dbo].[RQ_L1_DOC]");
+            }
+
 
 
             Sql(@"CREATE VIEW[dbo].[RQ_L1_DOC]

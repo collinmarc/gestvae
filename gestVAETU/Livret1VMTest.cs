@@ -67,6 +67,7 @@ namespace GestVAETU
         /// 0000941: L2 : La Date Limite de réception = Date de validité du L1.
         /// </summary>
         [TestMethod]
+        [TestCategory("#941")]
         public void TestDateDeValiditéL1L2()
         {
 
@@ -86,6 +87,30 @@ namespace GestVAETU
             VM.CloturerL1etCreerL2();
             Assert.IsTrue(VM.CurrentCandidat.CurrentLivret is Livret2VM);
             Assert.AreEqual(oL1.DateValidite, ((Livret2VM)VM.CurrentCandidat.CurrentLivret).DateLimiteReceptEHESP);
+
+
+
+        }
+        /// <summary>
+        /// 	0000996: L1: Date de recevalivité doit être à NULL par defaut.
+        /// </summary>
+        [TestMethod]
+        [TestCategory("#996")]
+        public void TestDateDeRecevabilite()
+        {
+
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouteCandidat();
+            CandidatVM oCand = VM.CurrentCandidat;
+
+            VM.AjouteL1();
+            Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
+            oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            VM.ValideretQuitterL1();
+
+             oL1 = (Livret1VM)oCand.CurrentLivret;
+            Assert.IsNull(oL1.DateJury);
 
 
 

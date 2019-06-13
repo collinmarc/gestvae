@@ -4,6 +4,7 @@
 0000998: Extraction L1 : Modif DATE JURY => Date de recevabilité, pas de DateLimiteReceptionEHESP
 0001003: Ajout d'un L2 second passage : Garder le Numro de Livret
 0001002: L2 : Date de jury entre le et le : intervalle de date
+0001004: L2 : date de Validité et date d'envoi
 
 Build : V20190527
 #970 : Connexion à la base de données

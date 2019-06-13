@@ -37,7 +37,7 @@ namespace GestVAEcls
 
         public Recours() : base()
         {
-            DateDepot = DateTime.Now;
+            DateDepot = null;
             TypeRecours = EnumTypeRecours.Gracieux;
             MotifRecours = "";
             Decision = "";

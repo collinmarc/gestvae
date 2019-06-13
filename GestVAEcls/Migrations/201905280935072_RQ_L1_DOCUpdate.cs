@@ -18,9 +18,16 @@ namespace GestVAEcls.Migrations
 
         public override void Up()
         {
+            Sql(@"UPDATE RECOURS 
+                        SET DateDepot = null 
+                        where Jury_id in 
+                                (SELECT ID 
+                                 FROM JURIES 
+                                 WHERE IsRecours = 0)
+                ");
 
             /****** Object:  View [dbo].[RQ_L1_DOC]    Script Date: 28/05/2019 11:14:38 ******/
-                Sql(@"DROP VIEW [dbo].[RQ_L1_DOC]");
+            Sql(@"DROP VIEW [dbo].[RQ_L1_DOC]");
 
 
             Sql(@"CREATE VIEW [dbo].[RQ_L1_DOC]
@@ -28,8 +35,8 @@ namespace GestVAEcls.Migrations
           SELECT        dbo.Candidats.Civilite, dbo.Candidats.Nom, dbo.Candidats.Prenom, dbo.Candidats.Prenom2, dbo.Candidats.Prenom3, dbo.Candidats.Sexe, dbo.Candidats.ID, dbo.Candidats.IdVAE, dbo.Candidats.IdSiscole, 
                          dbo.Candidats.NomJeuneFille, dbo.Candidats.Nationalite, dbo.Candidats.DateNaissance, dbo.Candidats.VilleNaissance, dbo.Candidats.NationaliteNaissance, dbo.Candidats.DptNaissance, dbo.Candidats.PaysNaissance, 
                          dbo.Candidats.Adresse, dbo.Candidats.CodePostal, dbo.Candidats.Ville, dbo.Candidats.Region, dbo.Candidats.Pays, dbo.Candidats.Mail1, dbo.Candidats.Mail2, dbo.Candidats.Mail3, dbo.Candidats.Tel1, dbo.Candidats.Tel2, 
-                         dbo.Candidats.Tel3, dbo.Candidats.bHandicap, dbo.Livret1_NonClos.Numero AS NumeroLivret, dbo.Livret1_NonClos.ID AS IDLivret1, dbo.Livret1_NonClos.DateEnvoiCandidat, dbo.Livret1_NonClos.DateLimiteReceptEHESP, 
-                         dbo.Livret1_NonClos.DateReceptEHESP AS date1ereReceptEHESP, dbo.Livret1_NonClos.EtatLivret, dbo.Juries.DateJury, dbo.Juries.NomJury, dbo.Juries.LieuJury, dbo.Juries.HeureJury, dbo.Juries.HeureConvoc, 
+                         dbo.Candidats.Tel3, dbo.Candidats.bHandicap, dbo.Livret1_NonClos.Numero AS NumeroLivret, dbo.Livret1_NonClos.ID AS IDLivret1, dbo.Livret1_NonClos.DateEnvoiCandidat,  
+                         dbo.Livret1_NonClos.DateReceptEHESP AS date1ereReceptEHESP, dbo.Livret1_NonClos.EtatLivret, dbo.Juries.DateJury AS [Date Recevabilité], dbo.Juries.NomJury, dbo.Juries.LieuJury, dbo.Juries.HeureJury, dbo.Juries.HeureConvoc, 
                          dbo.Juries.Decision, dbo.Livret1_NonClos.DateValidite, dbo.Juries.IsRecours, dbo.Juries.DateLimiteRecours, dbo.Recours.DateDepot AS DateDepotRecours, dbo.Recours.TypeRecours, dbo.Juries.MotifGeneral, 
                          dbo.Juries.MotifDetail, dbo.Juries.MotifCommentaire, dbo.Livret1_NonClos.TypeDemande, dbo.Livret1_NonClos.VecteurInformation, dbo.Livret1_NonClos.DateDemande, 
                          dbo.Livret1_NonClos.Date1ereDemandePieceManquantes, dbo.Livret1_NonClos.Date2emeDemandePieceManquantes, dbo.Livret1_NonClos.DateReceptionPiecesManquantes AS DateRetour2ndCourrier, 
@@ -51,14 +58,11 @@ FROM            dbo.RQ_L1_PJ RIGHT OUTER JOIN
 
     public override void Down()
         {
-            if (Exists("RQ_L1_DOC"))
-            {
-                Sql(@"DROP VIEW[dbo].[RQ_L1_DOC]");
-            }
+                Sql(@"DROP VIEW [dbo].[RQ_L1_DOC]");
 
 
 
-            Sql(@"CREATE VIEW[dbo].[RQ_L1_DOC]
+            Sql(@"CREATE VIEW [dbo].[RQ_L1_DOC]
         AS
           SELECT        dbo.Candidats.Civilite, dbo.Candidats.Nom, dbo.Candidats.Prenom, dbo.Candidats.Prenom2, dbo.Candidats.Prenom3, dbo.Candidats.Sexe, dbo.Candidats.ID, dbo.Candidats.IdVAE, dbo.Candidats.IdSiscole, 
                          dbo.Candidats.NomJeuneFille, dbo.Candidats.Nationalite, dbo.Candidats.DateNaissance, dbo.Candidats.VilleNaissance, dbo.Candidats.NationaliteNaissance, dbo.Candidats.DptNaissance, dbo.Candidats.PaysNaissance, 

@@ -111,6 +111,7 @@ namespace GestVAETU
 
              oL1 = (Livret1VM)oCand.CurrentLivret;
             Assert.IsNull(oL1.DateJury);
+            Assert.IsNull(oL1.DateDepotRecours);
 
 
 

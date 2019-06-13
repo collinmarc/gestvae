@@ -313,7 +313,6 @@ namespace GestVAE.VM
                 {
                     oL2.DateEnvoiEHESP = value;
                     RaisePropertyChanged();
-                    DateLimiteReceptEHESP = DateEnvoiEHESP.Value.AddDays(Properties.Settings.Default.DelaiReceptionL1);
                 }
             }
         }

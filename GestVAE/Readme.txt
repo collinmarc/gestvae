@@ -2,6 +2,7 @@
 0000989: Les nouveaux Candidats n'apparaissent pas sur les extractions
 0000996: L1: Date de recevalivité doit être à NULL par defaut.
 0000998: Extraction L1 : Modif DATE JURY => Date de recevabilité, pas de DateLimiteReceptionEHESP
+0001003: Ajout d'un L2 second passage : Garder le Numro de Livret
 
 Build : V20190527
 #970 : Connexion à la base de données

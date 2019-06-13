@@ -441,7 +441,7 @@ namespace GestVAETU
 
             // Ajout du Livret1
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable",MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE );
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             // L'ajout de L1 n'est plus possible
@@ -476,7 +476,7 @@ namespace GestVAETU
 
             // Ajout du Livret1
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable",MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE );
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             VM.ValideretQuitterL1();
             // L'ajout de L1 Devient possible 
@@ -512,7 +512,7 @@ namespace GestVAETU
 
         // Ajout du Livret1
         VM.AjouteL1();
-        VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable",MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE );
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1DeFavorable();
             // Date de validité = demain
         VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
         VM.ValideretQuitterL1();
@@ -552,7 +552,7 @@ namespace GestVAETU
 
             // Ajout du Livret1
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable",MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE );
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1DeFavorable();
             // Date de validé > Ajourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
@@ -592,7 +592,7 @@ namespace GestVAETU
 
             // Ajout du Livret1
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE + "-Favorable";
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable(); 
             // Date de validé > Ajourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
@@ -631,7 +631,7 @@ namespace GestVAETU
             // Ajout du Livret1 Favorable Date de validité > Aujourd'hui
             VM.AjouteL1();
             Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable",MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE );
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             // Date de validé > Ajourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
@@ -646,7 +646,7 @@ namespace GestVAETU
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
 
             // Le L2 est Validé Partiellement => on peut Ajouter un L2
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Validation Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Partielle(); ;
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
 
@@ -657,7 +657,7 @@ namespace GestVAETU
             // Et même Si on Lui ajoute un L2 Refusé
             VM.AjouteL2();
             Livret2VM oL2bis = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Refus de validation", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2DeFavorable();
             oL2bis.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL2();
 
@@ -690,12 +690,12 @@ namespace GestVAETU
 
             VM.LockCurrentCandidat();
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
             // Decision = Favorable DateValidité > Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Favorable(); ;
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL2();
 
@@ -727,12 +727,12 @@ namespace GestVAETU
 
             VM.LockCurrentCandidat();
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
             // Decision = Favorable DateValidité > Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             VM.ValideretQuitterL2();
 
@@ -764,12 +764,12 @@ namespace GestVAETU
 
             VM.LockCurrentCandidat();
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
             // Decision = DéFavorable DateValidité > Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2DeFavorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             VM.ValideretQuitterL2();
 
@@ -806,7 +806,7 @@ namespace GestVAETU
 
             VM.LockCurrentCandidat();
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
@@ -815,7 +815,7 @@ namespace GestVAETU
             foreach (DCLivretVM item in oL2.lstDCLivret)
             { item.IsAValider = true; }
             // Decision = Validation Partielle > Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Partielle();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             oL2.lstDCLivret[0].Decision = oL2.DecisionL2ModuleFavorable;
             oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleDeFavorable;
@@ -854,7 +854,7 @@ namespace GestVAETU
 
             VM.LockCurrentCandidat();
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
@@ -864,7 +864,7 @@ namespace GestVAETU
             { item.IsAValider = true; }
 
             // Decision = Validation Partielle > Now
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Partielle();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             oL2.lstDCLivretAValider[0].Decision = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
             oL2.lstDCLivretAValider[1].Decision = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
@@ -905,13 +905,13 @@ namespace GestVAETU
 
             VM.LockCurrentCandidat();
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
             // Decision = Validation Partielle > Now
             Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Validation Totale", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             //Saisie du numéro de diplome
             oL2.DateJury = DateTime.Now.AddDays(-1);

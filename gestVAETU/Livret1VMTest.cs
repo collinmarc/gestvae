@@ -49,10 +49,9 @@ namespace GestVAETU
             Assert.AreEqual(oL1.DateDemande.Value.AddYears(3), oL1.DateValidite);
             oL1.EtatLivret = String.Format("{0:D}-RecuComplet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
             Assert.AreEqual(oL1.DateDemande.Value.AddYears(3), oL1.DateValidite);
-            oL1.DateJury = (DateTime.Now.AddDays(2));
-            oL1.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            oL1.FTO_SetDecisionJuryL1Favorable(DateTime.Today.AddDays(2));
             Assert.AreEqual(oL1.DateJury.Value.AddYears(3), oL1.DateValidite);
-            oL1.DecisionJury = String.Format("{0:D}-Defavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            oL1.FTO_SetDecisionJuryL1DeFavorable(DateTime.Today.AddDays(2));
             Assert.AreEqual(oL1.DateJury, oL1.DateValidite);
             oL1.IsRecoursDemande = true;
             oL1.DateJuryRecours = oL1.DateJury.Value.AddDays(5);
@@ -81,8 +80,7 @@ namespace GestVAETU
 
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
             // Jury = Après-demain
-            oL1.DateJury = (DateTime.Now.AddDays(2));
-            oL1.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            oL1.FTO_SetDecisionJuryL1Favorable(DateTime.Today.AddDays(2));
 
             VM.CloturerL1etCreerL2();
             Assert.IsTrue(VM.CurrentCandidat.CurrentLivret is Livret2VM);

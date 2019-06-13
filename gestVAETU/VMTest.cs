@@ -24,8 +24,9 @@ namespace GestVAETU
             VM.ValideretQuitterL1();
 
             Livret1VM oLiv = (Livret1VM)oCand.CurrentLivret;
+            oLiv.FTO_SetDecisionJuryL1DeFavorable();
             oLiv.IsRecoursDemande = true;
-            oLiv.DateDepotRecours = DateTime.Now;
+            oLiv.DateDepotRecours = DateTime.Today;
             oLiv.DecisionJuryRecours = "TEST";
             Assert.IsTrue(VM.saveData());
 
@@ -352,7 +353,7 @@ namespace GestVAETU
             Assert.IsFalse(oCand.IsL1Valide);
             Assert.IsTrue(oCand.IsL1Encours);
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
-            oL1.EtatLivret = String.Format("{0:D}-Favorable", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+            oL1.FTO_SetDecisionJuryL1Favorable();
             oL1.DateValidite = DateTime.Now.AddYears(3);
             // Le L1 Devient Valide
             Assert.IsTrue(oCand.IsL1Valide);
@@ -407,7 +408,7 @@ namespace GestVAETU
             VM.CurrentCandidat = VM.lstCandidatVM[0];
             // Ajout du Livret1
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1DeFavorable();
             // Date de validé > Aujourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
@@ -424,7 +425,7 @@ namespace GestVAETU
             VM.ValideretQuitterL1();
             // on lui affecte un numéro pour le Test
             VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             // Date de validé > Aujourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             // Il y a Maintenant un L1 de Valide
@@ -457,7 +458,7 @@ namespace GestVAETU
             VM.CurrentCandidat = VM.lstCandidatVM[0];
             // Ajout du Livret1
             VM.AjouteL1();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1DeFavorable();
             // Date de validé =  Hier
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             VM.ValideretQuitterL1();
@@ -466,7 +467,7 @@ namespace GestVAETU
             VM.ValideretQuitterL1();
             // on lui affecte un numéro pour le Test
             VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             // Date de validé > Aujourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
 
@@ -511,7 +512,7 @@ namespace GestVAETU
             Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
             // on lui affecte un numéro pour le Test
             VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.CommentaireJuryRecours = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
             // Date de validité > Aujourd'hui
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddYears(3);
@@ -551,8 +552,8 @@ namespace GestVAETU
             VM.ValideretQuitterL1();
             Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
             // on lui affecte un numéro pour le Test
-//            VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-DeFavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            //            VM.CurrentCandidat.CurrentLivret.Numero = "TEST1";
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1DeFavorable();
             VM.CurrentCandidat.CurrentLivret.IsRecoursDemande = true;
             VM.CurrentCandidat.CurrentLivret.DecisionJuryRecours = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
             // Date de validité > Aujourd'hui
@@ -612,7 +613,7 @@ namespace GestVAETU
             oCan.Nom = "TEST1";
             VM.saveData();
             VM.AjouteL2();
-            VM.CurrentCandidat.CurrentLivret.DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.ValideretQuitterL2();
             // Un diplome a bienété crée
             Assert.AreEqual(1, oCan.lstDiplomesCandVMs.Count);
@@ -655,6 +656,48 @@ namespace GestVAETU
             Assert.AreEqual(VM.CurrentCandidat.DateCreation, oLiv.DateEnvoiEHESP);
 
 
+        }
+        [TestMethod]
+        [TestCategory("VMTest"), TestCategory("ANN"),TestCategory("#1003")]
+        public void TestCreateL22ndPassage()
+        {
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.AddCandidatCommand.Execute(null);
+            CandidatVM oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND";
+            VM.AjouteL1();
+            Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            oL1.Numero = "TESTL1";
+            oL1.DateJury = new DateTime(2019, 04, 12);
+            oL1.DateNotificationJury = new DateTime(2019, 04, 13,0,0,0);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
+            VM.ValideretQuitterL1();
+            VM.saveData();
+            VM.getData();
+            Assert.IsTrue(VM.SetCurrentCandidat("TESTCAND"));
+            VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
+            Assert.AreEqual("TESTL1", VM.CurrentCandidat.CurrentLivret.Numero);
+            // Création du L2 Premier passage
+            VM.CloturerL1etCreerL2();
+            Livret2VM oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            Assert.AreEqual(1, oLiv.NumPassage);
+            Assert.AreEqual("TESTL1", oLiv.Numero);
+            Assert.AreEqual(new DateTime(2019,06,13,0,0,0), oLiv.DateEnvoiEHESP);
+            VM.ValideretQuitterL2();
+
+            // Création du L2 Second passage
+            VM.AjouteL2();
+            oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            Assert.AreEqual(2, oLiv.NumPassage);
+            Assert.AreEqual("TESTL1", oLiv.Numero);
+
+
+            VM.LockCurrentCandidat();
+            VM.DeleteCurrentCandidat();
+            VM.saveData();
         }
 
     }

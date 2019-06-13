@@ -132,7 +132,7 @@ namespace GestVAE.VM
 
         public Boolean IsValide()
         {
-            return (IsLivretNonClos && IsEtatAccepte && DateValidite > DateTime.Now);
+            return ( IsEtatAccepte && DateValidite > DateTime.Now);
         }
         /// <summary>
         /// Un livret1 est Encours s'il est non clos avec une date de validité > now

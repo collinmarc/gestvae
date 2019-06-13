@@ -1145,5 +1145,56 @@ namespace GestVAE.VM
             }
         }
 
+        public void FTO_SetDecisionJuryL1Favorable()
+        {
+            FTO_SetDecisionJuryL1Favorable(DateTime.Today);
+        }
+        public void FTO_SetDecisionJuryL1DeFavorable()
+        {
+            FTO_SetDecisionJuryL1DeFavorable(DateTime.Today);
+        }
+        public void FTO_SetDecisionJuryL2Favorable()
+        {
+            FTO_SetDecisionJuryL2Favorable(DateTime.Today);
+        }
+        public void FTO_SetDecisionJuryL2DeFavorable()
+        {
+            FTO_SetDecisionJuryL2DeFavorable(DateTime.Today);
+        }
+        public void FTO_SetDecisionJuryL1Favorable(DateTime pDateJury)
+        {
+            DateJury = pDateJury;
+            DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+
+        }
+        public void FTO_SetDecisionJuryL1DeFavorable(DateTime pDateJury)
+        {
+            DateJury = pDateJury;
+            DecisionJury = String.Format("{0:D}-DeFavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+
+        }
+        public void FTO_SetDecisionJuryL2Partielle()
+        {
+            FTO_SetDecisionJuryL2Partielle(DateTime.Today);
+        }
+        public void FTO_SetDecisionJuryL2Partielle(DateTime pDateJury)
+        {
+            DateJury = pDateJury;
+            DecisionJury = String.Format("{0:D}-Validation Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
+
+        }
+        public void FTO_SetDecisionJuryL2Favorable(DateTime pDateJury)
+        {
+            DateJury = pDateJury;
+            DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+
+        }
+        public void FTO_SetDecisionJuryL2DeFavorable(DateTime pDateJury)
+        {
+            DateJury = pDateJury;
+            DecisionJury = String.Format("{0:D}-DeFavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+
+        }
+
     }
 }

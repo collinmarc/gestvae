@@ -818,10 +818,39 @@ namespace GestVAE.VM
 
                 oLivVM.EtatLivret = LstEtatLivret2[1];
                 oLivVM.DateDemande = DateTime.Now;
+                oLivVM.NumPassage = 1;
                 if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
                 {
                     int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
                     oLivVM.NumPassage = nbL2 + 1;
+                }
+                // Récupération de la date d'envoi du L2 premier passage s'il s'agit un second passage
+                if (oLivVM.NumPassage>1)
+                {
+                    Livret2VM oL2Prem = (Livret2VM)CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET && ((Livret2VM)l).NumPassage == 1).FirstOrDefault();
+                    if (oL2Prem != null)
+                    {
+                        oLivVM.Numero = oL2Prem.Numero;
+                        oLivVM.DateEnvoiEHESP = oL2Prem.DateEnvoiEHESP;
+                    }
+
+                }
+                else
+                {
+                    Livret1VM oL1 = CurrentCandidat.getL1Valide();
+                    if (oL1 != null)
+                    {
+                        oLivVM.Numero = oL1.Numero;
+                        oLivVM.DateValidite = oL1.DateValidite;
+                        oLivVM.DateLimiteReceptEHESP = oL1.DateValidite;
+                        if (oL1.IsRecoursDemande)
+                        {
+                            oLivVM.IsOuvertureApresRecours = true;
+                        }
+                        oL1.DateEnvoiL2 = DateTime.Today;
+                        oLivVM.DateEnvoiEHESP = DateTime.Today;
+                    }
+
                 }
                 // Récupération du diplome du candidat (si présent)
                 DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
@@ -838,18 +867,6 @@ namespace GestVAE.VM
                     oLivVM.lstDCLivret.Add(new DCLivretVM(oDCL));
                 }
                 // Récupération du L1Valide pour récupérer le numéro
-                Livret1VM oL1 = CurrentCandidat.getL1Valide();
-                if (oL1 != null)
-                { 
-                    oLivVM.Numero = oL1.Numero;
-                    oLivVM.DateValidite = oL1.DateValidite;
-                    oLivVM.DateLimiteReceptEHESP = oL1.DateValidite;
-                    if (oL1.IsRecoursDemande)
-                    {
-                        oLivVM.IsOuvertureApresRecours = true;
-                    }
-                    oL1.DateEnvoiL2 = DateTime.Now;
-                }
 
                 CurrentCandidat.CurrentLivret = oLivVM;
 

@@ -106,6 +106,21 @@ namespace GestVAE.VM
             get { return TheCandidat.Civilite; }
             set { TheCandidat.Civilite = value; RaisePropertyChanged(); }
         }
+        public Sexe? Sexe
+        {
+            get { return TheCandidat.Sexe; }
+            set { TheCandidat.Sexe = value;
+                if (Sexe.HasValue  && Sexe== GestVAEcls.Sexe.H)
+                {
+                    Civilite = "Monsieur";
+                }
+                if (Sexe.HasValue && Sexe == GestVAEcls.Sexe.F)
+                {
+                    Civilite = "Madame";
+                }
+                RaisePropertyChanged();
+            }
+        }
         public String Nom
         {
             get { return TheCandidat.Nom; }

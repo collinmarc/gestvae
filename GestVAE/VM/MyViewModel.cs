@@ -573,6 +573,7 @@ namespace GestVAE.VM
             Candidat oCand = new Candidat("[Nouveau candidat]");
             _ctx.Candidats.Add(oCand);
             CandidatVM oCandVM = new CandidatVM(oCand);
+            oCandVM.Sexe = Sexe.H;
             oCandVM.Nationnalite = "Française";
             oCandVM.NationnaliteNaissance = "Française";
             if (String.IsNullOrEmpty(oCandVM.IdVAE))

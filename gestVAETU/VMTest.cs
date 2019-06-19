@@ -673,6 +673,7 @@ namespace GestVAETU
             oL1.Numero = "TESTL1";
             oL1.DateJury = new DateTime(2019, 04, 12);
             oL1.DateNotificationJury = new DateTime(2019, 04, 13,0,0,0);
+            oL1.DateEnvoiL2 = new DateTime(2019, 06, 13, 0, 0, 0);
             VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.ValideretQuitterL1();
             VM.saveData();

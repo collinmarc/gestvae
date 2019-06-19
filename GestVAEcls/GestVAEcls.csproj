@@ -151,6 +151,10 @@
     <Compile Include="Migrations\201905280935072_RQ_L1_DOCUpdate.Designer.cs">
       <DependentUpon>201905280935072_RQ_L1_DOCUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906191255010_Col dans Vue L1 et L2.cs" />
+    <Compile Include="Migrations\201906191255010_Col dans Vue L1 et L2.Designer.cs">
+      <DependentUpon>201906191255010_Col dans Vue L1 et L2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -266,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905280935072_RQ_L1_DOCUpdate.resx">
       <DependentUpon>201905280935072_RQ_L1_DOCUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906191255010_Col dans Vue L1 et L2.resx">
+      <DependentUpon>201906191255010_Col dans Vue L1 et L2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

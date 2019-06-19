@@ -847,8 +847,16 @@ namespace GestVAE.VM
                         {
                             oLivVM.IsOuvertureApresRecours = true;
                         }
-                        oL1.DateEnvoiL2 = DateTime.Today;
-                        oLivVM.DateEnvoiEHESP = DateTime.Today;
+                        if (oL1.DateEnvoiL2.HasValue)
+                        {
+                            oLivVM.DateEnvoiEHESP = oL1.DateEnvoiL2;
+                        }
+                        else
+                        {
+
+                            oL1.DateEnvoiL2 = DateTime.Today;
+                            oLivVM.DateEnvoiEHESP = DateTime.Today;
+                        }
                     }
 
                 }
@@ -909,7 +917,6 @@ public void AjoutePJL1()
         {
             // Validation du Livret1
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
-            oLiv.DateEnvoiL2 = DateTime.Now;
             ValideretQuitterL1();
             if (!IsInTest)
             {

@@ -5,6 +5,7 @@
 0001003: Ajout d'un L2 second passage : Garder le Numro de Livret
 0001002: L2 : Date de jury entre le et le : intervalle de date
 0001004: L2 : date de Validité et date d'envoi
+0001009: L1 & L2 : mettre les cols de la fiche candidats en premier dans l'extraction
 
 Build : V20190527
 #970 : Connexion à la base de données

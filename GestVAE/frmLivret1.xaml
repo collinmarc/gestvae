@@ -251,6 +251,11 @@
                                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
+                                    <DataGridTextColumn.EditingElementStyle>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="TextWrapping" Value="Wrap" />
+                                        </Style>
+                                    </DataGridTextColumn.EditingElementStyle>
                                 </DataGridTextColumn>
                                 <DataGridCheckBoxColumn Header="Reçu"  Binding="{Binding IsRecu}" Width="1*"/>
                             </DataGrid.Columns>

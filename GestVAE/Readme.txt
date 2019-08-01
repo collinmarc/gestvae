@@ -1,4 +1,8 @@
-﻿Build : V20190620
+﻿Build :
+0001014: Ajout d'un commentaire Libre si 'autres' dans les Catégories de pièces jointes
+0001015: L1 & L2 : edition des Libellés de PJ : WrapMode
+
+Build : V20190620
 0000989: Les nouveaux Candidats n'apparaissent pas sur les extractions
 0000996: L1: Date de recevalivité doit être à NULL par defaut.
 0000998: Extraction L1 : Modif DATE JURY => Date de recevabilité, pas de DateLimiteReceptionEHESP

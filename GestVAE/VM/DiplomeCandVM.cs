@@ -92,14 +92,33 @@ namespace GestVAE.VM
         public void CalcStatutDiplome()
         {
             Int32 nbRefusé = 0;
+            Int32 nbEncours = 0;
+            Int32 nbValidé = 0;
 
             nbRefusé = lstDCCands.Where(d => d.Statut == "Refusé").Count();
-            if (nbRefusé ==0)
-                { StatutDiplome = LstStatutDiplome[0]; }
+            nbEncours = lstDCCands.Where(d => d.Statut == "En cours").Count();
+            nbValidé = lstDCCands.Where(d => d.Statut == "Validé").Count();
+
             if (nbRefusé == lstDCCands.Count())
-                { StatutDiplome = LstStatutDiplome[2]; }
-            if (nbRefusé >0 && nbRefusé< lstDCCands.Count())
-                { StatutDiplome = LstStatutDiplome[1]; }
+                { StatutDiplome = LstStatutDiplome[2]; } // Refusé
+            if (nbValidé == lstDCCands.Count())
+                { StatutDiplome = LstStatutDiplome[0]; } // Validé
+
+            if (nbValidé != lstDCCands.Count() && nbRefusé != lstDCCands.Count())
+            {
+
+                if (nbEncours > 0)
+                {
+                    if (StatutDiplome == "")
+                    {
+                        StatutDiplome = LstStatutDiplome[3]; // encours
+                    }
+                }
+                else
+                {
+                     StatutDiplome = LstStatutDiplome[1];  // Validé partiellement                
+                }
+            }
         }
         public DateTime? DateObtentionDiplome
         {
@@ -423,6 +442,7 @@ namespace GestVAE.VM
                 oReturn.Add("Validé");
                 oReturn.Add("Validé Partiellement");
                 oReturn.Add("Refusé");
+                oReturn.Add("En cours");
                 oReturn.Add("");
                 return oReturn;
             }

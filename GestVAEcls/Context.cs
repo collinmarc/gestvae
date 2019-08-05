@@ -43,6 +43,16 @@ namespace GestVAEcls
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, GestVAEcls.Migrations.Configuration>());
 
         }
+#if DEBUG
+        public Context(IDatabaseInitializer<Context> pInit) : base("name=CSGESTVAEDEV")
+#else
+        public Context(IDatabaseInitializer<Context> pInit) : base("name=CSGESTVAE")
+#endif
+        {
+            Database.SetInitializer(pInit);
+        }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

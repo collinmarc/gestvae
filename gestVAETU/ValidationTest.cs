@@ -926,5 +926,211 @@ namespace GestVAETU
 
         }//GestVAE021
 
+        /// <summary>
+        /// Test du statuts des DC Candidats sur validation L2
+        /// </summary>
+        [TestMethod]
+        [TestCategory("VMTest")]
+        public void TestStattusDCCand()
+        {
+            DiplomeCandVM oDiplome = null;
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.AddCandidatCommand.Execute(null);
+            CandidatVM oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND";
+            VM.AjouteL1();
+            Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            oL1.Numero = "TESTL1";
+            oL1.DateJury = new DateTime(2019, 04, 12);
+            oL1.DateNotificationJury = new DateTime(2019, 04, 13, 0, 0, 0);
+            oL1.DateEnvoiL2 = new DateTime(2019, 06, 13, 0, 0, 0);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
+            VM.ValideretQuitterL1();
+            VM.saveData();
+            VM.getData();
+            Assert.IsTrue(VM.SetCurrentCandidat("TESTCAND"));
+            VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
+            Assert.AreEqual("TESTL1", VM.CurrentCandidat.CurrentLivret.Numero);
+
+            // Création du L2 Premier passage
+            VM.CloturerL1etCreerL2();
+            // le diplome du candidat passe à encours
+            oDiplome = VM.CurrentCandidat.lstDiplomesCandVMs[0];
+            Assert.AreEqual("En cours", oDiplome.StatutDiplome);
+            Assert.AreEqual("", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[3].Statut);
+
+            Livret2VM oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            oLiv.lstDCLivret[0].IsAValider = true;
+            oLiv.lstDCLivret[1].IsAValider = true;
+            oLiv.lstDCLivret[2].IsAValider = false;
+            oLiv.lstDCLivret[3].IsAValider = false;
+            VM.ValideretQuitterL2();
+            // Le diplome est en cours
+            // les DC1 et DC2 sont encours, DC3 et DC4 non renseigné
+             oDiplome = VM.CurrentCandidat.lstDiplomesCandVMs[0];
+            Assert.AreEqual("En cours", oDiplome.StatutDiplome);
+            Assert.AreEqual("En cours", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual("En cours", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[3].Statut);
+
+            //// DECISION PARTIELLE ////
+            oLiv.FTO_SetDecisionJuryL2Partielle();
+            oLiv.DateJury = new DateTime(2019, 08, 02);
+            oLiv.lstDCLivret[0].Decision = String.Format("{0:D}-Validation", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            oLiv.lstDCLivret[1].Decision = String.Format("{0:D}-Refus de Validation", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            VM.ValideretQuitterL2();
+
+            // Le diplome passe en Validé patiellement
+            // DC1 = Validé, DC2 = Refusé
+            oDiplome = VM.CurrentCandidat.lstDiplomesCandVMs[0];
+            Assert.AreEqual("Validé Partiellement", oDiplome.StatutDiplome);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual(new DateTime(2019,08,02), oDiplome.lstDCCands[0].DateObtention);
+            Assert.AreEqual("Refusé", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[3].Statut);
+
+            // 2nd passage
+            //============
+            VM.AjouteL2();
+            oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            oLiv.lstDCLivret[0].IsAValider = false;
+            oLiv.lstDCLivret[1].IsAValider = true;
+            oLiv.lstDCLivret[2].IsAValider = true;
+            oLiv.lstDCLivret[3].IsAValider = true;
+            VM.ValideretQuitterL2();
+            Assert.AreEqual("Validé Partiellement", oDiplome.StatutDiplome);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual("En cours", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual("En cours", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual("En cours", oDiplome.lstDCCands[3].Statut);
+
+            //// DECISION PARTIELLE ////
+            oLiv.FTO_SetDecisionJuryL2Partielle(new DateTime(2019, 08, 03));
+            oLiv.lstDCLivret[1].Decision = String.Format("{0:D}-Validation", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            oLiv.lstDCLivret[2].Decision = String.Format("{0:D}-Validation", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+            oLiv.lstDCLivret[3].Decision = String.Format("{0:D}-Refus de Validation", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            VM.ValideretQuitterL2();
+
+            Assert.AreEqual("Validé Partiellement", oDiplome.StatutDiplome);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual(new DateTime(2019, 08, 02), oDiplome.lstDCCands[0].DateObtention);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual(new DateTime(2019, 08, 03), oDiplome.lstDCCands[1].DateObtention);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual(new DateTime(2019, 08, 03), oDiplome.lstDCCands[2].DateObtention);
+            Assert.AreEqual("Refusé", oDiplome.lstDCCands[3].Statut);
+
+            // 3eme passage
+            //============
+            VM.AjouteL2();
+            oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            oLiv.lstDCLivret[0].IsAValider = false;
+            oLiv.lstDCLivret[1].IsAValider = false;
+            oLiv.lstDCLivret[2].IsAValider = false;
+            oLiv.lstDCLivret[3].IsAValider = true;
+            VM.ValideretQuitterL2();
+            Assert.AreEqual("Validé Partiellement", oDiplome.StatutDiplome);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual("En cours", oDiplome.lstDCCands[3].Statut);
+
+            //// DECISION PARTIELLE ////
+            oLiv.FTO_SetDecisionJuryL2Favorable(new DateTime(2019, 08, 04));
+            VM.ValideretQuitterL2();
+
+            Assert.AreEqual("Validé", oDiplome.StatutDiplome);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual(new DateTime(2019, 08, 02), oDiplome.lstDCCands[0].DateObtention);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual(new DateTime(2019, 08, 03), oDiplome.lstDCCands[1].DateObtention);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual(new DateTime(2019, 08, 03), oDiplome.lstDCCands[2].DateObtention);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[3].Statut);
+            Assert.AreEqual(new DateTime(2019, 08, 04), oDiplome.lstDCCands[3].DateObtention);
+            VM.LockCurrentCandidat();
+            VM.DeleteCurrentCandidat();
+            VM.saveData();
+        }
+        /// <summary>
+        /// test de la decision L2 Favorable => seuls les DC à valider sont validé
+        /// </summary>
+        [TestMethod]
+        [TestCategory("VMTest")]
+        public void TestDecisionL2Favorable()
+        {
+            DiplomeCandVM oDiplome = null;
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.AddCandidatCommand.Execute(null);
+            CandidatVM oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND";
+            VM.AjouteL1();
+            Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            oL1.Numero = "TESTL1";
+            oL1.DateJury = new DateTime(2019, 04, 12);
+            oL1.DateNotificationJury = new DateTime(2019, 04, 13, 0, 0, 0);
+            oL1.DateEnvoiL2 = new DateTime(2019, 06, 13, 0, 0, 0);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
+            VM.ValideretQuitterL1();
+            VM.saveData();
+            VM.getData();
+            Assert.IsTrue(VM.SetCurrentCandidat("TESTCAND"));
+            VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
+            Assert.AreEqual("TESTL1", VM.CurrentCandidat.CurrentLivret.Numero);
+
+            // Création du L2 Premier passage
+            VM.CloturerL1etCreerL2();
+            // le diplome du candidat passe à encours
+            oDiplome = VM.CurrentCandidat.lstDiplomesCandVMs[0];
+            Assert.AreEqual("En cours", oDiplome.StatutDiplome);
+            Assert.AreEqual("", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[3].Statut);
+
+            Livret2VM oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            oLiv.lstDCLivret[0].IsAValider = true;
+            oLiv.lstDCLivret[1].IsAValider = true;
+            oLiv.lstDCLivret[2].IsAValider = false;
+            oLiv.lstDCLivret[3].IsAValider = false;
+            VM.ValideretQuitterL2();
+            // Le diplome est en cours
+            // les DC1 et DC2 sont encours, DC3 et DC4 non renseigné
+            oDiplome = VM.CurrentCandidat.lstDiplomesCandVMs[0];
+            Assert.AreEqual("En cours", oDiplome.StatutDiplome);
+            Assert.AreEqual("En cours", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual("En cours", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[3].Statut);
+
+            //// DECISION FAVORABLE => uniquement sur les DC AValider ////
+            oLiv.FTO_SetDecisionJuryL2Favorable();
+            VM.ValideretQuitterL2();
+
+            // Le diplome passe en Validé partiellement
+            // DC1 = Validé, DC2 = Refusé
+            oDiplome = VM.CurrentCandidat.lstDiplomesCandVMs[0];
+            Assert.AreEqual("Validé Partiellement", oDiplome.StatutDiplome);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[0].Statut);
+            Assert.AreEqual("Validé", oDiplome.lstDCCands[1].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[2].Statut);
+            Assert.AreEqual("", oDiplome.lstDCCands[3].Statut);
+
+            VM.LockCurrentCandidat();
+            VM.DeleteCurrentCandidat();
+            VM.saveData();
+        }
+
     }//class ValidationTest
 }

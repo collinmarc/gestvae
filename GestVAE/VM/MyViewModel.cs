@@ -825,42 +825,38 @@ namespace GestVAE.VM
                     int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
                     oLivVM.NumPassage = nbL2 + 1;
                 }
+                Livret1VM oL1 = CurrentCandidat.getL1Valide();
+                if (oL1 != null)
+                {
+                    oLivVM.Numero = oL1.Numero;
+                    oLivVM.DateValidite = oL1.DateValidite;
+                    oLivVM.DateLimiteReceptEHESP = oL1.DateValidite;
+                    if (oL1.IsRecoursDemande)
+                    {
+                        oLivVM.IsOuvertureApresRecours = true;
+                    }
+                    if (oL1.DateEnvoiL2.HasValue)
+                    {
+                        oLivVM.DateEnvoiEHESP = oL1.DateEnvoiL2;
+                    }
+                    else
+                    {
+                        oL1.DateEnvoiL2 = DateTime.Today;
+                        oLivVM.DateEnvoiEHESP = DateTime.Today;
+                    }
+                }
+
+
                 // Récupération de la date d'envoi du L2 premier passage s'il s'agit un second passage
                 if (oLivVM.NumPassage>1)
                 {
                     Livret2VM oL2Prem = (Livret2VM)CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET && ((Livret2VM)l).NumPassage == 1).FirstOrDefault();
                     if (oL2Prem != null)
                     {
-                        oLivVM.Numero = oL2Prem.Numero;
                         oLivVM.DateEnvoiEHESP = oL2Prem.DateEnvoiEHESP;
                     }
-
                 }
-                else
-                {
-                    Livret1VM oL1 = CurrentCandidat.getL1Valide();
-                    if (oL1 != null)
-                    {
-                        oLivVM.Numero = oL1.Numero;
-                        oLivVM.DateValidite = oL1.DateValidite;
-                        oLivVM.DateLimiteReceptEHESP = oL1.DateValidite;
-                        if (oL1.IsRecoursDemande)
-                        {
-                            oLivVM.IsOuvertureApresRecours = true;
-                        }
-                        if (oL1.DateEnvoiL2.HasValue)
-                        {
-                            oLivVM.DateEnvoiEHESP = oL1.DateEnvoiL2;
-                        }
-                        else
-                        {
 
-                            oL1.DateEnvoiL2 = DateTime.Today;
-                            oLivVM.DateEnvoiEHESP = DateTime.Today;
-                        }
-                    }
-
-                }
                 // Récupération du diplome du candidat (si présent)
                 DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
                 if (oDiplomeCandidat == null)
@@ -868,6 +864,11 @@ namespace GestVAE.VM
                     DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand();
                     oDiplomeCandidat = oDipCandVM.TheDiplomeCand;
                     oDipCandVM.ModeObtention = "VAE";
+                    oDipCandVM.StatutDiplome = "En cours";
+                    oDipCandVM.StatutDC1 = "";
+                    oDipCandVM.StatutDC2 = "";
+                    oDipCandVM.StatutDC3 = "";
+                    oDipCandVM.StatutDC4 = "";
                 }
 
                 ((Livret2)oLivVM.TheLivret).InitDCLivrets(oDiplomeCandidat);
@@ -988,7 +989,7 @@ public void AjoutePJL1()
             // Validation du contenu du Livret
             oL2VM.Commit();
             // Mise à jour du diplome du candidat
-            if (oL2VM.IsEtatAccepte)
+            //if (oL2VM.IsEtatAccepte)
             {
                 UpdateDiplomeCand(oL2VM);
             }
@@ -1002,55 +1003,78 @@ public void AjoutePJL1()
                 CloseAction();
             }
         }
-
+        /// <summary>
+        ///  Mise à jour du diplome du candidat
+        /// </summary>
+        /// <param name="pLivret"></param>
         private void UpdateDiplomeCand(Livret2VM pLivret)
         {
 
             DiplomeCandVM oDip = CurrentCandidat.getDiplomeCand(pLivret);
             if (oDip != null)
+
             {
-                if (pLivret.IsDecisionJuryPartielle)
+                if (!pLivret.IsEtatRecuComplet)
                 {
                     foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
                     {
                         DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
                         if (oDCCand != null)
                         {
-                            if (item.isDecisionFavorable)
-                            {
-                                oDCCand.Statut = "Validé";
-                                oDCCand.DateObtention = pLivret.DateJury;
-                                oDCCand.ModeObtention = "VAE";
-                            }
-                            else
-                            {
-                                oDCCand.Statut = "Refusé";
-                                oDCCand.DateObtention = pLivret.DateJury;
-                            }
+                            oDCCand.Statut = "En cours";
                         }
                     }
-
                 }
                 else
                 {
-                    if (pLivret.IsDecisionJuryFavorable)
+                    if (pLivret.IsDecisionJuryPartielle)
                     {
-                        foreach (DomaineCompetenceCand item in oDip.lstDCCands)
+                        foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
                         {
-                            item.Statut = oDip.LstStatutModule[0];
-                            item.DateObtention = pLivret.DateJury;
-                            item.ModeObtention = "VAE";
+                            DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
+                            if (oDCCand != null)
+                            {
+                                if (item.isDecisionFavorable)
+                                {
+                                    oDCCand.Statut = "Validé";
+                                    oDCCand.DateObtention = pLivret.DateJury;
+                                    oDCCand.ModeObtention = "VAE";
+                                }
+                                else
+                                {
+                                    oDCCand.Statut = "Refusé";
+                                    oDCCand.DateObtention = pLivret.DateJury;
+                                }
+                            }
                         }
-                        oDip.DateObtentionDiplome = pLivret.DateJury;
-                        oDip.NumeroDiplome = pLivret.NumeroDiplome;
+
                     }
-                    if (pLivret.IsDecisionJuryDefavorable)
+                    else
                     {
-                        foreach (DomaineCompetenceCand item in oDip.lstDCCands)
+                        if (pLivret.IsDecisionJuryFavorable)
                         {
-                            item.Statut = oDip.LstStatutModule[1];
-                            item.DateObtention = pLivret.DateJury;
-                            item.ModeObtention = "VAE";
+                            // Validation des DC àValider
+                            foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
+                            {
+                                item.Statut = oDip.LstStatutModule[0];
+                                DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
+                                oDCCand.Statut = oDip.LstStatutModule[0];
+                                oDCCand.DateObtention = pLivret.DateJury;
+                                oDCCand.ModeObtention = "VAE";
+                            }
+
+                        }
+                        if (pLivret.IsDecisionJuryDefavorable)
+                        {
+                            // Validation des DC àValider
+                            foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
+                            {
+                                item.Statut = oDip.LstStatutModule[1];
+                                DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
+                                oDCCand.Statut = oDip.LstStatutModule[1];
+                                oDCCand.DateObtention = pLivret.DateJury;
+                                oDCCand.ModeObtention = "VAE";
+                            }
                         }
                     }
                 }

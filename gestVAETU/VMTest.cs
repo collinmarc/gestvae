@@ -701,5 +701,47 @@ namespace GestVAETU
             VM.saveData();
         }
 
-    }
+        [TestMethod]
+        [TestCategory("VMTest"), TestCategory("ANN"), TestCategory("#1016")]
+        public void TestCreateL22ndPassageDateValidité()
+        {
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.AddCandidatCommand.Execute(null);
+            CandidatVM oCand = VM.CurrentCandidat;
+            oCand.Nom = "TESTCAND";
+            VM.AjouteL1();
+            Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            oL1.Numero = "TESTL1";
+            oL1.DateJury = new DateTime(2019, 04, 12);
+            oL1.DateNotificationJury = new DateTime(2019, 04, 13, 0, 0, 0);
+            oL1.DateEnvoiL2 = new DateTime(2019, 06, 13, 0, 0, 0);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
+            VM.ValideretQuitterL1();
+            VM.saveData();
+            VM.getData();
+            Assert.IsTrue(VM.SetCurrentCandidat("TESTCAND"));
+            VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
+            Assert.AreEqual("TESTL1", VM.CurrentCandidat.CurrentLivret.Numero);
+
+            // Création du L2 Premier passage
+            VM.CloturerL1etCreerL2();
+            Livret2VM oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            VM.ValideretQuitterL2();
+
+            // Création du L2 Second passage
+            VM.AjouteL2();
+            oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            Assert.AreEqual(2, oLiv.NumPassage);
+            Assert.AreEqual("TESTL1", oLiv.Numero);
+            Assert.AreEqual(oL1.DateValidite, oLiv.DateValidite);
+
+
+            VM.LockCurrentCandidat();
+            VM.DeleteCurrentCandidat();
+            VM.saveData();
+        }
+     }
 }

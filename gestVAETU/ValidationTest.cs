@@ -778,7 +778,7 @@ namespace GestVAETU
             DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
             Assert.IsNotNull(oDip);
             // L'état du diplome n'est pas modifié
-            Assert.AreEqual("", oDip.StatutDiplome);
+            Assert.AreEqual("Validé Partiellement", oDip.StatutDiplome);
 
         }//GestVAE018
 
@@ -900,7 +900,7 @@ namespace GestVAETU
 
             //Lock du candidat sur POSTE1
             VM.CurrentCandidat = VM.lstCandidatVM[0];
-            // Le candidat a obtenu le diplome
+            // Le candidat n'a pas obtenu le diplome
             Assert.IsFalse(VM.CurrentCandidat.IsCAFDES);
 
             VM.LockCurrentCandidat();
@@ -909,6 +909,7 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             VM.ValideretQuitterL1();
             VM.AjouteL2();
+            Assert.IsTrue(VM.CurrentCandidat.IsCAFDES);
             // Decision = Validation Partielle > Now
             Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Favorable();
@@ -916,7 +917,9 @@ namespace GestVAETU
             //Saisie du numéro de diplome
             oL2.DateJury = DateTime.Now.AddDays(-1);
             oL2.NumeroDiplome = "123546";
+            Assert.IsTrue(VM.CurrentCandidat.IsCAFDES);
             VM.ValideretQuitterL2();
+            Assert.IsTrue(VM.CurrentCandidat.IsCAFDES);
 
             // Le candidat a obtenu le diplome
             DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
@@ -1044,7 +1047,7 @@ namespace GestVAETU
             Assert.AreEqual("En cours", oDiplome.lstDCCands[3].Statut);
 
             //// DECISION PARTIELLE ////
-            oLiv.FTO_SetDecisionJuryL2Favorable(new DateTime(2019, 08, 04));
+            oLiv.FTO_SetDecisionJuryL2Favorable(new DateTime(2019, 08, 04), pMAJ_DC_AValider: false);
             VM.ValideretQuitterL2();
 
             Assert.AreEqual("Validé", oDiplome.StatutDiplome);
@@ -1115,7 +1118,7 @@ namespace GestVAETU
             Assert.AreEqual("", oDiplome.lstDCCands[3].Statut);
 
             //// DECISION FAVORABLE => uniquement sur les DC AValider ////
-            oLiv.FTO_SetDecisionJuryL2Favorable();
+            oLiv.FTO_SetDecisionJuryL2Favorable(pCreateAllDC:false);
             VM.ValideretQuitterL2();
 
             // Le diplome passe en Validé partiellement

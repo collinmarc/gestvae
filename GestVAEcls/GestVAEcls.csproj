@@ -171,6 +171,18 @@
     <Compile Include="Migrations\201908021424570_BG1021.Designer.cs">
       <DependentUpon>201908021424570_BG1021.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909060829229_BG001017 Mail3-SituationParticuliere.cs" />
+    <Compile Include="Migrations\201909060829229_BG001017 Mail3-SituationParticuliere.Designer.cs">
+      <DependentUpon>201909060829229_BG001017 Mail3-SituationParticuliere.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909060913020_BG001021bis.cs" />
+    <Compile Include="Migrations\201909060913020_BG001021bis.Designer.cs">
+      <DependentUpon>201909060913020_BG001021bis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909061011499_V20190901.cs" />
+    <Compile Include="Migrations\201909061011499_V20190901.Designer.cs">
+      <DependentUpon>201909061011499_V20190901.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -301,6 +313,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908021424570_BG1021.resx">
       <DependentUpon>201908021424570_BG1021.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909060829229_BG001017 Mail3-SituationParticuliere.resx">
+      <DependentUpon>201909060829229_BG001017 Mail3-SituationParticuliere.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909060913020_BG001021bis.resx">
+      <DependentUpon>201909060913020_BG001021bis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909061011499_V20190901.resx">
+      <DependentUpon>201909061011499_V20190901.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

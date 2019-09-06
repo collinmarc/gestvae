@@ -429,6 +429,9 @@
     <Content Include="DOCS\ScenariosTests.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Extractions.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="GestVAE_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GestVAEcls.Context.datasource" />

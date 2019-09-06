@@ -1,7 +1,10 @@
-﻿Build :
+﻿Build :V20190901
 0001014: Ajout d'un commentaire Libre si 'autres' dans les Catégories de pièces jointes
 0001015: L1 & L2 : edition des Libellés de PJ : WrapMode
 0001016: L2 : La date de validité ne s'affiche pas parès un second Passage pour le L2
+0001017: Extract L1 : date de création , Suppr cols inutiles
+0001021: DOC9-10 : Status des DC par candidats
+
 
 Build : V20190620
 0000989: Les nouveaux Candidats n'apparaissent pas sur les extractions

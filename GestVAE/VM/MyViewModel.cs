@@ -861,7 +861,7 @@ namespace GestVAE.VM
                 DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
                 if (oDiplomeCandidat == null)
                 {
-                    DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand();
+                    DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand(oLivVM.TheLivret.oDiplome);
                     oDiplomeCandidat = oDipCandVM.TheDiplomeCand;
                     oDipCandVM.ModeObtention = "VAE";
                     oDipCandVM.StatutDiplome = "En cours";
@@ -1062,7 +1062,8 @@ public void AjoutePJL1()
                                 oDCCand.DateObtention = pLivret.DateJury;
                                 oDCCand.ModeObtention = "VAE";
                             }
-
+                            oDip.DateObtentionDiplome = pLivret.DateJury;
+                            oDip.StatutDiplome = "Validé";
                         }
                         if (pLivret.IsDecisionJuryDefavorable)
                         {

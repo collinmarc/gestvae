@@ -613,7 +613,7 @@ namespace GestVAETU
             oCan.Nom = "TEST1";
             VM.saveData();
             VM.AjouteL2();
-            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Favorable();
             VM.ValideretQuitterL2();
             // Un diplome a bienété crée
             Assert.AreEqual(1, oCan.lstDiplomesCandVMs.Count);

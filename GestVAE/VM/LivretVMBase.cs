@@ -1153,9 +1153,9 @@ namespace GestVAE.VM
         {
             FTO_SetDecisionJuryL1DeFavorable(DateTime.Today);
         }
-        public void FTO_SetDecisionJuryL2Favorable()
+        public void FTO_SetDecisionJuryL2Favorable( Boolean pCreateAllDC = true)
         {
-            FTO_SetDecisionJuryL2Favorable(DateTime.Today);
+            FTO_SetDecisionJuryL2Favorable(DateTime.Today,pCreateAllDC);
         }
         public void FTO_SetDecisionJuryL2DeFavorable()
         {
@@ -1183,8 +1183,16 @@ namespace GestVAE.VM
             DecisionJury = String.Format("{0:D}-Validation Partielle", MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE);
 
         }
-        public void FTO_SetDecisionJuryL2Favorable(DateTime pDateJury)
+        public void FTO_SetDecisionJuryL2Favorable(DateTime pDateJury, Boolean pMAJ_DC_AValider = true )
         {
+            if (pMAJ_DC_AValider)
+            {
+                // tous les Dc sont A Valider
+                foreach (DCLivretVM oDCLivret in ((Livret2VM)this).lstDCLivret)
+                {
+                    oDCLivret.IsAValider = true;
+                }
+            }
             DateJury = pDateJury;
             DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
 

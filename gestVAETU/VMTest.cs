@@ -743,5 +743,22 @@ namespace GestVAETU
             VM.DeleteCurrentCandidat();
             VM.saveData();
         }
-     }
+        [TestMethod]
+        [TestCategory("VMTest"), TestCategory("ANN"), TestCategory("#938")]
+        public void TestChangeNumerotationCandidat()
+        {
+            MyViewModel VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.getData();
+
+            VM.dlgParamCommand.Execute(null);
+            VM.ParamNumCandidat = 999;
+            VM.ValiderdlgParam(null);
+            VM.AjouteCandidat();
+            String IDVAE = "3" + DateTime.Now.ToString("yy") + "00999";
+
+            Assert.AreEqual(IDVAE, VM.CurrentCandidat.IdVAE);
+
+        }
+    }
 }

@@ -238,7 +238,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return (from item in _ctx.pieceJointeCategories
+                return (from item in _ctxParam.pieceJointeCategories
                         where item.Livret == "L1"
                         select item).ToList();
             }

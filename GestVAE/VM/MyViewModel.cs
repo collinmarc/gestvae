@@ -26,6 +26,7 @@ namespace GestVAE.VM
     public class MyViewModel : NotifyUIBase
     {
         private Context _ctx;
+        private ContextParam _ctxParam;
         private bool _modelhasChanges = false;
         private ObservableCollection<CandidatVM> _lstCandidatVM;
         private ObservableCollection<RegionVM> _lstRegionVM;
@@ -117,6 +118,8 @@ namespace GestVAE.VM
         {
             Context.Reset();
             _ctx = Context.instance;
+            _ctxParam = new ContextParam();
+
             _lstCandidatVM = new ObservableCollection<CandidatVM>();
             _lstRegionVM = new ObservableCollection<RegionVM>();
             _lstDiplomeVM = new ObservableCollection<DiplomeVM>();
@@ -147,6 +150,8 @@ namespace GestVAE.VM
             _AddCandidatCommand = new RelayCommand<CandidatVM>(o => { AjouteCandidat(); }
                                            );
             _dlgParamCommand = new RelayCommand<MyViewModel>(o => { CalldlgParam(); }
+                                           );
+            _ValiderParametresCommand = new RelayCommand<dlgParametre>(o => { ValiderdlgParam(o); }
                                            );
             dlgAProposCommand = new RelayCommand<MyViewModel>(o => { CalldlgAPropos(); }
                                            );
@@ -286,102 +291,8 @@ namespace GestVAE.VM
                 {
                     item.Commit();
                 }
-                foreach (PieceJointeCategorie item in lstPieceJointeCategorie)
-                {
-                    if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Detached)
-                    {
-                        _ctx.pieceJointeCategories.Add(item);
-                    }
-                    if (_ctx.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Deleted)
-                    {
-                        _ctx.pieceJointeCategories.Remove(item);
-                    }
-                }
-                foreach (MotifGeneralL1 item in lstMotifGL1)
-                {
-                    if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Detached)
-                    {
-                        _ctx.dbMotifGeneralL1.Add(item);
-                    }
-                    if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Deleted)
-                    {
-                        _ctx.dbMotifGeneralL1.Remove(item);
-                    }
-                }
 
-                foreach (MotifGeneralL2 item in lstMotifGL2)
-                {
-                    if (_ctx.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Detached)
-                    {
-                        _ctx.dbMotifGeneralL2.Add(item);
-                    }
-                    if (_ctx.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Deleted)
-                    {
-                        _ctx.dbMotifGeneralL2.Remove(item);
-                    }
-                }
-
-                foreach (RegionVM item in lstRegionVM)
-                {
-                    if (item.IsNew)
-                    {
-                        _ctx.Regions.Add(item.RegionItem);
-                    }
-                }
-                foreach (DiplomeVM item in lstDiplomeVM)
-                {
-                    item.Commit();
-                }
-
-                foreach (CandidatVM item in lstCandidatVM)
-                {
-                    item.Commit();
-                }
-                foreach (ParamDepartement item in lstParamDepartement)
-                {
-                    if (_ctx.Entry<ParamDepartement>(item).State == System.Data.Entity.EntityState.Detached)
-                    {
-                        _ctx.dbParamDepartement.Add(item);
-                    }
-                    if (_ctx.Entry<ParamDepartement>(item).State == System.Data.Entity.EntityState.Deleted)
-                    {
-                        _ctx.dbParamDepartement.Remove(item);
-                    }
-                }
-                foreach (ParamCollege item in lstParamCollege)
-                {
-                    if (_ctx.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Detached)
-                    {
-                        _ctx.dbParamCollege.Add(item);
-                    }
-                    if (_ctx.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Deleted)
-                    {
-                        _ctx.dbParamCollege.Remove(item);
-                    }
-                }
-                foreach (ParamTypeDemande item in lstParamTypeDemande)
-                {
-                    if (_ctx.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Detached)
-                    {
-                        _ctx.dbParamTypeDemande.Add(item);
-                    }
-                    if (_ctx.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Deleted)
-                    {
-                        _ctx.dbParamTypeDemande.Remove(item);
-                    }
-                }
-                foreach (ParamVecteurInformation item in lstParamVecteurInformation)
-                {
-                    if (_ctx.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Detached)
-                    {
-                        _ctx.dbParamVecteurInformation.Add(item);
-                    }
-                    if (_ctx.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Deleted)
-                    {
-                        _ctx.dbParamVecteurInformation.Remove(item);
-                    }
-                }
-                _ctx.DeleteOnCascade();
+                 _ctx.DeleteOnCascade();
                 _ctx.SaveChanges();
                 UnlockCandidats();
                 _modelhasChanges = false;
@@ -457,7 +368,8 @@ namespace GestVAE.VM
                 }
 
                 _lstRegionVM.Clear();
-                foreach (Region item in _ctx.Regions)
+
+                foreach (Region item in _ctxParam.Regions)
                 {
                     RegionVM oItVM = new RegionVM(item);
                     _lstRegionVM.Add(oItVM);
@@ -473,7 +385,7 @@ namespace GestVAE.VM
                 RaisePropertyChanged("lstDiplomeVM");
 
                 _lstPieceJointeCategorie.Clear();
-                foreach (PieceJointeCategorie item in _ctx.pieceJointeCategories)
+                foreach (PieceJointeCategorie item in _ctxParam.pieceJointeCategories)
                 {
                     //DiplomeVM oItVM = new DiplomeVM(item);
                     _lstPieceJointeCategorie.Add(item);
@@ -481,36 +393,36 @@ namespace GestVAE.VM
                 RaisePropertyChanged("lstPieceJointeCategorie");
 
                 _lstMotifGL1.Clear();
-                foreach (MotifGeneralL1 item in _ctx.dbMotifGeneralL1)
+                foreach (MotifGeneralL1 item in _ctxParam.dbMotifGeneralL1)
                 {
                     _lstMotifGL1.Add(item);
                 }
                 RaisePropertyChanged("lstMotifGL1");
 
                 _lstMotifGL2.Clear();
-                foreach (MotifGeneralL2 item in _ctx.dbMotifGeneralL2)
+                foreach (MotifGeneralL2 item in _ctxParam.dbMotifGeneralL2)
                 {
                     _lstMotifGL2.Add(item);
                 }
                 RaisePropertyChanged("lstMotifGL2");
 
                 lstParamCollege.Clear();
-                foreach (ParamCollege item in _ctx.dbParamCollege)
+                foreach (ParamCollege item in _ctxParam.dbParamCollege)
                 {
                     lstParamCollege.Add(item);
                 }
                 lstParamDepartement.Clear();
-                foreach (ParamDepartement item in _ctx.dbParamDepartement)
+                foreach (ParamDepartement item in _ctxParam.dbParamDepartement)
                 {
                     lstParamDepartement.Add(item);
                 }
                 lstParamTypeDemande.Clear();
-                foreach (ParamTypeDemande item in _ctx.dbParamTypeDemande)
+                foreach (ParamTypeDemande item in _ctxParam.dbParamTypeDemande)
                 {
                     lstParamTypeDemande.Add(item);
                 }
                 lstParamVecteurInformation.Clear();
-                foreach (ParamVecteurInformation item in _ctx.dbParamVecteurInformation)
+                foreach (ParamVecteurInformation item in _ctxParam.dbParamVecteurInformation)
                 {
                     lstParamVecteurInformation.Add(item);
                 }
@@ -522,7 +434,7 @@ namespace GestVAE.VM
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show( ex.Message);
                 CSDebug.TraceException("MyViewModel.getParam : ", ex);
             }
 
@@ -610,6 +522,13 @@ namespace GestVAE.VM
         {
             get { return _dlgParamCommand; }
         }
+
+        private ICommand _ValiderParametresCommand;
+        public ICommand ValiderParametresCommand
+        {
+            get { return _ValiderParametresCommand; }
+        }
+        
         private ICommand _RechercherCommand;
 
         public ICommand RechercherCommand
@@ -949,13 +868,28 @@ public void AjoutePJL1()
 
         }
         /// <summary>
+        ///  Validation de la fenêtre Paramètre
+        /// </summary>
+        public void ValiderdlgParam(dlgParametre pDlg)
+        {
+            _ctxParam.SaveChanges();
+            if (!IsInTest)
+            {
+                pDlg.Close();
+            }
+        }
+        /// <summary>
         ///  Appel de la fenêtre de gestion des paramètres
         /// </summary>
         public void CalldlgParam()
         {
             dlgParametre oDlg = new dlgParametre();
+            _ctxParam = new ContextParam();
             oDlg.setContexte(this);
-            oDlg.ShowDialog();
+            if (!IsInTest)
+            {
+                oDlg.ShowDialog();
+            }
         }
         public void CalldlgAPropos()
         {
@@ -1427,28 +1361,24 @@ public void AjoutePJL1()
             get
             {
                 Int32 nReturn = 0;
-                using (Context ctx = new Context())
-                {
-                    Param objParam = _ctx.dbParam.FirstOrDefault();
+                Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                _ctxParam.Entry(objParam).Reload();
                     if (objParam != null)
                     {
                         nReturn = objParam.NumCandidat;
                     }
-                }
                 return nReturn;
             }
             set
             {
                 if (value != ParamNumCandidat)
                 {
-                    Context ctx = new Context();
-                    Param objParam = _ctx.dbParam.FirstOrDefault();
+                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
                     if (objParam != null)
                     {
                         objParam.NumCandidat = value;
+                        _ctxParam.SaveChanges();
                     }
-                    ctx.SaveChanges();
-
                 }
             }
         }
@@ -1460,9 +1390,10 @@ public void AjoutePJL1()
             get
             {
                 Int32 nReturn = 0;
-                using (Context ctx = new Context())
+                using (ContextParam ctx = new ContextParam())
                 {
-                    Param objParam = _ctx.dbParam.FirstOrDefault();
+                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                    _ctxParam.Entry(objParam).Reload();
                     if (objParam != null)
                     {
                         nReturn = objParam.NumLivret;
@@ -1474,14 +1405,14 @@ public void AjoutePJL1()
             {
                 if (value != ParamNumLivret)
                 {
-                    using (Context ctx = new Context())
+                    using (ContextParam ctx = new ContextParam())
                     {
-                        Param objParam = _ctx.dbParam.FirstOrDefault();
+                        Param objParam = _ctxParam.dbParam.FirstOrDefault();
                         if (objParam != null)
                         {
                             objParam.NumLivret = value;
+                            _ctxParam.SaveChanges();
                         }
-                        ctx.SaveChanges();
                     }
 
                 }
@@ -1566,6 +1497,123 @@ public void AjoutePJL1()
         public Boolean IsParamTypeDemande { get { return NomParametreEquals("Type de la demande"); } }
         public Boolean IsParamVecteur { get { return NomParametreEquals("Vecteur d'information"); } }
         public Boolean IsParamNumerotation { get { return NomParametreEquals("Numérotation"); } }
+
+        public Boolean saveDataParam()
+        {
+            Boolean bReturn = true;
+            try
+            {
+                foreach (DiplomeVM item in lstDiplomeVM)
+                {
+                    item.Commit();
+                }
+
+                foreach (PieceJointeCategorie item in lstPieceJointeCategorie)
+                {
+                    if (_ctxParam.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctxParam.pieceJointeCategories.Add(item);
+                    }
+                    if (_ctxParam.Entry<PieceJointeCategorie>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctxParam.pieceJointeCategories.Remove(item);
+                    }
+                }
+                foreach (MotifGeneralL1 item in lstMotifGL1)
+                {
+                    if (_ctxParam.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctxParam.dbMotifGeneralL1.Add(item);
+                    }
+                    if (_ctx.Entry<MotifGeneralL1>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctxParam.dbMotifGeneralL1.Remove(item);
+                    }
+                }
+
+                foreach (MotifGeneralL2 item in lstMotifGL2)
+                {
+                    if (_ctxParam.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctxParam.dbMotifGeneralL2.Add(item);
+                    }
+                    if (_ctx.Entry<MotifGeneralL2>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctxParam.dbMotifGeneralL2.Remove(item);
+                    }
+                }
+
+                foreach (RegionVM item in lstRegionVM)
+                {
+                    if (item.IsNew)
+                    {
+                        _ctxParam.Regions.Add(item.RegionItem);
+                    }
+                }
+                foreach (DiplomeVM item in lstDiplomeVM)
+                {
+                    item.Commit();
+                }
+
+                foreach (ParamDepartement item in lstParamDepartement)
+                {
+                    if (_ctxParam.Entry<ParamDepartement>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctxParam.dbParamDepartement.Add(item);
+                    }
+                    if (_ctxParam.Entry<ParamDepartement>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctxParam.dbParamDepartement.Remove(item);
+                    }
+                }
+                foreach (ParamCollege item in lstParamCollege)
+                {
+                    if (_ctxParam.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctxParam.dbParamCollege.Add(item);
+                    }
+                    if (_ctxParam.Entry<ParamCollege>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctxParam.dbParamCollege.Remove(item);
+                    }
+                }
+                foreach (ParamTypeDemande item in lstParamTypeDemande)
+                {
+                    if (_ctxParam.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctxParam.dbParamTypeDemande.Add(item);
+                    }
+                    if (_ctxParam.Entry<ParamTypeDemande>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctxParam.dbParamTypeDemande.Remove(item);
+                    }
+                }
+                foreach (ParamVecteurInformation item in lstParamVecteurInformation)
+                {
+                    if (_ctxParam.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Detached)
+                    {
+                        _ctxParam.dbParamVecteurInformation.Add(item);
+                    }
+                    if (_ctxParam.Entry<ParamVecteurInformation>(item).State == System.Data.Entity.EntityState.Deleted)
+                    {
+                        _ctxParam.dbParamVecteurInformation.Remove(item);
+                    }
+                }
+                _ctx.DeleteOnCascade();
+                _ctx.SaveChanges();
+                UnlockCandidats();
+                _modelhasChanges = false;
+                bReturn = true;
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+                bReturn = false;
+            }
+
+            return bReturn;
+        }//SaveData
+
 
     }
 }

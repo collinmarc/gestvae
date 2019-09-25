@@ -584,7 +584,7 @@ namespace GestVAE.VM
             get
                 {
 
-                return (from item in _ctx.pieceJointeCategories
+                return (from item in _ctxParam.pieceJointeCategories
                         where item.Livret == "L2"
                         select item).ToList();
             }
@@ -594,7 +594,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return (from item in _ctx.dbMotifGeneralL2
+                return (from item in _ctxParam.dbMotifGeneralL2
                         select item.Libelle).ToList<String>();
             }
         }

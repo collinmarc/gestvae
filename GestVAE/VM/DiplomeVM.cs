@@ -69,7 +69,7 @@ namespace GestVAE.VM
 
         public void Commit()
         {
-            if ( _ctx.Entry<Diplome>(TheDiplome).State== System.Data.Entity.EntityState.Detached )
+            if ( _ctxParam.Entry<Diplome>(TheDiplome).State== System.Data.Entity.EntityState.Detached )
             {
                 _ctx.Diplomes.Add(TheDiplome);
             }

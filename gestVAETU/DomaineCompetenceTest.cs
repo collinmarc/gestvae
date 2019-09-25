@@ -25,7 +25,7 @@ namespace GestVAETU
             oDip.lstDomainesCompetences.Add(oDC1);
             ctx.DomainesCompetences.Add(oDC1);
 
-            ctx.SaveChanges();
+            SaveChanges();
 
             oDC1 = ctx.DomainesCompetences.First<DomaineCompetence>();
 
@@ -40,8 +40,7 @@ namespace GestVAETU
             oDC2.Nom = "DC2";
             oDC1.Numero = 2;
 
-            ctx.SaveChanges();
-            ctx = Context.instance;
+            SaveChanges();
 
             oDC1 = (from obj in ctx.DomainesCompetences
                      where (obj.ID == nId) && (!obj.bDeleted)
@@ -52,7 +51,7 @@ namespace GestVAETU
 
             ctx.DomainesCompetences.Remove(oDC1);
 
-            ctx.SaveChanges();
+            SaveChanges();
 
             int nDomaineCompetence = (from obj in ctx.DomainesCompetences select obj).Count<DomaineCompetence>();
 
@@ -75,11 +74,9 @@ namespace GestVAETU
 
             int nId = oCand.ID;
             DiplomeCand oDipC = oCand.AddDiplome();
-            Context.instance.SaveChanges();
+            SaveChanges();
 
-            Context.Reset();
-
-            oCand = Context.instance.Candidats.Find(nId);
+           oCand = ctx.Candidats.Find(nId);
             Assert.AreEqual(1, oCand.lstDiplomes.Count);
 
         }

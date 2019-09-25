@@ -13,6 +13,7 @@ namespace GestVAE.VM
     {
 
         protected Context _ctx = Context.instance;
+        protected ContextParam _ctxParam = new ContextParam();
         private bool isNew = true;
         public GestVAEBase TheItem { get; set; }
         public bool IsNew

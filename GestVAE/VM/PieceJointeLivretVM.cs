@@ -109,7 +109,7 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                PieceJointeCategorie oPJCat= (from item in _ctx.pieceJointeCategories
+                PieceJointeCategorie oPJCat= (from item in _ctxParam.pieceJointeCategories
                         where item.Categorie == Categorie && item.Livret == strLivret
                         select item).FirstOrDefault<PieceJointeCategorie>();
                 if (oPJCat != null)

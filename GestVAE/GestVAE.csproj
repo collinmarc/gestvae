@@ -429,9 +429,9 @@
     <Content Include="DOCS\ScenariosTests.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Extractions.xlsx">
+    <Content Include="Extractions.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="GestVAE_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GestVAEcls.Context.datasource" />
@@ -442,7 +442,9 @@
     <None Include="SampleData\SampleDataSource\SampleDataSource.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GestVAEcls\GestVAEcls.csproj">

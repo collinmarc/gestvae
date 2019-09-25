@@ -28,21 +28,26 @@ namespace GestVAE.VM
             get { return TheParam.NumLivret; }
             set { TheParam.NumLivret= value; }
         }
+        public Int32 NumCandidat
+        {
+            get { return TheParam.NumCandidat; }
+            set { TheParam.NumCandidat = value; }
+        }
         public void Commit()
         {
             if (_ctx.Entry<Param>(TheParam).State == System.Data.Entity.EntityState.Detached)
             {
-                _ctx.dbParam.Add(TheParam);
+                _ctxParam.dbParam.Add(TheParam);
             }
             if (_ctx.Entry<Param>(TheParam).State == System.Data.Entity.EntityState.Deleted)
             {
-                _ctx.dbParam.Remove(TheParam);
+                _ctxParam.dbParam.Remove(TheParam);
             }
         }
 
         public static Int32 incrementLivret()
         {
-            Context ctx = new Context();
+            ContextParam ctx = new ContextParam();
             Param oParam = ctx.dbParam.FirstOrDefault();
             if (oParam == null)
             {
@@ -56,17 +61,20 @@ namespace GestVAE.VM
         }
         public static Int32 incrementCandidat()
         {
-            Context ctx = new Context();
-            Param oParam = ctx.dbParam.FirstOrDefault();
-            if (oParam == null)
+            Int32 nReturn = 0;
+            using (ContextParam ctxP = new ContextParam())
             {
-                oParam = new Param();
-                oParam.NumLivret = 1;
-                oParam.NumCandidat = 1;
-                ctx.dbParam.Add(oParam);
+                Param oParam = ctxP.dbParam.FirstOrDefault();
+                if (oParam == null)
+                {
+                    oParam = new Param();
+                    oParam.NumLivret = 1;
+                    oParam.NumCandidat = 1;
+                    ctxP.dbParam.Add(oParam);
+                }
+                 nReturn = oParam.NumCandidat++;
+                ctxP.SaveChanges();
             }
-            Int32 nReturn = oParam.NumCandidat++;
-            ctx.SaveChanges();
             return nReturn;
         }
 

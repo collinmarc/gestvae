@@ -161,7 +161,7 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                MotifGeneralL2 oPJMotifG= (from item in _ctx.dbMotifGeneralL2
+                MotifGeneralL2 oPJMotifG= (from item in _ctxParam.dbMotifGeneralL2
                         where item.Libelle == MotifGeneral 
                         select item).FirstOrDefault();
                 if (oPJMotifG != null)

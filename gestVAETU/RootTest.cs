@@ -16,13 +16,14 @@ namespace GestVAETU
         public TestContext TestContext { get; set; }
 
         public Context ctx { get; set; }
+        public ContextParam ctxParam { get; set; }
 
         public void cleanDB()
         {
 
             foreach (Candidat oC in ctx.Candidats)
             {
-                while (oC.lstLivrets1.Count>0)
+                while (oC.lstLivrets1.Count > 0)
                 {
                     while (oC.lstLivrets1[0].lstJurys.Count > 0)
                     {
@@ -40,15 +41,16 @@ namespace GestVAETU
                 }
             }
             ctx.Candidats.RemoveRange(ctx.Candidats.ToList());
-            ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList<Diplome>());
+            ctx.Diplomes.RemoveRange(ctx.Diplomes.ToList());
             ctx.Locks.RemoveRange(ctx.Locks.ToList());
-            ctx.SaveChanges();
+            SaveChanges();
         }
         [TestInitialize]
         public void Setup()
         {
             Context.Reset();
             ctx = Context.instance;
+            ctxParam = new ContextParam();
             cleanDB();
 
                 oCand = new Candidat("Marc Collin");
@@ -61,7 +63,13 @@ namespace GestVAETU
                 oDip.addDomainecompetence("DC4");
 
                 ctx.Diplomes.Add(oDip);
-                ctx.SaveChanges();
+            SaveChanges();
+            
+        }
+        public void SaveChanges()
+        {
+            ctxParam.SaveChanges();
+            ctx.SaveChanges();
         }
     }
 }

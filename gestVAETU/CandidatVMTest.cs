@@ -20,7 +20,7 @@ namespace GestVAETU
         [TestMethod]
         public void AddDiplomeTest()
         {
-            MyViewModel VM = new MyViewModel();
+            MyViewModel VM = new MyViewModel(true);
             VM.AddCandidatCommand.Execute(null);
             CandidatVM oCand = VM.CurrentCandidat;
             oCand.Nom = "TESTADDIPLOME";

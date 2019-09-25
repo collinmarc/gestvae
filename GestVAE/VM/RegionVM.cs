@@ -24,7 +24,7 @@ namespace GestVAE.VM
         }
         public override DbEntityEntry getEntity()
         {
-            DbEntityEntry<Region> entry = _ctx.Entry<Region>(TheRegion);
+            DbEntityEntry<Region> entry = _ctxParam.Entry<Region>(TheRegion);
             return entry;
         }
 
@@ -42,11 +42,11 @@ namespace GestVAE.VM
         {
             if (_ctx.Entry<Region>(TheRegion).State == System.Data.Entity.EntityState.Detached)
             {
-                _ctx.Regions.Add(TheRegion);
+                _ctxParam.Regions.Add(TheRegion);
             }
             if (_ctx.Entry<Region>(TheRegion).State == System.Data.Entity.EntityState.Deleted)
             {
-                _ctx.Regions.Remove(TheRegion);
+                _ctxParam.Regions.Remove(TheRegion);
             }
         }
 

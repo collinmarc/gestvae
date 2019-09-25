@@ -26,7 +26,7 @@ namespace GestVAEcls
         public List<DomaineCompetence> lstDomainesCompetencesSorted()
         {
             List<DomaineCompetence> oReturn; 
-            using (Context _ctx = Context.instance)
+            using (Context _ctx = new Context())
             {
                 oReturn = (from obj in _ctx.DomainesCompetences
                            where bDeleted == false && obj.oDiplome.ID == ID

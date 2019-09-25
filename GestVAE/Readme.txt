@@ -1,4 +1,7 @@
-﻿Build :V20190901
+﻿Build :
+000938 : Le param NumeroDeCandidat n'est pas pris en compte automatiquement
+
+Build :V20190901
 0001014: Ajout d'un commentaire Libre si 'autres' dans les Catégories de pièces jointes
 0001015: L1 & L2 : edition des Libellés de PJ : WrapMode
 0001016: L2 : La date de validité ne s'affiche pas parès un second Passage pour le L2

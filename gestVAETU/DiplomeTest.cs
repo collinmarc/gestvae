@@ -18,7 +18,7 @@ namespace GestVAETU
 
             ctx.Diplomes.Add(oDiplome);
 
-            ctx.SaveChanges();
+            SaveChanges();
 
             oDiplome = ctx.Diplomes.First<Diplome>();
 
@@ -33,8 +33,7 @@ namespace GestVAETU
             oDiplome.Nom = "CAFDES2";
             oDiplome.Description = "Ma Description2";
 
-            ctx.SaveChanges();
-            ctx = Context.instance;
+            SaveChanges();
 
             oDiplome = (from obj in ctx.Diplomes
                      where (obj.ID == nId) && (!obj.bDeleted)
@@ -45,7 +44,7 @@ namespace GestVAETU
 
             ctx.Diplomes.Remove(oDiplome);
 
-            ctx.SaveChanges();
+            SaveChanges();
 
             int nDiplome = (from obj in ctx.Diplomes select obj).Count<Diplome>();
 
@@ -74,8 +73,7 @@ namespace GestVAETU
 
             ctx.Diplomes.Add(oDip1);
 
-            ctx.SaveChanges();
-            ctx = Context.instance;
+            SaveChanges();
 
             oDip2 = ctx.Diplomes.Find(oDip1.ID);
 
@@ -88,9 +86,8 @@ namespace GestVAETU
 
             ctx.DomainesCompetences.Remove(oDC2);
 
-            ctx.SaveChanges();
+            SaveChanges();
 
-            ctx = Context.instance;
 
             oDip2 = (from obj in ctx.Diplomes
                      where obj.ID == oDip1.ID
@@ -119,15 +116,14 @@ namespace GestVAETU
 
             ctx.Diplomes.Add(oDip1);
 
-            ctx.SaveChanges();
-            ctx = Context.instance;
+            SaveChanges();
 
             oDip2 = ctx.Diplomes.Find(oDip1.ID);
 
             //Suppression du Diplome => Sup^pression des Domaines de compétences
 
             ctx.Diplomes.Remove(oDip2);
-            ctx.SaveChanges();
+            SaveChanges();
  
 
         }

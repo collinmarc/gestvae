@@ -40,7 +40,7 @@ namespace GestVAEcls
 #endif
         {
             Trace.WriteLine("Context : SQLServer = " + this.Database.Connection.DataSource);
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, GestVAEcls.Migrations.Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, GestVAEcls.Migrations.Configuration>());
 
         }
 #if DEBUG
@@ -59,23 +59,30 @@ namespace GestVAEcls
         }
 
         public DbSet<Candidat> Candidats { get; set; }
-        public DbSet<Diplome> Diplomes { get; set; }
-        public DbSet<DomaineCompetence> DomainesCompetences { get; set; }
         public DbSet<DiplomeCand> DiplomeCands { get; set; }
         public DbSet<DomaineCompetenceCand> DomaineCompetenceCands { get; set; }
 
         public DbSet<Recours> dbRecours { get; set; }
-        public DbSet<Region> Regions { get; set; }
-        public DbSet<ParamCollege> dbParamCollege { get; set; }
-        public DbSet<ParamDepartement> dbParamDepartement { get; set; }
-        public DbSet<ParamTypeDemande> dbParamTypeDemande { get; set; }
-        public DbSet<ParamVecteurInformation> dbParamVecteurInformation { get; set; }
-        public DbSet<PieceJointeCategorie> pieceJointeCategories { get; set; }
-        public DbSet<MotifGeneralL1> dbMotifGeneralL1 { get; set; }
-        public DbSet<MotifGeneralL2> dbMotifGeneralL2 { get; set; }
-        public DbSet<Param> dbParam { get; set; }
 
         public DbSet<LockCandidat> Locks { get; set; }
+        public DbSet<Diplome> Diplomes { get; set; }
+        public DbSet<DomaineCompetence> DomainesCompetences { get; set; }
+
+        //================================
+        // NE PAS UTILISER CES DBSETS
+        // ILS ONT ETE TRANSFERE DANS CTXPARAM
+        // PBLM DE MIGRATION , ILS DOIVENT RESTER LA
+        //=====================================
+        public DbSet<Param> dbParam_UTILISER_CTXPARAM { get; set; }
+        public DbSet<ParamCollege> dbParamCollege_UTILISER_CTXPARAM { get; set; }
+        public DbSet<ParamDepartement> dbParamDepartement_UTILISER_CTXPARAM { get; set; }
+        public DbSet<ParamTypeDemande> dbParamTypeDemande_UTILISER_CTXPARAM { get; set; }
+        public DbSet<ParamVecteurInformation> dbParamVecteurInformation_UTILISER_CTXPARAM { get; set; }
+        public DbSet<Region> Regions_UTILISER_CTXPARAM { get; set; }
+        public DbSet<PieceJointeCategorie> pieceJointeCategories_UTILISER_CTXPARAM { get; set; }
+        public DbSet<MotifGeneralL1> dbMotifGeneralL1_UTILISER_CTXPARAM { get; set; }
+        public DbSet<MotifGeneralL2> dbMotifGeneralL2_UTILISER_CTXPARAM { get; set; }
+
 
         public void DeleteOnCascade()
 
@@ -146,7 +153,9 @@ namespace GestVAEcls
                 }
             }
         }
+
     }//Context
+
     public class ContextLock : DbContext
     {
         private static Context _instance = null;
@@ -178,5 +187,27 @@ namespace GestVAEcls
         public DbSet<LockCandidat> Locks { get; set; }
 
 
+    }
+    public class ContextParam : DbContext
+    {
+#if DEBUG
+        public ContextParam() : base("name=CSGESTVAEDEV")
+#else
+        public ContextParam() : base("name=CSGESTVAE")
+#endif
+        {
+            Database.SetInitializer<ContextParam>(null);
+        }
+
+        public DbSet<Param> dbParam { get; set; }
+        public DbSet<ParamCollege> dbParamCollege { get; set; }
+        public DbSet<ParamDepartement> dbParamDepartement { get; set; }
+        public DbSet<ParamTypeDemande> dbParamTypeDemande { get; set; }
+        public DbSet<ParamVecteurInformation> dbParamVecteurInformation { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<PieceJointeCategorie> pieceJointeCategories { get; set; }
+        public DbSet<MotifGeneralL1> dbMotifGeneralL1 { get; set; }
+        public DbSet<MotifGeneralL2> dbMotifGeneralL2 { get; set; }
+ 
     }
 }

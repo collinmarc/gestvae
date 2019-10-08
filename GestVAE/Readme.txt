@@ -2,6 +2,7 @@
 000938 : Le param NumeroDeCandidat n'est pas pris en compte automatiquement
 0001038: frmDiplome : Liste des modes d'obtention vides
 0001030: L2 : La suppression des Membres du jurys ne fonctionne pas
+0001007: changer le nom dans la zone de recherche déclenche le Sauvegarder
 
 
 Build :V20190901

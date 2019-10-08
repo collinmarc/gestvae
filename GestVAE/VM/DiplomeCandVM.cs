@@ -448,14 +448,14 @@ namespace GestVAE.VM
             }
             set { }
         }
-        private List<String> LstModeObtention
+        public List<String> LstModeObtention
         {
             get
             {
                 List<String> oReturn = new List<String>();
                 oReturn.Add("FI");
                 oReturn.Add("VAE");
-                oReturn.Add("Dispence");
+                oReturn.Add("Dispense");
                 return oReturn;
             }
             set { }

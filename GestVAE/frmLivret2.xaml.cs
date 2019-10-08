@@ -104,5 +104,15 @@ namespace GestVAE
         {
 
         }
+
+        private void dgMembreJury_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            e.NewItem = new VM.MembreJuryVM();
+        }
+
+        private void dgMembreJury_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //'CSDebug.TraceINFO(VM.CurrentCandidat.CurrentLivret.SelectedMembreJ.Nom);
+        }
     }
 }

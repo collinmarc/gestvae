@@ -171,6 +171,8 @@ namespace GestVAE.VM
             DeletePJCommand = new RelayCommand<MyViewModel>(o => { DeletePJ(); },
                                                             o => { return IsDeletePJPossible(); }
                                            );
+            DeleteMembreJuryCommand = new RelayCommand<MyViewModel>(o => { DeleteMembreJury(); }
+                                           );
             AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); },
                                                             o => { return IsCurrentCandidatAddL2Available; }
                                             );
@@ -541,6 +543,7 @@ namespace GestVAE.VM
         public ICommand AjoutePJL1Command { get; set; }
         public ICommand AjoutePJL2Command { get; set; }
         public ICommand DeletePJCommand { get; set; }
+        public ICommand DeleteMembreJuryCommand { get; set; }
         public ICommand AjouteL2Command { get; set; }
         public ICommand ValideretQuitterL1Command { get; set; }
         public ICommand ValideretQuitterL2Command { get; set; }
@@ -830,6 +833,12 @@ public void AjoutePJL1()
             oLiv.DeletePJ();
         }
 
+        public void DeleteMembreJury()
+        {
+
+            LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
+            oLiv.DeleteMembreJury();
+        }
 
         /// <summary>
         /// Créer le Livret2 puis Cloturer le Livret1

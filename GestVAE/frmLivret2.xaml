@@ -297,7 +297,7 @@
                      >
                 <Grid x:Name="grdJury1"  HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretModifiable}" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto"/>
@@ -308,15 +308,16 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="18*"/>
+                        <ColumnDefinition Width="325*"/>
+                        <ColumnDefinition Width="343*"/>
+                        <ColumnDefinition Width="343*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,1">
                         <Label Content="Session Jury :" VerticalAlignment="Center"/>
                         <TextBox x:Name="tbSessionJury" Text="{Binding SessionJury}" Margin="10" Width="240"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1"  Grid.ColumnSpan="2" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2"  Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,6,0,7">
                         <Label Content="Date prévisionnelle entre le :" VerticalAlignment="Center"/>
                         <DatePicker x:Name="dtpDatePrevJury1" Margin="0" VerticalAlignment="Center"  
                                     SelectedDate="{Binding DatePrevJury1}"/>
@@ -326,11 +327,11 @@
 
                     </StackPanel>
 
-                        <StackPanel Orientation="Horizontal"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,20">
                         <Label Content="Date envoi courrier :" VerticalAlignment="Center" Width="160"/>
                         <DatePicker x:Name="dtpDateEnvoiCourierJury" Margin="0" VerticalAlignment="Center"  />
                     </StackPanel>
-                    <Grid Grid.Row="1" Grid.Column="1" >
+                    <Grid Grid.Row="1" Grid.Column="2" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="3*"/>
@@ -354,7 +355,7 @@
                             <xctk:TimePicker x:Name="tpHeureConvoc" Margin="10" ShowButtonSpinner="False" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
-                    <Grid  Grid.Row="1" Grid.Column="2">
+                    <Grid  Grid.Row="1" Grid.Column="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="5*"/>
@@ -367,14 +368,21 @@
 
                     </Grid>
                     <DataGrid x:Name="dgMembreJury"
-                                  ItemsSource="{Binding lstMembreJury, UpdateSourceTrigger=PropertyChanged}" 
+                                  ItemsSource="{Binding lstMembreJury}" 
+                                SelectedItem="{Binding SelectedMembreJ}"
                                   Grid.Row="2"
                                   Grid.Column="0"
-                                  Grid.ColumnSpan="3"
-                                  AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="True" Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch">
+                                  Grid.ColumnSpan="4"
+                                  AutoGenerateColumns="False" SelectionMode="Single" 
+                                  CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="True" 
+                                  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch"
+                              AddingNewItem="dgMembreJury_AddingNewItem" SelectionChanged="dgMembreJury_SelectionChanged">
                         <DataGrid.Resources>
                             <VM:BindingProxy x:Key="proxy" Data="{Binding VM, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
                         </DataGrid.Resources>
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Delete" Command="{Binding VM.DeleteMembreJuryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
+                        </DataGrid.InputBindings>
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="1*"/>
@@ -408,17 +416,17 @@
 
 
 
-                    <Label Grid.Row="3" Grid.Column="0" Margin="10,8,0,8" VerticalAlignment="Center" Content="Décision :" Height="26"/>
-                    <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxDecision" HorizontalAlignment="Stretch" Margin="10"/>
-                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="0">
-                    <CheckBox IsChecked="{Binding IsDispenseArt2}"  Margin="10" 
+                    <Label Grid.Row="3" Grid.Column="0" Margin="10,8,0,8" VerticalAlignment="Center" Content="Décision :" Height="26" Grid.ColumnSpan="2"/>
+                    <ComboBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="cbxDecision" HorizontalAlignment="Stretch" Margin="10"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                        <CheckBox IsChecked="{Binding IsDispenseArt2}"  Margin="10" 
                               Visibility="{Binding IsDecisionJuryPartielle, Converter={StaticResource BooleanToVisibilityConverter}}" 
                               Content="Dispense des dispositions prévues à l'article 2"/>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" 
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" 
                                 Visibility="{Binding IsDecisionJuryFavorable, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2">
                         <Label VerticalAlignment="Center" Content="  Date de notification du jury:"/>
                         <DatePicker x:Name="dtpDateNotificationJury" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" Width="100"
                                 SelectedDate="{Binding DateNotificationJury}"
@@ -426,7 +434,7 @@
                         </DatePicker>
 
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,9">
                         <Label Content="Date de validité:" VerticalAlignment="Center"/>
                         <DatePicker x:Name="dtpDateValidite" Margin="0" VerticalAlignment="Center"
                                     SelectedDate="{Binding DateValidite}"/>
@@ -437,7 +445,7 @@
                                     SelectedItem="{Binding selectedDCLivret}"
                                   Grid.Row="5"
                                   Grid.Column="0"
-                                  Grid.ColumnSpan="3"
+                                  Grid.ColumnSpan="4"
                                   AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10,11,10,9" RowHeaderWidth="0" HorizontalAlignment="Stretch">
                         <DataGrid.Resources>
                             <VM:BindingProxy x:Key="proxy" Data="{Binding}" />

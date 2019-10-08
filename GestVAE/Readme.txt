@@ -1,5 +1,8 @@
 ﻿Build :
 000938 : Le param NumeroDeCandidat n'est pas pris en compte automatiquement
+0001038: frmDiplome : Liste des modes d'obtention vides
+0001030: L2 : La suppression des Membres du jurys ne fonctionne pas
+
 
 Build :V20190901
 0001014: Ajout d'un commentaire Libre si 'autres' dans les Catégories de pièces jointes

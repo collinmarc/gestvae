@@ -16,6 +16,7 @@ namespace GestVAE.VM
         private Livret2 oL2 { get { return (Livret2)TheLivret; } }
         public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
         public DCLivretVM selectedDCLivret { get; set; }
+
         private ObservableCollection<MembreJuryVM> _lstMembreJuryVM;
         public ObservableCollection<MembreJuryVM> lstMembreJury{
             get
@@ -699,6 +700,23 @@ namespace GestVAE.VM
                     return 0;
             }
         }
+
+        public override void DeleteMembreJury()
+
+        {
+            if (SelectedMembreJ != null)
+            {
+                MembreJuryVM oMembreJ = SelectedMembreJ;
+                if (!oMembreJ.IsNew)
+                {
+                    _ctx.Entry<MembreJury>(oMembreJ.MembreJuryItem).State = System.Data.Entity.EntityState.Deleted;
+
+                }
+                lstMembreJury.Remove(oMembreJ);
+                RaisePropertyChanged("lstMembreJury");
+            }
+        }
+
 
     }
 }

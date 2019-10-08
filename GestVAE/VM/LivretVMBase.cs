@@ -23,6 +23,18 @@ namespace GestVAE.VM
         public ObservableCollection<JuryVM> lstJuryVM;
         public ObservableCollection<PieceJointeLivretVM> lstPieceJointe { get; set; }
         public PieceJointeLivretVM selectedPJ { get; set; }
+        private MembreJuryVM _selectedMembreJ; 
+        public MembreJuryVM SelectedMembreJ
+        {
+            get
+            {
+                return _selectedMembreJ;
+            }
+            set
+            {
+                _selectedMembreJ = value;
+            }
+        }
 
         public LivretVMBase(Livret pLivret):base(pLivret)
         {
@@ -1143,6 +1155,10 @@ namespace GestVAE.VM
                 lstPieceJointe.Remove(selectedPJ);
                 RaisePropertyChanged("lstPieceJointe");
             }
+        }
+        public virtual void DeleteMembreJury()
+
+        {
         }
 
         public void FTO_SetDecisionJuryL1Favorable()

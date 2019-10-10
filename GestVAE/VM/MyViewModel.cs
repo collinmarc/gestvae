@@ -316,8 +316,7 @@ namespace GestVAE.VM
             try
             {
 
-                getParams();
-
+                IsBusy = true;
             _lstCandidatVM.Clear();
             foreach (Candidat item in _ctx.Candidats)
             {
@@ -354,7 +353,7 @@ namespace GestVAE.VM
         {
             try
             {
-
+                IsBusy = true;
                 // Créatino du CAFDES si Necessaire
                 Diplome oDipCAFDES = Diplome.getDiplomeParDefaut();
 
@@ -586,6 +585,7 @@ namespace GestVAE.VM
                     {
                         UnlockCandidats();
                         Reset();
+                        getParams();
                         bReturn = true;
                     }
 
@@ -593,6 +593,7 @@ namespace GestVAE.VM
             }
             if (bReturn)
             {
+                IsBusy = true;
                 IQueryable<Candidat> rq;
 
                 rq = _ctx.Candidats;
@@ -693,6 +694,8 @@ namespace GestVAE.VM
                 }
                 RaisePropertyChanged("lstCandidatVM");
                 RaisePropertyChanged("CurrentCandidat");
+                IsBusy = false;
+
             }
             return bReturn;
         }//recherche

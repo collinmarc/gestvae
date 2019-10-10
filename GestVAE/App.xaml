@@ -60,26 +60,147 @@
                 </Setter>
                 
             </Style>
-            <Style x:Key="tbCoinsArrondis" TargetType="{x:Type TextBox}" >
-                <Setter Property="Margin" Value="0,10,10,0"/>
+            <Style x:Key="tbCoinsArrondis" TargetType="{x:Type TextBox}">
+
+                <Setter Property="BorderBrush" Value="#FF000208" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="5"/>
                 <Style.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3" />
                     </Style>
                 </Style.Resources>
             </Style>
-            <Style x:Key="ComboCoinsArrondis" TargetType="{x:Type ComboBox}" >
+            <Style x:Key="TextBoxReadOnlyStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource tbCoinsArrondis}">
+                <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
+            </Style>
+            <Style TargetType="{x:Type DatePicker}">
+
+                <Setter Property="BorderBrush" Value="#FF000208" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="10"/>
                 <Style.Resources>
                     <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5" />
+                        <Setter Property="CornerRadius" Value="3" />
                     </Style>
                 </Style.Resources>
             </Style>
+            <Style x:Key="DateTimeReadOnlyStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource tbCoinsArrondis}">
+                <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
+            </Style>
+
             <Style x:Key="MyDataGridStyle" TargetType="{x:Type DataGrid}" >
                 <Style.Resources>
                     <Style TargetType="{x:Type Border}">
                     </Style>
                 </Style.Resources>
+            </Style>
+
+            <!--- -->
+            <!-- Style Recuperer sur https://stackoverflow.com/questions/17727879/how-to-change-the-cornerradius-of-the-combobox-wpf -->
+            <!-- une combobos est composee d'une textbox et d'un toogleButton -->
+            <!-- Style de la Partie TextBox -->
+            <Style x:Key="ComboBoxTextBoxStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="MinWidth" Value="100"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Grid>
+                                <Border CornerRadius="3,0,0,3"
+                            BorderThickness="1"
+                            Background="{TemplateBinding Background}"
+                                BorderBrush="Black">
+                                    <ScrollViewer x:Name="PART_ContentHost"/>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!-- Style de la Partie Toogle -->
+            <Style x:Key="ComboBoxButtonStyle" TargetType="{x:Type ToggleButton}">
+                <Setter Property="Width" Value="17"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <Border 
+                        Background="White" 
+                        x:Name="border" 
+                        CornerRadius="0,3,3,0" 
+                        BorderThickness="1"
+                        BorderBrush="Black">
+                                <ContentPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Style de base d'une combo -->
+            <Style x:Key="ComboboxBaseStyle" TargetType="{x:Type ComboBox}">
+                <Setter Property="Margin" Value="5"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ComboBox}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition MaxWidth="18"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Name="PART_EditableTextBox"
+                                 Style="{StaticResource ComboBoxTextBoxStyle}"
+                                 Padding="5,0,0,0"
+                                 Height="{TemplateBinding Height}"/>
+                                <ToggleButton Grid.Column="1" Margin="0"
+                                     Height="{TemplateBinding Height}"
+                                     Style="{StaticResource ComboBoxButtonStyle}"
+                                     Focusable="False"
+                                     IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press">
+                                    <Path Grid.Column="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                  Fill="DodgerBlue" />
+                                </ToggleButton>
+                                <ContentPresenter Name="ContentSite"
+                                      Content="{TemplateBinding SelectionBoxItem}"
+                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                      ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="5,0,0,0"/>
+                                <Popup Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True" 
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                                    <Grid Name="DropDown"
+                                  SnapsToDevicePixels="True"                
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <Border 
+                                    x:Name="DropDownBorder"
+                                    BorderThickness="1"
+                                    CornerRadius="5"
+                                    Background="Azure"
+                                    BorderBrush="Black"/>
+                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- -->
+            <Style TargetType="ComboBox" x:Key="ComboboxReadOnlyStyle" BasedOn="{StaticResource ComboboxBaseStyle }">
+                <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
             </Style>
 
         </ResourceDictionary>

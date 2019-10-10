@@ -12,7 +12,7 @@
     xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
     x:Class="GestVAE.MainWindow"
         mc:Ignorable="d"
-        Title="EHESP : Gestion VAE" Height="1001.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp.ico" WindowStyle="ThreeDBorderWindow" Closing="window_Closing" >
+        Title="EHESP : Gestion VAE" Height="936.821" Width="1061.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp.ico" Closing="window_Closing" >
 
     <!--    <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" CanExecute="SaveCommand_CanExecute" />
@@ -38,12 +38,6 @@
             <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
         </Style>
         <Style TargetType="RadioButton" x:Key="RadioButtonReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
-        </Style>
-        <Style TargetType="ComboBox" x:Key="ComboboxReadOnlyStyle" BasedOn="{StaticResource ComboCoinsArrondis}">
-            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
-        </Style>
-        <Style TargetType="DatePicker" x:Key="DatePickerReadOnlyStyle" >
             <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
         </Style>
         <Style TargetType="CheckBox" x:Key="CheckBoxReadOnlyStyle" >
@@ -127,7 +121,7 @@
                     <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbRechVille" Margin="5" Style="{DynamicResource tbCoinsArrondis}" ></TextBox>
 
                     <Label  Grid.Row="4" Grid.Column="0"  Content="Date de &#xD;&#xA;naissance :" />
-                    <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" BorderThickness="1" />
 
                     <CheckBox x:Name="ckRechHandicap" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Content="Handicapé" IsThreeState="True"
                               />
@@ -136,7 +130,7 @@
                             >Réception Livret1:</Label>
                     <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label  VerticalAlignment="Center">entre le :</Label>
-                        <DatePicker  Name="dpRechReceptL1Deb" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                        <DatePicker  Name="dpRechReceptL1Deb" Margin="5" Width="100" VerticalAlignment="Center" ></DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2">
                         <Label  VerticalAlignment="Center">et le :</Label>
@@ -144,7 +138,7 @@
                     </StackPanel>
                     <Label  Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" >Etat Livret1 :</Label>
                     <ComboBox Grid.Row="6" Grid.Column="1" Name="cbxEtatL1" Margin="5" Grid.ColumnSpan="2"
-                              SelectedItem="{Binding rechEtatL1}" ItemsSource="{Binding LstEtatLivret1}" IsEditable="True"></ComboBox>
+                              SelectedItem="{Binding rechEtatL1}" ItemsSource="{Binding LstEtatLivret1}" IsEditable="True" Style="{DynamicResource ComboboxBaseStyle}"></ComboBox>
                     <Label  Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">Réception Livret2:</Label>
                     <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label VerticalAlignment="Center" >entre le :</Label>
@@ -152,11 +146,12 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2">
                         <Label Margin="10" >et le :</Label>
-                        <DatePicker  Name="dpRechReceptL2Fin" Margin="5" Width="100" ></DatePicker>
+                        <DatePicker  Name="dpRechReceptL2Fin" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
                     </StackPanel>
                     <Label  Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" >Etat Livret2 :</Label>
                     <ComboBox Grid.Row="8" Grid.Column="1" Name="cbxEtatL2" Margin="5" Grid.ColumnSpan="2"
-                              SelectedItem="{Binding rechEtatL2}" ItemsSource="{Binding LstEtatLivret2}" IsEditable="True"></ComboBox>
+                              SelectedItem="{Binding rechEtatL2}" ItemsSource="{Binding LstEtatLivret2}" IsEditable="True" Style="{DynamicResource ComboboxBaseStyle}" 
+                              ></ComboBox>
 
                     <Button  Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" 
                              Command="{Binding RechercherCommand}" Margin="10" Style="{DynamicResource StyleBtn}">Rechercher</Button>
@@ -169,9 +164,9 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-                    <DataGrid x:Name="dglstCandidats" Grid.Row ="0" MinHeight="100" VerticalAlignment="Stretch"
-                              ItemsSource="{Binding lstCandidatVM}" SelectedItem="{Binding CurrentCandidat}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding"  Margin="10" BorderThickness="0" 
-                              Style="{DynamicResource MyDataGridStyle}"
+                    <DataGrid x:Name="dglstCandidats" Grid.Row ="0" MinHeight="100" VerticalAlignment="Top"
+                              ItemsSource="{Binding lstCandidatVM}" SelectedItem="{Binding CurrentCandidat}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding"  Margin="10,10,10,0" BorderThickness="0" 
+                              Style="{DynamicResource MyDataGridStyle}" Height="450"
                               >
                         <DataGrid.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
@@ -252,37 +247,40 @@
                             <Label Content="       Travailleur handicapé :" Width="150" />
                             <CheckBox   IsChecked="{Binding bHandicap}" Style="{DynamicResource CheckBoxReadOnlyStyle}" VerticalAlignment="Center" />
                         </StackPanel>
-                        <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26"  Margin="0,3,0,9" Width="51" >Civilité :</Label>
-                        <ComboBox x:Name="cbxCivilite" Grid.Row="3"  Grid.Column="1" IsEditable="False" Margin="5,5,0,11" 
-                              Text="{Binding Civilite}" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ComboboxReadOnlyStyle}" Height="22" 
-                              >
-                            <ComboBoxItem Content="Monsieur"/>
-                            <ComboBoxItem Content="Madame"/>
+                        <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" >Civilité :</Label>
+                        <ComboBox x:Name="cbxCivilite" Grid.Row="3"  Grid.Column="1" IsEditable="True"  
+                              Text="{Binding Civilite}"
+                              DisplayMemberPath="Content"
+                              IsSynchronizedWithCurrentItem="True" 
+                              Style="{DynamicResource ComboboxReadOnlyStyle}"
+                        >
+                            <ComboBoxItem Content="Monsieur"></ComboBoxItem>
+                            <ComboBoxItem Content="Madame"></ComboBoxItem>
                         </ComboBox>
 
-                        <Label Content="Nom:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="39" Margin="0,7,0,1" />
+                        <Label Content="Nom:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="39"  />
                         <TextBox x:Name="tbNom" Grid.Column="1" Grid.Row="4"
                              Text="{Binding Nom}" 
                              Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5"/>
-                        <Label Content="Nom naissance:" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="93" Margin="0,1,0,8" />
+                        <Label Content="Nom naissance:" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="93" />
                         <TextBox x:Name="tbNomNaissance" Grid.Row="5" Grid.Column="1" Text="{Binding TheCandidat.NomJeuneFille}" Style="{DynamicResource TextBoxReadOnlyStyle}"  Margin="5"/>
-                        <Label Content="Prénom" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="58" Margin="0,8,0,1" />
-                        <TextBox x:Name="tbPrenom" Grid.Row="6" Grid.Column="1" Text="{Binding Prenom}"  Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5"/>
-                        <Label Content="Autres prénoms" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0,1,0,6" Width="94" />
+                        <Label Content="Prénom" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="58"  />
+                        <TextBox x:Name="tbPrenom" Grid.Row="6" Grid.Column="1" Text="{Binding Prenom}"  Style="{DynamicResource TextBoxReadOnlyStyle}" />
+                        <Label Content="Autres prénoms" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26"  Width="94" />
                         <UniformGrid Columns="2"  Grid.Row="7" Grid.Column="1">
                             <TextBox x:Name="tbPrenom2" Grid.Row="7" Text="{Binding TheCandidat.Prenom2, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5"/>
                             <TextBox x:Name="tbPrenom3" Grid.Row="8" Text="{Binding TheCandidat.Prenom3, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5" Grid.Column="1" />
                         </UniformGrid>
                         <Label Content="Adresse" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" Width="52" Margin="0,12,0,5" />
-                        <TextBox x:Name="tbAdresse" Grid.Row="8" Text="{Binding TheCandidat.Adresse, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" Margin="5" Style="{DynamicResource TextBoxReadOnlyStyle}" />
-                        <Label Content="CP/Ville" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="51" Margin="0,6,0,3" />
+                        <TextBox x:Name="tbAdresse" Grid.Row="8" Text="{Binding TheCandidat.Adresse, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" Style="{DynamicResource TextBoxReadOnlyStyle}" />
+                        <Label Content="CP/Ville" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="51" />
                         <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1">
-                            <TextBox x:Name="tbCPDomicile"  Text="{Binding TheCandidat.CodePostal}"  Width ="100" Margin="5" Style="{DynamicResource TextBoxReadOnlyStyle}" />
-                            <TextBox x:Name="tbVilleDomicile" Grid.Row="10" Text="{Binding Ville}"  Width="250" Margin="5" Style="{DynamicResource TextBoxReadOnlyStyle}" />
+                            <TextBox x:Name="tbCPDomicile"  Text="{Binding TheCandidat.CodePostal}"  Width ="100" Style="{DynamicResource TextBoxReadOnlyStyle}" />
+                            <TextBox x:Name="tbVilleDomicile" Grid.Row="10" Text="{Binding Ville}"  Width="250" Style="{DynamicResource TextBoxReadOnlyStyle}" />
                         </StackPanel>
-                        <Label Content="Région Domicile : " Grid.Row="10" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="106" Margin="0,5,0,8" />
+                        <Label Content="Région Domicile : " Grid.Row="10" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <!-- ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}},Path=DataContext.lstRegionVM}" -->
-                        <ComboBox x:Name="cbxRegionDomicile" Grid.Row="10"  Grid.Column="1" IsEditable="True" Margin="5" 
+                        <ComboBox x:Name="cbxRegionDomicile" Grid.Row="10"  Grid.Column="1" IsEditable="True" 
                               Text="{Binding TheCandidat.Region}"
                               ItemsSource="{Binding Path=DataContext.lstRegionVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                               DisplayMemberPath="Nom"
@@ -302,25 +300,27 @@
                             <TextBox x:Name="tbMail1" Text="{Binding TheCandidat.Mail1, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5" Style="{DynamicResource TextBoxReadOnlyStyle}"  />
                             <TextBox x:Name="tbMail2" Text="{Binding TheCandidat.Mail2, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5" Style="{DynamicResource TextBoxReadOnlyStyle}" />
                         </StackPanel>
-                        <Label Content="Situation particulière : " Grid.Row="14" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0,4,0,8" Width="129"  />
-                        <TextBox x:Name="tbMail3" Grid.Row="14" Text="{Binding TheCandidat.Mail3}"  Grid.Column="1" Margin="5,5,5,10" Style="{DynamicResource TextBoxReadOnlyStyle}" />
+                        <Label Content="Situation particulière : " Grid.Row="14" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="129"  />
+                        <TextBox x:Name="tbMail3" Grid.Row="14" Text="{Binding TheCandidat.Mail3}"  Grid.Column="1"  Style="{DynamicResource TextBoxReadOnlyStyle}" />
 
                         <Label Content="Date naissance : " Grid.Row="15" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0,10,0,6" Width="98" />
-                        <Label Content="Ville naissance : " Grid.Row="16" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,2,0,5" Height="26" Width="96" />
-                        <TextBox x:Name="tbVilleNaissance" Grid.Row="16" Text="{Binding TheCandidat.VilleNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5" />
-                        <Label Content="Départ. naissance : " Grid.Row="17" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,7,0,6" Height="26" Width="112" />
-                        <ComboBox x:Name="cbxDepartementNaissance" Grid.Row="17"  Grid.Column="1" IsEditable="True" Margin="5" 
+                        <Label Content="Ville naissance : " Grid.Row="16" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="96" />
+                        <TextBox x:Name="tbVilleNaissance" Grid.Row="16" Text="{Binding TheCandidat.VilleNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" />
+                        <Label Content="Départ. naissance : " Grid.Row="17" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <ComboBox x:Name="cbxDepartementNaissance" Grid.Row="17"  Grid.Column="1" IsEditable="True"  
                               Text="{Binding DptNaissance}"
                               ItemsSource="{Binding Path=DataContext.lstParamDepartement, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                               DisplayMemberPath="Nom"
-                              SelectedValuePath="Nom" Style="{DynamicResource ComboboxReadOnlyStyle}" IsHitTestVisible="True" IsSynchronizedWithCurrentItem="True">
+                              SelectedValuePath="Nom" IsHitTestVisible="True" IsSynchronizedWithCurrentItem="True" 
+                              Style="{DynamicResource ComboboxReadOnlyStyle}"
+                        >
                         </ComboBox>
-                        <Label Content="Pays naissance : " Grid.Row="18" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="138" Margin="0,4,0,5" Grid.ColumnSpan="2" />
+                        <Label Content="Pays naissance : " Grid.Row="18" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" />
                         <TextBox x:Name="tbPaysNaissance" Grid.Row="18"  Grid.Column="1" Text="{Binding TheCandidat.PaysNaissance}" Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5"/>
 
-                        <Label Content="Nationalité naissance : " Grid.Row="19" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="138" Margin="0,5" Grid.ColumnSpan="2" />
+                        <Label Content="Nationalité naissance : " Grid.Row="19" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" />
                         <TextBox x:Name="tbNationaliteNaissance" Grid.Row="19" Text="{Binding TheCandidat.NationaliteNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5"/>
-                        <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="15" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5,10,5,8" VerticalAlignment="Center" Style="{DynamicResource DatePickerReadOnlyStyle}" Height="24"/>
+                        <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="15" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5,10,5,8" VerticalAlignment="Center" Height="24"/>
                         <Button x:Name="btnAddDiplomeCand" Grid.Row ="20" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,10,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                             Command="{ Binding DataContext.AjouteDiplomeCandCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="21" Width="32"/>
                         <StackPanel Grid.Row ="20" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="0">
@@ -392,7 +392,7 @@
                         </StackPanel>
                         <Label Content="Diplômes : " Grid.Row="20" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <Label Content="Date de création : " Grid.Row="21" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,6" Height="26" Width="107" />
-                        <DatePicker x:Name="dtpDateCreation" Grid.Row="21" Grid.Column="1" SelectedDate="{Binding DateCreation, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5" VerticalAlignment="Center" Style="{DynamicResource DatePickerReadOnlyStyle}" Height="24"/>
+                        <DatePicker x:Name="dtpDateCreation" Grid.Row="21" Grid.Column="1" SelectedDate="{Binding DateCreation, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5" VerticalAlignment="Center" Height="24"/>
 
                     </Grid>
                 </ScrollViewer>

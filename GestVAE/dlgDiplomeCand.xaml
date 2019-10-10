@@ -11,32 +11,12 @@
         Title="Détail du diplôme d'un candidat" Height="366" Width="622" Icon="IMG/diplome.ico">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <Style x:Key="CustTextBox" TargetType="{x:Type TextBox}" >
-            <Setter Property="Margin" Value="0,10,10,0"/>
-        </Style>
-        <Style TargetType="TextBox" x:Key="TextBoxReadOnlyStyle" BasedOn="{StaticResource CustTextBox}">
-            <Setter Property="IsReadOnly" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
-        </Style>
-        <Style TargetType="RadioButton" x:Key="RadioButtonReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
-        </Style>
-        <Style TargetType="ComboBox" x:Key="ComboboxReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
-        </Style>
-        <Style TargetType="DatePicker" x:Key="DatePickerReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
-        </Style>
-        <Style TargetType="CheckBox" x:Key="CheckBoxReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
-        </Style>
-        <Style TargetType="Button" x:Key="ButtonReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=CurrentCandidat.IsLocked}"/>
-        </Style>
-        <Style TargetType="DataGrid" x:Key="DataGridReadOnlyStyle" >
-            <Setter Property="IsReadOnly" Value="{Binding Path=CurrentCandidat.IsUnlocked}"/>
-        </Style>
     </Window.Resources>
-    <Grid Margin="0,0,2,2" >
+    <Grid Margin="0,0,2,2"  >
+        <Grid.Background>
+            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+        </Grid.Background>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
@@ -60,21 +40,21 @@
 
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="10">
-            <Label Content="Statut :"/>
-            <ComboBox x:Name="cbxStatutdiplome" HorizontalAlignment="Stretch" Style="{DynamicResource ComboboxReadOnlyStyle}"/>
+            <Label Content="Statut :" Width="65"/>
+            <ComboBox x:Name="cbxStatutdiplome" HorizontalAlignment="Stretch" Style="{DynamicResource ComboboxReadOnlyStyle}" Width="150"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="10">
-            <Label Content="Date d'obtention : " />
-            <DatePicker Name ="dtDateObtention"  Style="{DynamicResource DatePickerReadOnlyStyle}" />
+            <Label Content="Date d'obtention : " VerticalAlignment="Center"/>
+            <DatePicker Name ="dtDateObtention"   Width="152" />
 
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="10">
             <Label Content="Numéro  : " VerticalAlignment="Center"/>
-            <TextBox Name ="tbNumero" Width="150"  Style="{DynamicResource TextBoxReadOnlyStyle}" VerticalAlignment="Center"/>
+            <TextBox Name ="tbNumero" Width="150"  Margin="5" Style="{DynamicResource tbCoinsArrondis}" VerticalAlignment="Center"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10">
             <Label Content="Mode d'obtention  : " VerticalAlignment="Center"/>
-            <ComboBox x:Name="cbxModeObtention" HorizontalAlignment="Stretch" Style="{DynamicResource ComboboxReadOnlyStyle}" SelectedValuePath="Content" >
+            <ComboBox x:Name="cbxModeObtention" Style="{DynamicResource ComboboxReadOnlyStyle}" SelectedValuePath="Content" Width="109" >
                 <ComboBoxItem Content="VAE" />
                 <ComboBoxItem Content="Post-Formation"/>
             </ComboBox>
@@ -83,7 +63,7 @@
 
         <DataGrid x:Name="dgDC" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" Margin="10"
                   ItemsSource="{Binding CurrentCandidat.CurrentDiplomeCand.lstDCCands}"
-                  CellEditEnding="dgDC_CellEditEnding" Style="{DynamicResource DataGridReadOnlyStyle}">
+                  CellEditEnding="dgDC_CellEditEnding" >
             <DataGrid.Resources>
                 <localVM:DiplomeCandVM x:Key="ComboItems"  />
             </DataGrid.Resources>
@@ -99,6 +79,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name ="btnOK" Content="OK" Grid.Row="4"  Grid.Column="1" Width="50"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnOK_Click" Height="20" Margin="0,0,10,10"/>
+        <Button x:Name ="btnOK" Content="OK" Grid.Row="4"  Grid.Column="1" Width="50"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnOK_Click"  Margin="0,0,10,10" Style="{DynamicResource StyleBtn}"/>
     </Grid>
 </Window>

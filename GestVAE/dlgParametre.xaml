@@ -36,7 +36,7 @@
             </Grid.RowDefinitions>
             <ComboBox  Margin="10" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Grid.RowSpan="10" VerticalAlignment="Top"
                       SelectedValue="{Binding NomParametre}" 
-                      SelectedValuePath="Content"
+                      SelectedValuePath="Content" Style="{DynamicResource ComboboxBaseStyle}"
                        >
                 
                 <ComboBoxItem Content="Régions"/>

@@ -1,4 +1,4 @@
-﻿Build :
+﻿Build :V20191010
 000938 : Le param NumeroDeCandidat n'est pas pris en compte automatiquement
 0001038: frmDiplome : Liste des modes d'obtention vides
 0001030: L2 : La suppression des Membres du jurys ne fonctionne pas

@@ -113,7 +113,14 @@
                              Name="tbRechIdentSISCOLE" HorizontalAlignment="Stretch" Style="{DynamicResource tbCoinsArrondis}"/>
                     <Label Grid.Row="1" Grid.Column="0" >Nom:</Label>
                     <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="5"
-                             Name="tbRechNom" Style="{DynamicResource tbCoinsArrondis}" />
+                             Name="tbRechNom" Style="{DynamicResource tbCoinsArrondis}"
+                             Text="{Binding rechNom, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding RechercherCommand}"/>
+                            <KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/>
+                        </TextBox.InputBindings>
+
+                    </TextBox>
                     <Label Grid.Row="2" Grid.Column="0" >Prénom:</Label>
                     <TextBox  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" 
                               Name="tbRechPrénom" Margin="5" Style="{DynamicResource tbCoinsArrondis}" />

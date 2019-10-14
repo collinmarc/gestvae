@@ -1,4 +1,8 @@
-﻿Build :V20191010
+﻿Build :V20191014
+0001044: La Recherche sur Nom ne fonctionne pas
+0001035: L2 : Extraction Revoir les formats des Dates et Heures
+
+Build :V20191010
 000938 : Le param NumeroDeCandidat n'est pas pris en compte automatiquement
 0001038: frmDiplome : Liste des modes d'obtention vides
 0001030: L2 : La suppression des Membres du jurys ne fonctionne pas

@@ -169,16 +169,16 @@ namespace GestVAEcls
         {
             foreach (DomaineCompetenceCand oDCCand in pdiplomeCand.lstDCCands)
             {
-                DCLivret oDC = lstDCLivrets.Where(i => i.NomDC == oDCCand.NomDomaineCompetence).FirstOrDefault();
-                if (oDC == null)
+                DCLivret oDCL = lstDCLivrets.Where(i => i.NomDC == oDCCand.NomDomaineCompetence).FirstOrDefault();
+                if (oDCL == null)
                 {
-                    oDC = new DCLivret(oDCCand.oDomaineCompetence);
-                    lstDCLivrets.Add(oDC);
+                    oDCL = new DCLivret(oDCCand.oDomaineCompetence);
+                    lstDCLivrets.Add(oDCL);
                 }
-                oDC.Statut = oDCCand.Statut;
-                oDC.ModeObtention = oDCCand.ModeObtention;
-                oDC.DateObtention = oDCCand.DateObtention;
-                oDC.Commentaire = oDCCand.Commentaire;
+                oDCL.Statut = oDCCand.Statut;
+                oDCL.ModeObtention = oDCCand.ModeObtention;
+                oDCL.DateObtention = oDCCand.DateObtention;
+                oDCL.Commentaire = oDCCand.Commentaire;
             }
         }
         /// <summary>

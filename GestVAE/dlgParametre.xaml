@@ -206,7 +206,7 @@
                     HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" 
                     VerticalAlignment="Center" Margin="10"
                     Command="{Binding ValiderParametresCommand}"
-                    CommandParameter="{Binding ElementName=window}"/>
+                    CommandParameter="{Binding ElementName=window}" Style="{DynamicResource StyleBtn}"/>
 
 
         </Grid>

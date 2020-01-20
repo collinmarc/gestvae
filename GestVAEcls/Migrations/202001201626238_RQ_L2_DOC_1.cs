@@ -193,7 +193,7 @@ FROM            dbo.Livret2 INNER JOIN
 ");
             System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "RQ_L2_DOC_1 " + "end");
         }
-
+         
         public override void Down()
         {
             System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION DOWN]" + "RQ_L2_DOC_1 " + "start");

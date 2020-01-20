@@ -1,4 +1,15 @@
-﻿Build :
+﻿
+Build :
+0001162: L1 : Suppression , date de jury de recours et Commentaires
+0001163: L1 : Type de recours (Gracieux ou contentieux)
+0001155: MAJ DES Extractions (VRAI/FAUX=> OU/NON , SEXE => H/F)
+0001157: L2 : Heure de convoc et Heure de jury ne pas afficher les secondes
+0001161: Les contrats et convnetion n'apparaissent pas dans les Extraction L2
+0001020: L2 : Réorganisation des cols dans extraction L2
+0001028: Fusion des dates du L1 + Réorganisation de l'extraction RQ_L1_DOC
+
+
+Build :
 0001047: Taille de fenêtres de L1 et de L2
 
 Build :V20191014

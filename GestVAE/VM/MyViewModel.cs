@@ -769,6 +769,9 @@ namespace GestVAE.VM
                         oL1.DateEnvoiL2 = DateTime.Today;
                         oLivVM.DateEnvoiEHESP = DateTime.Today;
                     }
+                    oLivVM.IsContrat = oL1.IsContrat;
+                    oLivVM.IsConvention = oL1.IsConvention;
+                    oLivVM.IsNonRecu = oL1.IsNonRecu;
                 }
 
 

@@ -960,7 +960,7 @@ public void AjoutePJL1()
             if (oDip != null)
 
             {
-                if (!pLivret.IsEtatRecuComplet)
+                if (pLivret.IsEtatEnCours)
                 {
                     foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
                     {
@@ -969,6 +969,7 @@ public void AjoutePJL1()
                         {
                             oDCCand.Statut = "En cours";
                         }
+                        item.Statut = "En cours";
                     }
                 }
                 else

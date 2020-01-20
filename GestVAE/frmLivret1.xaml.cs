@@ -81,7 +81,6 @@ namespace GestVAE
             //cbxMotifDetailleRecours.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
             //cbxMotifDetailleRecours.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
-            tbCommentaireRecours.SetBinding(TextBox.TextProperty, "CommentaireJuryRecours");
 
             tabEchanges.Visibility = Visibility.Hidden;
         }

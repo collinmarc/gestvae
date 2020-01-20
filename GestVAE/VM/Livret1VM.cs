@@ -119,7 +119,14 @@ namespace GestVAE.VM
                 }
                 else
                 {
-                    DateRef = DateJury.Value;
+                    if (DateJury == null)
+                    {
+                        DateRef = DateTime.Now;
+                    }
+                    else
+                    {
+                        DateRef = DateJury.Value;
+                    }
                 }
                 DateValidite = DateRef.AddYears(Properties.Settings.Default.DelaiValidite);
 

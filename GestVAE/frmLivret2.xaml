@@ -12,7 +12,7 @@
         x:Name="window" 
         x:Class="GestVAE.frmLivret2" 
         mc:Ignorable="d"
-        Title="Gestion du Livret 2" Height="1062" Width="1063" Icon="IMG/LivretN.ico">
+        Title="Gestion du Livret 2" Height="1062" Width="1200" Icon="IMG/LivretN.ico">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"/>

@@ -8,7 +8,7 @@
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="window" x:Class="GestVAE.frmLivret1" 
         mc:Ignorable="d"
-        Title="Gestion du Livret 1" Icon="IMG/LivretN.ico" Unloaded="window_Unloaded" Width="976" Height="827">
+        Title="Gestion du Livret 1" Icon="IMG/LivretN.ico" Unloaded="window_Unloaded" Width="1200" Height="827">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"/>
@@ -387,19 +387,11 @@
                             <Label Grid.Row="2" Grid.Column="0"  VerticalAlignment="Center" Content="Commentaire :" />
                             <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch" Style="{DynamicResource tbCoinsArrondis}"/>
 
+                            <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Décision du jury de recours :"/>
+                            <ComboBox  Grid.Row="3" Grid.Column="1" x:Name="cbxDecisionRecours" Grid.ColumnSpan="2" Style="{DynamicResource ComboboxReadOnlyStyle}" />
 
-                            <Label VerticalAlignment="Center"  Grid.Row="3" Grid.Column="0" Content="Date du jury de recours: " />
-                            <DatePicker  Grid.Row="3" Grid.Column="1" x:Name="dtpDateJuryRecours" HorizontalAlignment="Left" Width="125" 
-                                     DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateDepotRecours}"
-                                     SelectedDate="{Binding DateJuryRecours}"/>
-
-                            <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Content="Décision du jury de recours :"/>
-                            <ComboBox  Grid.Row="4" Grid.Column="1" x:Name="cbxDecisionRecours" Grid.ColumnSpan="2" Style="{DynamicResource ComboboxReadOnlyStyle}" />
-                            <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Content="Commentaire:" />
-                            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbCommentaireRecours" HorizontalAlignment="Stretch" Style="{DynamicResource TextBoxReadOnlyStyle}"/>
-
-                            <Label Grid.Row="6" Grid.Column="0" Content="Date notification du recours: " />
-                            <DatePicker  Grid.Row="6" Grid.Column="1" x:Name="dtpDateNotificationJuryRecours" HorizontalAlignment="Left" Width="125" 
+                            <Label Grid.Row="4" Grid.Column="0" Content="Date notification du recours: " />
+                            <DatePicker  Grid.Row="4" Grid.Column="1" x:Name="dtpDateNotificationJuryRecours" HorizontalAlignment="Left" Width="125" 
                                      DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
                         </Grid>
 

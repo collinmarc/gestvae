@@ -8,6 +8,18 @@ namespace GestVAETU
     public class LivretTest:RootTest
     {
         [TestMethod]
+        public void TestCreationL1()
+        {
+            Livret1 oL1 = new Livret1();
+            oL1.Numero = "20190115001";
+            Assert.IsFalse(oL1.isClos);
+            Assert.IsTrue(oL1.IsNonRecu);
+            Assert.IsFalse(oL1.IsContrat);
+            Assert.IsFalse(oL1.IsConvention);
+            Assert.AreEqual(oL1.oDiplome.ID , Diplome.getDiplomeParDefaut().ID);
+            
+        }
+        [TestMethod]
         public void TestCRUDTest()
         {
             int nId = 0;

@@ -99,6 +99,7 @@ namespace GestVAEcls
             Typestr = TYPELIVRET;
             lstPiecesJointes = new ObservableCollection<PieceJointeL1>();
             lstEchanges = new ObservableCollection<EchangeL1>();
+            IsNonRecu = true; IsContrat = false; IsConvention = false;
 
         }
 

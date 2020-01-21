@@ -7,6 +7,7 @@ Build :
 0001161: Les contrats et convnetion n'apparaissent pas dans les Extraction L2
 0001020: L2 : Réorganisation des cols dans extraction L2
 0001028: Fusion des dates du L1 + Réorganisation de l'extraction RQ_L1_DOC
+0001156: L1 : Non Reçu par defaut
 
 
 Build :

@@ -190,6 +190,18 @@ namespace GestVAE.VM
                 }
             }
         }
+        public Boolean IsTrtSpecial
+        {
+            get { return oL2.IsTrtSpecial; }
+            set
+            {
+                if (value != IsTrtSpecial)
+                {
+                    oL2.IsTrtSpecial = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         private int getNumetat()
         {

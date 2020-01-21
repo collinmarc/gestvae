@@ -139,6 +139,7 @@ namespace GestVAEcls
         public Boolean IsCNIOK { get; set; }
         public Boolean IsDispenseArt2 { get; set; }
         public String NumDiplome { get; set; }
+        public Boolean IsTrtSpecial { get; set; }
         public virtual ObservableCollection<PieceJointeL2> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
         public virtual ObservableCollection<DCLivret> lstDCLivrets { get; set; }
@@ -158,6 +159,7 @@ namespace GestVAEcls
 
             Numero = DateTime.Now.ToString("L2yyyyMMddHHmm");
             NumPassage = 1;
+            IsTrtSpecial = false;
         }
         public Livret2(Diplome pDipl) : this()
         {

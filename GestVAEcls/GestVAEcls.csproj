@@ -223,6 +223,10 @@
     <Compile Include="Migrations\202001211022004_IsEnregistreIsPaye.Designer.cs">
       <DependentUpon>202001211022004_IsEnregistreIsPaye.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001211120506_IsTrtSpecial.cs" />
+    <Compile Include="Migrations\202001211120506_IsTrtSpecial.Designer.cs">
+      <DependentUpon>202001211120506_IsTrtSpecial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -393,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001211022004_IsEnregistreIsPaye.resx">
       <DependentUpon>202001211022004_IsEnregistreIsPaye.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001211120506_IsTrtSpecial.resx">
+      <DependentUpon>202001211120506_IsTrtSpecial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

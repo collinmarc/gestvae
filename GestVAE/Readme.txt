@@ -10,6 +10,7 @@ Build :
 0001156: L1 : Non Reçu par defaut
 0001158: L1-L2 : CNI, attestation
 0001159: L1, L2 : Ajout de isEnregistre, IsPayE
+0001154: Ajout d'un Flag 'Trt Spécial' sur les L2
 
 
 Build :

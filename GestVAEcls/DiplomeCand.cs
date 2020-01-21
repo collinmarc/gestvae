@@ -52,6 +52,7 @@ namespace GestVAEcls
         public DateTime? DateObtention { get; set; }
         public String ModeObtention { get; set; }
         public String NumeroDiplome { get; set; }
+        public String NumeroEURODIR { get; set; }
 
         public virtual ObservableCollection<DomaineCompetenceCand> lstDCCands { get; set; }
 

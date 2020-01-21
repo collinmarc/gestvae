@@ -138,7 +138,7 @@ namespace GestVAEcls
         public Boolean IsAttestationOK { get; set; }
         public Boolean IsCNIOK { get; set; }
         public Boolean IsDispenseArt2 { get; set; }
-        public String NumDiplome { get; set; }
+        //public String NumDiplome { get; set; }
         public Boolean IsTrtSpecial { get; set; }
         public virtual ObservableCollection<PieceJointeL2> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }

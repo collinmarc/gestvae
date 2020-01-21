@@ -916,7 +916,7 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
             //Saisie du numéro de diplome
             oL2.DateJury = DateTime.Now.AddDays(-1);
-            oL2.NumeroDiplome = "123546";
+//            oL2.NumeroDiplome = "123546";
             Assert.IsTrue(VM.CurrentCandidat.IsCAFDES);
             VM.ValideretQuitterL2();
             Assert.IsTrue(VM.CurrentCandidat.IsCAFDES);

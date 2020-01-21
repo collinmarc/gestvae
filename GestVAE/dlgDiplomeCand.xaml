@@ -52,12 +52,16 @@
             <Label Content="Numéro  : " VerticalAlignment="Center"/>
             <TextBox Name ="tbNumero" Width="150"  Margin="5" Style="{DynamicResource tbCoinsArrondis}" VerticalAlignment="Center"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="10">
             <Label Content="Mode d'obtention  : " VerticalAlignment="Center"/>
             <ComboBox x:Name="cbxModeObtention" Style="{DynamicResource ComboboxReadOnlyStyle}" SelectedValuePath="Content" Width="109" >
                 <ComboBoxItem Content="VAE" />
                 <ComboBoxItem Content="Post-Formation"/>
             </ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10">
+            <Label Content="EURODIR : " VerticalAlignment="Center"/>
+            <TextBox Name ="tbNumeroEURODIR" Width="150"  Margin="5" Style="{DynamicResource tbCoinsArrondis}" VerticalAlignment="Center"/>
         </StackPanel>
 
 

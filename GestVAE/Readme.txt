@@ -11,9 +11,7 @@ Build :
 0001158: L1-L2 : CNI, attestation
 0001159: L1, L2 : Ajout de isEnregistre, IsPayE
 0001154: Ajout d'un Flag 'Trt Spécial' sur les L2
-
-
-Build :
+0000987: Diplome : Ajout d'un Numéro EURODIR
 0001047: Taille de fenêtres de L1 et de L2
 
 Build :V20191014

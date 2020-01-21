@@ -46,6 +46,9 @@ namespace GestVAETU
 
             oDC2.Statut = "EN COURS";
             oDC2.DateObtention = Convert.ToDateTime("06/02/1964");
+            oDC2.NumeroDiplome = "1234";
+            oDC2.NumeroEURODIR = "4567";
+
 
             ctx.SaveChanges();
             ctx = Context.instance;
@@ -55,6 +58,8 @@ namespace GestVAETU
                      select obj).First<DiplomeCand>();
             Assert.AreEqual(oDC2.Statut, oDC1.Statut);
             Assert.AreEqual(oDC2.DateObtention, oDC1.DateObtention);
+            Assert.AreEqual(oDC2.NumeroDiplome, oDC1.NumeroDiplome);
+            Assert.AreEqual(oDC2.NumeroEURODIR, oDC1.NumeroEURODIR);
 
 
             ctx.DiplomeCands.Remove(oDC1);

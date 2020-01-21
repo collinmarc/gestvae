@@ -150,6 +150,21 @@ namespace GestVAE.VM
                 }
             }
         }
+        public String NumeroEURODIR
+        {
+            get
+            {
+                return TheDiplomeCand.NumeroEURODIR;
+            }
+            set
+            {
+                if (value != NumeroEURODIR)
+                {
+                    TheDiplomeCand.NumeroEURODIR = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public Boolean IsDCCands
         {

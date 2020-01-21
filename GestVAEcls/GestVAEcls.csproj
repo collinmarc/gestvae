@@ -227,6 +227,14 @@
     <Compile Include="Migrations\202001211120506_IsTrtSpecial.Designer.cs">
       <DependentUpon>202001211120506_IsTrtSpecial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001211346433_Eurodir.cs" />
+    <Compile Include="Migrations\202001211346433_Eurodir.Designer.cs">
+      <DependentUpon>202001211346433_Eurodir.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001211523030_L2NumDiplome.cs" />
+    <Compile Include="Migrations\202001211523030_L2NumDiplome.Designer.cs">
+      <DependentUpon>202001211523030_L2NumDiplome.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -400,6 +408,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001211120506_IsTrtSpecial.resx">
       <DependentUpon>202001211120506_IsTrtSpecial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001211346433_Eurodir.resx">
+      <DependentUpon>202001211346433_Eurodir.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001211523030_L2NumDiplome.resx">
+      <DependentUpon>202001211523030_L2NumDiplome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

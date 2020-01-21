@@ -239,6 +239,10 @@
     <Compile Include="Migrations\202001211530547_CandTypeDemande.Designer.cs">
       <DependentUpon>202001211530547_CandTypeDemande.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001211656509_RQ_L2_DECISION_DC.cs" />
+    <Compile Include="Migrations\202001211656509_RQ_L2_DECISION_DC.Designer.cs">
+      <DependentUpon>202001211656509_RQ_L2_DECISION_DC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -421,6 +425,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001211530547_CandTypeDemande.resx">
       <DependentUpon>202001211530547_CandTypeDemande.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001211656509_RQ_L2_DECISION_DC.resx">
+      <DependentUpon>202001211656509_RQ_L2_DECISION_DC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

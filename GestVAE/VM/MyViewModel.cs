@@ -1012,6 +1012,7 @@ public void AjoutePJL1()
                             foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
                             {
                                 item.Statut = oDip.LstStatutModule[0];
+                                item.Decision = pLivret.DecisionL2ModuleFavorable;
                                 DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
                                 oDCCand.Statut = oDip.LstStatutModule[0];
                                 oDCCand.DateObtention = pLivret.DateJury;

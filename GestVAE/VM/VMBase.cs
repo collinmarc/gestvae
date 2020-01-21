@@ -46,9 +46,14 @@ namespace GestVAE.VM
                 isDeleted = value;
                 RaisePropertyChanged();
             }
-        }  
+        }
 
-        public  VMBase()
+        public Boolean IsLocked { get; set; }
+        public Boolean IsUnlocked {
+            get { return !IsLocked; }
+        }
+
+        public VMBase()
         {
             IsNew = true;
             IsDeleted = false;

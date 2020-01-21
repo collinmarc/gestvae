@@ -87,6 +87,9 @@ namespace GestVAEcls
         public DateTime? DateDemande1erRetour { get; set; }
         public DateTime? DateDemande2emeRetour { get; set; }
         public DateTime? DateReceptionPiecesManquantes { get; set; }
+        public Boolean IsCNIOK { get; set; }
+        public DateTime? DateValiditeCNI { get; set; }
+
         public virtual ObservableCollection<PieceJointeL1> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL1> lstEchanges { get; set; }
         public virtual int Candidat_ID { get; set; }
@@ -100,6 +103,7 @@ namespace GestVAEcls
             lstPiecesJointes = new ObservableCollection<PieceJointeL1>();
             lstEchanges = new ObservableCollection<EchangeL1>();
             IsNonRecu = true; IsContrat = false; IsConvention = false;
+            IsCNIOK = false;DateValiditeCNI = null;
 
         }
 
@@ -120,6 +124,7 @@ namespace GestVAEcls
         public DateTime? DateDemande1erRetour { get; set; }
         public DateTime? DateDemande2emeRetour { get; set; }
         public DateTime? DateReceptionPiecesManquantes { get; set; }
+        public DateTime? DateValiditeCNI { get; set; }
         public DateTime? DateEnvoiCourrierJury { get; set; }
         public DateTime? DatePrevJury1 { get; set; }
         public DateTime? DatePrevJury2 { get; set; }

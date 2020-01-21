@@ -207,6 +207,18 @@
     <Compile Include="Migrations\202001201744437_TYPE_RECOURS.Designer.cs">
       <DependentUpon>202001201744437_TYPE_RECOURS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001210827298_L1-CNI.cs" />
+    <Compile Include="Migrations\202001210827298_L1-CNI.Designer.cs">
+      <DependentUpon>202001210827298_L1-CNI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001210842167_CNI.cs" />
+    <Compile Include="Migrations\202001210842167_CNI.Designer.cs">
+      <DependentUpon>202001210842167_CNI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001210939515_L2CNI.cs" />
+    <Compile Include="Migrations\202001210939515_L2CNI.Designer.cs">
+      <DependentUpon>202001210939515_L2CNI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -365,6 +377,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001201744437_TYPE_RECOURS.resx">
       <DependentUpon>202001201744437_TYPE_RECOURS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001210827298_L1-CNI.resx">
+      <DependentUpon>202001210827298_L1-CNI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001210842167_CNI.resx">
+      <DependentUpon>202001210842167_CNI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001210939515_L2CNI.resx">
+      <DependentUpon>202001210939515_L2CNI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

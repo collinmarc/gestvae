@@ -476,6 +476,19 @@ namespace GestVAE.VM
                 }
             }
         }
+        public DateTime? DateValiditeCNI
+        {
+            get { return oL2.DateValiditeCNI; }
+            set
+            {
+                if (value != DateValiditeCNI)
+                {
+                    oL2.DateValiditeCNI = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public String SessionJury
         {
             get { return oL2.SessionJury; }

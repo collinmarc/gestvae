@@ -114,5 +114,36 @@ namespace GestVAETU
 
 
         }
+        [TestMethod]
+        [TestCategory("#1158")]
+        public void TestCreationL2()
+        {
+
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouteCandidat();
+            CandidatVM oCand = VM.CurrentCandidat;
+
+            VM.AjouteL1();
+            Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
+            oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            oL1.FTO_SetDecisionJuryL1Favorable(); 
+            VM.ValideretQuitterL1();
+            Assert.AreEqual(1, oCand.lstLivrets.Count);
+
+            oL1 = (Livret1VM)oCand.CurrentLivret;
+            oL1.IsCNIOK = true;
+            oL1.DateValiditeCNI = new DateTime(2020,01,01) ;
+            VM.AjouteL2();
+            VM.ValideretQuitterL2();
+            Assert.AreEqual(2, oCand.lstLivrets.Count);
+
+            Livret2VM oL2 = (Livret2VM)oCand.lstLivrets[1];
+
+            Assert.AreEqual(oL1.IsCNIOK, oL2.IsCNIOK);
+            Assert.AreEqual(oL1.DateValiditeCNI, oL2.DateValiditeCNI);
+
+
+        }
     }
 }

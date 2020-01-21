@@ -187,9 +187,10 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
                         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
                             <Label Content="Pièces manquantes :" Foreground="#FF0078D7" FontWeight="Bold"/>
                         </StackPanel>
@@ -214,7 +215,20 @@
                                 <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateDemande2emeRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate2ndDemandePJ}" VerticalAlignment="Center" Margin="0"></DatePicker>
                             </StackPanel>
                         </StackPanel>
-                        <DataGrid x:Name="dgPiecesjointes"   Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+                                <Label VerticalAlignment="Center">CNI OK :</Label>
+                                <CheckBox Margin="0" VerticalAlignment="Center" IsChecked="{Binding IsCNIOK}"></CheckBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                                <Label VerticalAlignment="Center">Date de validité CNI :</Label>
+                                <DatePicker Name="dtpDateValiditeCNI" SelectedDate="{Binding DateValiditeCNI}" VerticalAlignment="Center" Margin="0"></DatePicker>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
+                                <Label VerticalAlignment="Center">Attestation OK :</Label>
+                                <CheckBox Margin="0" VerticalAlignment="Center" IsChecked="{Binding IsAttestationOK}"></CheckBox>
+                            </StackPanel>
+
+                            <DataGrid x:Name="dgPiecesjointes"   Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                                     ItemsSource="{Binding lstPieceJointe}" 
                                     SelectedItem="{Binding selectedPJ}"
                                     AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"
@@ -248,13 +262,13 @@
                             </DataGrid.Columns>
 
                         </DataGrid>
-                        <ComboBox Name="cbxCategoriePJ" HorizontalAlignment="Stretch" Margin="10" Grid.Row="2"
+                        <ComboBox Name="cbxCategoriePJ" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3"
                             SelectedValue="{Binding CategoriePJ}" 
                             ItemsSource="{Binding lstCategoriePJ}"
                                   DisplayMemberPath="Categorie" Style="{DynamicResource ComboboxReadOnlyStyle}"
                         />
 
-                        <ComboBox Name="cbxLibellePJ" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="2" 
+                        <ComboBox Name="cbxLibellePJ" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3" 
                             SelectedValue="{Binding LibellePJ}" 
                             ItemsSource="{Binding lstLibellePJ}" Style="{DynamicResource ComboboxReadOnlyStyle}">
                             <ComboBox.ItemTemplate >
@@ -265,7 +279,7 @@
                         </ComboBox>
 
 
-                        <Button x:Name="btnAddPJ" Grid.Row="2" Grid.Column="2" Margin="10"
+                        <Button x:Name="btnAddPJ" Grid.Row="3" Grid.Column="2" Margin="10"
                             Command="{Binding DataContext.AjoutePJL2Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" 
                             Content="Ajouter pièce jointe"
                             Style="{DynamicResource StyleBtn}"/>

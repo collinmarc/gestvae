@@ -418,6 +418,30 @@ namespace GestVAE.VM
                 }
             }
         }
+        public Boolean IsCNIOK
+        {
+            get { return oL1.IsCNIOK; }
+            set
+            {
+                if (value != IsCNIOK)
+                {
+                    oL1.IsCNIOK = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public DateTime? DateValiditeCNI
+        {
+            get { return oL1.DateValiditeCNI; }
+            set
+            {
+                if (value != DateValiditeCNI)
+                {
+                    oL1.DateValiditeCNI = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public DateTime? DateEnvoiL2
         {

@@ -40,7 +40,7 @@ namespace GestVAE.VM
                     _LivretVM = value;
                     if (CurrentLivret != null)
                     {
-                        CurrentLivret.IsCandidatLocked = IsLocked;
+                        CurrentLivret.IsLocked = IsLocked;
                     }
                 }
             }
@@ -538,7 +538,7 @@ namespace GestVAE.VM
             RaisePropertyChanged("IsUnlocked");
             return true;
         }
-        public Boolean IsLocked
+        public new Boolean IsLocked
         {
             get
             {
@@ -547,14 +547,7 @@ namespace GestVAE.VM
                 return (nLock > 0);
             }
         }
-        public Boolean IsUnlocked
-        {
-            get
-            {
-                return !IsLocked;
-            }
-        }
-        internal Boolean UnLock(Int32 pIDUser)
+         internal Boolean UnLock(Int32 pIDUser)
         {
             ContextLock ctxLock = new ContextLock();
             ctxLock.Locks.RemoveRange(ctxLock.Locks.Where(L => L.IDCandidat == ID && L.IDUser == pIDUser));

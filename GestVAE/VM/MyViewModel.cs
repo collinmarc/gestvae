@@ -772,6 +772,8 @@ namespace GestVAE.VM
                     oLivVM.IsContrat = oL1.IsContrat;
                     oLivVM.IsConvention = oL1.IsConvention;
                     oLivVM.IsNonRecu = oL1.IsNonRecu;
+                    oLivVM.IsCNIOK = oL1.IsCNIOK;
+                    oLivVM.DateValiditeCNI = oL1.DateValiditeCNI;
                 }
 
 

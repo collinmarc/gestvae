@@ -83,7 +83,7 @@ namespace GestVAE
         {
             Window ofrm = null;
             VM.CurrentCandidat.CurrentLivret = (LivretVMBase)gridLstLivrets.SelectedItem;
-            VM.CurrentCandidat.CurrentLivret.IsCandidatLocked = VM.CurrentCandidat.IsLocked;
+            VM.CurrentCandidat.CurrentLivret.IsLocked = VM.CurrentCandidat.IsLocked;
             if (VM.CurrentCandidat.CurrentLivret.Typestr==Livret1.TYPELIVRET)
             {
                 ofrm = new frmLivret1();

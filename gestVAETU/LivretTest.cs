@@ -17,6 +17,8 @@ namespace GestVAETU
             Assert.IsFalse(oL1.IsContrat);
             Assert.IsFalse(oL1.IsConvention);
             Assert.AreEqual(oL1.oDiplome.ID , Diplome.getDiplomeParDefaut().ID);
+            Assert.IsFalse(oL1.IsCNIOK);
+            Assert.IsNull(oL1.DateValiditeCNI);
             
         }
         [TestMethod]
@@ -61,6 +63,8 @@ namespace GestVAETU
             oL1.DateDemande1erRetour = new DateTime(2019, 05, 12);
             oL1.DateDemande2emeRetour = new DateTime(2019, 05, 13);
             oL1.DateReceptionPiecesManquantes = new DateTime(2019, 05, 14);
+            oL1.IsCNIOK = true;
+            oL1.DateValiditeCNI = new DateTime(2020, 01, 21);
 
             oCand.lstLivrets1.Add(oL1);
 
@@ -82,6 +86,18 @@ namespace GestVAETU
             Assert.AreEqual(oL1.DateDemande1erRetour, oL1Lu.DateDemande1erRetour);
             Assert.AreEqual(oL1.DateDemande2emeRetour, oL1Lu.DateDemande2emeRetour);
             Assert.AreEqual(oL1.DateReceptionPiecesManquantes, oL1Lu.DateReceptionPiecesManquantes);
+            Assert.IsTrue(oL1Lu.IsCNIOK);
+            Assert.AreEqual(oL1.DateValiditeCNI, oL1Lu.DateValiditeCNI);
+
+            oL1Lu.IsCNIOK = false;
+            oL1Lu.DateValiditeCNI = null;
+
+            ctx.SaveChanges();
+            oCand = ctx.Candidats.Find(nId);
+            Assert.AreEqual(1, oCand.lstLivrets1.Count);
+             oL1Lu = oCand.lstLivrets1[0];
+            Assert.IsFalse(oL1Lu.IsCNIOK);
+            Assert.IsNull(oL1Lu.DateValiditeCNI);
 
 
         }

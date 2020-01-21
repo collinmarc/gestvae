@@ -128,16 +128,22 @@
                     HorizontalAlignment="Stretch" Margin="10" >
                 <TabItem x:Name="tabLivret" Header="Livret1" Margin="0">
                     <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretModifiable}" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <StackPanel Orientation="Horizontal" >
-                            <!--
-                        <RadioButton x:Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
-                        <RadioButton x:Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
-                        <RadioButton x:Name="rbIsNonRecu" Content="Non Reçu" IsChecked="{Binding IsNonRecu,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
-                        -->
-                            <RadioButton x:Name="rbcontrat" Content="Contrat" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
-                            <RadioButton x:Name="rbconvention" Content="Convention"  GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
-                            <RadioButton x:Name="rbIsNonRecu" Content="Non Reçu"  GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
-                        </StackPanel>
+                        <UniformGrid Rows="1" >
+                            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                <RadioButton x:Name="rbcontrat" Content="Contrat" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+                                <RadioButton x:Name="rbconvention" Content="Convention"  GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+                                <RadioButton x:Name="rbIsNonRecu" Content="Non Reçu"  GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                    <Label VerticalAlignment="Center">Enregistré  :</Label>
+                                    <CheckBox Margin="0" VerticalAlignment="Center" IsChecked="{Binding IsEnregistre}"></CheckBox>
+                                </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                    <Label VerticalAlignment="Center">Payé  :</Label>
+                                    <CheckBox Margin="0" VerticalAlignment="Center" IsChecked="{Binding IsPaye}"></CheckBox>
+                                </StackPanel>
+
+                        </UniformGrid>
                         <Grid x:Name="grdTypeOrigine" >
                             <Grid.RowDefinitions>
                                 <RowDefinition/>

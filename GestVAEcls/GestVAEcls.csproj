@@ -219,6 +219,10 @@
     <Compile Include="Migrations\202001210939515_L2CNI.Designer.cs">
       <DependentUpon>202001210939515_L2CNI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001211022004_IsEnregistreIsPaye.cs" />
+    <Compile Include="Migrations\202001211022004_IsEnregistreIsPaye.Designer.cs">
+      <DependentUpon>202001211022004_IsEnregistreIsPaye.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -386,6 +390,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001210939515_L2CNI.resx">
       <DependentUpon>202001210939515_L2CNI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001211022004_IsEnregistreIsPaye.resx">
+      <DependentUpon>202001211022004_IsEnregistreIsPaye.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -116,6 +116,7 @@ namespace GestVAETU
         }
         [TestMethod]
         [TestCategory("#1158")]
+        [TestCategory("#1159")]
         public void TestCreationL2()
         {
 
@@ -134,6 +135,8 @@ namespace GestVAETU
             oL1 = (Livret1VM)oCand.CurrentLivret;
             oL1.IsCNIOK = true;
             oL1.DateValiditeCNI = new DateTime(2020,01,01) ;
+            oL1.IsEnregistre = true;
+            oL1.IsPaye = true;
             VM.AjouteL2();
             VM.ValideretQuitterL2();
             Assert.AreEqual(2, oCand.lstLivrets.Count);
@@ -142,6 +145,8 @@ namespace GestVAETU
 
             Assert.AreEqual(oL1.IsCNIOK, oL2.IsCNIOK);
             Assert.AreEqual(oL1.DateValiditeCNI, oL2.DateValiditeCNI);
+            Assert.AreEqual(oL1.IsEnregistre, oL2.IsEnregistre);
+            Assert.AreEqual(oL1.IsPaye, oL2.IsPaye);
 
 
         }

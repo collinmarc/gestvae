@@ -514,7 +514,31 @@ namespace GestVAE.VM
                 if (value != IsNonRecu)
                 {
                     TheLivret.IsNonRecu = value;
-//                    RaisePropertyChanged();
+                    //RaisePropertyChanged();
+                }
+            }
+        }
+        public Boolean IsEnregistre
+        {
+            get { return TheLivret.IsEnregistre; }
+            set
+            {
+                if (value != IsEnregistre)
+                {
+                    TheLivret.IsEnregistre = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        public Boolean IsPaye
+        {
+            get { return TheLivret.IsEnregistre; }
+            set
+            {
+                if (value != IsPaye)
+                {
+                    TheLivret.IsPaye = value;
+                    RaisePropertyChanged();
                 }
             }
         }

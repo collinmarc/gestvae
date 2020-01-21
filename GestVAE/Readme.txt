@@ -9,6 +9,7 @@ Build :
 0001028: Fusion des dates du L1 + Réorganisation de l'extraction RQ_L1_DOC
 0001156: L1 : Non Reçu par defaut
 0001158: L1-L2 : CNI, attestation
+0001159: L1, L2 : Ajout de isEnregistre, IsPayE
 
 
 Build :

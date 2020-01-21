@@ -774,6 +774,8 @@ namespace GestVAE.VM
                     oLivVM.IsNonRecu = oL1.IsNonRecu;
                     oLivVM.IsCNIOK = oL1.IsCNIOK;
                     oLivVM.DateValiditeCNI = oL1.DateValiditeCNI;
+                    oLivVM.IsEnregistre = oL1.IsEnregistre;
+                    oLivVM.IsPaye = oL1.IsPaye;
                 }
 
 

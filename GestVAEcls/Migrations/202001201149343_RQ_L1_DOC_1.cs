@@ -10,6 +10,14 @@ namespace GestVAEcls.Migrations
             System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "RQ_L1_DOC_1 " + "start");
             Sql(@"DROP VIEW [dbo].[RQ_L1_DOC]");
             Sql(@"DROP VIEW [dbo].[RQ_L1_STAT]");
+            Sql(@"DROP VIEW [dbo].[Livret1_NonClos]");
+
+            Sql(@"CREATE VIEW [dbo].[Livret1_NonClos]
+                    AS
+                    SELECT        dbo.Livret1.*
+                    FROM            dbo.Livret1
+                    WHERE        (isClos = 0)");
+
 
             Sql(@"CREATE VIEW [dbo].[RQ_L1_DOC]
 AS

@@ -49,10 +49,14 @@ namespace GestVAEcls
             }
         }
         public Boolean isClos { get; set; }
+        public Boolean IsEnregistre { get; set; }
+        public Boolean IsPaye { get; set; }
 
         public Livret()
         {
             isClos = false;
+            IsEnregistre = false;
+            IsPaye = false;
             EtatLivret = "";
             Typestr = "";
             lstJurys = new ObservableCollection<Jury>();

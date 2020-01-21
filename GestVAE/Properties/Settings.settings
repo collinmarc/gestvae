@@ -43,7 +43,7 @@
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="NUMVERSION" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">V20191010</Value>
+      <Value Profile="(Default)">V20191015</Value>
     </Setting>
   </Settings>
 </SettingsFile>

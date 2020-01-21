@@ -645,6 +645,7 @@ namespace GestVAETU
             CandidatVM oCand = VM.CurrentCandidat;
             oCand.Nom = "TESTCAND";
             oCand.DateCreation = DateTime.Now.AddDays(-1);
+            oCand.TypeDemande = "TEST";
             VM.AjouteL1();
             VM.ValideretQuitterL1();
             VM.saveData();
@@ -654,6 +655,7 @@ namespace GestVAETU
 
             Assert.AreEqual(VM.CurrentCandidat.DateCreation, oLiv.DateDemande);
             Assert.AreEqual(VM.CurrentCandidat.DateCreation, oLiv.DateEnvoiEHESP);
+            Assert.AreEqual(VM.CurrentCandidat.TypeDemande, oLiv.TypeDemande);
 
 
         }

@@ -48,7 +48,7 @@ namespace GestVAE.VM
             }
         }
 
-        public Boolean IsLocked { get; set; }
+        public virtual Boolean IsLocked { get; set; }
         public Boolean IsUnlocked {
             get { return !IsLocked; }
         }

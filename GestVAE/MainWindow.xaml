@@ -220,37 +220,38 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto" MinHeight="28" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" MinHeight="10"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto" MinHeight="10"/>
-                            <RowDefinition Height="Auto" MinHeight="68"/>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" MinHeight="10"/>
                             <RowDefinition Height="Auto" MinHeight="10"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto" MinHeight="10"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto" MinHeight="26"/>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" MinHeight="10"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto" MinHeight="10"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="Identifiants " Grid.Row ="1" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="-1,3,0,7" Height="26" Width="72" />
-                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,1,0,2" >
+                        <Label Content="Identifiants " Grid.Row ="1" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="0" />
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0" >
                             <Label Content="VAE :" VerticalAlignment="Center" Margin="0"/>
                             <TextBox Name="tbIdVAE"   Margin ="0" Text="{Binding TheCandidat.IdVAE}" Width="100"  Style="{DynamicResource TextBoxReadOnlyStyle}" VerticalAlignment="Center" />
-                            <Label Content="   N° SISCOLE :" VerticalAlignment="Center"/>
+                            <Label Content="   N° SISCOLE :" VerticalAlignment="Center" Margin="0"/>
                             <TextBox x:Name="tbIdSISCOLE"  Width="100" Margin ="0" Text="{Binding IdSiscole}" Style="{DynamicResource TextBoxReadOnlyStyle}" VerticalAlignment="Center" 
                                      />
                         </StackPanel>
-                        <Label Content="Sexe:" Grid.Row ="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="0,5,0,1" Height="26" Width="37"/>
-                        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="0,5,0,1" VerticalAlignment="Center" Height="26">
+                        <Label Content="Sexe:" Grid.Row ="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="0"  />
+                        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="0" VerticalAlignment="Center" >
                             <RadioButton Content="Homme   " HorizontalAlignment="Left"  IsChecked="{Binding Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}" VerticalAlignment="Center" Style="{DynamicResource RadioButtonReadOnlyStyle}"/>
                             <RadioButton Content="Femme   " HorizontalAlignment="Left"  IsChecked="{Binding Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}" VerticalAlignment="Center" Style="{DynamicResource RadioButtonReadOnlyStyle}"/>
                             <Label Content="       Travailleur handicapé :" Width="150" />
@@ -361,8 +362,8 @@
 
                         </StackPanel>
 
-                        <Label Content="Livrets : " Grid.Row="22" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="22">
+                        <Label Content="Livrets : " Grid.Row="23" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="23">
                             <DataGrid Name="gridLstLivrets"  Margin="5,5,5,0"  VerticalAlignment="Top" 
                               HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"
                               ItemsSource="{Binding lstLivrets, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
@@ -402,6 +403,13 @@
                         <Label Content="Diplômes : " Grid.Row="20" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <Label Content="Date de création : " Grid.Row="21" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,6" Height="26" Width="107" />
                         <DatePicker x:Name="dtpDateCreation" Grid.Row="21" Grid.Column="1" SelectedDate="{Binding DateCreation, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5" VerticalAlignment="Center" Height="24"/>
+
+                        <Label Content="Type demande :" Grid.Row="22" Grid.Column="0"/>
+                        <ComboBox x:Name="cbxTypeDemande" Grid.Row="22" Grid.Column="1" BorderThickness="1"
+                          SelectedValue="{Binding TypeDemande}" 
+                          ItemsSource="{Binding DataContext.lstParamTypeDemande, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+                                  SelectedValuePath="Nom" DisplayMemberPath="Nom" Style="{DynamicResource ComboboxReadOnlyStyle}"/>
+
 
                     </Grid>
                 </ScrollViewer>

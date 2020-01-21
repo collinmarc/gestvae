@@ -721,6 +721,7 @@ namespace GestVAE.VM
             oLivVM.DateDemande = oCandVM.DateCreation;
             oLivVM.DateEnvoiEHESP = oCandVM.DateCreation;
             oLivVM.DateValidite = oLivVM.DateDemande.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+            oLivVM.TypeDemande = CurrentCandidat.TypeDemande;
             CurrentCandidat.CurrentLivret = oLivVM;
             if (!IsInTest)
             {

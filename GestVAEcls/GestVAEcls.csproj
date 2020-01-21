@@ -235,6 +235,10 @@
     <Compile Include="Migrations\202001211523030_L2NumDiplome.Designer.cs">
       <DependentUpon>202001211523030_L2NumDiplome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001211530547_CandTypeDemande.cs" />
+    <Compile Include="Migrations\202001211530547_CandTypeDemande.Designer.cs">
+      <DependentUpon>202001211530547_CandTypeDemande.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -414,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001211523030_L2NumDiplome.resx">
       <DependentUpon>202001211523030_L2NumDiplome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001211530547_CandTypeDemande.resx">
+      <DependentUpon>202001211530547_CandTypeDemande.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -42,6 +42,7 @@ namespace GestVAEcls
         public String Tel2 { get; set; }
         public String Tel3 { get; set; }
         public Boolean bHandicap { get; set; }
+        public String TypeDemande { get; set; }
         public virtual ObservableCollection<DiplomeCand> lstDiplomes { get; set; }
         // Il faut laisser les Virtual sur ces Collections même si on ne fait pas le Lazy Loading
         public virtual ObservableCollection<Livret1> lstLivrets1 { get; set; }

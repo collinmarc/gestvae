@@ -362,6 +362,19 @@ namespace GestVAE.VM
             }
         }
 
+        public String TypeDemande {
+            get {
+                return TheCandidat.TypeDemande;
+            } set
+            {
+                if (value != TypeDemande)
+                {
+                    TheCandidat.TypeDemande = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public DiplomeCandVM AjoutDiplomeCand()
         {
             DiplomeCand oDiplCand = TheCandidat.AddDiplome(pStatut:"");
@@ -538,7 +551,7 @@ namespace GestVAE.VM
             RaisePropertyChanged("IsUnlocked");
             return true;
         }
-        public new Boolean IsLocked
+        public  override Boolean IsLocked
         {
             get
             {

@@ -14,6 +14,7 @@ Build :
 0000987: Diplome : Ajout d'un Numéro EURODIR
 0001047: Taille de fenêtres de L1 et de L2
 0000999: Fiche Candidat : Ajout Type de Demande
+0000922: Application en singleton
 
 Build :V20191014
 0001044: La Recherche sur Nom ne fonctionne pas

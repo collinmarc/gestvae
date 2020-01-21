@@ -167,8 +167,17 @@
                     SelectedIndex="{Binding getNumTab,Mode=OneTime}">
             <TabItem x:Name="tabLivret" Header="Livret" Margin="0">
                 <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretModifiable}" >
-                    <StackPanel Orientation="Horizontal" />
-                    <Grid Name="grdPiecesJointes" Margin="10" 
+                        <StackPanel Orientation="Horizontal" >
+                            <!--
+                        <RadioButton x:Name="rbcontrat" Content="Contrat" IsChecked="{Binding IsContrat,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+                        <RadioButton x:Name="rbconvention" Content="Convention" IsChecked="{Binding IsConvention,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+                        <RadioButton x:Name="rbIsNonRecu" Content="Non Reçu" IsChecked="{Binding IsNonRecu,Converter={StaticResource BoolRadioConverter}}" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
+                        -->
+                            <RadioButton x:Name="rbcontrat" Content="Contrat" GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right" IsEnabled="False"/>
+                            <RadioButton x:Name="rbconvention" Content="Convention"  GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right" IsEnabled="False"/>
+                            <RadioButton x:Name="rbIsNonRecu" Content="Non Reçu"  GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right" IsEnabled="False"/>
+                        </StackPanel>
+                        <Grid Name="grdPiecesJointes" Margin="0" 
                           Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}"
 >
                         <Grid.ColumnDefinitions>
@@ -186,23 +195,23 @@
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Date 1er courrier pièces manquantes  :"/>
-                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}"></DatePicker>
+                                <Label Content="Date 1er courrier pièces manquantes  :" VerticalAlignment="Center"/>
+                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" Margin="0" VerticalAlignment="Center"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Date 2nd courrier pièces manquantes :"/>
-                                <DatePicker Name="dtpDate2ndDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}"></DatePicker>
+                                <Label Content="Date 2nd courrier pièces manquantes :" VerticalAlignment="Center"/>
+                                <DatePicker Name="dtpDate2ndDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" Margin="0" VerticalAlignment="Center"></DatePicker>
 
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0">
                             <StackPanel Orientation="Horizontal">
-                                <Label Name="lblDateRetourPM" Content="Date de retour demandée 1er courrier :" Width="230"/>
-                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemande1erRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate1ereDemandePJ}"></DatePicker>
+                                <Label Name="lblDateRetourPM" Content="Date de retour demandée 1er courrier :" Width="230" VerticalAlignment="Center"/>
+                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemande1erRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate1ereDemandePJ}" Margin="0"></DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label Name="lblDateReceptPM" Content="Date de retour demandée 2nd courrier :" Width="230" />
-                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateDemande2emeRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate2ndDemandePJ}"></DatePicker>
+                                <Label Name="lblDateReceptPM" Content="Date de retour demandée 2nd courrier :" Width="230" VerticalAlignment="Center" />
+                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateDemande2emeRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate2ndDemandePJ}" VerticalAlignment="Center" Margin="0"></DatePicker>
                             </StackPanel>
                         </StackPanel>
                         <DataGrid x:Name="dgPiecesjointes"   Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"

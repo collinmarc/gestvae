@@ -191,6 +191,12 @@ FROM            dbo.Livret2 INNER JOIN
                          dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID LEFT OUTER JOIN
                          dbo.RQ_L2_PJ ON dbo.Livret2.ID = dbo.RQ_L2_PJ.LIVRET2_ID
 ");
+
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "Update Livret2");
+            Sql(@"UPDATE Livret2
+Set isContrat = Livret1.isContrat, IsConvention = Livret1.IsConvention, IsNonRecu = Livret1.IsNonRecu
+From Livret2 inner join Livret1 on Livret1.Numero = Livret2.Numero");
+
             System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "RQ_L2_DOC_1 " + "end");
         }
          

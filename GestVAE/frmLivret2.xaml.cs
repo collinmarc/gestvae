@@ -70,6 +70,11 @@ namespace GestVAE
             // Mise a jour de la liste des Etat pour faire fonctionner le Set Etat
             oLivret2VM.LstEtatLivret = pViewModel.LstEtatLivret2;
             pViewModel.CloseAction = new Action(() => this.Close());
+            // Bind Manuel car incompréhensible
+            rbcontrat.IsChecked = oLivret2VM.IsContrat;
+            rbconvention.IsChecked = oLivret2VM.IsConvention;
+            rbIsNonRecu.IsChecked = oLivret2VM.IsNonRecu;
+
         }
 
 

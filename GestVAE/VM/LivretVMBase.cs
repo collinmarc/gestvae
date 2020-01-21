@@ -636,7 +636,7 @@ namespace GestVAE.VM
                     {
                         if (DateJury.HasValue)
                         {
-                            DateLimiteRecours = DateJury.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
+                            //DateLimiteRecours = DateJury.Value.AddDays(Properties.Settings.Default.DelaiDepotRecours);
                             MotifRecours = MotifGeneralJury;
                         }
                     }

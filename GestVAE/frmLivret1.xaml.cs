@@ -58,7 +58,6 @@ namespace GestVAE
            // cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
             tbCommentaire.SetBinding(TextBox.TextProperty, "CommentaireJury");
-            chkRecours.SetBinding(CheckBox.IsCheckedProperty, "IsRecoursDemande");
             dtpDateLimiteRecours.SetBinding(DatePicker.SelectedDateProperty, "DateLimiteRecours");
 
             // Recours

@@ -346,7 +346,7 @@
                         <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="0" 
                                     Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Grid.ColumnSpan="2">
                             <Label  Content="Recours :" VerticalAlignment="Center"/>
-                            <CheckBox x:Name="chkRecours" IsChecked="True" VerticalAlignment="Center"/>
+                            <CheckBox x:Name="chkRecours" VerticalAlignment="Center" IsChecked="{Binding IsRecoursDemande}"/>
                             <Label VerticalAlignment="Center" Content="Date limite de depot :" Margin="10,0,0,0"/>
                             <DatePicker x:Name="dtpDateLimiteRecours" VerticalAlignment="Center" Width="100" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
                         </StackPanel>

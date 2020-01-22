@@ -247,7 +247,7 @@ namespace GestVAE.VM
                 }
                 if (value != null)
                 {
-                    DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
                 }
 
             }
@@ -1240,6 +1240,10 @@ namespace GestVAE.VM
         {
             DateJury = pDateJury;
             DecisionJury = String.Format("{0:D}-DeFavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+            foreach (DCLivretVM oDCLivret in ((Livret2VM)this).lstDCLivretAValider)
+            {
+                oDCLivret.Decision = ((Livret2VM)this).DecisionL2ModuleDeFavorable;
+            }
 
         }
 

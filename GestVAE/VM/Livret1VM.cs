@@ -137,10 +137,51 @@ namespace GestVAE.VM
             }
         }
 
+        /// <summary>
+        /// Le L1 est valide s'il est accepté et que sa date de validité n'est pas dépassé (3 ans)
+        /// OU
+        /// S'il est accepté et qu'au moins 1 DC a été validé dans un L2
+        /// </summary>
+        /// <returns></returns>
         public Boolean IsValide()
         {
-            return ( IsEtatAccepte && DateValidite > DateTime.Now);
-        }
+            Boolean bReturn = false;
+            bReturn = ( IsEtatAccepte && DateValidite > DateTime.Now);
+
+            if (!bReturn)
+            {
+                if (IsEtatAccepte)
+                {
+                    CandidatVM oCand = getCurrentCandidat();
+                    // Parcours de la Liste des L2
+                    foreach (Livret2VM oLiv in oCand.getListLivret2())
+                    {
+                        if (oLiv.IsDecisionJuryPartielle)
+                        {
+                            foreach (DCLivretVM oDC in oLiv.lstDCLivretAValider)
+                            {
+                                // Si un DC a une décision Favorable
+                                if (oDC.isDecisionFavorable)
+                                {
+                                    bReturn = true;
+                                    break;
+                                }
+                            } // Foreach lstDCaValider
+                            if (bReturn)
+                            {
+                                // Un Dc a une décision favorable => pas la pein d'aller plus loin
+                                break;
+                            }
+                        }
+                    }// foreach lstLivret2
+                }
+            }
+
+
+
+            return bReturn;
+        }//IsValide
+
         /// <summary>
         /// Un livret1 est Encours s'il est non clos avec une date de validité > now
         /// </summary>

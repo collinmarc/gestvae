@@ -333,6 +333,10 @@ namespace GestVAETU
             VM.DeleteCurrentCandidat();
             VM.saveData();
         }
+        /// <summary>
+        /// Test de la validité du L1
+        /// il est valide 3 ans tant qu'il n'y pas de L2 validé partiellement ensuite c'est à vie
+        /// </summary>
         [TestMethod]
         public void testIsL1Valide()
         {
@@ -349,6 +353,7 @@ namespace GestVAETU
             //Ajout D'un L1
             VM.AjouteL1();
             VM.ValideretQuitterL1();
+            VM.saveData();
             // Le L1 est EnCours même si  l'état n'est pas bon
             Assert.IsFalse(oCand.IsL1Valide);
             Assert.IsTrue(oCand.IsL1Encours);
@@ -364,6 +369,30 @@ namespace GestVAETU
             // Le L1 n'est plus valide
             oL1.DateValidite = DateTime.Now.AddDays(-1);
             Assert.IsFalse(oCand.IsL1Valide);
+
+            // Ajout d'un L2 (Normalement impossible car le L1 n'est plus valide)
+            VM.AjouteL2();
+            VM.ValideretQuitterL2();
+            VM.saveData();
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            // Tous les DC sont à valider
+            oL2.lstDCLivret[0].IsAValider = true;
+            oL2.lstDCLivret[1].IsAValider = true;
+            oL2.lstDCLivret[2].IsAValider = true;
+            oL2.lstDCLivret[3].IsAValider = true;
+            // Si la décision est défavorable => le L1 n'est plus valide
+            oL2.FTO_SetDecisionJuryL2DeFavorable();
+            Assert.IsFalse(oCand.IsL1Valide);
+            // La décision du L2 est validation Partielle
+            oL2.FTO_SetDecisionJuryL2Partielle();
+            oL2.lstDCLivret[0].Decision = oL2.DecisionL2ModuleFavorable;
+            oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleDeFavorable;
+            oL2.lstDCLivret[2].Decision = oL2.DecisionL2ModuleDeFavorable;
+            oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleDeFavorable;
+
+            // Si au moins un DC est validé , alors le L1 devienbt valide à vie 
+            Assert.IsTrue(oCand.IsL1Valide," le L1 devient valide à vie");
+
 
 
             VM.LockCurrentCandidat();

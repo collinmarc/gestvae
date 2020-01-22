@@ -691,7 +691,7 @@ namespace GestVAE.VM
 
         }
         /// <summary>
-        /// Un Livret En cours est un Livert non Clos que n'est Ni Accepté, ni refusé
+        /// Un Livret En cours est un Livret non Clos que n'est Ni Accepté, ni refusé
         /// </summary>
         /// <returns></returns>
         public Boolean IsLivretEnCours

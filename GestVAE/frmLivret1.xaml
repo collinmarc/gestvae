@@ -447,7 +447,6 @@
             </TabControl>
             <UniformGrid Grid.Row="3" >
                 <Button x:Name="cbValider"  Margin="10" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et Quitter"
-                    IsEnabled="{Binding IsLivretModifiable}"
                     Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Unloaded="cbValider_Unloaded"/>
 
                 <Button x:Name="cbQuitter" Margin="10" 

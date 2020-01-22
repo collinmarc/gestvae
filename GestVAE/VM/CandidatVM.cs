@@ -577,15 +577,12 @@ namespace GestVAE.VM
             get
             {
                 Boolean bReturn = false;
-                foreach (LivretVMBase oLiv in lstLivrets)
+                foreach (Livret1VM oLiv in getListLivret1())
                 {
-                    if (oLiv is Livret1VM)
-                    {
-                        if (((Livret1VM)oLiv).IsEncours())
+                        if (oLiv.IsEncours())
                         {
                             bReturn = true;
                         }
-                    }
                 }
 
                 return bReturn;
@@ -599,37 +596,19 @@ namespace GestVAE.VM
         {
             get
             {
-                Boolean bReturn = false;
-                foreach (LivretVMBase oLiv in lstLivrets)
-                {
-                    if (oLiv is Livret1VM)
-                    {
-                        if (((Livret1VM)oLiv).IsValide())
-                        {
-                                bReturn = true;
-                        }
-                    }
-                }
-
-                return bReturn;
-
+                return (getL1Valide() != null);
             }
         }
+        /// <summary>
+        /// Rend le Premier L1 Valide Valide (ou Null S'il n'y en a pas)
+        /// </summary>
+        /// <returns></returns>
         public Livret1VM getL1Valide()
         {
             Livret1VM oReturn = null;
-            foreach (LivretVMBase oLiv in lstLivrets)
-            {
-                if (oLiv is Livret1VM)
-                {
-                    if (((Livret1VM)oLiv).IsValide())
-                    {
-                        oReturn = (Livret1VM)oLiv;
-                    }
-                }
-            }
-
-
+            oReturn = (from oLiv in getListLivret1()
+                       where oLiv.IsValide()
+                       select oLiv).FirstOrDefault<Livret1VM>();
             return oReturn;
         }
         /// <summary>
@@ -640,17 +619,13 @@ namespace GestVAE.VM
             get
             {
                 Boolean bReturn = false;
-                foreach (LivretVMBase oLiv in lstLivrets)
+                foreach (Livret2VM oL2 in getListLivret2())
                 {
-                    if (oLiv is Livret2VM)
-                    {
-                        Livret2VM oL2 = (Livret2VM)oLiv;
                         // Si le L2 est clos => non Valide
                         if (oL2.IsLivretEnCours)
                         {
                             bReturn = true;
                         }
-                    }
                 }
 
                 return bReturn;
@@ -681,7 +656,10 @@ namespace GestVAE.VM
 
             }
         }
-
+        /// <summary>
+        /// Ajout de L2 possible ?
+        /// L1 Valide et pas de L2 en cours
+        /// </summary>
         public Boolean IsAddL2Available
         {
             get
@@ -692,13 +670,37 @@ namespace GestVAE.VM
                 {
                     bReturn = true;
                 }
-                // OU SI s'il a un L2 En validation partielle
-                if (ISL2EnValidationPartielle)
-                {
-                    bReturn = true;
-                }
                 return bReturn;
             }
+        }
+
+        /// <summary>
+        /// retourne la Liste des Livret2VM
+        /// </summary>
+        /// <returns></returns>
+        public ReadOnlyCollection<Livret2VM> getListLivret2()
+        {
+            ReadOnlyCollection<Livret2VM> oReturn;
+
+            oReturn  = (from oLiv in lstLivrets
+                    where oLiv is Livret2VM
+                    select (Livret2VM)oLiv).ToList<Livret2VM>().AsReadOnly();
+
+            return oReturn;
+        }
+        /// <summary>
+        /// Retourne la Liste des Livret1VM
+        /// </summary>
+        /// <returns></returns>
+        public ReadOnlyCollection<Livret1VM> getListLivret1()
+        {
+            ReadOnlyCollection<Livret1VM> oReturn;
+
+            oReturn = (from oLiv in lstLivrets
+                       where oLiv is Livret1VM
+                       select (Livret1VM)oLiv).ToList<Livret1VM>().AsReadOnly();
+
+            return oReturn;
         }
 
     }

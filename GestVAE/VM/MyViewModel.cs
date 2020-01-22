@@ -178,9 +178,11 @@ namespace GestVAE.VM
                                             );
             dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
                                            );
-            ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); }
+            ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); },
+                                                                        o=> { return IsValiderEtQuitterAvailable; }
                                            );
-            ValideretQuitterL2Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL2(); }
+            ValideretQuitterL2Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL2(); },
+                                                                        o => { return IsValiderEtQuitterAvailable; }
                                            );
             CloturerL1etCreerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL1etCreerL2(); }
                                            );
@@ -735,66 +737,66 @@ namespace GestVAE.VM
          /// </summary>
         public void AjouteL2()
         {
-            Livret2VM oLivVM = null;
+            Livret2VM oL2VM = null;
             try
             {
 
                 CandidatVM oCandVM = CurrentCandidat;
-                oLivVM = new Livret2VM(CurrentCandidat.IsLocked);
-                oLivVM.LstEtatLivret = LstEtatLivret2;
+                oL2VM = new Livret2VM(CurrentCandidat.IsLocked);
+                oL2VM.LstEtatLivret = LstEtatLivret2;
 
-                oLivVM.EtatLivret = LstEtatLivret2[1];
-                oLivVM.DateDemande = DateTime.Now;
-                oLivVM.NumPassage = 1;
+                oL2VM.EtatLivret = LstEtatLivret2[1];
+                oL2VM.DateDemande = DateTime.Now;
+                oL2VM.NumPassage = 1;
                 if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
                 {
                     int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
-                    oLivVM.NumPassage = nbL2 + 1;
+                    oL2VM.NumPassage = nbL2 + 1;
                 }
                 Livret1VM oL1 = CurrentCandidat.getL1Valide();
                 if (oL1 != null)
                 {
-                    oLivVM.Numero = oL1.Numero;
-                    oLivVM.DateValidite = oL1.DateValidite;
-                    oLivVM.DateLimiteReceptEHESP = oL1.DateValidite;
+                    oL2VM.Numero = oL1.Numero;
+                    oL2VM.DateValidite = oL1.DateValidite;
+                    oL2VM.DateLimiteReceptEHESP = oL1.DateValidite;
                     if (oL1.IsRecoursDemande)
                     {
-                        oLivVM.IsOuvertureApresRecours = true;
+                        oL2VM.IsOuvertureApresRecours = true;
                     }
                     if (oL1.DateEnvoiL2.HasValue)
                     {
-                        oLivVM.DateEnvoiEHESP = oL1.DateEnvoiL2;
+                        oL2VM.DateEnvoiEHESP = oL1.DateEnvoiL2;
                     }
                     else
                     {
                         oL1.DateEnvoiL2 = DateTime.Today;
-                        oLivVM.DateEnvoiEHESP = DateTime.Today;
+                        oL2VM.DateEnvoiEHESP = DateTime.Today;
                     }
-                    oLivVM.IsContrat = oL1.IsContrat;
-                    oLivVM.IsConvention = oL1.IsConvention;
-                    oLivVM.IsNonRecu = oL1.IsNonRecu;
-                    oLivVM.IsCNIOK = oL1.IsCNIOK;
-                    oLivVM.DateValiditeCNI = oL1.DateValiditeCNI;
-                    oLivVM.IsEnregistre = oL1.IsEnregistre;
-                    oLivVM.IsPaye = oL1.IsPaye;
+                    oL2VM.IsContrat = oL1.IsContrat;
+                    oL2VM.IsConvention = oL1.IsConvention;
+                    oL2VM.IsNonRecu = oL1.IsNonRecu;
+                    oL2VM.IsCNIOK = oL1.IsCNIOK;
+                    oL2VM.DateValiditeCNI = oL1.DateValiditeCNI;
+                    oL2VM.IsEnregistre = oL1.IsEnregistre;
+                    oL2VM.IsPaye = oL1.IsPaye;
                 }
 
 
                 // Récupération de la date d'envoi du L2 premier passage s'il s'agit un second passage
-                if (oLivVM.NumPassage>1)
+                if (oL2VM.NumPassage>1)
                 {
                     Livret2VM oL2Prem = (Livret2VM)CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET && ((Livret2VM)l).NumPassage == 1).FirstOrDefault();
                     if (oL2Prem != null)
                     {
-                        oLivVM.DateEnvoiEHESP = oL2Prem.DateEnvoiEHESP;
+                        oL2VM.DateEnvoiEHESP = oL2Prem.DateEnvoiEHESP;
                     }
                 }
 
                 // Récupération du diplome du candidat (si présent)
-                DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oLivVM.TheLivret.oDiplome.ID).FirstOrDefault();
+                DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oL2VM.TheLivret.oDiplome.ID).FirstOrDefault();
                 if (oDiplomeCandidat == null)
                 {
-                    DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand(oLivVM.TheLivret.oDiplome);
+                    DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand(oL2VM.TheLivret.oDiplome);
                     oDiplomeCandidat = oDipCandVM.TheDiplomeCand;
                     oDipCandVM.ModeObtention = "VAE";
                     oDipCandVM.StatutDiplome = "En cours";
@@ -804,14 +806,14 @@ namespace GestVAE.VM
                     oDipCandVM.StatutDC4 = "";
                 }
 
-                ((Livret2)oLivVM.TheLivret).InitDCLivrets(oDiplomeCandidat);
-                foreach (DCLivret oDCL in ((Livret2)oLivVM.TheLivret).lstDCLivrets)
+                ((Livret2)oL2VM.TheLivret).InitDCLivrets(oDiplomeCandidat);
+                foreach (DCLivret oDCL in ((Livret2)oL2VM.TheLivret).lstDCLivrets)
                 {
-                    oLivVM.lstDCLivret.Add(new DCLivretVM(oDCL));
+                    oL2VM.lstDCLivret.Add(new DCLivretVM(oDCL));
                 }
                 // Récupération du L1Valide pour récupérer le numéro
 
-                CurrentCandidat.CurrentLivret = oLivVM;
+                CurrentCandidat.CurrentLivret = oL2VM;
 
                 if (!IsInTest)
                 {
@@ -823,7 +825,7 @@ namespace GestVAE.VM
             catch (Exception ex)
             {
                 CSDebug.TraceException("MVM.AjouteL2", ex);
-                oLivVM = null;
+                oL2VM = null;
             }
 
     }
@@ -1231,8 +1233,27 @@ public void AjoutePJL1()
                 return bReturn;
             }
         }
+        public Boolean IsValiderEtQuitterAvailable
+        {
+            get
+            {
+                Boolean bReturn = false;
+                if (CurrentCandidat != null)
+                {
+                    LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
+                    if (oLiv != null)
+                    {
+                        if (oLiv.IsLocked)
+                        {
+                            bReturn = true;
+                        }
+                    }
+                }
+                return bReturn;
+            }
+        }
         /// <summary>
-        /// L'ajout du Livret1 est-il Autorisé sur la candidat Courant
+        /// L'ajout du Livret1 est-il Autorisé sur le candidat Courant ?
         /// </summary>
         public Boolean IsCurrentCandidatAddL1Available
         {
@@ -1245,18 +1266,21 @@ public void AjoutePJL1()
                 }
                 if (IsCurrentCandidatLocked)
                 {
-                    // L'ajout d'un L1 n'est pas Disponible s'il y en a déja un EnCours
-                    bReturn = !  CurrentCandidat.IsL1Encours;
+                    // L'ajout d'un L1 n'est pas possible s'il y a un L1 de valide
+                    bReturn = !CurrentCandidat.IsL1Valide;
+                    if (bReturn)
+                    {
+                        // OU S'il y a un L1 en cours
+                        bReturn = !CurrentCandidat.IsL1Encours;
+                    }
                 }
                 return bReturn;
             }
         }
 
         /// <summary>
-        /// A-t-on le droit d'ajouter un L2
-        /// => Il faut un L1 Valide
-        /// OU
-        /// => Un L2 dont la décision est Validation Partielle
+        /// A-t-on le droit d'ajouter un L2 ?
+        /// Candidat Locké + Ajout de L2 possible 
         /// </summary>
         public Boolean IsCurrentCandidatAddL2Available
         {

@@ -479,14 +479,19 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL1Favorable();
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
             VM.ValideretQuitterL1();
+            VM.saveData();
             // L'ajout de L1 Devient possible 
-            Assert.IsTrue(VM.AjouteL1Command.CanExecute(null));
+            Assert.IsFalse(VM.AjouteL1Command.CanExecute(null));
+            VM.CurrentCandidat.CurrentLivret.IsLivretClos = true;
+            // L'ajout de L1 Devient possible 
+            Assert.IsFalse(VM.AjouteL1Command.CanExecute(null));
+
         }
 
-    /// <summary>
-    /// Ajout de L1 - Décision défavorable
-    /// </summary>
-    [TestMethod]
+        /// <summary>
+        /// Ajout de L1 - Décision défavorable
+        /// </summary>
+        [TestMethod]
     public void GESTVAE013()
     {
         MyViewModel VM = new MyViewModel(true);
@@ -640,14 +645,22 @@ namespace GestVAETU
             VM.AjouteL2();
             Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(1);
+            oL2.lstDCLivret[0].IsAValider = true;
+            oL2.lstDCLivret[1].IsAValider = true;
+            oL2.lstDCLivret[2].IsAValider = true;
+            oL2.lstDCLivret[3].IsAValider = true;
             VM.ValideretQuitterL2();
             //Ajout de L2 impossible car L2 en cours
             Assert.IsTrue(VM.CurrentCandidat.ISL2EnCours);
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
 
             // Le L2 est Validé Partiellement => on peut Ajouter un L2
-            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Partielle(); ;
-            VM.CurrentCandidat.CurrentLivret.DateValidite = DateTime.Now.AddDays(-1);
+            VM.CurrentCandidat.CurrentLivret.FTO_SetDecisionJuryL2Partielle();
+            oL2.lstDCLivret[0].Decision = oL2.DecisionL2ModuleFavorable;
+            oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleDeFavorable;
+            oL2.lstDCLivret[2].Decision = oL2.DecisionL2ModuleDeFavorable;
+            oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleDeFavorable;
+
             Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
 
             // Même Si le Livret1 est echue

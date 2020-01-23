@@ -513,6 +513,36 @@ namespace GestVAE.VM
                 }
             }
         }
+        public override DateTime? DateNotificationJury
+        {
+            get
+            {
+                if (oJury != null)
+                {
+                    return oJury.DateNotificationJury;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (value != DateNotificationJury)
+                {
+
+                    oJury.DateNotificationJury = value;
+
+                    RaisePropertyChanged();
+                }
+                //uniquement dans le cas du livret1
+                //if (value != null)
+                //{
+                //    DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                //}
+
+            }
+        }
 
         public DateTime? DateLimiteJury
         {

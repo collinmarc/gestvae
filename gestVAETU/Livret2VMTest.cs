@@ -34,5 +34,31 @@ namespace GestVAETU
 
 
         }
+        /// <summary>
+        /// 0001103: Chgmt date de recevabilité du L2 :
+        /// </summary>
+        [TestMethod]
+        [TestCategory("#1103")]
+        public void TestchgmtDateValiditesurdatenotifJury()
+        {
+
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouteCandidat();
+            CandidatVM oCand = VM.CurrentCandidat;
+
+            VM.AjouteL1();
+            Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
+            oL1.DateValidite = DateTime.Today.AddDays(10);
+            oL1.FTO_SetDecisionJuryL1Favorable();
+            VM.ValideretQuitterL1();
+            VM.saveData();
+            VM.AjouteL2();
+            Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+            Assert.AreEqual(oL1.DateValidite, oL2.DateValidite);
+            oL2.DateNotificationJury = DateTime.Today;
+            Assert.AreEqual(oL1.DateValidite, oL2.DateValidite);
+
+        }
     }
 }

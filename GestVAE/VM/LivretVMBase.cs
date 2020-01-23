@@ -223,35 +223,8 @@ namespace GestVAE.VM
                 }
             }
         }
-        public DateTime? DateNotificationJury
-        {
-            get
-            {
-                if (oJury != null)
-                {
-                    return oJury.DateNotificationJury;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                if (value != DateNotificationJury)
-                {
-
-                    oJury.DateNotificationJury = value;
-
-                    RaisePropertyChanged();
-                }
-                if (value != null)
-                {
-                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
-                }
-
-            }
-        }
+        public virtual DateTime? DateNotificationJury
+        { get; set; }
         public DateTime? DateNotificationJuryRecours
         {
             get
@@ -428,7 +401,6 @@ namespace GestVAE.VM
                     if (!IsEtatRecuComplet)
                     {
                         DateJury = null;
-                        DateNotificationJury = null;
                         LieuJury = "";
                         HeureConvoc = null;
                         HeureJury = null;

@@ -18,7 +18,8 @@ Build :
 0001149: Date de Limite de recours change après cocher la case recours
 0001045: L2 : Validation Totale : MAJ des états de DC Livrets
 0001153: Validité du L1 : à Vie si un DC est Validé sur un L2
-0001103: Chgmt date de recevabilité du L2 :
+0001103: Chgmt date de recevabilité du L2 
+0001112: Message de sauvegarde en faisant une recherche
 
 Build :V20191014
 0001044: La Recherche sur Nom ne fonctionne pas

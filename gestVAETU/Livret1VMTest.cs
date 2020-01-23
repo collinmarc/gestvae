@@ -115,6 +115,24 @@ namespace GestVAETU
 
         }
         [TestMethod]
+        [TestCategory("#1103")]
+        public void TestDateDeRecevabilitechangeAvecDatenotificationjury()
+        {
+            DateTime dateV1 = DateTime.Today.AddDays(10);
+            MyViewModel VM = new MyViewModel(true);
+
+            VM.AjouteCandidat();
+            CandidatVM oCand = VM.CurrentCandidat;
+
+            VM.AjouteL1();
+            Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
+            oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            oL1.DateValidite = dateV1;
+            oL1.DateNotificationJury = DateTime.Today.AddDays(1);
+            Assert.AreNotEqual(dateV1,oL1.DateValidite);
+        }
+
+        [TestMethod]
         [TestCategory("#1158")]
         [TestCategory("#1159")]
         public void TestCreationL2()

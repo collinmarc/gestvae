@@ -811,7 +811,6 @@ namespace GestVAE.VM
                 {
                     oL2VM.lstDCLivret.Add(new DCLivretVM(oDCL));
                 }
-                // Récupération du L1Valide pour récupérer le numéro
 
                 CurrentCandidat.CurrentLivret = oL2VM;
 

@@ -188,43 +188,6 @@ namespace GestVAE.VM
                 }
             }
         }
-
-        public Boolean EtatDiplome
-        {
-            get
-            {
-
-                Boolean bReturn= true;
-                foreach (var oDC in TheDiplomeCand.lstDCCands)
-                {
-                    if (oDC.Statut =="REFUSE")
-                    {
-                        bReturn = false;
-                    }
-                }
-                return bReturn;
-            }
-            set
-            {
-                if (value != EtatDiplome)
-                {
-                    if (value)
-                    {
-                        foreach (var oDC in TheDiplomeCand.lstDCCands)
-                        {
-                            oDC.Statut = "ACCEPTE";
-                            oDC.DateObtention = DateTime.Now;
-                        }
-                        RaisePropertyChanged("StatutDC1");
-                        RaisePropertyChanged("StatutDC2");
-                        RaisePropertyChanged("StatutDC3");
-                        RaisePropertyChanged("StatutDC4");
-                    }
-                }
-                
-
-            }
-        }
          public String StatutDC1
         {
             get

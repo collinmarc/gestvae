@@ -20,6 +20,7 @@ Build :
 0001153: Validité du L1 : à Vie si un DC est Validé sur un L2
 0001103: Chgmt date de recevabilité du L2 
 0001112: Message de sauvegarde en faisant une recherche
+0001040: L2: Création du L2 => les DC sont automatiquement déclarés à AValider
 
 Build :V20191014
 0001044: La Recherche sur Nom ne fonctionne pas

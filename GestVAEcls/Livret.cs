@@ -191,6 +191,10 @@ namespace GestVAEcls
                 oDCL.ModeObtention = oDCCand.ModeObtention;
                 oDCL.DateObtention = oDCCand.DateObtention;
                 oDCL.Commentaire = oDCCand.Commentaire;
+                if (oDCCand.Statut != "Validé")
+                {
+                    oDCL.IsAValider = true;
+                }
             }
         }
         /// <summary>

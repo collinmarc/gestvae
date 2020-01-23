@@ -191,7 +191,14 @@ namespace GestVAE.VM
         {
             get
             {
+                if (getNumDecision() > 0)
+                {
                     return (getNumDecision() < (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+                }
+                else
+                { // si pas de decision =< Pas favorable
+                    return false;
+                }
 
             }
         }

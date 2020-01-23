@@ -790,8 +790,8 @@ namespace GestVAETU
             Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             DiplomeCandVM oDip = VM.CurrentCandidat.getDiplomeCand(oL2);
             Assert.IsNotNull(oDip);
-            // L'état du diplome n'est pas modifié
-            Assert.AreEqual("Validé Partiellement", oDip.StatutDiplome);
+            // L'état du diplome est refusé
+            Assert.AreEqual("Refusé", oDip.StatutDiplome);
 
         }//GestVAE018
 

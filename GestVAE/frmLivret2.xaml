@@ -372,56 +372,59 @@
                         <TextBox x:Name="tbLieuJury"  Grid.Column="1" VerticalAlignment="Center" Margin="0,0,9,0" Style="{DynamicResource TextBoxReadOnlyStyle}"  />
 
                     </Grid>
-                    <DataGrid x:Name="dgMembreJury"
-                                  ItemsSource="{Binding lstMembreJury}" 
-                                SelectedItem="{Binding SelectedMembreJ}"
+                        <StackPanel Orientation="Vertical"
                                   Grid.Row="2"
                                   Grid.Column="0"
-                                  Grid.ColumnSpan="4"
+                                  Grid.ColumnSpan="4">
+                            <DataGrid x:Name="dgMembreJury"
+                                  ItemsSource="{Binding lstMembreJury}" 
+                                SelectedItem="{Binding SelectedMembreJ}"
                                   AutoGenerateColumns="False" SelectionMode="Single" 
-                                  CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="True" 
-                                  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch"
+                                  CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" 
+                                  Margin="10" RowHeaderWidth="10" HorizontalAlignment="Stretch"
                               AddingNewItem="dgMembreJury_AddingNewItem" SelectionChanged="dgMembreJury_SelectionChanged">
-                        <DataGrid.Resources>
-                            <VM:BindingProxy x:Key="proxy" Data="{Binding VM, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
-                        </DataGrid.Resources>
-                        <DataGrid.InputBindings>
-                            <KeyBinding Key="Delete" Command="{Binding VM.DeleteMembreJuryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
-                        </DataGrid.InputBindings>
+                                <DataGrid.Resources>
+                                    <VM:BindingProxy x:Key="proxy" Data="{Binding VM, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
+                                </DataGrid.Resources>
+                                <DataGrid.InputBindings>
+                                    <KeyBinding Key="Delete" Command="{Binding VM.DeleteMembreJuryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
+                                </DataGrid.InputBindings>
 
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="1*"/>
-                            <DataGridComboBoxColumn Header="College" 
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="1*"/>
+                                    <DataGridComboBoxColumn Header="College" 
                                                         SelectedValueBinding="{Binding College}"
                                                         SelectedValuePath="Nom"
                                                         ItemsSource="{Binding Data.lstParamCollege, Source={StaticResource proxy}}"
                                                             DisplayMemberPath="Nom"
                                                     Width="2*"/>
 
-                            <DataGridComboBoxColumn Header="Région" 
+                                    <DataGridComboBoxColumn Header="Région" 
                                                  SelectedValueBinding="{Binding Region}" 
                                                  SelectedValuePath="Nom"
                                                  ItemsSource="{Binding Data.lstRegionVM, Source={StaticResource proxy}}"
                                                              DisplayMemberPath="Nom"
                                                     Width="2*"/>
-                            <DataGridComboBoxColumn Header="Dpt. Domicile" 
+                                    <DataGridComboBoxColumn Header="Dpt. Domicile" 
                                                         SelectedValueBinding="{Binding DptDomicile}" 
                                                         SelectedValuePath="Nom"
                                                         ItemsSource="{Binding Data.lstParamDepartement, Source={StaticResource proxy}}"
                                                              DisplayMemberPath="Nom"
                                                     Width="2*"/>
-                            <DataGridComboBoxColumn Header="Dpt. Travail" 
+                                    <DataGridComboBoxColumn Header="Dpt. Travail" 
                                                         SelectedValueBinding="{Binding DptTravail}" 
                                                         SelectedValuePath="Nom"
                                                         ItemsSource="{Binding Data.lstParamDepartement, Source={StaticResource proxy}}"
                                                              DisplayMemberPath="Nom"
                                                     Width="2*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Button Style="{DynamicResource StyleBtn}" Margin="10,0,10,0"
+                                    Command="{Binding DataContext.AjouterMembreJuryCommand, ElementName=window}">Ajouter</Button>
+                        </StackPanel>
 
 
-
-                    <Label Grid.Row="3" Grid.Column="0" Margin="10,8,0,8" VerticalAlignment="Center" Content="Décision :" Height="26" Grid.ColumnSpan="2"/>
+                        <Label Grid.Row="3" Grid.Column="0" Margin="10,8,0,8" VerticalAlignment="Center" Content="Décision :" Height="26" Grid.ColumnSpan="2"/>
                     <ComboBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="cbxDecision" HorizontalAlignment="Stretch" Margin="10" Style="{DynamicResource ComboboxReadOnlyStyle}"/>
                     <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
                         <CheckBox IsChecked="{Binding IsDispenseArt2}"  Margin="10" 

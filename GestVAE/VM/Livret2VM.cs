@@ -771,6 +771,11 @@ namespace GestVAE.VM
                 RaisePropertyChanged("lstMembreJury");
             }
         }
+        public override void AjouterMembreJury()
+        {
+            lstMembreJury.Add(new MembreJuryVM() { Nom = "[nouveau]" });
+            RaisePropertyChanged("lstMembreJury");
+        }
 
 
     }

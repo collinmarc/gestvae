@@ -1219,5 +1219,9 @@ namespace GestVAE.VM
 
         }
 
+        public virtual void AjouterMembreJury()
+        {
+
+        }
     }
 }

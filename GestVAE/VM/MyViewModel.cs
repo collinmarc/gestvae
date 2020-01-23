@@ -173,6 +173,8 @@ namespace GestVAE.VM
                                            );
             DeleteMembreJuryCommand = new RelayCommand<MyViewModel>(o => { DeleteMembreJury(); }
                                            );
+            AjouterMembreJuryCommand = new RelayCommand<MyViewModel>(o => { AjouterMembreJury(); }
+                                            );
             AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); },
                                                             o => { return IsCurrentCandidatAddL2Available; }
                                             );
@@ -550,6 +552,7 @@ namespace GestVAE.VM
         public ICommand ValideretQuitterL2Command { get; set; }
         public ICommand CloturerL1etCreerL2Command { get; set; }
         public ICommand CloturerL2Command { get; set; }
+        public ICommand AjouterMembreJuryCommand { get; set; }
         public ICommand DecloturerLivretCommand { get; set; }
         public ICommand DoubleClickCandidat { get; set; }
         public ICommand CloseCommand { get; set; }
@@ -852,6 +855,12 @@ public void AjoutePJL1()
             oLiv.DeleteMembreJury();
         }
 
+        public void AjouterMembreJury()
+        {
+
+            LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
+            oLiv.AjouterMembreJury();
+        }
         /// <summary>
         /// Créer le Livret2 puis Cloturer le Livret1
         /// </summary>

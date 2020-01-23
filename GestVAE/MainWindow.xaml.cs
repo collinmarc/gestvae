@@ -84,7 +84,7 @@ namespace GestVAE
             Window ofrm = null;
             VM.CurrentCandidat.CurrentLivret = (LivretVMBase)gridLstLivrets.SelectedItem;
             VM.CurrentCandidat.CurrentLivret.IsLocked = VM.CurrentCandidat.IsLocked;
-            if (VM.CurrentCandidat.CurrentLivret.Typestr==Livret1.TYPELIVRET)
+            if (VM.CurrentCandidat.CurrentLivret is Livret1VM)
             {
                 ofrm = new frmLivret1();
                 ((frmLivret1)ofrm).setContexte(VM);

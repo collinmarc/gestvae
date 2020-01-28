@@ -791,5 +791,20 @@ namespace GestVAETU
             Assert.AreEqual(IDVAE, VM.CurrentCandidat.IdVAE);
 
         }
+        [TestMethod]
+        public void TestExportdata()
+        {
+            MyViewModel VM = new MyViewModel();
+            String fileName = DateTime.Now.ToString(VM.DatabaseName + "_yyMMddHHmm") + ".bak";
+
+            if (System.IO.File.Exists("C:/Temp/" + fileName))
+            {
+                System.IO.File.Delete("C:/Temp/" +  fileName);
+            }
+            VM.exporterData();
+            Assert.IsTrue(System.IO.File.Exists("C:/Temp/"+ fileName));
+
+
+        }
     }
 }

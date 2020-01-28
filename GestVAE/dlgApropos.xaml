@@ -21,5 +21,7 @@
         <TextBox Height="23" Canvas.Left="322" TextWrapping="Wrap" Text="{Binding DBVersion, Mode=OneWay}" Canvas.Top="52" Width="120" IsEnabled="False"/>
         <Label Content="ContextID" Canvas.Left="166" Canvas.Top="83"/>
         <TextBox Height="23" Canvas.Left="322" TextWrapping="Wrap" Text="{Binding ContextID, Mode=OneWay}" Canvas.Top="83" Width="120" IsEnabled="False"/>
+        <Button Content="Exporter Base" Height="30" Canvas.Left="322" Canvas.Top="121" Width="120"
+                Command="{Binding ExporterDataCommand}"/>
     </Canvas>
 </Window>

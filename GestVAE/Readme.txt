@@ -22,6 +22,8 @@ Build :
 0001112: Message de sauvegarde en faisant une recherche
 0001040: L2: Création du L2 => les DC sont automatiquement déclarés à AValider
 0001138: Création d'une ligne Vide dans les jurys, ligne impossible à supprimer
+0001166: Ajout d'une fonction d'export de base de données
+
 
 Build :V20191014
 0001044: La Recherche sur Nom ne fonctionne pas

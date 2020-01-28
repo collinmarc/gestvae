@@ -209,7 +209,12 @@ namespace GestVAE.VM
             DecloturerLivretCommand= new RelayCommand<MyViewModel>(o => { DecloturerLivret(); }
                                                         );
             DoubleClickCandidat = new RelayCommand<MyViewModel>(o => { DoubleClickSurCandidat(); }
-                                                        );
+                                                                    );
+
+        ExporterDataCommand = new RelayCommand<MyViewModel>(o => { exporterData(); }
+                                                                    );
+
+
         }
 
         public ObservableCollection<CandidatVM> lstCandidatVM
@@ -562,6 +567,7 @@ namespace GestVAE.VM
         public ICommand UnLockCommand { get; set; }
         public ICommand UnLockAllCommand { get; set; }
         public ICommand ExecSQLCommand { get; set; }
+        public ICommand ExporterDataCommand { get; set; }
         public String rechIdentifiantVAE { get; set; }
         public String rechIdentifiantSISCOLE { get; set; }
         public String rechNom { get; set; }
@@ -1668,6 +1674,28 @@ public void AjoutePJL1()
             return bReturn;
         }//SaveData
 
+        public String DatabaseName
+        {
+            get
+            {
+                return _ctx.Database.Connection.Database;
+            }
+        }
+        public void exporterData()
+        {
+            DbConnection ocon = _ctx.Database.Connection;
+            if (ocon.State == System.Data.ConnectionState.Closed)
+            {
+                ocon.Open();
+            }
+                DbCommand oCmd = ocon.CreateCommand();
+                String fileName = DateTime.Now.ToString(ocon.Database+"_yyMMddHHmm") +".bak";
+                oCmd.CommandText = "BACKUP DATABASE " + ocon.Database + " TO DISK = 'C:/Temp/"+ fileName+"'";
+                oCmd.ExecuteNonQuery();
+            ocon.Close();
 
     }
+
+
+}
 }

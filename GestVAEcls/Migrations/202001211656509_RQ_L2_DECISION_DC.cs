@@ -7,6 +7,7 @@ namespace GestVAEcls.Migrations
     {
         public override void Up()
         {
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "RQ_L2_DECISION_DC " + "start");
             Sql(@"DROP VIEW RQ_L2_DECISION_DC");
             Sql(@"CREATE VIEW [dbo].[RQ_L2_DECISION_DC]
 AS
@@ -23,10 +24,12 @@ FROM            dbo.Livret2 INNER JOIN
                          dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
 WHERE        (dbo.DCLivrets.IsAValider = 1)");
 
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "RQ_L2_DECISION_DC " + "end");
         }
 
         public override void Down()
         {
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION DOWN]" + "RQ_L2_DECISION_DC " + "start");
             Sql(@"DROP VIEW RQ_L2_DECISION_DC");
             Sql(@"CREATE VIEW [dbo].[RQ_L2_DECISION_DC]
 AS
@@ -42,6 +45,7 @@ FROM            dbo.Livret2 INNER JOIN
                          dbo.DomaineCompetences ON dbo.DCLivrets.oDomaineCompetence_ID = dbo.DomaineCompetences.ID LEFT OUTER JOIN
                          dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
 WHERE        (dbo.DCLivrets.IsAValider = 1)");
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION DOWN]" + "RQ_L2_DECISION_DC " + "end");
         }
     }
 }

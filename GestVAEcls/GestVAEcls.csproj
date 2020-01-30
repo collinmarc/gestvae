@@ -247,6 +247,10 @@
     <Compile Include="Migrations\202001231408460_ISAValiderDansExtraction.Designer.cs">
       <DependentUpon>202001231408460_ISAValiderDansExtraction.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001300844382_H12,CNI.cs" />
+    <Compile Include="Migrations\202001300844382_H12,CNI.Designer.cs">
+      <DependentUpon>202001300844382_H12,CNI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -435,6 +439,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001231408460_ISAValiderDansExtraction.resx">
       <DependentUpon>202001231408460_ISAValiderDansExtraction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001300844382_H12,CNI.resx">
+      <DependentUpon>202001300844382_H12,CNI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

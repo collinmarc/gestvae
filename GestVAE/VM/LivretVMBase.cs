@@ -504,7 +504,7 @@ namespace GestVAE.VM
         }
         public Boolean IsPaye
         {
-            get { return TheLivret.IsEnregistre; }
+            get { return TheLivret.IsPaye; }
             set
             {
                 if (value != IsPaye)

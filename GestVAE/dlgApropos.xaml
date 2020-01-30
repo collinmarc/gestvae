@@ -9,7 +9,10 @@
         x:Class="GestVAE.dlgAPropos"
         mc:Ignorable="d"
         Title="A propos de l'application GESTVAE"   MinHeight="110" Height="268.482" Width="487.594"  WindowStartupLocation="CenterScreen">
-    <Canvas Margin="0,0,0,0" >
+    <Window.Resources>
+        <local:BooleanToCursorConverter x:Key="BoolToCursor"></local:BooleanToCursorConverter>
+    </Window.Resources>
+    <Canvas Margin="0,0,0,0"  Cursor="{Binding IsBusy, Converter={StaticResource BoolToCursor}}">
         <Canvas.Background>
             <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionColorKey}}"/>
         </Canvas.Background>

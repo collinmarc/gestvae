@@ -1683,6 +1683,7 @@ public void AjoutePJL1()
         }
         public void exporterData()
         {
+            IsBusy = true;
             DbConnection ocon = _ctx.Database.Connection;
             if (ocon.State == System.Data.ConnectionState.Closed)
             {
@@ -1694,8 +1695,9 @@ public void AjoutePJL1()
                 oCmd.ExecuteNonQuery();
             ocon.Close();
 
+            IsBusy = false;
+        }
+
+
     }
-
-
-}
 }

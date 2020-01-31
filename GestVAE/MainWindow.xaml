@@ -117,7 +117,7 @@
                              Text="{Binding rechNom, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding RechercherCommand}"/>
-                            <KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/>
+<!--                            <KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/> -->
                         </TextBox.InputBindings>
 
                     </TextBox>

@@ -82,7 +82,7 @@ namespace GestVAE.VM
                 if (value != Decision)
                 {
                     TheDCLivret.Decision= value;
-                    if (isDecisionFavorable)
+                    if (IsDecisionFavorable)
                     {
                         MotifGeneral = "";
                         MotifDetaille = "";
@@ -90,6 +90,58 @@ namespace GestVAE.VM
                         Statut = "Validé";
                     }
                     RaisePropertyChanged();
+                    RaisePropertyChanged("IsDecisionFavorable");
+                    RaisePropertyChanged("IsDecisionDefavorable");
+                }
+            }
+        }
+        public Boolean IsDecisionFavorable
+        {
+            get {
+                if (getNumDecision() > 0)
+                {
+                    return (getNumDecision() < (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+                }
+                else
+                { // si pas de decision =< Pas favorable
+                    return false;
+                }
+            }
+            set
+            {
+
+                if (value != IsDecisionFavorable)
+                {
+                    if (value)
+                    {
+                        Decision = new Livret2VM(false).DecisionL2ModuleFavorable;
+                    }
+                    else
+                    {
+                        Decision = new Livret2VM(false).DecisionL2ModuleDeFavorable;
+                    }
+                }
+            }
+        }
+        public Boolean IsDecisionDefavorable
+        {
+            get
+            {
+                    if (getNumDecision() > 0)
+                    {
+                        return (getNumDecision() == (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+                    }
+                    else
+                    { // si pas de decision =< Pas défavorable
+                        return false;
+                    }
+            }
+            set
+            {
+
+                if (value != IsDecisionDefavorable)
+                {
+                    IsDecisionFavorable = !value;
                 }
             }
         }
@@ -146,7 +198,7 @@ namespace GestVAE.VM
             get { return TheDCLivret.IsAValider; }
             set
             {
-                if (value != TheDCLivret.IsAValider)
+                if (value != IsAValider)
                 {
                     TheDCLivret.IsAValider = value;
                     RaisePropertyChanged();

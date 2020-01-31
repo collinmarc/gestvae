@@ -1005,7 +1005,7 @@ public void AjoutePJL1()
                             DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
                             if (oDCCand != null)
                             {
-                                if (item.isDecisionFavorable)
+                                if (item.IsDecisionFavorable)
                                 {
                                     oDCCand.Statut = "Validé";
                                     oDCCand.DateObtention = pLivret.DateJury;

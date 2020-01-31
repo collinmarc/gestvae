@@ -16,6 +16,7 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"/>
+        <local:BoolRadioConverter x:Key="BoolRadioConverter"/>
 
         <Image x:Key="AddIco" Source="IMG/Add.png"/>
 
@@ -449,7 +450,7 @@
                     </StackPanel>
 
                     <DataGrid x:Name="dgDCLivretDecision"
-                                    ItemsSource="{Binding lstDCLivretAValider, UpdateSourceTrigger=PropertyChanged}" 
+                                    ItemsSource="{Binding lstDCLivretAValider}" 
                                     SelectedItem="{Binding selectedDCLivret}"
                                   Grid.Row="5"
                                   Grid.Column="0"
@@ -464,11 +465,26 @@
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*"/>
-                            <DataGridComboBoxColumn Header="Décision" 
+<!--                                <DataGridComboBoxColumn Header="Décision" 
                                                         SelectedValueBinding="{Binding Decision}" 
                                                         ItemsSource="{Binding Data.LstDecisionL2Module, Source={StaticResource proxy}}"
                                                         Width="2*"/>
-                            <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
+                            -->
+                                <DataGridTemplateColumn Header="Favorable">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Name ="DCDecisionF" IsChecked="{Binding IsDecisionFavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Défavorable">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Name ="DCDecisionD" IsChecked="{Binding IsDecisionDefavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
                             <!--                            
                             <DataGridComboBoxColumn x:Name="dgColMotifGeneral" Header="Motif général" 
                                                         SelectedItemBinding="{Binding MotifGeneral, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

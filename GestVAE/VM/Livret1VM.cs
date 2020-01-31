@@ -161,7 +161,7 @@ namespace GestVAE.VM
                             foreach (DCLivretVM oDC in oLiv.lstDCLivretAValider)
                             {
                                 // Si un DC a une décision Favorable
-                                if (oDC.isDecisionFavorable)
+                                if (oDC.IsDecisionFavorable)
                                 {
                                     bReturn = true;
                                     break;

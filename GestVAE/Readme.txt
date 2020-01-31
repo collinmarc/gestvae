@@ -1,5 +1,5 @@
 ﻿
-Build :
+Build : 20200201
 0001162: L1 : Suppression , date de jury de recours et Commentaires
 0001163: L1 : Type de recours (Gracieux ou contentieux)
 0001155: MAJ DES Extractions (VRAI/FAUX=> OU/NON , SEXE => H/F)

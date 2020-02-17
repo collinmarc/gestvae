@@ -251,6 +251,18 @@
     <Compile Include="Migrations\202001300844382_H12,CNI.Designer.cs">
       <DependentUpon>202001300844382_H12,CNI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002061623334_OUINON.cs" />
+    <Compile Include="Migrations\202002061623334_OUINON.Designer.cs">
+      <DependentUpon>202002061623334_OUINON.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002100913489_TryConvert.cs" />
+    <Compile Include="Migrations\202002100913489_TryConvert.Designer.cs">
+      <DependentUpon>202002100913489_TryConvert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002171139487_Hconvoc.cs" />
+    <Compile Include="Migrations\202002171139487_Hconvoc.Designer.cs">
+      <DependentUpon>202002171139487_Hconvoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -442,6 +454,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001300844382_H12,CNI.resx">
       <DependentUpon>202001300844382_H12,CNI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002061623334_OUINON.resx">
+      <DependentUpon>202002061623334_OUINON.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002100913489_TryConvert.resx">
+      <DependentUpon>202002100913489_TryConvert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002171139487_Hconvoc.resx">
+      <DependentUpon>202002171139487_Hconvoc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

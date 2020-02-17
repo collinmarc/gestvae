@@ -1347,6 +1347,7 @@ public void AjoutePJL1()
         public void ExecSQL()
         {
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Selectionner le fichier à exécuter";
             String strFilename;
             String Script;
             if (ofd.ShowDialog()== true)
@@ -1357,6 +1358,7 @@ public void AjoutePJL1()
 
                 System.Data.SqlClient.SqlConnection cnx = (SqlConnection)_ctx.Database.Connection;
                 cnx.Open();
+                SqlCommand command = new SqlCommand();
 
                 try
                 {
@@ -1364,18 +1366,22 @@ public void AjoutePJL1()
                     {
                         if (commandString.Trim() != "")
                         {
-                            using (var command = new SqlCommand(commandString, cnx))
+                            using (command = new SqlCommand(commandString, cnx))
                             {
+                                CSDebug.TraceINFO(commandString);
                                 command.ExecuteNonQuery();
                             }
                         }
                     }
+
                 }
                 catch (Exception ex)
                 {
                     CSDebug.TraceException("ExecSQL", ex);
+                    CSDebug.TraceINFO("command.text  = ["+  command.CommandText + "]");
                 }
                 cnx.Close();
+                MessageBoxShow("Exécution terminée");
             }
 
 
@@ -1689,10 +1695,18 @@ public void AjoutePJL1()
             {
                 ocon.Open();
             }
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter= "Backup BDD(*.bak)|*.bak";
+            sfd.FileName = DateTime.Now.ToString(ocon.Database + "_yyMMddHHmm") + ".bak";
+            sfd.Title = "Exporter la base de données";
+            if (sfd.ShowDialog() == true)
+            {
                 DbCommand oCmd = ocon.CreateCommand();
-                String fileName = DateTime.Now.ToString(ocon.Database+"_yyMMddHHmm") +".bak";
-                oCmd.CommandText = "BACKUP DATABASE " + ocon.Database + " TO DISK = 'C:/Temp/"+ fileName+"'";
+                String fileName = sfd.FileName;
+                oCmd.CommandText = "BACKUP DATABASE " + ocon.Database + " TO DISK = '" + fileName + "'";
                 oCmd.ExecuteNonQuery();
+                MessageBoxShow("Export terminé");
+            }
             ocon.Close();
 
             IsBusy = false;

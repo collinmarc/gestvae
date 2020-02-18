@@ -317,6 +317,10 @@ namespace GestVAE.VM
                 _ctx.SaveChanges();
                 UnlockCandidats();
                 _modelhasChanges = false;
+                if (CurrentCandidat != null)
+                {
+                    CurrentCandidat.SetModelHasChanges(false);
+                }
                 bReturn = true;
             }
             catch (Exception ex)
@@ -1109,7 +1113,13 @@ public void AjoutePJL1()
     }
     public bool HasChanges()
         {
-            return (_ctx.ChangeTracker.HasChanges() || _modelhasChanges);
+            Boolean bReturn = false;
+            bReturn = (_ctx.ChangeTracker.HasChanges() || _modelhasChanges);
+            if (CurrentCandidat != null)
+            {
+                bReturn = bReturn || CurrentCandidat.HasChanges();
+            }
+            return bReturn;
         }
         public void SetModelHasChanges()
         {
@@ -1126,6 +1136,7 @@ public void AjoutePJL1()
                     if (MessageBoxShow("Etes-vous sur de souloir supprimer le candidat", "Suppression d'un candidat", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         CurrentCandidat.IsDeleted = true;
+                        SetModelHasChanges();
                         //CurrentCandidat.UnLock(_ContextID);
                         //_ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
                         //lstCandidatVM.Remove(CurrentCandidat);

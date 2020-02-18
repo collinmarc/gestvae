@@ -21,6 +21,7 @@ namespace GestVAE.VM
         public Candidat TheCandidat { get; set; }
         public ObservableCollection<DiplomeCandVM> lstDiplomesCandVMs { get; set; }
         public ObservableCollection<LivretVMBase> lstLivrets { get; set; }
+        public List<LivretVMBase> lstLivretsActif { get { return lstLivrets.Where(c => !c.IsDeleted).ToList(); } }
         public DiplomeCandVM CurrentDiplomeCand { get; set; }
 
         public DiplomeCandVM getDiplomeCand(Livret2VM pL2)
@@ -526,50 +527,51 @@ namespace GestVAE.VM
 
             LivretVMBase oLiv = CurrentLivret;
             oLiv.IsDeleted = true;
-            RaisePropertyChanged("lstLivrets");
-//            oLiv.ClearDCs();
-//            if (!oLiv.IsNew)
-//            {
-//                foreach (JuryVM oJ in oLiv.lstJuryVM)
-//                {
-//                    _ctx.Juries.Remove((Jury)oJ.TheItem);
-//                    //oLiv.TheLivret.lstJurys.Remove(((Jury)oJ.TheItem));
+            RaisePropertyChanged("lstLivretsActif");
+            SetModelHasChanges();
+            //            oLiv.ClearDCs();
+            //            if (!oLiv.IsNew)
+            //            {
+            //                foreach (JuryVM oJ in oLiv.lstJuryVM)
+            //                {
+            //                    _ctx.Juries.Remove((Jury)oJ.TheItem);
+            //                    //oLiv.TheLivret.lstJurys.Remove(((Jury)oJ.TheItem));
 
-//                }
-//                if (oLiv is Livret1VM)
-//                {
-//                    TheCandidat.lstLivrets1.Remove((Livret1)oLiv.TheLivret);
+            //                }
+            //                if (oLiv is Livret1VM)
+            //                {
+            //                    TheCandidat.lstLivrets1.Remove((Livret1)oLiv.TheLivret);
 
-//                }
-//                else
-//                {
-//                    while (((Livret2VM)oLiv).lstDCLivret.Count>0)
-//                    {
-//                        ((Livret2VM)oLiv).lstDCLivret.RemoveAt(0);
-//                    }
-//                    TheCandidat.lstLivrets2.Remove((Livret2)oLiv.TheLivret);
+            //                }
+            //                else
+            //                {
+            //                    while (((Livret2VM)oLiv).lstDCLivret.Count>0)
+            //                    {
+            //                        ((Livret2VM)oLiv).lstDCLivret.RemoveAt(0);
+            //                    }
+            //                    TheCandidat.lstLivrets2.Remove((Livret2)oLiv.TheLivret);
 
-//                }
-////                _ctx.Entry<Livret>((Livret)oLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
+            //                }
+            ////                _ctx.Entry<Livret>((Livret)oLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
 
-//            }
-//            else
-//            {
-//                if (oLiv is Livret1VM)
-//                {
-//                    TheCandidat.lstLivrets1.Remove((Livret1)oLiv.TheLivret);
-//                    oLiv.getEntity().State = System.Data.Entity.EntityState.Deleted;
+            //            }
+            //            else
+            //            {
+            //                if (oLiv is Livret1VM)
+            //                {
+            //                    TheCandidat.lstLivrets1.Remove((Livret1)oLiv.TheLivret);
+            //                    oLiv.getEntity().State = System.Data.Entity.EntityState.Deleted;
 
-//                }
-//                else
-//                {
-//                    //TheCandidat.lstLivrets2.Remove((Livret2)oLiv.TheLivret);
-//                    _ctx.Livret2.Remove((Livret2)oLiv.TheLivret);
-//                    oLiv.getEntity().State = System.Data.Entity.EntityState.Deleted;
-//                }
-//                // Detache l'entity
-//                //_ctx.Entry<Livret>((Livret)oLiv.TheLivret).State = System.Data.Entity.EntityState.Detached;
-//            }
+            //                }
+            //                else
+            //                {
+            //                    //TheCandidat.lstLivrets2.Remove((Livret2)oLiv.TheLivret);
+            //                    _ctx.Livret2.Remove((Livret2)oLiv.TheLivret);
+            //                    oLiv.getEntity().State = System.Data.Entity.EntityState.Deleted;
+            //                }
+            //                // Detache l'entity
+            //                //_ctx.Entry<Livret>((Livret)oLiv.TheLivret).State = System.Data.Entity.EntityState.Detached;
+            //            }
 
         }//        public void DeleteLivret()
 
@@ -713,8 +715,8 @@ namespace GestVAE.VM
         {
             ReadOnlyCollection<Livret2VM> oReturn;
 
-            oReturn  = (from oLiv in lstLivrets
-                    where oLiv is Livret2VM
+            oReturn  = (from oLiv in lstLivretsActif
+                    where oLiv is Livret2VM 
                     select (Livret2VM)oLiv).ToList<Livret2VM>().AsReadOnly();
 
             return oReturn;
@@ -727,12 +729,24 @@ namespace GestVAE.VM
         {
             ReadOnlyCollection<Livret1VM> oReturn;
 
-            oReturn = (from oLiv in lstLivrets
-                       where oLiv is Livret1VM
+            oReturn = (from oLiv in lstLivretsActif
+                       where oLiv is Livret1VM 
                        select (Livret1VM)oLiv).ToList<Livret1VM>().AsReadOnly();
 
             return oReturn;
         }
+        private bool _modelhasChanges = false;
+        public void SetModelHasChanges(bool pvalue = true)
+        {
+            _modelhasChanges = pvalue;
+        }
 
+        public override bool HasChanges()
+        {
+            Boolean bReturn = false;
+            bReturn = base.HasChanges();
+            bReturn = bReturn || _modelhasChanges;
+            return bReturn;
+        }
     }
 }

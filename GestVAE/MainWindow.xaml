@@ -366,7 +366,7 @@
                         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="23">
                             <DataGrid Name="gridLstLivrets"  Margin="5,5,5,0"  VerticalAlignment="Top" 
                               HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"
-                              ItemsSource="{Binding lstLivrets, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                              ItemsSource="{Binding lstLivretsActif, UpdateSourceTrigger=PropertyChanged}"  
                               SelectedItem="{Binding CurrentLivret}"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                               CellEditEnding="gridLstLivrets_CellEditEnding" 

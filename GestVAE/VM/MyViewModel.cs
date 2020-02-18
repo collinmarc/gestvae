@@ -300,10 +300,20 @@ namespace GestVAE.VM
             {
                 foreach (CandidatVM item in lstCandidatVM)
                 {
-                    item.Commit();
+                    if (item.IsLocked)
+                    {
+                        if (item.IsDeleted)
+                        {
+                            _ctx.DeleteOnCascade(item.TheCandidat);
+                        }
+                        else
+                        {
+                            item.Commit();
+                        }
+                    }
                 }
 
-                 _ctx.DeleteOnCascade();
+//                 _ctx.DeleteOnCascade();
                 _ctx.SaveChanges();
                 UnlockCandidats();
                 _modelhasChanges = false;
@@ -1115,9 +1125,10 @@ public void AjoutePJL1()
 
                     if (MessageBoxShow("Etes-vous sur de souloir supprimer le candidat", "Suppression d'un candidat", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        CurrentCandidat.UnLock(_ContextID);
-                        _ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
-                        lstCandidatVM.Remove(CurrentCandidat);
+                        CurrentCandidat.IsDeleted = true;
+                        //CurrentCandidat.UnLock(_ContextID);
+                        //_ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
+                        //lstCandidatVM.Remove(CurrentCandidat);
                     }
                 }
             }
@@ -1665,7 +1676,6 @@ public void AjoutePJL1()
                         _ctxParam.dbParamVecteurInformation.Remove(item);
                     }
                 }
-                _ctx.DeleteOnCascade();
                 _ctx.SaveChanges();
                 UnlockCandidats();
                 _modelhasChanges = false;

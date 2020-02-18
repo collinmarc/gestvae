@@ -1,4 +1,5 @@
 ﻿using System;
+using GestVAE.VM;
 using GestVAEcls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,6 +18,7 @@ namespace GestVAETU
             oCand.lstLivrets1.Add(oL1);
             ctx.SaveChanges();
 
+//            Recours oRec = new Recours(oL1.get1erJury());
             Recours oRec = new Recours();
             oRec.DateDepot = Convert.ToDateTime("10/01/2019");
             oRec.TypeRecours = EnumTypeRecours.Contentieux;
@@ -49,5 +51,6 @@ namespace GestVAETU
 
 
         }
+
     }
 }

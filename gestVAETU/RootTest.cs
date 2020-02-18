@@ -61,8 +61,22 @@ namespace GestVAETU
                 oDip.addDomainecompetence("DC2");
                 oDip.addDomainecompetence("DC3");
                 oDip.addDomainecompetence("DC4");
+            ctx.Diplomes.Add(oDip);
+            oDip = new Diplome("DEIS");
+            oDip.Description = "Description du CAFDES";
+            oDip.addDomainecompetence("DC1");
+            oDip.addDomainecompetence("DC2");
+            oDip.addDomainecompetence("DC3");
+            oDip.addDomainecompetence("DC4");
+            ctx.Diplomes.Add(oDip);
+            oDip = new Diplome("CAFERUIS");
+            oDip.Description = "Description du CAFDES";
+            oDip.addDomainecompetence("DC1");
+            oDip.addDomainecompetence("DC2");
+            oDip.addDomainecompetence("DC3");
+            oDip.addDomainecompetence("DC4");
 
-                ctx.Diplomes.Add(oDip);
+            ctx.Diplomes.Add(oDip);
             SaveChanges();
             
         }

@@ -13,7 +13,7 @@ namespace GestVAETU
         {
 
             Context ctx = new Context();
-            Assert.AreEqual("(localdb)\\V11.0", ctx.Database.Connection.DataSource);
+            Assert.AreEqual("BUREAU-DELL\\SQLEXPRESS", ctx.Database.Connection.DataSource);
             Assert.AreEqual("GESTVAETU2", ctx.Database.Connection.Database);
         }
     }

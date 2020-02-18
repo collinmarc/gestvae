@@ -67,6 +67,9 @@ namespace GestVAEcls
         public DbSet<DomaineCompetenceCand> DomaineCompetenceCands { get; set; }
 
         public DbSet<Recours> dbRecours { get; set; }
+        public DbSet<Jury> Juries { get; set; }
+        public DbSet<Livret1> Livret1 { get; set; }
+        public DbSet<Livret2> Livret2 { get; set; }
 
         public DbSet<LockCandidat> Locks { get; set; }
         public DbSet<Diplome> Diplomes { get; set; }
@@ -88,75 +91,30 @@ namespace GestVAEcls
         public DbSet<MotifGeneralL2> dbMotifGeneralL2_UTILISER_CTXPARAM { get; set; }
 
 
-        public void DeleteOnCascade()
+        public void DeleteOnCascade(Candidat oCand)
 
         {
-            foreach (Candidat oCand in Candidats)
+
+            foreach (Livret1 oLiv in oCand.lstLivrets1)
             {
-                if (Entry<Candidat>(oCand).State == System.Data.Entity.EntityState.Deleted)
+                while (oLiv.lstJurys.Count > 0)
                 {
-                    foreach (Livret1 oLiv in oCand.lstLivrets1)
-                    {
-                        Entry<Livret1>(oLiv).State = System.Data.Entity.EntityState.Deleted;
-                    }
-                    foreach (Livret2 oLiv in oCand.lstLivrets2)
-                    {
-                        Entry<Livret2>(oLiv).State = System.Data.Entity.EntityState.Deleted;
-                    }
+                    Jury oJ = oLiv.lstJurys[0];
+                    Juries.Remove(oJ);
                 }
 
-                foreach (Livret1 oLiv in oCand.lstLivrets1)
-                {
-                    if (Entry<Livret1>(oLiv).State == System.Data.Entity.EntityState.Deleted)
-                    {
-                        foreach (Jury oItem in oLiv.lstJurys)
-                        {
-                            Entry<Jury>(oItem).State = System.Data.Entity.EntityState.Deleted;
-                            foreach (Recours oItemR in oItem.lstRecours)
-                            {
-                                Entry<Recours>(oItemR).State = System.Data.Entity.EntityState.Deleted;
-                            }
-                        }
-
-                        foreach (Echange oItem in oLiv.lstEchanges)
-                        {
-                            Entry<Echange>(oItem).State = System.Data.Entity.EntityState.Deleted;
-                        }
-                        foreach (PieceJointe oItem in oLiv.lstPiecesJointes)
-                        {
-                            Entry<PieceJointe>(oItem).State = System.Data.Entity.EntityState.Deleted;
-                        }
-                    }
-                }
-                foreach (Livret2 oLiv in oCand.lstLivrets2)
-                {
-                    if (Entry<Livret2>(oLiv).State == System.Data.Entity.EntityState.Deleted)
-                    {
-                        foreach (Jury oItem in oLiv.lstJurys)
-                        {
-                            Entry<Jury>(oItem).State = System.Data.Entity.EntityState.Deleted;
-                        }
-
-                        foreach (Echange oItem in oLiv.lstEchanges)
-                        {
-                            Entry<Echange>(oItem).State = System.Data.Entity.EntityState.Deleted;
-                        }
-                        foreach (PieceJointe oItem in oLiv.lstPiecesJointes)
-                        {
-                            Entry<PieceJointe>(oItem).State = System.Data.Entity.EntityState.Deleted;
-                        }
-                        foreach (DCLivret oItem in oLiv.lstDCLivrets)
-                        {
-                            Entry<DCLivret>(oItem).State = System.Data.Entity.EntityState.Deleted;
-                        }
-                        foreach (MembreJury oItem in oLiv.lstMembreJurys)
-                        {
-                            Entry<MembreJury>(oItem).State = System.Data.Entity.EntityState.Deleted;
-                        }
-                    }
-                }
             }
-        }
+            foreach (Livret2 oLiv in oCand.lstLivrets2)
+            {
+                while (oLiv.lstJurys.Count > 0)
+                {
+                    Jury oJ = oLiv.lstJurys[0];
+                    Juries.Remove(oJ);
+                }
+
+            }
+            Candidats.Remove(oCand);
+        }//DeleteOnCascade
 
     }//Context
 

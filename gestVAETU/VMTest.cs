@@ -1,5 +1,6 @@
 ﻿using System;
 using GestVAE.VM;
+using GestVAEcls;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,7 +17,7 @@ namespace GestVAETU
             MyViewModel VM = new MyViewModel(true);
             VM.getData();
 
-            VM.AddCandidatCommand.Execute(null);
+            VM.AjouteCandidat();
             CandidatVM oCand = VM.CurrentCandidat;
             oCand.Nom = "TESTCAND";
 
@@ -29,14 +30,23 @@ namespace GestVAETU
             oLiv.DateDepotRecours = DateTime.Today;
             oLiv.DecisionJuryRecours = "TEST";
             Assert.IsTrue(VM.saveData());
+            VM.rechNom = "TESTCAND";
+            VM.Recherche();
+//            Assert.AreEqual(1, VM.lstCandidatVM[0].TheCandidat.lstLivrets1[0].lstJurys.Count);
 
-            VM.getData();
-            VM.CurrentCandidat = VM.lstCandidatVM.Where(i => i.Nom == "TESTCAND").FirstOrDefault();
+//            Assert.AreEqual(1, VM.lstCandidatVM[0].lstLivrets[0].TheLivret.lstJurys.Count);
+//            VM.lstCandidatVM[0].LoadDetails();
+//            VM.lstCandidatVM[0].lstLivrets[0].LoadDetails();
+//            Assert.AreEqual(1, VM.lstCandidatVM[0].lstLivrets[0].lstJuryVM.Count);
+//            Assert.AreEqual(1, VM.lstCandidatVM[0].lstLivrets[0].TheLivret.lstJurys.Count);
+            VM.CurrentCandidat = VM.lstCandidatVM.FirstOrDefault();
+            VM.LockCurrentCandidat();
             Assert.IsNotNull(VM.CurrentCandidat);
             Assert.AreEqual(1, VM.CurrentCandidat.lstLivrets.Count);
 
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
             oLiv = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+//            Assert.AreEqual(1, oLiv.lstJuryVM.Count);
             Assert.AreEqual("TEST", oLiv.DecisionJuryRecours);
             VM.CurrentCandidat.DeleteCurrentLivret();
             Assert.IsTrue(VM.saveData());
@@ -67,6 +77,7 @@ namespace GestVAETU
             VM.AddCandidatCommand.Execute(null);
             CandidatVM oCand = VM.CurrentCandidat;
             oCand.Nom = "TESTCANDL2";
+            VM.LockCurrentCandidat();
 
             VM.AjouteL2();
             VM.ValideretQuitterL2();
@@ -80,10 +91,12 @@ namespace GestVAETU
             Assert.IsNotNull(VM.CurrentCandidat);
             Assert.AreEqual(1, VM.CurrentCandidat.lstLivrets.Count);
 
+            VM.LockCurrentCandidat();
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
             oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             Assert.AreEqual("DECISIONJURYL2", oLiv.DecisionJury);
             VM.CurrentCandidat.DeleteCurrentLivret();
+
             Assert.IsTrue(VM.saveData());
 
             VM.getData();
@@ -210,6 +223,7 @@ namespace GestVAETU
             VM.saveData();
             VM.getData();
             oCand = VM.lstCandidatVM.Where(c => c.Nom == "TESTCAND").LastOrDefault();
+//            oCand.LoadDetails();
             Assert.AreEqual(1, oCand.lstLivrets.Count);
             oCand.CurrentLivret = oCand.lstLivrets[0];
             oCand.DeleteCurrentLivret();
@@ -226,14 +240,16 @@ namespace GestVAETU
             VM.IsInTest = true;
             VM.getData();
 
-            VM.AddCandidatCommand.Execute(null);
+            VM.AjouteCandidat();
             CandidatVM oCand = VM.CurrentCandidat;
+            oCand.IsLocked = true;
             oCand.Nom = "TESTCAND";
             VM.AjouteL1();
             VM.ValideretQuitterL1();
             VM.saveData();
-            VM.getData();
-            Assert.IsTrue(VM.SetCurrentCandidat("TESTCAND"));
+            VM.rechNom = "TESTCAND";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
             VM.CloturerL1etCreerL2();
 
@@ -791,7 +807,7 @@ namespace GestVAETU
             Assert.AreEqual(IDVAE, VM.CurrentCandidat.IdVAE);
 
         }
-        [TestMethod]
+        [TestMethod,Ignore()]
         public void TestExportdata()
         {
             MyViewModel VM = new MyViewModel();
@@ -806,5 +822,554 @@ namespace GestVAETU
 
 
         }
+        [TestMethod]
+        public void TestDeleteOnCascadeCandidat1()
+        {
+            Int32 nDiplomeCandAvant, nDiplomeCandApres, nDCCandAvant, nDCCandApres, nCandAvant, nCandApres;
+            System.Data.Common.DbConnection oConn = Context.instance.Database.Connection;
+            System.Data.Common.DbCommand ocmd = oConn.CreateCommand();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
+            nDiplomeCandAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DomaineCompetenceCands";
+            nDCCandAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Candidats";
+            nCandAvant = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            MyViewModel VM;
+            VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.AjouteCandidat();
+            VM.CurrentCandidat.Nom = "TESTRECOURS";
+            VM.CurrentCandidat.IsDEIS = true;
+            VM.CurrentCandidat.IsCAFERUIS = true;
+            VM.CurrentCandidat.IsCAFDES = true;
+            VM.saveData();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
+            nDiplomeCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DomaineCompetenceCands";
+            nDCCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Candidats";
+            nCandApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nDiplomeCandAvant + 3, nDiplomeCandApres);
+            Assert.AreEqual(nDCCandAvant + 12, nDCCandApres);
+            Assert.AreEqual(nCandAvant + 1, nCandApres);
+
+            VM.rechNom = "TESTRECOURS";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.CurrentCandidat.IsDEIS = false;
+//            VM.CurrentCandidat.IsCAFERUIS = false;
+//            VM.CurrentCandidat.IsCAFDES = false;
+            Assert.IsTrue(VM.saveData());
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
+            nDiplomeCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DomaineCompetenceCands";
+            nDCCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Candidats";
+            nCandApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nDiplomeCandAvant+2, nDiplomeCandApres);
+            Assert.AreEqual(nDCCandAvant + 8, nDCCandApres);
+            Assert.AreEqual(nCandAvant + 1, nCandApres);
+
+            // SUPRESSION DU CAFERUIS
+            //=======================
+            VM.rechNom = "TESTRECOURS";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.CurrentCandidat.IsCAFERUIS = false;
+            //            VM.CurrentCandidat.IsCAFERUIS = false;
+            //            VM.CurrentCandidat.IsCAFDES = false;
+            Assert.IsTrue(VM.saveData());
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
+            nDiplomeCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DomaineCompetenceCands";
+            nDCCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Candidats";
+            nCandApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nDiplomeCandAvant + 1, nDiplomeCandApres);
+            Assert.AreEqual(nDCCandAvant + 4, nDCCandApres);
+            Assert.AreEqual(nCandAvant + 1, nCandApres);
+
+            // SUPRESSION DU CAFDES
+            //=======================
+            VM.rechNom = "TESTRECOURS";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.CurrentCandidat.IsCAFDES = false;
+            //            VM.CurrentCandidat.IsCAFERUIS = false;
+            //            VM.CurrentCandidat.IsCAFDES = false;
+            Assert.IsTrue(VM.saveData());
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
+            nDiplomeCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DomaineCompetenceCands";
+            nDCCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Candidats";
+            nCandApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nDiplomeCandAvant , nDiplomeCandApres);
+            Assert.AreEqual(nDCCandAvant , nDCCandApres);
+            Assert.AreEqual(nCandAvant + 1, nCandApres);
+
+
+        }
+        /// <summary>
+        /// Test du delete onCascade sur la suppression du candidat
+        /// </summary>
+        [TestMethod]
+        public void TestDeleteOnCascadeCandidat2()
+        {
+            Int32 nDiplomeCandAvant, nDiplomeCandApres, nDCCandAvant, nDCCandApres, nCandAvant, nCandApres;
+            System.Data.Common.DbConnection oConn = Context.instance.Database.Connection;
+            System.Data.Common.DbCommand ocmd = oConn.CreateCommand();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
+            nDiplomeCandAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DomaineCompetenceCands";
+            nDCCandAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Candidats";
+            nCandAvant = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            MyViewModel VM;
+            VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.AjouteCandidat();
+            VM.CurrentCandidat.Nom = "TESTRECOURS";
+            VM.CurrentCandidat.IsDEIS = true;
+            VM.CurrentCandidat.IsCAFERUIS = true;
+            VM.CurrentCandidat.IsCAFDES = true;
+            VM.saveData();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
+            nDiplomeCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DomaineCompetenceCands";
+            nDCCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Candidats";
+            nCandApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nDiplomeCandAvant + 3, nDiplomeCandApres);
+            Assert.AreEqual(nDCCandAvant + 12, nDCCandApres);
+            Assert.AreEqual(nCandAvant + 1, nCandApres);
+
+            //SUPRESSION DU CANDIDAT
+            VM.rechNom = "TESTRECOURS";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.LockCurrentCandidat();
+            VM.DeleteCurrentCandidat();
+            Assert.IsTrue(VM.saveData());
+
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
+            nDiplomeCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DomaineCompetenceCands";
+            nDCCandApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Candidats";
+            nCandApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nDiplomeCandAvant, nDiplomeCandApres);
+            Assert.AreEqual(nDCCandAvant, nDCCandApres);
+            Assert.AreEqual(nCandAvant, nCandApres);
+
+
+        }
+
+        [TestMethod]
+        public void TestDeleteOnCascadeL1()
+        {
+            Int32 nJuryAvant, nJuryApres, nRecoursAvant, nRecoursApres;
+            Int32 nPJL1Avant, nPJL1Apres, nL1Avant, nL1Apres;
+            System.Data.Common.DbConnection oConn = Context.instance.Database.Connection;
+            System.Data.Common.DbCommand ocmd = oConn.CreateCommand();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL1";
+            nPJL1Avant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret1";
+            nL1Avant = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            MyViewModel VM;
+            VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.AjouteCandidat();
+            VM.CurrentCandidat.Nom = "TESTRECOURS";
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.CategoriePJ = new PieceJointeCategorie() { Categorie = "Test" };
+            VM.CurrentCandidat.CurrentLivret.LibellePJ = new PieceJointeItem() { Libelle = "Test" };
+            VM.AjoutePJL1();
+            VM.ValideretQuitterL1();
+            VM.saveData();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL1";
+            nPJL1Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret1";
+            nL1Apres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nJuryAvant + 1, nJuryApres);
+            Assert.AreEqual(nRecoursAvant + 1, nRecoursApres);
+            Assert.AreEqual(nPJL1Avant + 1, nPJL1Apres);
+            Assert.AreEqual(nL1Avant + 1, nL1Apres);
+
+            VM.rechNom = "TESTRECOURS";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.LockCurrentCandidat();
+            VM.DeleteCurrentCandidat();
+            Assert.IsTrue(VM.saveData());
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL1";
+            nPJL1Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret1";
+            nL1Apres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            Assert.AreEqual(nPJL1Avant, nPJL1Apres);
+            Assert.AreEqual(nL1Avant, nL1Apres);
+            Assert.AreEqual(nJuryAvant, nJuryApres);
+            Assert.AreEqual(nRecoursAvant, nRecoursApres);
+
+
+
+        }
+        [TestMethod]
+        public void TestDeleteOnCascadeL2()
+        {
+            Int32 nJuryAvant, nJuryApres, nRecoursAvant, nRecoursApres;
+            Int32 nPJL2Avant, nPJL2Apres, nL2Avant, nL2Apres;
+            Int32 nMembreJuryAvant, nMembreJuryApres;
+            Int32 nDcLivretAvant, nDcLivretApres;
+            System.Data.Common.DbConnection oConn = Context.instance.Database.Connection;
+            System.Data.Common.DbCommand ocmd = oConn.CreateCommand();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL2";
+            nPJL2Avant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret2";
+            nL2Avant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from MembreJuries";
+            nMembreJuryAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DCLivrets";
+            nDcLivretAvant = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            MyViewModel VM;
+            VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.AjouteCandidat();
+            VM.CurrentCandidat.Nom = "TESTRECOURS";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            VM.AjouteL2();
+            VM.CurrentCandidat.CurrentLivret.CategoriePJ = new PieceJointeCategorie() { Categorie = "Test" };
+            VM.CurrentCandidat.CurrentLivret.LibellePJ = new PieceJointeItem() { Libelle = "Test" };
+            VM.AjoutePJL2();
+            VM.AjouterMembreJury();
+            VM.ValideretQuitterL2();
+            VM.saveData();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL2";
+            nPJL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret2";
+            nL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from MembreJuries";
+            nMembreJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DCLivrets";
+            nDcLivretApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nJuryAvant+2, nJuryApres);
+            Assert.AreEqual(nRecoursAvant+2, nRecoursApres);
+            Assert.AreEqual(nPJL2Avant + 1, nPJL2Apres);
+            Assert.AreEqual(nMembreJuryAvant + 1, nMembreJuryApres);
+            Assert.AreEqual(nL2Avant + 1, nL2Apres);
+            Assert.AreEqual(nDcLivretAvant + 4, nDcLivretApres);
+
+            VM.rechNom = "TESTRECOURS";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.LockCurrentCandidat();
+            VM.DeleteCurrentCandidat();
+            Assert.IsTrue(VM.saveData());
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL2";
+            nPJL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from MembreJuries";
+            nMembreJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret2";
+            nL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DCLivrets";
+            nDcLivretApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            Assert.AreEqual(nPJL2Avant, nPJL2Apres);
+            Assert.AreEqual(nL2Avant, nL2Apres);
+            Assert.AreEqual(nJuryAvant, nJuryApres);
+            Assert.AreEqual(nMembreJuryAvant , nMembreJuryApres);
+            Assert.AreEqual(nRecoursAvant, nRecoursApres);
+            Assert.AreEqual(nDcLivretAvant, nDcLivretApres);
+            Assert.AreEqual(nL2Avant, nL2Apres);
+
+
+
+
+        }
+        [TestMethod]
+        public void TestDeleteOnCascadeSupressionLivretL1()
+        {
+            Int32 nJuryAvant, nJuryApres, nRecoursAvant, nRecoursApres;
+            Int32 nPJL1Avant, nPJL1Apres, nL1Avant, nL1Apres;
+            System.Data.Common.DbConnection oConn = Context.instance.Database.Connection;
+            System.Data.Common.DbCommand ocmd = oConn.CreateCommand();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL1";
+            nPJL1Avant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret1";
+            nL1Avant = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            MyViewModel VM;
+            VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.AjouteCandidat();
+            VM.CurrentCandidat.Nom = "TESTRECOURS";
+            VM.AjouteL1();
+            VM.CurrentCandidat.CurrentLivret.CategoriePJ = new PieceJointeCategorie() { Categorie = "Test" };
+            VM.CurrentCandidat.CurrentLivret.LibellePJ = new PieceJointeItem() { Libelle = "Test" };
+            VM.AjoutePJL1();
+            VM.ValideretQuitterL1();
+            VM.saveData();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL1";
+            nPJL1Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret1";
+            nL1Apres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nJuryAvant + 1, nJuryApres);
+            Assert.AreEqual(nRecoursAvant + 1, nRecoursApres);
+            Assert.AreEqual(nPJL1Avant + 1, nPJL1Apres);
+            Assert.AreEqual(nL1Avant + 1, nL1Apres);
+
+            VM.rechNom = "TESTRECOURS";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.LockCurrentCandidat();
+            VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
+            VM.CurrentCandidat.DeleteCurrentLivret();
+            Assert.IsTrue(VM.saveData());
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL1";
+            nPJL1Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret1";
+            nL1Apres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            Assert.AreEqual(nPJL1Avant, nPJL1Apres);
+            Assert.AreEqual(nL1Avant, nL1Apres);
+            Assert.AreEqual(nJuryAvant, nJuryApres);
+            Assert.AreEqual(nRecoursAvant, nRecoursApres);
+
+
+
+        }
+
+        [TestMethod]
+        public void TestDeleteOnCascadeSuppressionL2()
+        {
+            Int32 nJuryAvant, nJuryApres, nRecoursAvant, nRecoursApres;
+            Int32 nPJL2Avant, nPJL2Apres, nL2Avant, nL2Apres;
+            Int32 nMembreJuryAvant, nMembreJuryApres;
+            Int32 nDcLivretAvant, nDcLivretApres;
+            System.Data.Common.DbConnection oConn = Context.instance.Database.Connection;
+            System.Data.Common.DbCommand ocmd = oConn.CreateCommand();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL2";
+            nPJL2Avant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret2";
+            nL2Avant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from MembreJuries";
+            nMembreJuryAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DCLivrets";
+            nDcLivretAvant = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            MyViewModel VM;
+            VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.AjouteCandidat();
+            VM.CurrentCandidat.Nom = "TESTRECOURS";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            VM.AjouteL2();
+            VM.CurrentCandidat.CurrentLivret.CategoriePJ = new PieceJointeCategorie() { Categorie = "Test" };
+            VM.CurrentCandidat.CurrentLivret.LibellePJ = new PieceJointeItem() { Libelle = "Test" };
+            VM.AjoutePJL2();
+            VM.AjouterMembreJury();
+            VM.ValideretQuitterL2();
+            VM.saveData();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL2";
+            nPJL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret2";
+            nL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from MembreJuries";
+            nMembreJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DCLivrets";
+            nDcLivretApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nJuryAvant + 2, nJuryApres);
+            Assert.AreEqual(nRecoursAvant + 2, nRecoursApres);
+            Assert.AreEqual(nPJL2Avant + 1, nPJL2Apres);
+            Assert.AreEqual(nMembreJuryAvant + 1, nMembreJuryApres);
+            Assert.AreEqual(nL2Avant + 1, nL2Apres);
+            Assert.AreEqual(nDcLivretAvant + 4, nDcLivretApres);
+
+            VM.rechNom = "TESTRECOURS";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.LockCurrentCandidat();
+            VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[1];
+            VM.CurrentCandidat.DeleteCurrentLivret();
+            Assert.IsTrue(VM.saveData());
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL2";
+            nPJL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from MembreJuries";
+            nMembreJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret2";
+            nL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DCLivrets";
+            nDcLivretApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            Assert.AreEqual(nPJL2Avant, nPJL2Apres);
+            Assert.AreEqual(nL2Avant, nL2Apres);
+            Assert.AreEqual(nJuryAvant+1, nJuryApres); // On a toujours le Jury du L1
+            Assert.AreEqual(nMembreJuryAvant, nMembreJuryApres);
+            Assert.AreEqual(nRecoursAvant+1, nRecoursApres); // on a toujours le Recours du L1
+            Assert.AreEqual(nDcLivretAvant, nDcLivretApres);
+            Assert.AreEqual(nL2Avant, nL2Apres);
+        }
+
+        [TestMethod]
+        public void TestAjoutSuppressionL2()
+        {
+            Int32 nJuryAvant, nJuryApres, nRecoursAvant, nRecoursApres;
+            Int32 nPJL2Avant, nPJL2Apres, nL2Avant, nL2Apres;
+            Int32 nMembreJuryAvant, nMembreJuryApres;
+            Int32 nDcLivretAvant, nDcLivretApres;
+            System.Data.Common.DbConnection oConn = Context.instance.Database.Connection;
+            System.Data.Common.DbCommand ocmd = oConn.CreateCommand();
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL2";
+            nPJL2Avant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret2";
+            nL2Avant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from MembreJuries";
+            nMembreJuryAvant = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DCLivrets";
+            nDcLivretAvant = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+
+            MyViewModel VM;
+            VM = new MyViewModel();
+            VM.IsInTest = true;
+            VM.AjouteCandidat();
+            VM.CurrentCandidat.IsLocked = true;
+//            VM.CurrentCandidat.LoadDetails();
+            VM.CurrentCandidat.Nom = "TESTRECOURS";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            VM.AjouteL2();
+            VM.CurrentCandidat.CurrentLivret.CategoriePJ = new PieceJointeCategorie() { Categorie = "Test" };
+            VM.CurrentCandidat.CurrentLivret.LibellePJ = new PieceJointeItem() { Libelle = "Test" };
+            VM.AjoutePJL2();
+            VM.AjouterMembreJury();
+            VM.ValideretQuitterL2();
+            // SUPPRESSION DU L2 AVANT SAUVEGARDE
+            VM.CurrentCandidat.DeleteCurrentLivret();
+
+            Assert.IsTrue(VM.saveData());
+            oConn.Open();
+            ocmd.CommandText = "SELECT Count(*) from Juries";
+            nJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Recours";
+            nRecoursApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from PieceJointeL2";
+            nPJL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from Livret2";
+            nL2Apres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from MembreJuries";
+            nMembreJuryApres = (Int32)(ocmd.ExecuteScalar());
+            ocmd.CommandText = "SELECT Count(*) from DCLivrets";
+            nDcLivretApres = (Int32)(ocmd.ExecuteScalar());
+            oConn.Close();
+            Assert.AreEqual(nJuryAvant + 1, nJuryApres, "Jury avant <> Jury après");
+            Assert.AreEqual(nRecoursAvant + 1, nRecoursApres);
+            Assert.AreEqual(nPJL2Avant + 0, nPJL2Apres);
+            Assert.AreEqual(nMembreJuryAvant + 0, nMembreJuryApres);
+            Assert.AreEqual(nL2Avant + 0, nL2Apres);
+            Assert.AreEqual(nDcLivretAvant + 0, nDcLivretApres);
+
+        }
+
     }
 }

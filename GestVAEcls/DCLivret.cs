@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,8 @@ namespace GestVAEcls
         public String MotifDetail { get; set; }
         public String MotifCommentaire { get; set; }
         public virtual DomaineCompetence oDomaineCompetence{ get; set; }
-
+        public virtual int oLivret2_ID { get; set; }
+        [ForeignKey("oLivret2_ID")]
         [Required]
         public virtual Livret2 oLivret2 { get; set; }
         public Boolean IsAValider { get; set; }

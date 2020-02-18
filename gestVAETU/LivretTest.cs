@@ -205,6 +205,7 @@ namespace GestVAETU
             oL1.Numero = "20190115001";
             oCand.lstLivrets1.Add(oL1);
 
+//            Jury oJ = new Jury(oL1);
             Jury oJ = new Jury();
             oJ.MotifGeneral = "MotifG";
             oJ.MotifDetail = "MotifD";

@@ -263,6 +263,10 @@
     <Compile Include="Migrations\202002171139487_Hconvoc.Designer.cs">
       <DependentUpon>202002171139487_Hconvoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002181851072_ADEL.cs" />
+    <Compile Include="Migrations\202002181851072_ADEL.Designer.cs">
+      <DependentUpon>202002181851072_ADEL.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -463,6 +467,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002171139487_Hconvoc.resx">
       <DependentUpon>202002171139487_Hconvoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002181851072_ADEL.resx">
+      <DependentUpon>202002181851072_ADEL.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

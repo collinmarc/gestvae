@@ -57,6 +57,15 @@ namespace GestVAE.VM
 
             lstDCLivret = new ObservableCollection<DCLivretVM>();
             _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
+
+            //foreach (DomaineCompetence item in TheLivret.oDiplome.lstDomainesCompetences)
+            //{
+            //    DCLivretVM oDCLivret = new DCLivretVM();
+            //    oDCLivret.TheDCLivret.oDomaineCompetence = item;
+            //    lstDCLivret.Add(oDCLivret);
+            //}
+
+
         }
         public override DbEntityEntry getEntity()
         {
@@ -663,30 +672,30 @@ namespace GestVAE.VM
 
         public override void ClearDCs()
         {
-            foreach (DCLivretVM oItem in lstDCLivret)
-            {
-                if (oItem.IsNew)
-                {
-                    _ctx.Entry<DCLivret>((DCLivret)oItem.TheDCLivret).State = System.Data.Entity.EntityState.Detached;
-                }
-                else
-                {
-                    _ctx.Entry<DCLivret>((DCLivret)oItem.TheDCLivret).State = System.Data.Entity.EntityState.Deleted;
-                }
+            //foreach (DCLivretVM oItem in lstDCLivret)
+            //{
+            //    if (oItem.IsNew)
+            //    {
+            //        _ctx.Entry<DCLivret>((DCLivret)oItem.TheDCLivret).State = System.Data.Entity.EntityState.Detached;
+            //    }
+            //    else
+            //    {
+            //        _ctx.Entry<DCLivret>((DCLivret)oItem.TheDCLivret).State = System.Data.Entity.EntityState.Deleted;
+            //    }
 
-            }
-            foreach (MembreJuryVM oItem in _lstMembreJuryVM)
-            {
-                if (oItem.IsNew)
-                {
-                    _ctx.Entry<MembreJury>((MembreJury)oItem.TheItem).State = System.Data.Entity.EntityState.Detached;
-                }
-                else
-                {
-                    _ctx.Entry<MembreJury>((MembreJury)oItem.TheItem).State = System.Data.Entity.EntityState.Deleted;
-                }
+            //}
+            //foreach (MembreJuryVM oItem in _lstMembreJuryVM)
+            //{
+            //    if (oItem.IsNew)
+            //    {
+            //        _ctx.Entry<MembreJury>((MembreJury)oItem.TheItem).State = System.Data.Entity.EntityState.Detached;
+            //    }
+            //    else
+            //    {
+            //        _ctx.Entry<MembreJury>((MembreJury)oItem.TheItem).State = System.Data.Entity.EntityState.Deleted;
+            //    }
 
-            }
+            //}
 
         }
 

@@ -143,7 +143,7 @@ namespace GestVAE.VM
         /// S'il est accepté et qu'au moins 1 DC a été validé dans un L2
         /// </summary>
         /// <returns></returns>
-        public Boolean IsValide()
+        public Boolean IsValide(CandidatVM pCand )
         {
             Boolean bReturn = false;
             bReturn = ( IsEtatAccepte && DateValidite > DateTime.Now);
@@ -152,7 +152,7 @@ namespace GestVAE.VM
             {
                 if (IsEtatAccepte)
                 {
-                    CandidatVM oCand = getCurrentCandidat();
+                    CandidatVM oCand = pCand;
                     // Parcours de la Liste des L2
                     foreach (Livret2VM oLiv in oCand.getListLivret2())
                     {
@@ -639,12 +639,6 @@ namespace GestVAE.VM
         {
             DbEntityEntry<Livret1> entry = _ctx.Entry<Livret1>(oL1);
             return entry;
-        }
-        public  override CandidatVM getCurrentCandidat()
-        { 
-            CandidatVM oReturn = new CandidatVM(oL1.oCandidat);
-            oReturn.LoadDetails();
-            return oReturn;
         }
         protected override void setEtatLivret()
         {

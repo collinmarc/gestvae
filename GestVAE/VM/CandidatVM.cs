@@ -400,30 +400,8 @@ namespace GestVAE.VM
         public void refreshlstLivrets()
         {
             RaisePropertyChanged("lstLivrets");
+            RaisePropertyChanged("lstLivretsActif");
             RaisePropertyChanged("IsL1Valide");
-        }
-        public void AjouLivret1(Livret1VM pLivret)
-        {
-            DbEntityEntry oEntity = _ctx.Entry(pLivret.TheLivret);
-            if (oEntity.State == System.Data.Entity.EntityState.Detached)
-            {
-
-                TheCandidat.lstLivrets1.Add((Livret1)pLivret.TheLivret);
-                lstLivrets.Add(pLivret);
-                refreshlstLivrets();
-            }
-        }
- 
-        public void AjoutLivret2(Livret2VM pLivret)
-        {
-           DbEntityEntry oEntity = _ctx.Entry(pLivret.TheLivret);
-            if (oEntity.State == System.Data.Entity.EntityState.Detached)
-            {
-                TheCandidat.lstLivrets2.Add((Livret2)pLivret.TheLivret);
-                lstLivrets.Add(pLivret);
-                refreshlstLivrets();
-            }
-
         }
 
         public void Commit()
@@ -444,38 +422,45 @@ namespace GestVAE.VM
             {
                 if (item.IsDeleted)
                 {
-                    //Suppression Manuelle des Jurys
-                    while (item.TheLivret.lstJurys.Count > 0)
+                    if (!item.IsNew)
                     {
-                        Jury oJ = item.TheLivret.lstJurys[0];
-                        _ctx.Juries.Remove(oJ);
+                        //Suppression Manuelle des Jurys
+                        while (item.TheLivret.lstJurys.Count > 0)
+                        {
+                            Jury oJ = item.TheLivret.lstJurys[0];
+                            _ctx.Juries.Remove(oJ);
+                        }
+                        // Suppression des enregistrements de Livrets
+                        if (item.Typestr == Livret1.TYPELIVRET)
+                        {
+                            _ctx.Livret1.Remove((Livret1)item.TheLivret);
+                        }
+                        if (item.Typestr == Livret2.TYPELIVRET)
+                        {
+                            _ctx.Livret2.Remove((Livret2)item.TheLivret);
+                        }
                     }
-                    // Suppression des enregistrements de Livrets
-                    if (item.Typestr == Livret1.TYPELIVRET)
-                    {
-                        _ctx.Livret1.Remove((Livret1)item.TheLivret);
-                    }
-                    if (item.Typestr == Livret2.TYPELIVRET)
-                    {
-                        _ctx.Livret2.Remove((Livret2)item.TheLivret);
-                    }
-
+                    item.IsDeleted = false;
+                    item.IsNew = false;
                 }
                 else
                 {
 
                     if (item.Typestr == Livret1.TYPELIVRET)
                     {
-                        if (_ctx.Entry<Livret1>((Livret1)item.TheLivret).State == System.Data.Entity.EntityState.Detached)
-                        {
-                            TheCandidat.lstLivrets1.Add((Livret1)item.TheLivret);
-                        }
+//                        if (_ctx.Entry<Livret1>((Livret1)item.TheLivret).State == System.Data.Entity.EntityState.Detached)
+                            if (item.IsNew)
+                            {
+                                TheCandidat.lstLivrets1.Add((Livret1)item.TheLivret);
+                                item.IsNew = false;
+                            }
                     }
                     if (item.Typestr == Livret2.TYPELIVRET)
                     {
-                        if (_ctx.Entry<Livret2>((Livret2)item.TheLivret).State == System.Data.Entity.EntityState.Detached)
+                        if (item.IsNew)
                         {
                             TheCandidat.lstLivrets2.Add((Livret2)item.TheLivret);
+                            item.IsNew = false;
                         }
                     }
 
@@ -642,7 +627,7 @@ namespace GestVAE.VM
         {
             Livret1VM oReturn = null;
             oReturn = (from oLiv in getListLivret1()
-                       where oLiv.IsValide()
+                       where oLiv.IsValide(this)
                        select oLiv).FirstOrDefault<Livret1VM>();
             return oReturn;
         }
@@ -701,6 +686,7 @@ namespace GestVAE.VM
                 {
                 Boolean bReturn = false;
                 // L'ajout d'un L2 est possible s'il y  a un L1 de Valide ET qu'il n'y a  pas un autre L2 Valide
+
                 if (IsL1Valide && !ISL2EnCours)
                 {
                     bReturn = true;

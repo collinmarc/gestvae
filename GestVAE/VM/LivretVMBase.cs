@@ -122,9 +122,10 @@ namespace GestVAE.VM
             foreach (JuryVM item in lstJuryVM)
             {
                 Jury obj = (Jury)item.TheItem;
-                if (_ctx.Entry<Jury>(obj).State == System.Data.Entity.EntityState.Detached)
+                if (item.IsNew)
                 {
                     TheLivret.lstJurys.Add(obj);
+                    item.IsNew = false;
                 }
                 item.Commit();
             }
@@ -166,7 +167,7 @@ namespace GestVAE.VM
             {
                 if (lstJuryVM.Count == 0)
                 {
-                    lstJuryVM.Add(new JuryVM());
+                    create1erJury();
                 }
                 return lstJuryVM[0];
             }
@@ -1088,7 +1089,6 @@ namespace GestVAE.VM
 
         }
 
-        public abstract CandidatVM getCurrentCandidat();
 
         private PieceJointeCategorie _CategoriePJ;
         public PieceJointeCategorie CategoriePJ

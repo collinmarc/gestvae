@@ -1347,7 +1347,7 @@ namespace GestVAETU
             VM.IsInTest = true;
             VM.AjouteCandidat();
             VM.CurrentCandidat.IsLocked = true;
-//            VM.CurrentCandidat.LoadDetails();
+            VM.CurrentCandidat.LoadDetails();
             VM.CurrentCandidat.Nom = "TESTRECOURS";
             VM.AjouteL1();
             VM.ValideretQuitterL1();

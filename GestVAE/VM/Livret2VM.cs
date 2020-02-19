@@ -87,21 +87,6 @@ namespace GestVAE.VM
                 }
             }
         }
-        public String StatutDiplomeCandidat
-        {
-            get
-            {
-                DiplomeCandVM oDip = getCurrentCandidat().lstDiplomesCandVMs.Where(d => d.oDiplome.ID == TheLivret.oDiplome.ID).FirstOrDefault();
-                if (oDip != null)
-                {
-                    return oDip.StatutDiplome;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-        }
 
         public override String Numero
         {
@@ -697,13 +682,6 @@ namespace GestVAE.VM
 
             //}
 
-        }
-
-        public override CandidatVM getCurrentCandidat()
-        {
-            CandidatVM oReturn = new CandidatVM(oL2.oCandidat);
-            oReturn.LoadDetails();
-            return oReturn;
         }
         protected override void setEtatLivret()
         {

@@ -959,7 +959,10 @@ public void AjoutePJL1()
             // Si le livret est Nouveau => Ajout dans la Collection des Livrets
             if (oL1VM.IsNew)
             {
-                CurrentCandidat.AjouLivret1(oL1VM);
+                CurrentCandidat.lstLivrets.Add(oL1VM);
+                // On attache de suite le Livret au Candidat (pour IsL1Valide)
+                CurrentCandidat.TheCandidat.lstLivrets1.Add((Livret1)oL1VM.TheLivret);
+                oL1VM.IsNew = false;
             }
             CurrentCandidat.refreshlstLivrets();
             if (!IsInTest)
@@ -973,7 +976,7 @@ public void AjoutePJL1()
             Livret2VM oL2VM = (Livret2VM)CurrentCandidat.CurrentLivret;
 
             // Validation du contenu du Livret
-            oL2VM.Commit();
+            //oL2VM.Commit();
             // Mise à jour du diplome du candidat
             //if (oL2VM.IsEtatAccepte)
             {
@@ -982,7 +985,9 @@ public void AjoutePJL1()
             // Si le livret est Nouveau => Ajout dans la Collection des Livrets
             if (oL2VM.IsNew)
             {
-                CurrentCandidat.AjoutLivret2(oL2VM);
+                CurrentCandidat.lstLivrets.Add(oL2VM);
+                CurrentCandidat.TheCandidat.lstLivrets2.Add((Livret2)oL2VM.TheLivret);
+                oL2VM.IsNew = false;
             }
             if (!IsInTest)
             {

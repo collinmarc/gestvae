@@ -360,7 +360,7 @@ namespace GestVAETU
             VM.IsInTest = true;
             VM.getData();
 
-            VM.AddCandidatCommand.Execute(null);
+            VM.AjouteCandidat();
             CandidatVM oCand = VM.CurrentCandidat;
             oCand.Nom = "TESTCAND";
             oCand.LoadDetails();
@@ -369,12 +369,13 @@ namespace GestVAETU
             VM.AjouteL1();
             VM.ValideretQuitterL1();
             VM.saveData();
+
             VM.rechNom = "TESTCAND";
             VM.Recherche();
             VM.CurrentCandidat = VM.lstCandidatVM[0];
-            oCand = VM.CurrentCandidat;
-            oCand.LoadDetails();
+            VM.LockCurrentCandidat();
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
+            oCand = VM.CurrentCandidat;
             // Le L1 est EnCours même si  l'état n'est pas bon
             Assert.IsFalse(oCand.IsL1Valide);
             Assert.IsTrue(oCand.IsL1Encours);
@@ -395,7 +396,6 @@ namespace GestVAETU
             // Ajout d'un L2 (Normalement impossible car le L1 n'est plus valide)
             VM.AjouteL2();
             VM.ValideretQuitterL2();
-            VM.saveData();
             Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             // Tous les DC sont à valider
             oL2.lstDCLivret[0].IsAValider = true;
@@ -411,7 +411,13 @@ namespace GestVAETU
             oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleDeFavorable;
             oL2.lstDCLivret[2].Decision = oL2.DecisionL2ModuleDeFavorable;
             oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleDeFavorable;
+            VM.saveData();
 
+            VM.rechNom = "TESTCAND";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.LockCurrentCandidat();
+            oCand = VM.CurrentCandidat;
             // Si au moins un DC est validé , alors le L1 devienbt valide à vie 
             Assert.IsTrue(oCand.IsL1Valide," le L1 devient valide à vie");
 
@@ -1198,6 +1204,7 @@ namespace GestVAETU
             VM.Recherche();
             VM.CurrentCandidat = VM.lstCandidatVM[0];
             VM.LockCurrentCandidat();
+            Assert.AreEqual(1, VM.CurrentCandidat.lstLivrets.Count);
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
             VM.CurrentCandidat.DeleteCurrentLivret();
             Assert.IsTrue(VM.saveData());

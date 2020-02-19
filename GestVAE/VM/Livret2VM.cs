@@ -622,7 +622,7 @@ namespace GestVAE.VM
             foreach (MembreJuryVM item in lstMembreJury)
             {
                 {
-                    MembreJury oPJ = item.MembreJuryItem;
+                    MembreJury oPJ = item.TheMembreJury;
                     if (_ctx.Entry<MembreJury>(oPJ).State == System.Data.Entity.EntityState.Detached)
                     {
                         oL2.lstMembreJurys.Add(oPJ);
@@ -775,7 +775,7 @@ namespace GestVAE.VM
                 MembreJuryVM oMembreJ = SelectedMembreJ;
                 if (!oMembreJ.IsNew)
                 {
-                    _ctx.Entry<MembreJury>(oMembreJ.MembreJuryItem).State = System.Data.Entity.EntityState.Deleted;
+                    _ctx.Entry<MembreJury>(oMembreJ.TheMembreJury).State = System.Data.Entity.EntityState.Deleted;
 
                 }
                 lstMembreJury.Remove(oMembreJ);

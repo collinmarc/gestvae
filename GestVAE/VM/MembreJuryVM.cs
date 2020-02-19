@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 
 namespace GestVAE.VM
 {
-    public class MembreJuryVM: VMBase
+    public class MembreJuryVM : VMBase
     {
-        private MembreJury TheMembreJury;
+        public MembreJury TheMembreJury { get { return (MembreJury)TheItem; } }
         public MembreJuryVM(GestVAEcls.MembreJury pMembre):base(pMembre)
         {
-            TheMembreJury = pMembre;
             IsNew = false;
         }
 
         public MembreJuryVM():base()
         {
-            TheMembreJury = new MembreJury();
+            TheItem = new MembreJury();
             IsNew = true;
         }
         public override DbEntityEntry getEntity()
@@ -59,10 +58,6 @@ namespace GestVAE.VM
                 RaisePropertyChanged(); }
         }
 
-        public MembreJury MembreJuryItem
-        {
-            get { return TheMembreJury; }
-        }
 
     }
 }

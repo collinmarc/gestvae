@@ -626,12 +626,11 @@ namespace GestVAETU
             VM = new MyViewModel(true);
             VM.rechNom = "TEST1";
             VM.Recherche();
-
-            //Lock du candidat sur POSTE1
             VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.LockCurrentCandidat();
+
             // Avant Verrouillage => Ajout L2 impossible
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
-            VM.LockCurrentCandidat();
 
             // Ajout du Livret1 Favorable Date de validité > Aujourd'hui
             VM.AjouteL1();
@@ -665,6 +664,7 @@ namespace GestVAETU
 
             // Même Si le Livret1 est echue
             oL1.DateValidite = DateTime.Now.AddDays(-1);
+            Assert.IsTrue(VM.IsCurrentCandidatAddL2Available);
             Assert.IsTrue(VM.AjouteL2Command.CanExecute(null));
 
             // Et même Si on Lui ajoute un L2 Refusé

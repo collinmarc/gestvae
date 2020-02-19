@@ -24,13 +24,6 @@ namespace GestVAE.VM
                 return _lstMembreJuryVM;
             }
         }
-        public List<MembreJuryVM> lstMembreJuryActif
-        {
-            get
-            {
-                return lstMembreJury.Where(m=>!m.IsDeleted).ToList();
-            }
-        }
         public Livret2VM(Livret2 pLivret) :  base(pLivret)
         {
             lstDCLivret = new ObservableCollection<DCLivretVM>();
@@ -779,23 +772,20 @@ namespace GestVAE.VM
         {
             if (SelectedMembreJ != null)
             {
-                SelectedMembreJ.IsDeleted = true;
-                //MembreJuryVM oMembreJ = SelectedMembreJ;
-                //if (!oMembreJ.IsNew)
-                //{
-                //    _ctx.Entry<MembreJury>(oMembreJ.TheMembreJury).State = System.Data.Entity.EntityState.Deleted;
+                MembreJuryVM oMembreJ = SelectedMembreJ;
+                if (!oMembreJ.IsNew)
+                {
+                    _ctx.Entry<MembreJury>(oMembreJ.TheMembreJury).State = System.Data.Entity.EntityState.Deleted;
 
-                //}
-                //lstMembreJury.Remove(oMembreJ);
+                }
+                lstMembreJury.Remove(oMembreJ);
                 RaisePropertyChanged("lstMembreJury");
-                RaisePropertyChanged("lstMembreJuryActif");
             }
         }
         public override void AjouterMembreJury()
         {
             lstMembreJury.Add(new MembreJuryVM() { Nom = "[nouveau]" });
             RaisePropertyChanged("lstMembreJury");
-            RaisePropertyChanged("lstMembreJuryActif");
         }
 
 

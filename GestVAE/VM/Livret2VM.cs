@@ -595,27 +595,44 @@ namespace GestVAE.VM
             // Validation des PiècesJointes L2
             foreach (PieceJointeLivretVM item in lstPieceJointe)
             {
-                if (item.strLivret == "L2")
-                {
                     PieceJointeL2 oPJ = (PieceJointeL2)item.ThePiecejointe;
-                    if (_ctx.Entry<PieceJointeL2>(oPJ).State == System.Data.Entity.EntityState.Detached)
+                    if (item.IsDeleted)
                     {
-                        oL2.lstPiecesJointes.Add(oPJ);
+                        if (!item.IsNew)
+                        {
+                            oL2.lstPiecesJointes.Remove(oPJ);
+                        }
+                        item.IsDeleted = false;
+                        item.IsNew = false;
                     }
-                }
+                    else
+                    {
+                        if (item.IsNew)
+                        {
+                            oL2.lstPiecesJointes.Add(oPJ);
+                        }
+                        item.IsNew = false;
+                    }
             }
             foreach (MembreJuryVM item in lstMembreJury)
             {
+                MembreJury oMJ = (MembreJury)item.TheMembreJury;
+                if (item.IsDeleted)
                 {
-                    MembreJury oPJ = item.TheMembreJury;
-                    if (_ctx.Entry<MembreJury>(oPJ).State == System.Data.Entity.EntityState.Detached)
+                    if (!item.IsNew)
                     {
-                        oL2.lstMembreJurys.Add(oPJ);
+                        oL2.lstMembreJurys.Remove(oMJ);
                     }
-                    if (_ctx.Entry<MembreJury>(oPJ).State == System.Data.Entity.EntityState.Deleted)
+                    item.IsDeleted = false;
+                    item.IsNew = false;
+                }
+                else
+                {
+                    if (item.IsNew)
                     {
-                        oL2.lstMembreJurys.Remove(oPJ);
+                        oL2.lstMembreJurys.Add(oMJ);
                     }
+                    item.IsNew = false;
                 }
             }
 

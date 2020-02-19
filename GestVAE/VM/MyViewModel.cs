@@ -300,12 +300,11 @@ namespace GestVAE.VM
         public Boolean saveData()
         {
             Boolean bReturn = true;
+            IsBusy = true;
             try
             {
-                foreach (CandidatVM item in lstCandidatVM)
+                foreach (CandidatVM item in lstCandidatVM.Where(i=>i.IsLocked))
                 {
-                    if (item.IsLocked)
-                    {
                         if (item.IsDeleted)
                         {
                             _ctx.DeleteOnCascade(item.TheCandidat);
@@ -314,7 +313,6 @@ namespace GestVAE.VM
                         {
                             item.Commit();
                         }
-                    }
                 }
 
 //                 _ctx.DeleteOnCascade();
@@ -332,7 +330,7 @@ namespace GestVAE.VM
                 Trace.WriteLine(ex.Message);
                 bReturn = false;
             }
-
+            IsBusy = false;
             return bReturn;
         }//SaveData
 
@@ -871,6 +869,7 @@ public void AjoutePJL1()
            
             LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
             oLiv.DeletePJ();
+            SetModelHasChanges();
         }
 
         public void DeleteMembreJury()
@@ -878,6 +877,7 @@ public void AjoutePJL1()
 
             LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
             oLiv.DeleteMembreJury();
+            SetModelHasChanges();
         }
 
         public void AjouterMembreJury()

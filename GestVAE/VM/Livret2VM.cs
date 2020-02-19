@@ -24,6 +24,13 @@ namespace GestVAE.VM
                 return _lstMembreJuryVM;
             }
         }
+        public List<MembreJuryVM> lstMembreJuryActif
+        {
+            get
+            {
+                return lstMembreJury.Where(m=>!m.IsDeleted).ToList();
+            }
+        }
         public Livret2VM(Livret2 pLivret) :  base(pLivret)
         {
             lstDCLivret = new ObservableCollection<DCLivretVM>();
@@ -598,9 +605,10 @@ namespace GestVAE.VM
                     PieceJointeL2 oPJ = (PieceJointeL2)item.ThePiecejointe;
                     if (item.IsDeleted)
                     {
+                    // il faut faire les suppressions sur les dbSet
                         if (!item.IsNew)
                         {
-                            oL2.lstPiecesJointes.Remove(oPJ);
+                        _ctx.PieceJointeL2.Remove(oPJ);
                         }
                         item.IsDeleted = false;
                         item.IsNew = false;
@@ -621,7 +629,7 @@ namespace GestVAE.VM
                 {
                     if (!item.IsNew)
                     {
-                        oL2.lstMembreJurys.Remove(oMJ);
+                        _ctx.MembreJuries.Remove(oMJ);
                     }
                     item.IsDeleted = false;
                     item.IsNew = false;
@@ -768,19 +776,16 @@ namespace GestVAE.VM
             if (SelectedMembreJ != null)
             {
                 MembreJuryVM oMembreJ = SelectedMembreJ;
-                if (!oMembreJ.IsNew)
-                {
-                    _ctx.Entry<MembreJury>(oMembreJ.TheMembreJury).State = System.Data.Entity.EntityState.Deleted;
-
-                }
-                lstMembreJury.Remove(oMembreJ);
+                SelectedMembreJ.IsDeleted = true;
                 RaisePropertyChanged("lstMembreJury");
+                RaisePropertyChanged("lstMembreJuryActif");
             }
         }
         public override void AjouterMembreJury()
         {
             lstMembreJury.Add(new MembreJuryVM() { Nom = "[nouveau]" });
             RaisePropertyChanged("lstMembreJury");
+            RaisePropertyChanged("lstMembreJuryActif");
         }
 
 

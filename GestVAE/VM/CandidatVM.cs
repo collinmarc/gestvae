@@ -446,16 +446,15 @@ namespace GestVAE.VM
                 else
                 {
 
-                    if (item.Typestr == Livret1.TYPELIVRET)
+                    if (item is Livret1VM)
                     {
-//                        if (_ctx.Entry<Livret1>((Livret1)item.TheLivret).State == System.Data.Entity.EntityState.Detached)
                             if (item.IsNew)
                             {
                                 TheCandidat.lstLivrets1.Add((Livret1)item.TheLivret);
                                 item.IsNew = false;
                             }
                     }
-                    if (item.Typestr == Livret2.TYPELIVRET)
+                    if (item is Livret2VM)
                     {
                         if (item.IsNew)
                         {

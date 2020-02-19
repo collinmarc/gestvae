@@ -962,9 +962,6 @@ public void AjoutePJL1()
             if (oL1VM.IsNew)
             {
                 CurrentCandidat.lstLivrets.Add(oL1VM);
-                // On attache de suite le Livret au Candidat (pour IsL1Valide)
-                CurrentCandidat.TheCandidat.lstLivrets1.Add((Livret1)oL1VM.TheLivret);
-                oL1VM.IsNew = false;
             }
             CurrentCandidat.refreshlstLivrets();
             if (!IsInTest)
@@ -988,8 +985,6 @@ public void AjoutePJL1()
             if (oL2VM.IsNew)
             {
                 CurrentCandidat.lstLivrets.Add(oL2VM);
-                CurrentCandidat.TheCandidat.lstLivrets2.Add((Livret2)oL2VM.TheLivret);
-                oL2VM.IsNew = false;
             }
             if (!IsInTest)
             {

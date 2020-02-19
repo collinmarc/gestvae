@@ -611,8 +611,8 @@ namespace GestVAE.VM
                     if (item.IsNew)
                     {
                         oL1.lstPiecesJointes.Add(oPJ);
-                    }
                     item.IsNew = false;
+                    }
                 }
             }
 

@@ -22,6 +22,7 @@ namespace GestVAE.VM
         }
         public ObservableCollection<JuryVM> lstJuryVM;
         public ObservableCollection<PieceJointeLivretVM> lstPieceJointe { get; set; }
+        public List<PieceJointeLivretVM> lstPieceJointeActif { get { return lstPieceJointe.Where(pj => !pj.IsDeleted).ToList(); } }
         public PieceJointeLivretVM selectedPJ { get; set; }
         private MembreJuryVM _selectedMembreJ; 
         public MembreJuryVM SelectedMembreJ
@@ -152,6 +153,7 @@ namespace GestVAE.VM
                 CategoriePJ = null;
                 LibellePJ = null;
                 RaisePropertyChanged("lstPieceJointe");
+                RaisePropertyChanged("lstPieceJointeActif");
             }
         }
          
@@ -1141,14 +1143,9 @@ namespace GestVAE.VM
         {
             if (selectedPJ != null)
             {
-                PieceJointeLivretVM oPJ = selectedPJ;
-                if (!oPJ.IsNew)
-                {
-                    _ctx.Entry<PieceJointe>(oPJ.ThePiecejointe).State = System.Data.Entity.EntityState.Deleted;
-
-                }
-                lstPieceJointe.Remove(selectedPJ);
+                selectedPJ.IsDeleted = true;
                 RaisePropertyChanged("lstPieceJointe");
+                RaisePropertyChanged("lstPieceJointeActif");
             }
         }
         public virtual void DeleteMembreJury()

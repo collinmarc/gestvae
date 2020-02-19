@@ -595,10 +595,19 @@ namespace GestVAE.VM
             // Validation des PiècesJointes L1
             foreach (PieceJointeLivretVM item in lstPieceJointe)
             {
-                PieceJointeL1 oPJ = (PieceJointeL1)item.ThePiecejointe;
-                if (_ctx.Entry<PieceJointeL1>(oPJ).State == System.Data.Entity.EntityState.Detached)
+                if (item.IsDeleted)
                 {
-                    oL1.lstPiecesJointes.Add(oPJ);
+                    if (!item.IsNew)
+                    {
+                        _ctx.PieceJointeL1.Remove((PieceJointeL1) item.ThePiecejointe);
+                    }
+                }
+                else
+                {
+                    if (item.IsNew)
+                    {
+                        oL1.lstPiecesJointes.Add((PieceJointeL1)item.ThePiecejointe);
+                    }
                 }
             }
 

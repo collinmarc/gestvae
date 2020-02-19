@@ -218,7 +218,7 @@
                             </StackPanel>
 
                             <DataGrid x:Name="dgPiecesjointes" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                                    ItemsSource="{Binding lstPieceJointeActive, UpdateSourceTrigger=PropertyChanged}" 
+                                    ItemsSource="{Binding lstPieceJointeActif, UpdateSourceTrigger=PropertyChanged}" 
                                     SelectedItem="{Binding selectedPJ}"
                                     AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"
                                     Margin="10" RowHeaderWidth="0" 

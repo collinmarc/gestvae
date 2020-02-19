@@ -48,6 +48,10 @@ namespace GestVAE.VM
             set {
                
                 _candidatVM = value;
+                if (CurrentCandidat != null)
+                {
+                    CurrentCandidat.LoadDetails();
+                }
                 RaisePropertyChanged("IsCurrentCandidatLockable");
                 RaisePropertyChanged("IsCurrentCandidatSelected");
                 RaisePropertyChanged(); }
@@ -738,6 +742,7 @@ namespace GestVAE.VM
         /// </summary>
         public void AjouteL1()
         {
+            Debug.Assert(CurrentCandidat != null);
 
             CandidatVM oCandVM = CurrentCandidat;
             Livret1VM oLivVM = new Livret1VM(CurrentCandidat.IsLocked);
@@ -951,15 +956,12 @@ public void AjoutePJL1()
         public void ValideretQuitterL1()
         {
             Livret1VM oL1VM = (Livret1VM)CurrentCandidat.CurrentLivret;
-            // Validation du conenu du Livret
-            oL1VM.Commit();
             // Si le livret est Nouveau => Ajout dans la Collection des Livrets
             if (oL1VM.IsNew)
             {
                 CurrentCandidat.AjouLivret1(oL1VM);
             }
             CurrentCandidat.refreshlstLivrets();
-            //            _ctx.Histos.Add(new Histo("AjoutCandidat"));
             if (!IsInTest)
             {
                 CloseAction();

@@ -633,7 +633,9 @@ namespace GestVAE.VM
         }
         public  override CandidatVM getCurrentCandidat()
         { 
-                return new CandidatVM(oL1.oCandidat);
+            CandidatVM oReturn = new CandidatVM(oL1.oCandidat);
+            oReturn.LoadDetails();
+            return oReturn;
         }
         protected override void setEtatLivret()
         {

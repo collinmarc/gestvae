@@ -70,6 +70,9 @@ namespace GestVAEcls
         public DbSet<Jury> Juries { get; set; }
         public DbSet<Livret1> Livret1 { get; set; }
         public DbSet<Livret2> Livret2 { get; set; }
+        public DbSet<PieceJointeL1> PieceJointeL1 { get; set; }
+        public DbSet<PieceJointeL2> PieceJointeL2 { get; set; }
+        public DbSet<MembreJury> MembreJuries { get; set; }
 
         public DbSet<LockCandidat> Locks { get; set; }
         public DbSet<Diplome> Diplomes { get; set; }

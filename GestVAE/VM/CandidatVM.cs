@@ -57,21 +57,23 @@ namespace GestVAE.VM
                 DiplomeCandVM oDipCand = new DiplomeCandVM(item);
                 lstDiplomesCandVMs.Add(oDipCand);
             }
-            foreach (Livret1 item in pCandidat.lstLivrets1)
+
+        }
+        public void LoadDetails()
+        {
+            foreach (Livret1 item in TheCandidat.lstLivrets1)
             {
                 Livret1VM oLivret = new Livret1VM(item);
                 lstLivrets.Add(oLivret);
             }
-            foreach (Livret2 item in pCandidat.lstLivrets2)
+            foreach (Livret2 item in TheCandidat.lstLivrets2)
             {
                 Livret2VM oLivret = new Livret2VM(item);
                 lstLivrets.Add(oLivret);
             }
 
             DeleteLivretCommand = new RelayCommand<CandidatVM>(c => { DeleteCurrentLivret(); },
-                                                                c=> { return IsDeletePossible; });
-
-
+                                                                c => { return IsDeletePossible; });
         }
         public CandidatVM():base()
         {

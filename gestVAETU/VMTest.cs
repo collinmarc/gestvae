@@ -223,7 +223,7 @@ namespace GestVAETU
             VM.saveData();
             VM.getData();
             oCand = VM.lstCandidatVM.Where(c => c.Nom == "TESTCAND").LastOrDefault();
-//            oCand.LoadDetails();
+            oCand.LoadDetails();
             Assert.AreEqual(1, oCand.lstLivrets.Count);
             oCand.CurrentLivret = oCand.lstLivrets[0];
             oCand.DeleteCurrentLivret();
@@ -363,17 +363,23 @@ namespace GestVAETU
             VM.AddCandidatCommand.Execute(null);
             CandidatVM oCand = VM.CurrentCandidat;
             oCand.Nom = "TESTCAND";
-            VM.saveData();
-
+            oCand.LoadDetails();
             Assert.IsFalse(oCand.IsL1Valide);
             //Ajout D'un L1
             VM.AjouteL1();
             VM.ValideretQuitterL1();
             VM.saveData();
+            VM.rechNom = "TESTCAND";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            oCand = VM.CurrentCandidat;
+            oCand.LoadDetails();
+            VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
             // Le L1 est EnCours même si  l'état n'est pas bon
             Assert.IsFalse(oCand.IsL1Valide);
             Assert.IsTrue(oCand.IsL1Encours);
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
+            oL1.LstEtatLivret = VM.LstEtatLivret1;
             oL1.FTO_SetDecisionJuryL1Favorable();
             oL1.DateValidite = DateTime.Now.AddYears(3);
             // Le L1 Devient Valide

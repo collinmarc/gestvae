@@ -218,7 +218,7 @@
                             </StackPanel>
 
                             <DataGrid x:Name="dgPiecesjointes" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                                    ItemsSource="{Binding lstPieceJointe, UpdateSourceTrigger=PropertyChanged}" 
+                                    ItemsSource="{Binding lstPieceJointeActive, UpdateSourceTrigger=PropertyChanged}" 
                                     SelectedItem="{Binding selectedPJ}"
                                     AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"
                                     Margin="10" RowHeaderWidth="0" 
@@ -447,7 +447,7 @@
             </TabControl>
             <UniformGrid Grid.Row="3" >
                 <Button x:Name="cbValider"  Margin="10" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et Quitter"
-                    Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Unloaded="cbValider_Unloaded"/>
+                    Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Unloaded="cbValider_Unloaded" />
 
                 <Button x:Name="cbQuitter" Margin="10" 
                     Command="{Binding DataContext.CloseCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 

@@ -240,7 +240,7 @@
                             </StackPanel>
 
                             <DataGrid x:Name="dgPiecesjointes"   Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                                    ItemsSource="{Binding lstPieceJointe}" 
+                                    ItemsSource="{Binding lstPieceJointeActive}" 
                                     SelectedItem="{Binding selectedPJ}"
                                     AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"
                                     Margin="10" RowHeaderWidth="0" 
@@ -378,7 +378,7 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="4">
                             <DataGrid x:Name="dgMembreJury"
-                                  ItemsSource="{Binding lstMembreJury}" 
+                                  ItemsSource="{Binding lstMembreJuryActif}" 
                                 SelectedItem="{Binding SelectedMembreJ}"
                                   AutoGenerateColumns="False" SelectionMode="Single" 
                                   CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" 

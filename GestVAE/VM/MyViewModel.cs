@@ -858,11 +858,13 @@ public void AjoutePJL1()
         {
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
             oLiv.AjoutePJ("L1");
+            SetModelHasChanges();
         }
         public void AjoutePJL2()
         {
             Livret2VM oLiv = (Livret2VM)CurrentCandidat.CurrentLivret;
             oLiv.AjoutePJ("L2");
+            SetModelHasChanges();
         }
         public void DeletePJ()
         {

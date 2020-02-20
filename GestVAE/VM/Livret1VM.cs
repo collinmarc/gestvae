@@ -146,7 +146,11 @@ namespace GestVAE.VM
         public Boolean IsValide(CandidatVM pCand )
         {
             Boolean bReturn = false;
-            bReturn = ( IsEtatAccepte && DateValidite > DateTime.Now);
+            //            bReturn = (IsEtatAccepte && DateValidite > DateTime.Now);
+            DateTime dDateValid;
+            Int32 nDelai = new ContextParam() .dbParam.First().DelaiValiditeL1;
+            dDateValid = DateValidite.Value.AddDays(nDelai);
+            bReturn = (IsEtatAccepte && (dDateValid > DateTime.Now));
 
             if (!bReturn)
             {
@@ -181,6 +185,29 @@ namespace GestVAE.VM
 
             return bReturn;
         }//IsValide
+
+        /// <summary>
+        ///  Rend Vrai si le livret est TOLERE
+        ///  Date Validité dépassé mais encore dans le delai de validation
+        /// </summary>
+        /// <returns></returns>
+        public Boolean IsTolere
+        {
+            get
+            {
+                Boolean bReturn = false;
+
+                DateTime dDateValid;
+                if (DateValidite < DateTime.Now)
+                {
+                    Int32 nDelai = new ContextParam().dbParam.First().DelaiValiditeL1;
+                    dDateValid = DateValidite.Value.AddDays(nDelai);
+                    bReturn = (IsEtatAccepte && dDateValid > DateTime.Now);
+
+                }
+                return bReturn;
+            }
+        }//IsTolere
 
         /// <summary>
         /// Un livret1 est Encours s'il est non clos avec une date de validité > now
@@ -670,6 +697,11 @@ namespace GestVAE.VM
             {
                 IsLivretClos = true;
             }
+        }
+
+        public override bool IsValiderOK()
+        {
+            return IsLocked;
         }
     }
 }

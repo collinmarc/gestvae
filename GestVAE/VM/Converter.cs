@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GestVAE.VM;
+using GestVAEcls;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -75,6 +77,21 @@ namespace GestVAE
         {
             bool boolValue = (bool)value;
             return boolValue;
+        }
+    }
+
+    [ValueConversion(typeof(bool), typeof(string))]
+    public class TolereToBackgroudConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            String str = new ContextParam().dbParam.First().CouleurTolerance;
+            return ((bool)value == true) ? str : "#FFDDDDDD";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {    // Don't need any convert back
+            return null;
         }
     }
 }

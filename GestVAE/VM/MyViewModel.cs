@@ -771,7 +771,7 @@ namespace GestVAE.VM
                 oL2VM = new Livret2VM(CurrentCandidat.IsLocked);
                 oL2VM.LstEtatLivret = LstEtatLivret2;
 
-                oL2VM.EtatLivret = LstEtatLivret2[1];
+                oL2VM.EtatLivret = LstEtatLivret2[2];
                 oL2VM.DateDemande = DateTime.Now;
                 oL2VM.NumPassage = 1;
                 if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
@@ -1283,10 +1283,7 @@ public void AjoutePJL1()
                     LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
                     if (oLiv != null)
                     {
-                        if (oLiv.IsLocked)
-                        {
-                            bReturn = true;
-                        }
+                        bReturn = oLiv.IsValiderOK();
                     }
                 }
                 return bReturn;
@@ -1475,7 +1472,7 @@ public void AjoutePJL1()
             }
         }
         /// <summary>
-        /// Prochain Numero de candidat
+        /// Prochain Numero de Livret
         /// </summary>
         public Int32 ParamNumLivret
         {
@@ -1510,6 +1507,64 @@ public void AjoutePJL1()
                 }
             }
         }//ParamNumLivret
+         /// <summary>
+         /// Delai de validité du L1 après expiration
+         /// </summary>
+        public Int32 ParamDelaiValiditeL1
+        {
+            get
+            {
+                Int32 nReturn = 0;
+                Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                _ctxParam.Entry(objParam).Reload();
+                if (objParam != null)
+                {
+                    nReturn = objParam.DelaiValiditeL1;
+                }
+                return nReturn;
+            }
+            set
+            {
+                if (value != ParamDelaiValiditeL1)
+                {
+                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                    if (objParam != null)
+                    {
+                        objParam.DelaiValiditeL1 = value;
+                        _ctxParam.SaveChanges();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Delai de validité du L1 après expiration
+        /// </summary>
+        public String ParamCouleurTolerance
+        {
+            get
+            {
+                String nReturn = "";
+                Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                _ctxParam.Entry(objParam).Reload();
+                if (objParam != null)
+                {
+                    nReturn = objParam.CouleurTolerance;
+                }
+                return nReturn;
+            }
+            set
+            {
+                if (value != ParamCouleurTolerance)
+                {
+                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                    if (objParam != null)
+                    {
+                        objParam.CouleurTolerance = value;
+                        _ctxParam.SaveChanges();
+                    }
+                }
+            }
+        }
 
         private Boolean IsAjoutPJPossible()
         {
@@ -1567,6 +1622,7 @@ public void AjoutePJL1()
                 RaisePropertyChanged("IsParamTypeDemande");
                 RaisePropertyChanged("IsParamVecteur");
                 RaisePropertyChanged("IsParamNumerotation");
+                RaisePropertyChanged("IsParamDelaiValiditeL1");
             }
         }
 
@@ -1589,6 +1645,7 @@ public void AjoutePJL1()
         public Boolean IsParamTypeDemande { get { return NomParametreEquals("Type de la demande"); } }
         public Boolean IsParamVecteur { get { return NomParametreEquals("Vecteur d'information"); } }
         public Boolean IsParamNumerotation { get { return NomParametreEquals("Numérotation"); } }
+        public Boolean IsParamDelaiValiditeL1 { get { return NomParametreEquals("Délai Validité du L1"); } }
 
         public Boolean saveDataParam()
         {

@@ -358,7 +358,8 @@ namespace GestVAETU
         {
             MyViewModel VM = new MyViewModel();
             VM.IsInTest = true;
-            VM.getData();
+            Int32 nDelaiValiditeL1avant = VM.ParamDelaiValiditeL1;
+            VM.ParamDelaiValiditeL1 = 0;
 
             VM.AjouteCandidat();
             CandidatVM oCand = VM.CurrentCandidat;
@@ -426,6 +427,67 @@ namespace GestVAETU
             VM.LockCurrentCandidat();
             VM.DeleteCurrentCandidat();
             VM.saveData();
+            VM.ParamDelaiValiditeL1 = nDelaiValiditeL1avant;
+            VM.saveDataParam();
+
+
+        }
+        [TestMethod]
+        public void testDelaivalidationL1()
+        {
+            MyViewModel VM = new MyViewModel(true);
+            VM.AjouteCandidat();
+            VM.LockCurrentCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TESTDELAIVALL1";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            oL1.FTO_SetDecisionJuryL1Favorable();
+
+            VM.ParamDelaiValiditeL1 = 0;
+            // si sa date de validé est hier
+            oL1.DateValidite = DateTime.Now.AddDays(-1);
+            // alors il n'est pas valide
+            Assert.IsFalse(oL1.IsValide(oCan));
+
+            VM.ParamDelaiValiditeL1 = 5;
+            // alors il devient valide
+            Assert.IsTrue(oL1.IsValide(oCan));
+
+        }
+        /// <summary>
+        /// Test la propiété IsToléré de Livret1VM
+        /// </summary>
+        [TestMethod]
+        public void testIsTolere()
+        {
+            MyViewModel VM = new MyViewModel(true);
+            VM.AjouteCandidat();
+            VM.LockCurrentCandidat();
+            CandidatVM oCan = VM.CurrentCandidat;
+            oCan.Nom = "TESTDELAIVALL1";
+            VM.AjouteL1();
+            VM.ValideretQuitterL1();
+            Livret1VM oL1 = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            oL1.FTO_SetDecisionJuryL1Favorable();
+
+            VM.ParamDelaiValiditeL1 = 5;
+            // si sa date de validé est demain
+            oL1.DateValidite = DateTime.Now.AddDays(1);
+            // Il n'est pas toléré
+            Assert.IsFalse(oL1.IsTolere);
+            // si sa date de validé est Avant la période de tolérance
+            oL1.DateValidite = DateTime.Now.AddDays(-10);
+            // Il n'est pas toléré
+            Assert.IsFalse(oL1.IsTolere);
+
+            // si sa date de validé est dans la période de tolérance
+            oL1.DateValidite = DateTime.Now.AddDays(-3);
+            // Il n'est pas toléré
+            Assert.IsTrue(oL1.IsTolere);
+
+
         }
         [TestMethod]
         public void NumCandidatTest()

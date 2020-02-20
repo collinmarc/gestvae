@@ -50,7 +50,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="10">
             <Label Content="Numéro  : " VerticalAlignment="Center"/>
-            <TextBox Name ="tbNumero" Width="150"  Margin="5" Style="{DynamicResource tbCoinsArrondis}" VerticalAlignment="Center"/>
+            <TextBox Name ="tbNumero" Width="150"  Margin="5" VerticalAlignment="Center"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="10">
             <Label Content="Mode d'obtention  : " VerticalAlignment="Center"/>
@@ -61,7 +61,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10">
             <Label Content="EURODIR : " VerticalAlignment="Center"/>
-            <TextBox Name ="tbNumeroEURODIR" Width="150"  Margin="5" Style="{DynamicResource tbCoinsArrondis}" VerticalAlignment="Center"/>
+            <TextBox Name ="tbNumeroEURODIR" Width="150"  VerticalAlignment="Center"/>
         </StackPanel>
 
 
@@ -83,6 +83,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name ="btnOK" Content="OK" Grid.Row="4"  Grid.Column="1" Width="50"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnOK_Click"  Margin="0,0,10,10" Style="{DynamicResource StyleBtn}"/>
+        <Button x:Name ="btnOK" Content="OK" Grid.Row="4"  Grid.Column="1" Width="50"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnOK_Click"  Margin="0,0,10,10" />
     </Grid>
 </Window>

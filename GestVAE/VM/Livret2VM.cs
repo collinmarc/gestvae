@@ -788,6 +788,28 @@ namespace GestVAE.VM
             RaisePropertyChanged("lstMembreJuryActif");
         }
 
+        public override bool IsValiderOK()
+        {
+            Boolean bReturn = false;
+            if (IsLocked)
+            {
+                if (IsEtatRecu)
+                {
+                    if (DateEnvoiCandidat != null)
+                    {
+                        if (DateEnvoiCandidat < DateValidite)
+                        {
+                            bReturn = true;
+                        }
+                    }
+                }
+                else
+                {
+                    bReturn = true;
+                }
+            }
+            return bReturn;
+        }
 
     }
 }

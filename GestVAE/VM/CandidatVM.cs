@@ -61,6 +61,7 @@ namespace GestVAE.VM
         }
         public void LoadDetails()
         {
+            lstLivrets.Clear();
             foreach (Livret1 item in TheCandidat.lstLivrets1)
             {
                 Livret1VM oLivret = new Livret1VM(item);
@@ -734,6 +735,24 @@ namespace GestVAE.VM
             bReturn = base.HasChanges();
             bReturn = bReturn || _modelhasChanges;
             return bReturn;
+        }
+
+        /// <summary>
+        /// Rend Vrai si le candidat a 1 L1 Valide , mais Toléré
+        /// </summary>
+        /// <returns></returns>
+        public Boolean IsL1Tolere
+        {
+            get
+            {
+                Boolean bReturn = false;
+                Livret1VM oL1 = getL1Valide();
+                if (oL1 != null)
+                {
+                    bReturn = oL1.IsTolere;
+                }
+                return bReturn;
+            }
         }
     }
 }

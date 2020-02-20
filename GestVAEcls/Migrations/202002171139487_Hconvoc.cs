@@ -7,6 +7,7 @@ namespace GestVAEcls.Migrations
     {
         public override void Up()
         {
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "HConvoc" + "start");
             Sql(@"DROP VIEW [dbo].[RQ_L2_DOC]");
             Sql(@"CREATE VIEW[dbo].[RQ_L2_DOC]
             AS
@@ -141,10 +142,12 @@ namespace GestVAEcls.Migrations
                                      dbo.DiplomeCands ON dbo.Candidats.ID = dbo.DiplomeCands.Candidat_ID AND dbo.Livret2.Diplome_ID = dbo.DiplomeCands.Diplome_ID LEFT OUTER JOIN
                                      dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
             ");
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "HConvoc" + "end");
         }
-        
+
         public override void Down()
         {
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION DOWN]" + "HConvoc" + "start");
             //================================== RQ_L2_DOC
             Sql(@"DROP VIEW [dbo].[RQ_L2_DOC]");
             Sql(@"CREATE VIEW[dbo].[RQ_L2_DOC]
@@ -281,6 +284,7 @@ namespace GestVAEcls.Migrations
                                      dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
             ");
 
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION DOWN]" + "HConvoc" + "End");
         }
     }
 }

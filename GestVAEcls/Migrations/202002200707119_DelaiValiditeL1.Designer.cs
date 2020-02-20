@@ -7,13 +7,13 @@ namespace GestVAEcls.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ADEL : IMigrationMetadata
+    public sealed partial class DelaiValiditeL1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ADEL));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DelaiValiditeL1));
         
         string IMigrationMetadata.Id
         {
-            get { return "202002181851072_ADEL"; }
+            get { return "202002200707119_DelaiValiditeL1"; }
         }
         
         string IMigrationMetadata.Source

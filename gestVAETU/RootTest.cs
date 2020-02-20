@@ -78,7 +78,11 @@ namespace GestVAETU
 
             ctx.Diplomes.Add(oDip);
             SaveChanges();
-            
+
+
+            MyViewModel VM = new MyViewModel();
+            VM.ParamDelaiValiditeL1 = 0;
+
         }
         public void SaveChanges()
         {

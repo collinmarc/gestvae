@@ -20,7 +20,7 @@
             <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
             <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
             <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-            <Style x:Key="StyleBtn" TargetType="{x:Type Button}" >
+            <Style TargetType="{x:Type Button}" >
                 <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
                 <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
@@ -60,7 +60,7 @@
                 </Setter>
                 
             </Style>
-            <Style x:Key="tbCoinsArrondis" TargetType="{x:Type TextBox}">
+            <Style TargetType="{x:Type TextBox}">
 
                 <Setter Property="BorderBrush" Value="#FF000208" />
                 <Setter Property="BorderThickness" Value="1" />
@@ -71,8 +71,17 @@
                     </Style>
                 </Style.Resources>
             </Style>
-            <Style x:Key="TextBoxReadOnlyStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource tbCoinsArrondis}">
+
+            <Style x:Key="TextBoxReadOnlyStyle" TargetType="{x:Type TextBox}">
                 <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
+                <Setter Property="BorderBrush" Value="#FF000208" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="5"/>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3" />
+                    </Style>
+                </Style.Resources>
             </Style>
             <Style TargetType="{x:Type DatePicker}">
 
@@ -85,7 +94,7 @@
                     </Style>
                 </Style.Resources>
             </Style>
-            <Style x:Key="DateTimeReadOnlyStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource tbCoinsArrondis}">
+            <Style x:Key="DateTimeReadOnlyStyle" TargetType="{x:Type TextBox}" >
                 <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
             </Style>
 

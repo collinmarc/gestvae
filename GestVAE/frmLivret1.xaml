@@ -273,7 +273,7 @@
                             <Button x:Name="btnAddPJ" Grid.Row="3" Grid.Column="2" Margin="10"
                             Command="{Binding DataContext.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 
                             Content="Ajouter pièce jointe"
-                            Style="{DynamicResource StyleBtn}"/>
+                            />
                         </Grid>
 
                     </StackPanel>
@@ -397,11 +397,11 @@
 
 
                             <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"  Content="Motif du recours :" />
-                            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecours" HorizontalAlignment="Stretch" Style="{DynamicResource tbCoinsArrondis}" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecours" HorizontalAlignment="Stretch" />
 
 
                             <Label Grid.Row="2" Grid.Column="0"  VerticalAlignment="Center" Content="Commentaire :" />
-                            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch" Style="{DynamicResource tbCoinsArrondis}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch" />
 
                             <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Décision du jury de recours :"/>
                             <ComboBox  Grid.Row="3" Grid.Column="1" x:Name="cbxDecisionRecours" Grid.ColumnSpan="2" Style="{DynamicResource ComboboxReadOnlyStyle}" />
@@ -446,22 +446,22 @@
                 </TabItem>
             </TabControl>
             <UniformGrid Grid.Row="3" >
-                <Button x:Name="cbValider"  Margin="10" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et Quitter"
+                <Button x:Name="cbValider"  Margin="10"  IsCancel="True" Content="Valider et Quitter"
                     Command="{Binding DataContext.ValideretQuitterL1Command, ElementName=window}" Unloaded="cbValider_Unloaded" />
 
                 <Button x:Name="cbQuitter" Margin="10" 
                     Command="{Binding DataContext.CloseCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 
                     IsCancel="True" 
                     Content="Quitter" 
-                    Style="{DynamicResource StyleBtn}"/>
+                    />
 
-                <Button x:Name="dbCreerL2"  Margin="10"  IsCancel="True" Content="Clôturer et créer le Livret2" Style="{DynamicResource StyleBtn}"
+                <Button x:Name="dbCreerL2"  Margin="10"  IsCancel="True" Content="Clôturer et créer le Livret2" 
                     IsEnabled="{Binding IsLivretModifiable}"
                     Command="{Binding DataContext.CloturerL1etCreerL2Command, ElementName=window}"/>
                 <Button x:Name="cbDecloturerL1" Margin="10" 
                 Command="{Binding DataContext.DecloturerLivretCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 
                 Content="Décloturer le Livret" 
-                Style="{DynamicResource StyleBtn}"
+                
                 Visibility="{Binding IsLivretClos, Converter={StaticResource BooleanToVisibilityConverter}}">
                 </Button>
             </UniformGrid>

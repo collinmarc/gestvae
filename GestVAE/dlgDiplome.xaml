@@ -32,6 +32,6 @@
                 <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name ="btnOK" Grid.Row="2" Content="OK"   Click="btnOK_Click" Margin="506,10,10,10" Style="{DynamicResource StyleBtn}"/>
+        <Button x:Name ="btnOK" Grid.Row="2" Content="OK"   Click="btnOK_Click" Margin="506,10,10,10" />
     </Grid>
 </Window>

@@ -118,12 +118,12 @@
                 </StackPanel>
                 -->
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date envoi EHESP : " Width="200" />
+                    <Label Content="Date envoi EHESP : " Width="200" VerticalAlignment="Center" />
                     <DatePicker x:Name="dtpenvoiEHESP" SelectedDate="{Binding DateEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
                                 />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date réception pièces manquantes : " Width="200" />
+                    <Label Content="Date réception pièces manquantes : " Width="200" VerticalAlignment="Center" />
                     <DatePicker x:Name="dtpReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
                                 DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" 
                                 />
@@ -135,21 +135,22 @@
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" 
                         IsEnabled="{Binding IsLivretNonClos}" >
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date cachet de la poste  : " Width="160" />
-                    <DatePicker x:Name="dtpEnvoiCandidat"  SelectedDate="{Binding DateEnvoiCandidat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" />
-                </StackPanel>
+                    <Label Content="Date cachet de la poste  : " Width="160" VerticalAlignment="Center" />
+                    <DatePicker x:Name="dtpEnvoiCandidat"  SelectedDate="{Binding DateEnvoiCandidat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" DisplayDateEnd="{Binding DateValidite}" Margin="10,10,0,10"/>
+                    <Label Content="*" VerticalAlignment="Top" Foreground="red" Margin="0"/>
+                    </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date tampon secrétariat : " Width="160" />
+                    <Label Content="Date tampon secrétariat : " Width="160" VerticalAlignment="Center" />
                     <DatePicker x:Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
                                 />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Date courrier complétude :" Width="160" />
+                    <Label Content="Date courrier complétude :" Width="160" VerticalAlignment="Center" />
                     <DatePicker x:Name="dtpReceptComplet"  SelectedDate="{Binding DateReceptEHESPComplet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <StackPanel Orientation="Horizontal" Visibility="Visible">
-                    <Label Content="Date validité : "  Width="160"  VerticalContentAlignment="Center"/>
+                    <Label Content="Date validité : "  Width="160"  VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                     <DatePicker x:Name="dtpValidite"     HorizontalAlignment="Left"
                             SelectedDate="{Binding DateValidite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="29" Width="100" 
                             />
@@ -293,7 +294,7 @@
                         <Button x:Name="btnAddPJ" Grid.Row="3" Grid.Column="2" Margin="10"
                             Command="{Binding DataContext.AjoutePJL2Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" 
                             Content="Ajouter pièce jointe"
-                            Style="{DynamicResource StyleBtn}"/>
+                            />
                     </Grid>
 
                 </StackPanel>
@@ -420,7 +421,7 @@
                                                     Width="2*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <Button Style="{DynamicResource StyleBtn}" Margin="10,0,10,0"
+                            <Button  Margin="10,0,10,0"
                                     Command="{Binding DataContext.AjouterMembreJuryCommand, ElementName=window}">Ajouter</Button>
                         </StackPanel>
 
@@ -547,17 +548,17 @@
             </TabItem>
         </TabControl>
         <UniformGrid Grid.Row="3" >
-            <Button x:Name="cbValider"  Margin="10" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Valider et Quitter"
+            <Button x:Name="cbValider"  Margin="10"  IsCancel="True" Content="Valider et Quitter"
                     IsEnabled="{Binding IsLivretModifiable}"
                     Command="{Binding DataContext.ValideretQuitterL2Command, ElementName=window}"/>
-            <Button x:Name="cbQuitter" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}" Style="{DynamicResource StyleBtn}" IsCancel="True" Content="Quitter"/>
-            <Button x:Name="dbCloturerL2"  Margin="10"  IsCancel="True" Content="Clôturer" Style="{DynamicResource StyleBtn}"
+            <Button x:Name="cbQuitter" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}"  IsCancel="True" Content="Quitter"/>
+            <Button x:Name="dbCloturerL2"  Margin="10"  IsCancel="True" Content="Clôturer" 
                     IsEnabled="{Binding IsLivretModifiable}"
                     Command="{Binding DataContext.CloturerL2Command, ElementName=window}"/>
             <Button x:Name="cbDecloturerL2" Margin="10" 
                 Command="{Binding DataContext.DecloturerLivretCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" 
                 Content="Décloturer le Livret" 
-                Style="{DynamicResource StyleBtn}"
+                
                 Visibility="{Binding IsLivretClos, Converter={StaticResource BooleanToVisibilityConverter}}">
             </Button>
 

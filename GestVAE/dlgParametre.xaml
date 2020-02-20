@@ -15,7 +15,7 @@
         <local:BoolToGridRowHeightConverter x:Key="BoolToGridRowHeightConverter" />
     </Window.Resources>
     <ScrollViewer >
-        <Grid ShowGridLines="False" >
+        <Grid ShowGridLines="false" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
@@ -32,6 +32,7 @@
                 <RowDefinition Height="{Binding IsParamTypeDemande, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
                 <RowDefinition Height="{Binding IsParamVecteur, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
                 <RowDefinition Height="{Binding IsParamNumerotation, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <RowDefinition Height="{Binding IsParamDelaiValiditeL1, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <ComboBox  Margin="10" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Grid.RowSpan="10" VerticalAlignment="Top"
@@ -49,7 +50,9 @@
                 <ComboBoxItem Content="Type de la demande"/>
                 <ComboBoxItem Content="Vecteur d'information"/>
                 <ComboBoxItem Content="Numérotation"/>
+                <ComboBoxItem Content="Délai Validité du L1"/>
             </ComboBox>
+            
             <DataGrid Name="dgRegion" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding lstRegionVM}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Région" Binding="{Binding Nom}" CanUserResize="False" SortDirection="Ascending" Width="*"/>
@@ -191,22 +194,31 @@
                     <KeyBinding Key="Delete"  />
                 </DataGrid.InputBindings>
             </DataGrid>
-            <UniformGrid Name="ugNumerotation" Grid.Row="10" Grid.Column="10" Rows="1" Columns="4">
+            <UniformGrid Name="ugNumerotation" Grid.Row="10" Grid.Column="1" Rows="1" Columns="4">
                 <Label>Candidat :</Label>
                 <TextBox Text="{Binding ParamNumCandidat}"></TextBox>
 
                 <Label>Livret :</Label>
                 <TextBox Text="{Binding ParamNumLivret}"></TextBox>
             </UniformGrid>
+            
+            <UniformGrid Name="ugDelaiValiditeL1" Grid.Row="11" Grid.Column="1" Rows="1" Columns="4">
+                <Label>Délai de validité du Livret 1:</Label>
+                <TextBox Text="{Binding ParamDelaiValiditeL1}"></TextBox>
+                <Label>Couleur de tolérance:</Label>
+                <TextBox Text="{Binding ParamCouleurTolerance}"></TextBox>
+
+
+            </UniformGrid>
 
 
 
-            <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="11"  
+            <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="12"  
                     IsCancel="True" 
                     HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" 
                     VerticalAlignment="Center" Margin="10"
                     Command="{Binding ValiderParametresCommand}"
-                    CommandParameter="{Binding ElementName=window}" Style="{DynamicResource StyleBtn}"/>
+                    CommandParameter="{Binding ElementName=window}" />
 
 
         </Grid>

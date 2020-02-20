@@ -577,6 +577,8 @@ namespace GestVAETU
         public void GESTVAE015()
         {
             MyViewModel VM = new MyViewModel(true);
+            Int32 nDelaiValiditeL1avant = VM.ParamDelaiValiditeL1;
+            VM.ParamDelaiValiditeL1 = 0;
 
             VM.AjouteCandidat();
             CandidatVM oCan = VM.CurrentCandidat;
@@ -608,6 +610,9 @@ namespace GestVAETU
             VM.ValideretQuitterL1();
             // L'ajout de L2 Est impossible car le L1 n'est pas valide
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
+
+            VM.ParamDelaiValiditeL1 = nDelaiValiditeL1avant;
+            VM.saveDataParam();
         }//GestVAE015
 
         /// <summary>

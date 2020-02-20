@@ -96,6 +96,8 @@ namespace GestVAE.VM
                 }
                 RaisePropertyChanged();
                 RaisePropertyChanged("DateValidite2");
+                RaisePropertyChanged("IsTolere");
+                RaisePropertyChanged("IsL1Tolere");
 
             }
         }
@@ -1220,5 +1222,6 @@ namespace GestVAE.VM
         {
 
         }
+        public abstract Boolean IsValiderOK();
     }
 }

@@ -22,6 +22,7 @@
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:TolereToBackgroudConverter x:Key="TolereToBackgroudConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"></local:EnumToBoleanConverter>
         <local:BooleanToCursorConverter x:Key="BoolToCursor"></local:BooleanToCursorConverter>
         <Style x:Key="Label" TargetType="{x:Type Label}" BasedOn="{x:Null}">
@@ -33,18 +34,6 @@
         <Style x:Key="GridStyle1" TargetType="{x:Type Grid}"  >
             <Setter Property="ShowGridLines" Value="False"/>
             <Setter Property="Background" Value="#FF90A4C1"/>
-        </Style>
-        <Style TargetType="TextBox" x:Key="TextBoxReadOnlyStyle"  BasedOn="{StaticResource tbCoinsArrondis}">
-            <Setter Property="IsReadOnly" Value="{Binding Path=IsUnlocked}"/>
-        </Style>
-        <Style TargetType="RadioButton" x:Key="RadioButtonReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
-        </Style>
-        <Style TargetType="CheckBox" x:Key="CheckBoxReadOnlyStyle" >
-            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
-        </Style>
-        <Style TargetType="Button" x:Key="ButtonReadOnlyStyle" BasedOn="{StaticResource StyleBtn}" >
-            <Setter Property="IsEnabled" Value="{Binding Path=IsLocked}"/>
         </Style>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
@@ -107,25 +96,25 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"   >Identifiant VAE:</Label>
                     <TextBox Grid.Row="0" Grid.Column="1" Margin="5" 
-                             Name="tbRechIdentVAE" HorizontalAlignment="Stretch" Style="{DynamicResource tbCoinsArrondis}"/>
+                             Name="tbRechIdentVAE" HorizontalAlignment="Stretch" />
                     <Label Grid.Row="0" Grid.Column="3" >SISCOLE :</Label>
                     <TextBox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="4" Margin="5" 
-                             Name="tbRechIdentSISCOLE" HorizontalAlignment="Stretch" Style="{DynamicResource tbCoinsArrondis}"/>
+                             Name="tbRechIdentSISCOLE" HorizontalAlignment="Stretch" />
                     <Label Grid.Row="1" Grid.Column="0" >Nom:</Label>
                     <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="5"
-                             Name="tbRechNom" Style="{DynamicResource tbCoinsArrondis}"
+                             Name="tbRechNom" 
                              Text="{Binding rechNom, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding RechercherCommand}"/>
-<!--                            <KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/> -->
+                            <!--                            <KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/> -->
                         </TextBox.InputBindings>
 
                     </TextBox>
                     <Label Grid.Row="2" Grid.Column="0" >Prénom:</Label>
                     <TextBox  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" 
-                              Name="tbRechPrénom" Margin="5" Style="{DynamicResource tbCoinsArrondis}" />
+                              Name="tbRechPrénom" Margin="5"  />
                     <Label  Grid.Row="3" Grid.Column="0" >Ville:</Label>
-                    <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbRechVille" Margin="5" Style="{DynamicResource tbCoinsArrondis}" ></TextBox>
+                    <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbRechVille" Margin="5"  ></TextBox>
 
                     <Label  Grid.Row="4" Grid.Column="0"  Content="Date de &#xD;&#xA;naissance :" />
                     <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" BorderThickness="1" />
@@ -161,7 +150,7 @@
                               ></ComboBox>
 
                     <Button  Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" 
-                             Command="{Binding RechercherCommand}" Margin="10" Style="{DynamicResource StyleBtn}">Rechercher</Button>
+                             Command="{Binding RechercherCommand}" Margin="10" >Rechercher</Button>
 
 
                 </Grid>
@@ -195,7 +184,7 @@
                                     />
                         </DataGrid.InputBindings>
                     </DataGrid>
-                    <Button x:Name="cbAddCandidat" Content="Ajout candidat" Grid.Row ="1" Style="{DynamicResource StyleBtn}" Height="30" Margin="10" Command="{Binding AddCandidatCommand}"/>
+                    <Button x:Name="cbAddCandidat" Content="Ajout candidat" Grid.Row ="1"  Height="30" Margin="10" Command="{Binding AddCandidatCommand}"/>
 
                 </Grid>
 
@@ -387,15 +376,19 @@
 
                             <UniformGrid Name="pnlBoutonsLivrets" Margin="0,10,10,0" Columns="3">
                                 <Button x:Name="btnAddLivret1" Margin="0,0,10,0" 
-                                Command="{Binding DataContext.AjouteL1Command, ElementName=window}" Style="{DynamicResource ButtonReadOnlyStyle}"
+                                Command="{Binding DataContext.AjouteL1Command, ElementName=window}"
                                 >Ajout Livret 1
                                 </Button>
                                 <Button x:Name="btnAddLivret2" Margin="0,0,5,0" 
-                                Command="{Binding DataContext.AjouteL2Command, ElementName=window}" Style="{DynamicResource ButtonReadOnlyStyle}" >
+                                Command="{Binding DataContext.AjouteL2Command, ElementName=window}"  
+                                Background="{Binding IsL1Tolere, Converter={StaticResource TolereToBackgroudConverter}}" 
+                                        >
                                     Ajout Livret 2
                                 </Button>
+                                <!--
+-->
                                 <Button x:Name="btnSupprLivret" Margin="5,0,0,0"
-                                Command="{Binding DeleteLivretCommand}" Style="{DynamicResource ButtonReadOnlyStyle}">
+                                Command="{Binding DeleteLivretCommand}" >
                                     Supprimer
                                 </Button>
                             </UniformGrid>

@@ -85,6 +85,8 @@
                         <RowDefinition Height="16*"/>
                         <RowDefinition Height="23*"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="23*"/>
+                        <RowDefinition Height="23*"/>
                         <RowDefinition Height="20*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -149,7 +151,27 @@
                               SelectedItem="{Binding rechEtatL2}" ItemsSource="{Binding LstEtatLivret2}" IsEditable="True" Style="{DynamicResource ComboboxBaseStyle}" 
                               ></ComboBox>
 
-                    <Button  Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" 
+                    <Label  Grid.Row="9" Grid.Column="0" VerticalAlignment="Center">Recevabilité Liv1:</Label>
+                    <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Label VerticalAlignment="Center" >entre le :</Label>
+                        <DatePicker  Name="dpRechValidL1Deb" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2">
+                        <Label Margin="10" >et le :</Label>
+                        <DatePicker  Name="dpRechValidL1Fin" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                    </StackPanel>
+
+                    <Label  Grid.Row="10" Grid.Column="0" VerticalAlignment="Center">Notification Liv2:</Label>
+                    <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Label VerticalAlignment="Center" >entre le :</Label>
+                        <DatePicker  Name="dpRechValidL2Deb" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="2">
+                        <Label Margin="10" >et le :</Label>
+                        <DatePicker  Name="dpRechValidL2Fin" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                    </StackPanel>
+
+                    <Button  Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" 
                              Command="{Binding RechercherCommand}" Margin="10" >Rechercher</Button>
 
 

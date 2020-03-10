@@ -610,6 +610,10 @@ namespace GestVAE.VM
         public DateTime? rechDateReceptL1Fin { get; set; }
         public DateTime? rechDateReceptL2Deb { get; set; }
         public DateTime? rechDateReceptL2Fin { get; set; }
+        public DateTime? rechDateValidL1Deb { get; set; }
+        public DateTime? rechDateValidL1Fin { get; set; }
+        public DateTime? rechDateValidL2Deb { get; set; }
+        public DateTime? rechDateValidL2Fin { get; set; }
         public String rechEtatL1 { get; set; }
         public String rechEtatL2 { get; set; }
 
@@ -711,6 +715,28 @@ namespace GestVAE.VM
                 if (rechDateReceptL2Fin != null)
                 {
                     rq = rq.Where(c => c.lstLivrets2.Where(L2 => L2.DateReceptEHESP <= rechDateReceptL2Fin).Count() > 0);
+
+                }
+                if (rechDateValidL1Deb != null)
+                {
+                    rq = rq.Where(c => c.lstLivrets1.Where(L1 => 
+                                                        L1.lstJurys.Where(J=>J.DateJury>=rechDateValidL1Deb || (J.DateNotificationJuryRecours!= null && J.DateNotificationJuryRecours>=rechDateValidL1Deb) ).Count()>0).Count()>0);
+                }
+                if (rechDateValidL1Fin != null)
+                {
+                    rq = rq.Where(c => c.lstLivrets1.Where(L1 =>
+                                                        L1.lstJurys.Where(J => J.DateJury >= rechDateValidL1Deb || (J.DateNotificationJuryRecours != null && J.DateNotificationJuryRecours <= rechDateValidL1Fin)).Count() > 0).Count() > 0);
+
+                }
+                if (rechDateValidL2Deb != null)
+                {
+                    rq = rq.Where(c => c.lstLivrets2.Where(L2 =>
+                                                        L2.lstJurys.Where(J => J.DateNotificationJury >= rechDateValidL2Deb).Count() > 0).Count() > 0);
+                }
+                if (rechDateValidL2Fin != null)
+                {
+                    rq = rq.Where(c => c.lstLivrets2.Where(L2 =>
+                                                        L2.lstJurys.Where(J => J.DateNotificationJury <= rechDateValidL2Fin).Count() > 0).Count() > 0);
 
                 }
                 if (rechbHandicap)

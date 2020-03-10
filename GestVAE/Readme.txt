@@ -1,5 +1,6 @@
 ﻿Build : 20200310
 0000985: Gestion des membres du jury
+0000895: Recherche : Date de validation L1 et L2
 
 Build : 20200201
 0001139: date de création du L2 > date de validité du L1

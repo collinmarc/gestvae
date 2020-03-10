@@ -45,6 +45,10 @@ namespace GestVAE
             dpRechReceptL1Fin.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL1Fin");
             dpRechReceptL2Deb.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL2Deb");
             dpRechReceptL2Fin.SetBinding(DatePicker.SelectedDateProperty, "rechDateReceptL2Fin");
+            dpRechValidL1Deb.SetBinding(DatePicker.SelectedDateProperty, "rechDateValidL1Deb");
+            dpRechValidL1Fin.SetBinding(DatePicker.SelectedDateProperty, "rechDateValidL1Fin");
+            dpRechValidL2Deb.SetBinding(DatePicker.SelectedDateProperty, "rechDateValidL2Deb");
+            dpRechValidL2Fin.SetBinding(DatePicker.SelectedDateProperty, "rechDateValidL2Fin");
             ckRechHandicap.SetBinding(CheckBox.IsCheckedProperty, "rechbHandicap");
         }
 

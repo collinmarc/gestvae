@@ -87,10 +87,17 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="2*" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="2*" IsReadOnly="True"/>
-                        <DataGridCheckBoxColumn Header="A Valider ?" Binding="{Binding IsAValider}" Width="1*" IsReadOnly="{Binding Data.IsLivretNotEnCours,Source={StaticResource proxy}}"/>
-                    </DataGrid.Columns>
+                        <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="3*" IsReadOnly="True"/>
+                        <DataGridCheckBoxColumn Header="A Valider ?" Binding="{Binding IsAValider}" Width="2*" IsReadOnly="{Binding Data.IsLivretNotEnCours,Source={StaticResource proxy}}"/>
+                            <DataGridTextColumn Header="Proposition" Binding="{Binding PropositionDecision}" Width="4*">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style>
+                                        <Setter Property="UIElement.IsEnabled" Value="{Binding IsAValider}" />
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
                 </DataGrid>
 
 

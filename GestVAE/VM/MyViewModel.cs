@@ -898,6 +898,18 @@ namespace GestVAE.VM
                 ((Livret2)oL2VM.TheLivret).InitDCLivrets(oDiplomeCandidat);
                 foreach (DCLivret oDCL in ((Livret2)oL2VM.TheLivret).lstDCLivrets)
                 {
+                    if (CurrentCandidat.IsCAFERUIS && oDCL.NomDC=="DC4" && oDCL.IsAValider)
+                    {
+                        oDCL.PropositionDecision = "CAFERUIS";
+                    }
+                    if (CurrentCandidat.IsDEIS && oDCL.NomDC == "DC1" && oDCL.IsAValider)
+                    {
+                        oDCL.PropositionDecision = "DEIS";
+                    }
+                    if (CurrentCandidat.IsDEIS && oDCL.NomDC == "DC4" && oDCL.IsAValider)
+                    {
+                        oDCL.PropositionDecision = "DEIS";
+                    }
                     oL2VM.lstDCLivret.Add(new DCLivretVM(oDCL));
                 }
 

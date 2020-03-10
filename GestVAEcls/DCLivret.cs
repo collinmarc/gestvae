@@ -43,6 +43,7 @@ namespace GestVAEcls
         public DateTime? DateObtention { get; set; }
         public String ModeObtention { get; set; }
         public String Commentaire { get; set; }
+        public String PropositionDecision { get; set; }
 
     }
 }

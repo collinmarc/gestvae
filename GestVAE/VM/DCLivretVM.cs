@@ -205,6 +205,18 @@ namespace GestVAE.VM
                 }
             }
         }
+        public String PropositionDecision
+        {
+            get { return TheDCLivret.PropositionDecision; }
+            set
+            {
+                if (value != PropositionDecision)
+                {
+                    TheDCLivret.PropositionDecision = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
         /// <summary>
         /// Liste des Motifs Détaillés pour le Motif General
         /// </summary>

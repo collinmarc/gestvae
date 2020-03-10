@@ -164,6 +164,8 @@ namespace GestVAE.VM
                                            );
             AjouteDiplomeCandCommand = new RelayCommand<MyViewModel>(o => { AjouteDiplomeCand(); }
                                            );
+            IsPostFormationCommand = new RelayCommand<bool>(o => { IsPostFormation(o); }
+                                           );
             AjouteL1Command = new RelayCommand<MyViewModel>(o => { AjouteL1(); },
                                                             o => { return IsCurrentCandidatAddL1Available; }
                                            );
@@ -583,6 +585,7 @@ namespace GestVAE.VM
         public ICommand AjoutePJL2Command { get; set; }
         public ICommand DeletePJCommand { get; set; }
         public ICommand DeleteMembreJuryCommand { get; set; }
+        public ICommand IsPostFormationCommand { get; set; }
         public ICommand AjouteL2Command { get; set; }
         public ICommand ValideretQuitterL1Command { get; set; }
         public ICommand ValideretQuitterL2Command { get; set; }
@@ -774,6 +777,25 @@ namespace GestVAE.VM
             oCandVM.AjoutDiplomeCand();
 
 
+        }
+        public void IsPostFormation(bool pValue)
+        {
+
+            CurrentCandidat.IsPostFormation = pValue;
+            if (CurrentCandidat.IsPostFormation)
+            {
+                if (!IsInTest)
+                {
+                    if (CurrentCandidat.CurrentDiplomeCand != null)
+                    {
+                        dlgDiplomeCand odlg = new dlgDiplomeCand();
+                        odlg.setContexte(this);
+
+                        odlg.ShowDialog();
+                    }
+                }
+
+            }
         }
 
         /// <summary>
@@ -1196,19 +1218,7 @@ public void AjoutePJL1()
             {
                 if (CurrentCandidat.CurrentDiplomeCand != null)
                 {
-                    if (!CurrentCandidat.CurrentDiplomeCand.IsNew)
-                    {
-                        _ctx.Entry<DiplomeCand>((DiplomeCand)CurrentCandidat.CurrentDiplomeCand.TheDiplomeCand).State = System.Data.Entity.EntityState.Deleted;
-                    }
-                    else
-                    {
-                        // Detache l'entity
-                        _ctx.Entry<DiplomeCand>((DiplomeCand)CurrentCandidat.CurrentDiplomeCand.TheDiplomeCand).State = System.Data.Entity.EntityState.Detached;
-                    }
-
-                    CurrentCandidat.CurrentDiplomeCand.IsDeleted = true;
-                    CurrentCandidat.lstDiplomesCandVMs.Remove(CurrentCandidat.CurrentDiplomeCand);
-
+                    CurrentCandidat.DeleteCurrentDiplome();
                 }
             }
 

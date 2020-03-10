@@ -434,6 +434,7 @@ namespace GestVAE.VM
                 oReturn.Add("FI");
                 oReturn.Add("VAE");
                 oReturn.Add("Dispense");
+                oReturn.Add("Post-Formation");
                 return oReturn;
             }
             set { }

@@ -275,6 +275,10 @@
     <Compile Include="Migrations\202003091502259_MembreJury.Designer.cs">
       <DependentUpon>202003091502259_MembreJury.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003101458354_IsPostFormation.cs" />
+    <Compile Include="Migrations\202003101458354_IsPostFormation.Designer.cs">
+      <DependentUpon>202003101458354_IsPostFormation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -484,6 +488,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003091502259_MembreJury.resx">
       <DependentUpon>202003091502259_MembreJury.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003101458354_IsPostFormation.resx">
+      <DependentUpon>202003101458354_IsPostFormation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

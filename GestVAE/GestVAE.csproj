@@ -164,13 +164,14 @@
     <Compile Include="frmLivret1.xaml.cs">
       <DependentUpon>frmLivret1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyDataGridDateTimeColumn.cs" />
     <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="VM\BDMembreJury.cs" />
     <Compile Include="VM\BindingProxy.cs" />
-    <Compile Include="VM\MyDataGridComboboxColumn.cs" />
+    <Compile Include="MyDataGridComboboxColumn.cs" />
     <Compile Include="VM\DiplomeCandVM.cs" />
     <Compile Include="VM\CandidatVM.cs" />
     <Compile Include="VM\Command.cs" />

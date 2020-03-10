@@ -47,6 +47,7 @@ namespace GestVAEcls
         // Il faut laisser les Virtual sur ces Collections même si on ne fait pas le Lazy Loading
         public virtual ObservableCollection<Livret1> lstLivrets1 { get; set; }
         public virtual ObservableCollection<Livret2> lstLivrets2 { get; set; }
+        public Boolean ISPostFormation { get; set; }
 
 
         public Candidat() :base()

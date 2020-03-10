@@ -20,6 +20,7 @@ namespace GestVAE.VM
         const String cstCAFDES = "CAFDES";
         public Candidat TheCandidat { get; set; }
         public ObservableCollection<DiplomeCandVM> lstDiplomesCandVMs { get; set; }
+        public List<DiplomeCandVM> lstDiplomesCandVMsActifs { get { return lstDiplomesCandVMs.Where(d => !d.IsDeleted).ToList(); } }
         public ObservableCollection<LivretVMBase> lstLivrets { get; set; }
         public List<LivretVMBase> lstLivretsActif { get { return lstLivrets.Where(c => !c.IsDeleted).ToList(); } }
         public DiplomeCandVM CurrentDiplomeCand { get; set; }
@@ -357,10 +358,31 @@ namespace GestVAE.VM
                     }
                     else
                     {
-                        DiplomeCandVM oDip = diplomeCAFDESCandidat;
-                        _ctx.DiplomeCands.Remove(oDip.TheDiplomeCand);
-                        //                        diplomeDEISCandidat.TheDiplomeCand.bDeleted = true;
-                        lstDiplomesCandVMs.Remove(oDip);
+                        CurrentDiplomeCand = lstDiplomesCandVMs.Where(d=>d.NomDiplome== cstCAFDES).FirstOrDefault();
+                        DeleteCurrentDiplome();
+                    }
+                }
+            }
+        }
+        public Boolean IsPostFormation
+        {
+            get
+            {
+                return TheCandidat.ISPostFormation;
+            }
+            set
+            {
+                if (value != IsPostFormation)
+                {
+                    TheCandidat.ISPostFormation = value;
+                    if (value)
+                    {
+                        IsCAFDES = true;
+                        CurrentDiplomeCand = lstDiplomesCandVMs.Where(d => d.NomDiplome == cstCAFDES).FirstOrDefault();
+                    }
+                    else
+                    {
+                        // on ne supprime pa le diplome CAFDES
                     }
                 }
             }
@@ -385,6 +407,7 @@ namespace GestVAE.VM
             DiplomeCandVM oDiplomeCand = new DiplomeCandVM(oDiplCand);
             lstDiplomesCandVMs.Add(oDiplomeCand);
             RaisePropertyChanged("lstDiplomesCandVMs");
+            RaisePropertyChanged("lstDiplomesCandVMsActifs");
             return oDiplomeCand;
         }
 
@@ -394,6 +417,7 @@ namespace GestVAE.VM
             DiplomeCandVM oDiplomeCand = new DiplomeCandVM(oDiplCand);
             lstDiplomesCandVMs.Add(oDiplomeCand);
             RaisePropertyChanged("lstDiplomesCandVMs");
+            RaisePropertyChanged("lstDiplomesCandVMsActifs");
             return oDiplomeCand;
         }
 
@@ -409,7 +433,13 @@ namespace GestVAE.VM
         {
             foreach (DiplomeCandVM item in lstDiplomesCandVMs)
             {
-                item.Commit();
+                    if (item.IsDeleted)
+                    {
+                        if (!item.IsNew)
+                        {
+                            _ctx.DiplomeCands.Remove(item.TheDiplomeCand);
+                        }
+                    }
             }
             if (_ctx.Entry<Candidat>(TheCandidat).State == System.Data.Entity.EntityState.Detached)
             {
@@ -505,10 +535,18 @@ namespace GestVAE.VM
             }
         }
 
-        /// <summary>
-        /// Suppression du Livert Courant
-        /// </summary>
-        public void DeleteCurrentLivret()
+        public void DeleteCurrentDiplome()
+        {
+            Debug.Assert(CurrentDiplomeCand != null);
+
+            CurrentDiplomeCand.IsDeleted = true;
+            RaisePropertyChanged("lstDiplomesCandVMsActifs");
+            SetModelHasChanges();
+        }
+            /// <summary>
+            /// Suppression du Livert Courant
+            /// </summary>
+            public void DeleteCurrentLivret()
         {
             Debug.Assert(CurrentLivret != null);
 

@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestVAE"
         xmlns:localVM="clr-namespace:GestVAE.VM"
-        xmlns:localCLS="clr-namespace:GestVAEcls"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" x:Class="GestVAE.dlgDiplomeCand"
         mc:Ignorable="d"
         Title="Détail du diplôme d'un candidat" Height="390" Width="622" Icon="IMG/diplome.ico">
@@ -32,8 +31,9 @@
             <Label Content="Nom du diplôme :"/>
             <ComboBox x:Name="cbxNomdiplome"
                   Width="120" 
-                  Style="{DynamicResource ComboboxReadOnlyStyle}"
-                  ItemsSource="{Binding CurrentCandidat.CurrentDiplomeCand.LstDiplomes}"
+                    IsEnabled="{Binding CurrentCandidat.IsLocked}"
+                      Style="{DynamicResource ComboboxBaseStyle}"
+                ItemsSource="{Binding CurrentCandidat.CurrentDiplomeCand.LstDiplomes}"
                   SelectedItem="{Binding CurrentCandidat.CurrentDiplomeCand.oDiplome}"
                   DisplayMemberPath="Nom"/>
 
@@ -41,7 +41,10 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="10">
             <Label Content="Statut :" Width="65"/>
-            <ComboBox x:Name="cbxStatutdiplome" HorizontalAlignment="Stretch" Style="{DynamicResource ComboboxReadOnlyStyle}" Width="150"/>
+            <ComboBox x:Name="cbxStatutdiplome" HorizontalAlignment="Stretch" 
+                      Style="{DynamicResource ComboboxBaseStyle}" 
+                      IsEnabled="{Binding CurrentCandidat.IsLocked}"
+                        Width="150"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="10">
             <Label Content="Date d'obtention : " VerticalAlignment="Center"/>
@@ -54,7 +57,9 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="10">
             <Label Content="Mode d'obtention  : " VerticalAlignment="Center"/>
-            <ComboBox x:Name="cbxModeObtention" Style="{DynamicResource ComboboxReadOnlyStyle}" SelectedValuePath="Content" Width="109" >
+            <ComboBox x:Name="cbxModeObtention" Style="{DynamicResource ComboboxBaseStyle}" 
+                      IsEnabled="{Binding CurrentCandidat.IsLocked}"
+                SelectedValuePath="Content" Width="109" >
                 <ComboBoxItem Content="VAE" />
                 <ComboBoxItem Content="Post-Formation"/>
             </ComboBox>
@@ -77,9 +82,11 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding NomDomaineCompetence}" IsReadOnly="true" />
                 <DataGridComboBoxColumn Header="Statut" SelectedItemBinding="{Binding Statut}" ItemsSource="{Binding LstStatutModule, Source={StaticResource ComboItems}}"/>
-                <DataGridTextColumn Header="Date Obtention" Binding="{Binding DateObtention, StringFormat='d'}"  />
+                <local:MyDataGridDateTimeColumn Header="Date Obtention" 
+                        Binding="{Binding DateObtention, StringFormat='d'}"
+                                                />
                 <DataGridComboBoxColumn Header="Mode Obtention" SelectedItemBinding="{Binding ModeObtention}" ItemsSource="{Binding LstModeObtention, Source={StaticResource ComboItems}}"  />
-                <DataGridTextColumn Header="Commentaire" Binding="{Binding Commentaire}"  />
+                <DataGridTextColumn Header="Commentaire" Binding="{Binding Commentaire}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 

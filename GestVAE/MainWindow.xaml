@@ -351,14 +351,21 @@
                         <StackPanel Grid.Row ="20" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="0">
                             <StackPanel Orientation="Horizontal" >
                                 <Label>DEIS :</Label>
-                                <CheckBox Name="chkIsDEIS" IsChecked="{Binding IsDEIS}" VerticalAlignment="Center" Style="{DynamicResource CheckBoxReadOnlyStyle}"/>
+                                <CheckBox Name="chkIsDEIS" IsChecked="{Binding IsDEIS}" VerticalAlignment="Center" />
                                 <Label>CAFERUIS :</Label>
-                                <CheckBox Name="chkIsCAFERUIS" IsChecked="{Binding IsCAFERUIS}" VerticalAlignment="Center" Style="{DynamicResource CheckBoxReadOnlyStyle}"></CheckBox>
+                                <CheckBox Name="chkIsCAFERUIS" IsChecked="{Binding IsCAFERUIS}" VerticalAlignment="Center" ></CheckBox>
                                 <Label>CAFDES :</Label>
-                                <CheckBox Name="chkIsCAFDES" IsChecked="{Binding IsCAFDES}" VerticalAlignment="Center" Style="{DynamicResource CheckBoxReadOnlyStyle}"></CheckBox>
+                                <CheckBox Name="chkIsCAFDES" IsChecked="{Binding IsCAFDES}" VerticalAlignment="Center" ></CheckBox>
+                                <Label>PostFormation :</Label>
+                                <CheckBox Name="chkIsPOSTFORMATION"
+                                          Command="{Binding DataContext.IsPostFormationCommand, ElementName=window}"
+                                          CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}, Mode=OneWay}"
+                                          VerticalAlignment="Center" 
+                                          >
+                                </CheckBox>
                             </StackPanel>
                             <DataGrid Name="gridLstDiplome" VerticalAlignment="Top" 
-                                      ItemsSource="{Binding lstDiplomesCandVMs}" 
+                                      ItemsSource="{Binding lstDiplomesCandVMsActifs}" 
                                       SelectedItem="{Binding CurrentDiplomeCand}"
                                       AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding" MouseDoubleClick="gridLstDiplome_MouseDoubleClick" Margin="5,0" Style="{DynamicResource MyDataGridStyle}"
                                       HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*">

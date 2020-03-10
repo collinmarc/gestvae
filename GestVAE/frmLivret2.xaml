@@ -384,6 +384,7 @@
                                   AutoGenerateColumns="False" SelectionMode="Single" 
                                   CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" 
                                   Margin="10" RowHeaderWidth="10" HorizontalAlignment="Stretch"
+                                   
                               AddingNewItem="dgMembreJury_AddingNewItem" SelectionChanged="dgMembreJury_SelectionChanged">
                                 <DataGrid.Resources>
                                     <VM:BindingProxy x:Key="proxy" Data="{Binding VM, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
@@ -393,32 +394,45 @@
                                 </DataGrid.InputBindings>
 
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="1*"/>
-                                    <DataGridComboBoxColumn Header="College" 
-                                                        SelectedValueBinding="{Binding College}"
-                                                        SelectedValuePath="Nom"
-                                                        ItemsSource="{Binding Data.lstParamCollege, Source={StaticResource proxy}}"
-                                                            DisplayMemberPath="Nom"
-                                                    Width="2*"/>
+                                    <!--SelectedValueBinding="{Binding Nom}"-->
+                                    <local:MyDataGridComboboxColumn Header="Nom" 
+                                                                    Binding="{Binding Nom_Prenom}"
+                                                                    ItemsSourceBinding="{Binding Data.lstParamBDMembreJury, Source={StaticResource proxy}}"
+                                                                    ItemSourceDisplayMemberPath="Nom_Prenom"
+                                                                    SelectedItemBinding="{Binding DBMembreJurySelected, UpdateSourceTrigger=PropertyChanged}"
+                                                                    Width="2*"
+                                                                    />
 
-                                    <DataGridComboBoxColumn Header="Région" 
-                                                 SelectedValueBinding="{Binding Region}" 
-                                                 SelectedValuePath="Nom"
-                                                 ItemsSource="{Binding Data.lstRegionVM, Source={StaticResource proxy}}"
-                                                             DisplayMemberPath="Nom"
-                                                    Width="2*"/>
-                                    <DataGridComboBoxColumn Header="Dpt. Domicile" 
-                                                        SelectedValueBinding="{Binding DptDomicile}" 
-                                                        SelectedValuePath="Nom"
-                                                        ItemsSource="{Binding Data.lstParamDepartement, Source={StaticResource proxy}}"
-                                                             DisplayMemberPath="Nom"
-                                                    Width="2*"/>
-                                    <DataGridComboBoxColumn Header="Dpt. Travail" 
-                                                        SelectedValueBinding="{Binding DptTravail}" 
-                                                        SelectedValuePath="Nom"
-                                                        ItemsSource="{Binding Data.lstParamDepartement, Source={StaticResource proxy}}"
-                                                             DisplayMemberPath="Nom"
-                                                    Width="2*"/>
+                                    <local:MyDataGridComboboxColumn Header="Région" 
+                                                                    Binding="{Binding Region}"
+                                                                    ItemsSourceBinding="{Binding Data.lstRegionVM, Source={StaticResource proxy}}"
+                                                                    ItemSourceDisplayMemberPath="Nom"
+                                                                    Width="2*"
+                                                                    />
+
+
+                                    <local:MyDataGridComboboxColumn Header="Collège" 
+                                                                    Binding="{Binding College}"
+                                                                    ItemsSourceBinding="{Binding Data.lstParamColleges, Source={StaticResource proxy}}"
+                                                                    ItemSourceDisplayMemberPath="Nom"
+                                                                    Width="2*"
+                                                                    />
+
+
+                                    <local:MyDataGridComboboxColumn Header="Dpt. Domicile" 
+                                                                    Binding="{Binding DptDomicile}"
+                                                                    ItemsSourceBinding="{Binding Data.lstParamDepartement, Source={StaticResource proxy}}"
+                                                                    ItemSourceDisplayMemberPath="Nom"
+                                                                    Width="2*"
+                                                                    />
+
+                                    <local:MyDataGridComboboxColumn Header="Dpt. Travail" 
+                                                                    Binding="{Binding DptTravail}"
+                                                                    ItemsSourceBinding="{Binding Data.lstParamDepartement, Source={StaticResource proxy}}"
+                                                                    ItemSourceDisplayMemberPath="Nom"
+                                                                    Width="2*"
+                                                                    />
+
                                 </DataGrid.Columns>
                             </DataGrid>
                             <Button  Margin="10,0,10,0"
@@ -548,8 +562,8 @@
             </TabItem>
         </TabControl>
         <UniformGrid Grid.Row="3" >
-            <Button x:Name="cbValider"  Margin="10"  IsCancel="True" Content="Valider et Quitter"
-                    IsEnabled="{Binding IsLivretModifiable}"
+                <!--                    IsEnabled="{Binding IsLivretModifiable}" -->
+                <Button x:Name="cbValider"  Margin="10"  IsCancel="True" Content="Valider et Quitter"
                     Command="{Binding DataContext.ValideretQuitterL2Command, ElementName=window}"/>
             <Button x:Name="cbQuitter" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}"  IsCancel="True" Content="Quitter"/>
             <Button x:Name="dbCloturerL2"  Margin="10"  IsCancel="True" Content="Clôturer" 

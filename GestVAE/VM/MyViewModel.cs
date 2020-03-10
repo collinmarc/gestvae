@@ -37,6 +37,7 @@ namespace GestVAE.VM
         private Boolean _isBusy;
         private CandidatVM _candidatVM;
         public Action CloseAction { get; set; }
+        public List<BDMembreJury> lstParamBDMembreJury { get; set; }
         public ObservableCollection<ParamCollege> lstParamCollege { get; set; }
         public ObservableCollection<ParamDepartement> lstParamDepartement { get; set; }
         public ObservableCollection<ParamTypeDemande> lstParamTypeDemande { get; set; }
@@ -164,13 +165,13 @@ namespace GestVAE.VM
             AjouteDiplomeCandCommand = new RelayCommand<MyViewModel>(o => { AjouteDiplomeCand(); }
                                            );
             AjouteL1Command = new RelayCommand<MyViewModel>(o => { AjouteL1(); },
-                                                            o=> { return IsCurrentCandidatAddL1Available; }
+                                                            o => { return IsCurrentCandidatAddL1Available; }
                                            );
             AjoutePJL1Command = new RelayCommand<MyViewModel>(o => { AjoutePJL1(); },
                                                               o => { return IsAjoutPJPossible(); }
                                            );
             AjoutePJL2Command = new RelayCommand<MyViewModel>(o => { AjoutePJL2(); },
-                                                                o=> { return IsAjoutPJPossible(); }
+                                                                o => { return IsAjoutPJPossible(); }
                                            );
             DeletePJCommand = new RelayCommand<MyViewModel>(o => { DeletePJ(); },
                                                             o => { return IsDeletePJPossible(); }
@@ -185,7 +186,7 @@ namespace GestVAE.VM
             dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
                                            );
             ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); },
-                                                                        o=> { return IsValiderEtQuitterAvailable; }
+                                                                        o => { return IsValiderEtQuitterAvailable; }
                                            );
             ValideretQuitterL2Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL2(); },
                                                                         o => { return IsValiderEtQuitterAvailable; }
@@ -210,16 +211,17 @@ namespace GestVAE.VM
                                                         );
             ExecSQLCommand = new RelayCommand<MyViewModel>(o => { ExecSQL(); }
                                                         );
-            DecloturerLivretCommand= new RelayCommand<MyViewModel>(o => { DecloturerLivret(); }
+            DecloturerLivretCommand = new RelayCommand<MyViewModel>(o => { DecloturerLivret(); }
                                                         );
             DoubleClickCandidat = new RelayCommand<MyViewModel>(o => { DoubleClickSurCandidat(); }
                                                                     );
 
-        ExporterDataCommand = new RelayCommand<MyViewModel>(o => { exporterData(); }
+            ExporterDataCommand = new RelayCommand<MyViewModel>(o => { exporterData(); }
+                                                                        );
+
+            _RechercherBaseMembreJurycommand = new RelayCommand<MyViewModel>(o => { RechercherBaseMembreJury(); }
                                                                     );
-
-
-        }
+        }//Createcommand
 
         public ObservableCollection<CandidatVM> lstCandidatVM
         {
@@ -453,6 +455,14 @@ namespace GestVAE.VM
                     lstParamVecteurInformation.Add(item);
                 }
 
+                try
+                {
+                    lstParamBDMembreJury = BDMembreJury.loadFrom(ParamPathToBaseJury);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxShow("erreur en chargement de la liste des membres du jurys:" + ex.Message);
+                }
 
 
 
@@ -554,7 +564,12 @@ namespace GestVAE.VM
         {
             get { return _ValiderParametresCommand; }
         }
-        
+        private ICommand _RechercherBaseMembreJurycommand;
+        public ICommand RechercherBaseMembreJurycommand
+        {
+            get { return _RechercherBaseMembreJurycommand; }
+        }
+
         private ICommand _RechercherCommand;
 
         public ICommand RechercherCommand
@@ -929,7 +944,7 @@ public void AjoutePJL1()
         /// </summary>
         public void ValiderdlgParam(dlgParametre pDlg)
         {
-            _ctxParam.SaveChanges();
+            saveDataParam();
             if (!IsInTest)
             {
                 pDlg.Close();
@@ -941,7 +956,7 @@ public void AjoutePJL1()
         public void CalldlgParam()
         {
             dlgParametre oDlg = new dlgParametre();
-            _ctxParam = new ContextParam();
+//            _ctxParam = new ContextParam();
             oDlg.setContexte(this);
             if (!IsInTest)
             {
@@ -1451,11 +1466,11 @@ public void AjoutePJL1()
             {
                 Int32 nReturn = 0;
                 Param objParam = _ctxParam.dbParam.FirstOrDefault();
-                _ctxParam.Entry(objParam).Reload();
-                    if (objParam != null)
-                    {
-                        nReturn = objParam.NumCandidat;
-                    }
+                if (objParam != null)
+                {
+                    _ctxParam.Entry(objParam).Reload();
+                    nReturn = objParam.NumCandidat;
+                }
                 return nReturn;
             }
             set
@@ -1482,9 +1497,9 @@ public void AjoutePJL1()
                 using (ContextParam ctx = new ContextParam())
                 {
                     Param objParam = _ctxParam.dbParam.FirstOrDefault();
-                    _ctxParam.Entry(objParam).Reload();
                     if (objParam != null)
                     {
+                        _ctxParam.Entry(objParam).Reload();
                         nReturn = objParam.NumLivret;
                     }
                 }
@@ -1516,9 +1531,9 @@ public void AjoutePJL1()
             {
                 Int32 nReturn = 0;
                 Param objParam = _ctxParam.dbParam.FirstOrDefault();
-                _ctxParam.Entry(objParam).Reload();
                 if (objParam != null)
                 {
+                    _ctxParam.Entry(objParam).Reload();
                     nReturn = objParam.DelaiValiditeL1;
                 }
                 return nReturn;
@@ -1537,7 +1552,7 @@ public void AjoutePJL1()
             }
         }
         /// <summary>
-        /// Delai de validité du L1 après expiration
+        /// Couleur de fond des Livret en tolérance
         /// </summary>
         public String ParamCouleurTolerance
         {
@@ -1545,9 +1560,9 @@ public void AjoutePJL1()
             {
                 String nReturn = "";
                 Param objParam = _ctxParam.dbParam.FirstOrDefault();
-                _ctxParam.Entry(objParam).Reload();
                 if (objParam != null)
                 {
+                    _ctxParam.Entry(objParam).Reload();
                     nReturn = objParam.CouleurTolerance;
                 }
                 return nReturn;
@@ -1560,6 +1575,35 @@ public void AjoutePJL1()
                     if (objParam != null)
                     {
                         objParam.CouleurTolerance = value;
+                        _ctxParam.SaveChanges();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Chemoin d'accès au fichier des membres du jury
+        /// </summary>
+        public String ParamPathToBaseJury
+        {
+            get
+            {
+                String nReturn = "";
+                Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                if (objParam != null)
+                {
+                    _ctxParam.Entry(objParam).Reload();
+                    nReturn = objParam.PathToBaseJury;
+                }
+                return nReturn;
+            }
+            set
+            {
+                if (value != ParamPathToBaseJury)
+                {
+                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                    if (objParam != null)
+                    {
+                        objParam.PathToBaseJury = value;
                         _ctxParam.SaveChanges();
                     }
                 }
@@ -1623,6 +1667,7 @@ public void AjoutePJL1()
                 RaisePropertyChanged("IsParamVecteur");
                 RaisePropertyChanged("IsParamNumerotation");
                 RaisePropertyChanged("IsParamDelaiValiditeL1");
+                RaisePropertyChanged("IsParamPathToBDMembreJury");
             }
         }
 
@@ -1646,16 +1691,13 @@ public void AjoutePJL1()
         public Boolean IsParamVecteur { get { return NomParametreEquals("Vecteur d'information"); } }
         public Boolean IsParamNumerotation { get { return NomParametreEquals("Numérotation"); } }
         public Boolean IsParamDelaiValiditeL1 { get { return NomParametreEquals("Délai Validité du L1"); } }
+        public Boolean IsParamPathToBDMembreJury { get { return NomParametreEquals("Base des membres du jury"); } }
 
         public Boolean saveDataParam()
         {
             Boolean bReturn = true;
             try
             {
-                foreach (DiplomeVM item in lstDiplomeVM)
-                {
-                    item.Commit();
-                }
 
                 foreach (PieceJointeCategorie item in lstPieceJointeCategorie)
                 {
@@ -1698,10 +1740,6 @@ public void AjoutePJL1()
                     {
                         _ctxParam.Regions.Add(item.RegionItem);
                     }
-                }
-                foreach (DiplomeVM item in lstDiplomeVM)
-                {
-                    item.Commit();
                 }
 
                 foreach (ParamDepartement item in lstParamDepartement)
@@ -1748,8 +1786,7 @@ public void AjoutePJL1()
                         _ctxParam.dbParamVecteurInformation.Remove(item);
                     }
                 }
-                _ctx.SaveChanges();
-                UnlockCandidats();
+                _ctxParam.SaveChanges();
                 _modelhasChanges = false;
                 bReturn = true;
             }
@@ -1794,6 +1831,38 @@ public void AjoutePJL1()
             IsBusy = false;
         }
 
+        public void RechercherBaseMembreJury()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = false;
+            openFileDialog.Filter = "fichier CSV (*.csv)|*.csv";
+            openFileDialog.CheckFileExists = true;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    ParamPathToBaseJury = openFileDialog.FileName;
+                        BDMembreJury.loadFrom(ParamPathToBaseJury);
+                }
+                catch (Exception ex)
+                {
+
+
+                    MessageBoxShow("erreur en lecture du fichier " + ex.Message);
+                    ParamPathToBaseJury = "";
+
+                }
+            }
+
+        }
+        private BDMembreJury _DBMembreJurySelected;
+
+        public BDMembreJury DBMembreJurySelected
+        {
+            get { return _DBMembreJurySelected; }
+            set { _DBMembreJurySelected = value; }
+        }
 
     }
 }

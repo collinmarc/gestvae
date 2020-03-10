@@ -81,11 +81,15 @@
     <Compile Include="Livret1VMTest.cs" />
     <Compile Include="ContextTest.cs" />
     <Compile Include="tstFrmLivret1.cs" />
+    <Compile Include="BDMembrejuryTest.cs" />
     <Compile Include="ValidationTest.cs" />
     <Compile Include="VMTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="BD Globale convertie Jurés en fonction .csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

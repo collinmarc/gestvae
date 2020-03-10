@@ -12,5 +12,6 @@ namespace GestVAEcls
         public Int32 NumCandidat { get; set; }
         public Int32 DelaiValiditeL1 { get; set; }
         public String CouleurTolerance { get; set; }
+        public String PathToBaseJury { set; get; }
     }
 }

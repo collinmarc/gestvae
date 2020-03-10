@@ -1,4 +1,6 @@
-﻿
+﻿Build : 20200310
+0000985: Gestion des membres du jury
+
 Build : 20200201
 0001139: date de création du L2 > date de validité du L1
 

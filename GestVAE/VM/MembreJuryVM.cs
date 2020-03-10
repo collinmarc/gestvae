@@ -32,6 +32,11 @@ namespace GestVAE.VM
             get { return TheMembreJury.Nom; }
             set { TheMembreJury.Nom = value; RaisePropertyChanged(); }
         }
+        public String Nom_Prenom
+        {
+            get { return TheMembreJury.Nom; }
+            set { TheMembreJury.Nom = value; RaisePropertyChanged(); }
+        }
         public String DptDomicile
         {
             get { return TheMembreJury.DptDomicile; }
@@ -56,6 +61,53 @@ namespace GestVAE.VM
             set {
                 TheMembreJury.Region = value;
                 RaisePropertyChanged(); }
+        }
+
+        public BDMembreJury _DBMembreJurySelected;
+        public BDMembreJury DBMembreJurySelected
+        {
+            get
+            {
+                return _DBMembreJurySelected;
+            }
+            set
+            {
+                if (value != _DBMembreJurySelected)
+                {
+                    ContextParam _ctx = new ContextParam();
+                    _DBMembreJurySelected = value;
+                    if (_DBMembreJurySelected != null)
+                    {
+                        Nom = DBMembreJurySelected.Nom_Prenom;
+                        College = DBMembreJurySelected.College_membre;
+                        Region = DBMembreJurySelected.Region;
+                        String dpt_PRO;
+                        String dpt_PRSO;
+                        if (DBMembreJurySelected.Adresse_prioritaire.ToUpper().Contains("PROFESSION"))
+                        {
+                            dpt_PRO = String.Format("{0:00000}", DBMembreJurySelected.Cp_prio).Substring(0, 2);
+                            dpt_PRSO = String.Format("{0:00000}", DBMembreJurySelected.Cp_non_prio).Substring(0, 2);
+
+                        }
+                        else
+                        {
+                            dpt_PRSO = String.Format("{0:00000}", DBMembreJurySelected.Cp_prio).Substring(0, 2);
+                            dpt_PRO = String.Format("{0:00000}", DBMembreJurySelected.Cp_non_prio).Substring(0, 2);
+
+                        }
+                        ParamDepartement odpt = _ctx.dbParamDepartement.Where(d => d.Nom.StartsWith(dpt_PRO)).FirstOrDefault();
+                        if (odpt != null)
+                        {
+                            DptTravail = odpt.Nom;
+                        }
+                        odpt = _ctx.dbParamDepartement.Where(d => d.Nom.StartsWith(dpt_PRSO)).FirstOrDefault();
+                        if (odpt != null)
+                        {
+                            DptDomicile = odpt.Nom;
+                        }
+                    }
+                }
+            }
         }
 
 

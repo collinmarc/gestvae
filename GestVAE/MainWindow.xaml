@@ -156,6 +156,10 @@
                 </Grid>
                 <Grid Name="grdlbCandidat" VerticalAlignment="Stretch" Grid.Row="2" Style="{DynamicResource GridStyle1}"
                       >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="149*"/>
+                        <ColumnDefinition Width="375*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="50"/>
@@ -163,7 +167,7 @@
                     <DataGrid x:Name="dglstCandidats" Grid.Row ="0" MinHeight="100"
                               ItemsSource="{Binding lstCandidatVM}" SelectedItem="{Binding CurrentCandidat}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CellEditEnding="gridLstDiplome_CellEditEnding"   BorderThickness="0"
                               Margin="10"
-                              Style="{DynamicResource MyDataGridStyle}" 
+                              Style="{DynamicResource MyDataGridStyle}" Grid.ColumnSpan="2" 
                               
                               >
                         <DataGrid.Resources>
@@ -184,7 +188,7 @@
                                     />
                         </DataGrid.InputBindings>
                     </DataGrid>
-                    <Button x:Name="cbAddCandidat" Content="Ajout candidat" Grid.Row ="1"  Height="30" Margin="10" Command="{Binding AddCandidatCommand}"/>
+                    <Button x:Name="cbAddCandidat" Content="Ajout candidat" Grid.Row ="1"  Height="30" Margin="10" Command="{Binding AddCandidatCommand}" Grid.ColumnSpan="2"/>
 
                 </Grid>
 

@@ -33,6 +33,7 @@
                 <RowDefinition Height="{Binding IsParamVecteur, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
                 <RowDefinition Height="{Binding IsParamNumerotation, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
                 <RowDefinition Height="{Binding IsParamDelaiValiditeL1, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <RowDefinition Height="{Binding IsParamPathToBDMembreJury, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <ComboBox  Margin="10" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Grid.RowSpan="10" VerticalAlignment="Top"
@@ -51,6 +52,8 @@
                 <ComboBoxItem Content="Vecteur d'information"/>
                 <ComboBoxItem Content="Numérotation"/>
                 <ComboBoxItem Content="Délai Validité du L1"/>
+                <ComboBoxItem Content="Base des membres du jury"/>
+                
             </ComboBox>
             
             <DataGrid Name="dgRegion" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding lstRegionVM}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
@@ -210,10 +213,16 @@
 
 
             </UniformGrid>
+            <UniformGrid Name="ugBaseMembreJury" Grid.Row="12" Grid.Column="1" Rows="1" Columns="3">
+                <Label>Base des membres du jury:</Label>
+                <TextBox Text="{Binding ParamPathToBaseJury}" Grid.ColumnSpan="2" ></TextBox>
+                <Button Command="{Binding RechercherBaseMembreJurycommand}">
+                    Rechercher</Button>
+            </UniformGrid>
 
 
 
-            <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="12"  
+            <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="13"  
                     IsCancel="True" 
                     HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" 
                     VerticalAlignment="Center" Margin="10"

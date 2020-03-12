@@ -287,6 +287,10 @@
     <Compile Include="Migrations\202003120748577_CommentaireClient.Designer.cs">
       <DependentUpon>202003120748577_CommentaireClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003122153481_V20200310.cs" />
+    <Compile Include="Migrations\202003122153481_V20200310.Designer.cs">
+      <DependentUpon>202003122153481_V20200310.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -505,6 +509,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003120748577_CommentaireClient.resx">
       <DependentUpon>202003120748577_CommentaireClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003122153481_V20200310.resx">
+      <DependentUpon>202003122153481_V20200310.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

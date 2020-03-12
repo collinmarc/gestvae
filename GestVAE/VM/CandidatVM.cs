@@ -190,7 +190,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return (from oDiplomeCand in lstDiplomesCandVMs
+                return (from oDiplomeCand in lstDiplomesCandVMsActifs
                         where oDiplomeCand.oDiplome.Nom == cstCAFDES
                         select oDiplomeCand).FirstOrDefault<DiplomeCandVM>();
             }
@@ -199,7 +199,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return (from oDiplomeCand in lstDiplomesCandVMs
+                return (from oDiplomeCand in lstDiplomesCandVMsActifs
                         where oDiplomeCand.oDiplome.Nom == cstDEIS
                         select oDiplomeCand).FirstOrDefault<DiplomeCandVM>();
             }
@@ -208,7 +208,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return (from oDiplomeCand in lstDiplomesCandVMs
+                return (from oDiplomeCand in lstDiplomesCandVMsActifs
                         where oDiplomeCand.oDiplome.Nom == cstCAFERUIS
                         select oDiplomeCand).FirstOrDefault<DiplomeCandVM>();
             }

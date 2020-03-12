@@ -57,10 +57,12 @@ namespace GestVAE
             MyViewModel _VM = new MyViewModel();
             this.DataContext = _VM;
             _VM.getParams();
-
+#if _DEBUG
             VM.rechNom = "COLLIN";
             VM.Recherche();
             VM.CurrentCandidat = VM.lstCandidatVM[0];
+
+#endif
 
         }
         bool manualCommit = false;

@@ -7,6 +7,7 @@ namespace GestVAEcls.Migrations
     {
         public override void Up()
         {
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "PropositionDecision" + "Start");
             AddColumn("dbo.DCLivrets", "PropositionDecision", c => c.String());
             Sql(@"DROP VIEW [dbo].[RQ_L2_DECISION_DC]");
             Sql(@"CREATE VIEW [dbo].[RQ_L2_DECISION_DC]
@@ -255,10 +256,12 @@ FROM            dbo.Livret2 INNER JOIN
                                      dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
 ");
 
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "PropositionDecision" + "End");
         }
 
         public override void Down()
         {
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION DOWN]" + "PropositionDecision" + "Start");
             DropColumn("dbo.DCLivrets", "PropositionDecision");
             Sql(@"DROP VIEW [dbo].[RQ_L2_DECISION_DC]");
             Sql(@"CREATE VIEW [dbo].[RQ_L2_DECISION_DC]
@@ -484,6 +487,7 @@ WHERE        (dbo.DCLivrets.IsAValider = 1)
                                      dbo.DiplomeCands ON dbo.Candidats.ID = dbo.DiplomeCands.Candidat_ID AND dbo.Diplomes.ID = dbo.DiplomeCands.Diplome_ID LEFT OUTER JOIN
                                      dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
 ");
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION DOWN]" + "PropositionDecision" + "End");
         }
     }
 }

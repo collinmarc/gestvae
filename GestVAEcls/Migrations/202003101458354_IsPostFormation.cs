@@ -7,6 +7,7 @@ namespace GestVAEcls.Migrations
     {
         public override void Up()
         {
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "IsPostFormation" + "Start");
             AddColumn("dbo.Candidats", "ISPostFormation", c => c.Boolean(nullable: false));
             Sql(@"UPDATE Candidats SET ISPostFormation=0");
 
@@ -352,10 +353,12 @@ GO
                                              dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
                 ");
 
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "IsPostFormation" + "End");
         }
 
         public override void Down()
         {
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION DOWN]" + "IsPostFormation" + "Start");
             DropColumn("dbo.Candidats", "ISPostFormation");
             Sql(@"DROP VIEW RQ_L1_DOC");
             Sql(@"            CREATE VIEW [dbo].[RQ_L1_DOC]
@@ -687,6 +690,7 @@ GO
                                      dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
 ");
 
+            System.Diagnostics.Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION DOWN]" + "IsPostFormation" + "end");
         }
     }
 }

@@ -3,6 +3,7 @@
 0000895: Recherche : Date de validation L1 et L2
 0001039: Ajout du Post-Formation
 0001022: L2 : Diplome CAERUIS ET DEIS
+0001042: Ajout de commentaires sur le dossier d'un candidat
 
 Build : 20200201
 0001139: date de création du L2 > date de validité du L1

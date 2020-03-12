@@ -12,7 +12,6 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"/>
-        <local:BoolRadioConverter x:Key="BoolRadioConverter"/>
 
         <Image x:Key="AddIco" Source="IMG/Add.png"/>
 

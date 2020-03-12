@@ -400,6 +400,63 @@ namespace GestVAE.VM
                 }
             }
         }
+        public String Commentaire
+        {
+            get
+            {
+                return TheCandidat.Commentaire;
+            }
+            set
+            {
+                if (value != Commentaire)
+                {
+                    TheCandidat.Commentaire = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("ImageCommentaire");
+                }
+            }
+        }
+        public EnumTypeCommentaire? TypeCommentaire
+        {
+            get
+            {
+                return TheCandidat.TypeCommentaire;
+            }
+            set
+            {
+                if (value != TypeCommentaire)
+                {
+                    TheCandidat.TypeCommentaire = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("ImageCommentaire");
+                }
+            }
+        }
+        public String ImageCommentaire
+        {
+            get
+            {
+                String strReturn = "";
+                if (String.IsNullOrEmpty(Commentaire))
+                {
+                    strReturn = "IMG/StickynoteGray.png";
+                }
+                else
+                {
+                    switch (TypeCommentaire)
+                    {
+                        case EnumTypeCommentaire.INFO:
+                            strReturn = "IMG/StickynoteYellow.png";
+                            break;
+                        case EnumTypeCommentaire.IMPORTANT:
+                            strReturn = "IMG/StickynoteRed.png";
+                            break;
+                    }
+                }
+                return strReturn;
+            }
+        }
+
 
         public DiplomeCandVM AjoutDiplomeCand()
         {

@@ -22,6 +22,8 @@
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:TypeCommentaireToBackgroundConverter x:Key="TypeCommentaireToBackgroundConverter"/>
+        <local:ABConverter x:Key="TypeCommentaireToImageConverter"/>
         <local:TolereToBackgroudConverter x:Key="TolereToBackgroudConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"></local:EnumToBoleanConverter>
         <local:BooleanToCursorConverter x:Key="BoolToCursor"></local:BooleanToCursorConverter>
@@ -38,6 +40,9 @@
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <BitmapImage x:Key="SNGray" UriSource="IMG/stickynoteGray.png"></BitmapImage>
+        <BitmapImage x:Key="SNYellow" UriSource="IMG/stickynoteYellow.png"></BitmapImage>
+        <BitmapImage x:Key="SNRed" UriSource="IMG/stickynoteRed.png"></BitmapImage>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding  Key="F12" Modifiers ="Alt" Command="{Binding ExecSQLCommand}"></KeyBinding>
@@ -260,17 +265,26 @@
                         <Label Content="Identifiants " Grid.Row ="1" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="0" />
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0" >
                             <Label Content="VAE :" VerticalAlignment="Center" Margin="0"/>
-                            <TextBox Name="tbIdVAE"   Margin ="0" Text="{Binding TheCandidat.IdVAE}" Width="100"  Style="{DynamicResource TextBoxReadOnlyStyle}" VerticalAlignment="Center" />
+                            <TextBox Name="tbIdVAE"   Margin ="0" Text="{Binding TheCandidat.IdVAE}" Width="60"  Style="{DynamicResource TextBoxReadOnlyStyle}" VerticalAlignment="Center" />
                             <Label Content="   N° SISCOLE :" VerticalAlignment="Center" Margin="0"/>
-                            <TextBox x:Name="tbIdSISCOLE"  Width="100" Margin ="0" Text="{Binding IdSiscole}" Style="{DynamicResource TextBoxReadOnlyStyle}" VerticalAlignment="Center" 
+                            <TextBox x:Name="tbIdSISCOLE"  Width="60" Margin ="0" Text="{Binding IdSiscole}" Style="{DynamicResource TextBoxReadOnlyStyle}" VerticalAlignment="Center" 
                                      />
+                            <Button Name="btnCommentaire1" 
+                                    Margin="10,0,0,0" 
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding DataContext.CommentaireCommand, ElementName=window}"
+                                    Width="30">
+                                <Image Source="{Binding ImageCommentaire}" Stretch="Fill" ClipToBounds="True" ></Image>
+                            </Button>
+
                         </StackPanel>
                         <Label Content="Sexe:" Grid.Row ="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="0"  />
                         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="0" VerticalAlignment="Center" >
                             <RadioButton Content="Homme   " HorizontalAlignment="Left"  IsChecked="{Binding Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}" VerticalAlignment="Center" Style="{DynamicResource RadioButtonReadOnlyStyle}"/>
                             <RadioButton Content="Femme   " HorizontalAlignment="Left"  IsChecked="{Binding Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}" VerticalAlignment="Center" Style="{DynamicResource RadioButtonReadOnlyStyle}"/>
                             <Label Content="       Travailleur handicapé :" Width="150" />
-                            <CheckBox   IsChecked="{Binding bHandicap}" Style="{DynamicResource CheckBoxReadOnlyStyle}" VerticalAlignment="Center" />
+                            <CheckBox   IsChecked="{Binding bHandicap}"  VerticalAlignment="Center" />
                         </StackPanel>
                         <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" >Civilité :</Label>
                         <ComboBox x:Name="cbxCivilite" Grid.Row="3"  Grid.Column="1" IsEditable="True"  
@@ -345,7 +359,7 @@
 
                         <Label Content="Nationalité naissance : " Grid.Row="19" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" />
                         <TextBox x:Name="tbNationaliteNaissance" Grid.Row="19" Text="{Binding TheCandidat.NationaliteNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5"/>
-                        <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="15" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5,10,5,8" VerticalAlignment="Center" Height="24"/>
+                        <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="15" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  VerticalAlignment="Center" Height="24" HorizontalAlignment="Left"/>
                         <Button x:Name="btnAddDiplomeCand" Grid.Row ="20" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,10,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                             Command="{ Binding DataContext.AjouteDiplomeCandCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="21" Width="32"/>
                         <StackPanel Grid.Row ="20" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="0">

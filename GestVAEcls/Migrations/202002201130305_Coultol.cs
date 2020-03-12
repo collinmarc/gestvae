@@ -7,12 +7,12 @@ namespace GestVAEcls.Migrations
     {
         public override void Up()
         {
-//            AddColumn("dbo.Params", "CouleurTolerance", c => c.String());
+            AddColumn("dbo.Params", "CouleurTolerance", c => c.String());
         }
         
         public override void Down()
         {
-//            DropColumn("dbo.Params", "CouleurTolerance");
+            DropColumn("dbo.Params", "CouleurTolerance");
         }
     }
 }

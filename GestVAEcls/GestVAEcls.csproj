@@ -283,6 +283,10 @@
     <Compile Include="Migrations\202003102148087_PropositionDecision.Designer.cs">
       <DependentUpon>202003102148087_PropositionDecision.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003120748577_CommentaireClient.cs" />
+    <Compile Include="Migrations\202003120748577_CommentaireClient.Designer.cs">
+      <DependentUpon>202003120748577_CommentaireClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -498,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003102148087_PropositionDecision.resx">
       <DependentUpon>202003102148087_PropositionDecision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003120748577_CommentaireClient.resx">
+      <DependentUpon>202003120748577_CommentaireClient.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

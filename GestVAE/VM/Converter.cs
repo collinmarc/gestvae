@@ -61,25 +61,72 @@ namespace GestVAE
         }
     }
 
-    [ValueConversion(typeof(bool), typeof(bool))]
-    public class BoolRadioConverter : IValueConverter
+    [ValueConversion(typeof(EnumTypeCommentaire), typeof(String))]
+    public class TypeCommentaireToBackgroundConverter : IValueConverter
     {
         public bool Inverse { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool boolValue = (bool)value;
+            try
+            {
+                EnumTypeCommentaire o = (EnumTypeCommentaire)value;
+                String strReturn = "";
+                switch (o)
+                {
+                    case EnumTypeCommentaire.INFO:
+                        strReturn = "yellow";
+                        break;
+                    case EnumTypeCommentaire.IMPORTANT:
+                        strReturn = "red";
+                        break;
+                    default:
+                        strReturn = "red";
+                        break;
+                }
+                return strReturn;
 
-            return boolValue;
+            }
+            catch (Exception)
+            {
+                return "gray";
+            }
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            bool boolValue = (bool)value;
-            return boolValue;
+        {    // Don't need any convert back
+            return null;
         }
     }
 
+    [ValueConversion(typeof(EnumTypeCommentaire), typeof(Binding))]
+    public class ABConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            EnumTypeCommentaire o = (EnumTypeCommentaire)value;
+            String strReturn = "";
+            switch (o)
+            {
+                case EnumTypeCommentaire.INFO:
+                    strReturn = "{StaticResource ResourceKey=SNYellow}";
+                    break;
+                case EnumTypeCommentaire.IMPORTANT:
+                    strReturn = "{StaticResource ResourceKey=SNRed}";
+                    break;
+                default:
+                    strReturn = "{StaticResource ResourceKey=SNGray}";
+                    break;
+            }
+            return strReturn;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {    // Don't need any convert back
+            return null;
+        }
+    }
     [ValueConversion(typeof(bool), typeof(string))]
     public class TolereToBackgroudConverter : IValueConverter
     {
@@ -94,4 +141,5 @@ namespace GestVAE
             return null;
         }
     }
+
 }

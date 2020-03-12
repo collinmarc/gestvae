@@ -57,7 +57,11 @@ namespace GestVAE
             MyViewModel _VM = new MyViewModel();
             this.DataContext = _VM;
             _VM.getParams();
-                
+
+            VM.rechNom = "COLLIN";
+            VM.Recherche();
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+
         }
         bool manualCommit = false;
         private void gridLstDiplome_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)

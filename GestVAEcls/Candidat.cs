@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,12 @@ namespace GestVAEcls
 {
 
     public enum Sexe { F, H };
+    public enum EnumTypeCommentaire {
+        [Description("Information")]
+        INFO,
+        [Description("Important")]
+        IMPORTANT
+    };
     public class Candidat : GestVAEBase
     {
         public String Civilite { get; set; }
@@ -48,6 +55,8 @@ namespace GestVAEcls
         public virtual ObservableCollection<Livret1> lstLivrets1 { get; set; }
         public virtual ObservableCollection<Livret2> lstLivrets2 { get; set; }
         public Boolean ISPostFormation { get; set; }
+        public String Commentaire { get; set; }
+        public EnumTypeCommentaire? TypeCommentaire { get; set; }
 
 
         public Candidat() :base()

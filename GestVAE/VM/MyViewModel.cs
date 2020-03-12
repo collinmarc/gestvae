@@ -223,6 +223,8 @@ namespace GestVAE.VM
 
             _RechercherBaseMembreJurycommand = new RelayCommand<MyViewModel>(o => { RechercherBaseMembreJury(); }
                                                                     );
+
+            CommentaireCommand = new RelayCommand<MyViewModel>(o => { Commentaire(); });
         }//Createcommand
 
         public ObservableCollection<CandidatVM> lstCandidatVM
@@ -602,6 +604,7 @@ namespace GestVAE.VM
         public ICommand UnLockAllCommand { get; set; }
         public ICommand ExecSQLCommand { get; set; }
         public ICommand ExporterDataCommand { get; set; }
+        public ICommand CommentaireCommand { get; set; }
         public String rechIdentifiantVAE { get; set; }
         public String rechIdentifiantSISCOLE { get; set; }
         public String rechNom { get; set; }
@@ -1910,6 +1913,13 @@ public void AjoutePJL1()
         {
             get { return _DBMembreJurySelected; }
             set { _DBMembreJurySelected = value; }
+        }
+
+        public void Commentaire()
+        {
+            frmCommentaire ofrm = new frmCommentaire();
+            ofrm.SetconTexte(this);
+            ofrm.ShowDialog();
         }
 
     }

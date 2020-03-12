@@ -158,6 +158,9 @@
     <Compile Include="dlgDiplomeCand.xaml.cs">
       <DependentUpon>dlgDiplomeCand.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmCommentaire.xaml.cs">
+      <DependentUpon>frmCommentaire.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmLivret2.xaml.cs">
       <DependentUpon>frmLivret2.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,9 @@
       <DependentUpon>frmLivret1.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyDataGridDateTimeColumn.cs" />
+    <Compile Include="PageCommentaire.xaml.cs">
+      <DependentUpon>PageCommentaire.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -208,6 +214,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="frmCommentaire.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frmLivret2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -232,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignTimeOnly>
+    <Page Include="PageCommentaire.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -247,6 +261,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="IMG\StickynoteGray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="IMG\StickynoteRed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="IMG\StickynoteYellow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="SQL\DROPCREATE_RQ_L1_DOC_V20190527.sql" />
     <Resource Include="IMG\Save.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

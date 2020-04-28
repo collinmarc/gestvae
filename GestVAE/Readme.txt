@@ -1,4 +1,7 @@
-﻿Build : 20200310
+﻿Build : 20200428
+0001213: L2 : Liste des Collèges vide dans la liste des jurys
+
+Build : 20200310
 0000985: Gestion des membres du jury
 0000895: Recherche : Date de validation L1 et L2
 0001039: Ajout du Post-Formation

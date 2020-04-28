@@ -112,7 +112,7 @@ namespace GestVAE.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("V20200201")]
+        [global::System.Configuration.DefaultSettingValueAttribute("V20200320")]
         public string NUMVERSION {
             get {
                 return ((string)(this["NUMVERSION"]));

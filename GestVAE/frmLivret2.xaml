@@ -418,7 +418,7 @@
 
                                     <local:MyDataGridComboboxColumn Header="Collège" 
                                                                     Binding="{Binding College}"
-                                                                    ItemsSourceBinding="{Binding Data.lstParamColleges, Source={StaticResource proxy}}"
+                                                                    ItemsSourceBinding="{Binding Data.lstParamCollege, Source={StaticResource proxy}}"
                                                                     ItemSourceDisplayMemberPath="Nom"
                                                                     Width="2*"
                                                                     />

@@ -291,6 +291,10 @@
     <Compile Include="Migrations\202003122153481_V20200310.Designer.cs">
       <DependentUpon>202003122153481_V20200310.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003201133054_PathToMemebreJury.cs" />
+    <Compile Include="Migrations\202003201133054_PathToMemebreJury.Designer.cs">
+      <DependentUpon>202003201133054_PathToMemebreJury.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -512,6 +516,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003122153481_V20200310.resx">
       <DependentUpon>202003122153481_V20200310.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003201133054_PathToMemebreJury.resx">
+      <DependentUpon>202003201133054_PathToMemebreJury.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

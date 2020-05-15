@@ -2,6 +2,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GestVAEcls;
 using System.Linq;
+using GestVAE.VM;
 
 namespace GestVAETU
 {
@@ -71,13 +72,17 @@ namespace GestVAETU
         [TestMethod]
         public void TestAjoutDiplomePArDefaut()
         {
+            MyViewModel VM = new MyViewModel(true);
+            VM.rechNom = oCand.Nom;
+            VM.Recherche(true);
+            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.AjouteDiplomeCand();
+            VM.saveData();
 
-            int nId = oCand.ID;
-            DiplomeCand oDipC = oCand.AddDiplome();
-            SaveChanges();
+            VM.rechNom = oCand.Nom;
+            VM.Recherche(true);
+            Assert.AreEqual(1, VM.CurrentCandidat.lstDiplomesCandVMs.Count());
 
-           oCand = ctx.Candidats.Find(nId);
-            Assert.AreEqual(1, oCand.lstDiplomes.Count);
 
         }
     }

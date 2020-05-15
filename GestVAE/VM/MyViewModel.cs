@@ -314,6 +314,7 @@ namespace GestVAE.VM
                         if (item.IsDeleted)
                         {
                             _ctx.DeleteOnCascade(item.TheCandidat);
+                       // _ctx.Candidats.Remove(item.TheCandidat);
                         }
                         else
                         {
@@ -869,8 +870,8 @@ namespace GestVAE.VM
                     oL2VM.IsNonRecu = oL1.IsNonRecu;
                     oL2VM.IsCNIOK = oL1.IsCNIOK;
                     oL2VM.DateValiditeCNI = oL1.DateValiditeCNI;
-                    oL2VM.IsEnregistre = oL1.IsEnregistre;
-                    oL2VM.IsPaye = oL1.IsPaye;
+                    oL2VM.IsEnregistre = false;
+                    oL2VM.IsPaye = false;
                 }
 
 
@@ -1222,6 +1223,7 @@ public void AjoutePJL1()
                         //CurrentCandidat.UnLock(_ContextID);
                         //_ctx.Candidats.Remove(CurrentCandidat.TheCandidat);
                         //lstCandidatVM.Remove(CurrentCandidat);
+                        CurrentCandidat = null;
                     }
                 }
             }

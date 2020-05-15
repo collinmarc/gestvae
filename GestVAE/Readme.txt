@@ -1,4 +1,11 @@
-﻿Build : 20200428
+﻿Build 20200515
+0001225: Ajout du libellé des piéces jointes dans l'extraction RQ_L2_DOC
+0001224: Dissocier les cases à cocher 'enregistré' et Payé entre le L1 et le L2
+
+
+Build : 20200428
+0001213: L2 : Liste des Collèges vide dans la liste des jurys
+Build : 20200428
 0001213: L2 : Liste des Collèges vide dans la liste des jurys
 
 Build : 20200310

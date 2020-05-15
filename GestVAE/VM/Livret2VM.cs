@@ -763,7 +763,7 @@ namespace GestVAE.VM
         {
             get
             {
-                if (IsEtatRecu)
+                if (IsEtatRecuComplet)
                     return 1;
                 else
                     return 0;

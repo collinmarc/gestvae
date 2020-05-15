@@ -8,7 +8,7 @@ namespace GestVAETU
     [TestClass]
     public class RecoursTest : RootTest
     {
-        [TestMethod]
+        [TestMethod, Ignore()]
         public void TestCRUDRecoursTest()
         {
             int nId = 0;

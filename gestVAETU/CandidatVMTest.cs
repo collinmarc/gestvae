@@ -46,7 +46,7 @@ namespace GestVAETU
             VM.Recherche();
             VM.CurrentCandidat = VM.lstCandidatVM[0];
             Assert.AreEqual("TESTADD", VM.CurrentCandidat.Nom);
-            Assert.AreEqual("", VM.CurrentCandidat.Commentaire);
+            Assert.IsTrue(String.IsNullOrEmpty(VM.CurrentCandidat.Commentaire));
             VM.CurrentCandidat.Commentaire = "COMMENTAIRE";
             VM.CurrentCandidat.TypeCommentaire = GestVAEcls.EnumTypeCommentaire.INFO;
             VM.saveData();
@@ -54,6 +54,7 @@ namespace GestVAETU
             VM.rechNom = "TESTADD";
             VM.Recherche();
             VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.LockCurrentCandidat();
             Assert.AreEqual("TESTADD", VM.CurrentCandidat.Nom);
             Assert.AreEqual("COMMENTAIRE", VM.CurrentCandidat.Commentaire);
             Assert.AreEqual(GestVAEcls.EnumTypeCommentaire.INFO, VM.CurrentCandidat.TypeCommentaire);

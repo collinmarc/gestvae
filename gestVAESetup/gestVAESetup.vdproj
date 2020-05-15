@@ -315,7 +315,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_46C1EE3031C487E33517BE9BDBDD5C56"
+        "MsmKey" = "8:_44259EDC0348EEE6A3DF42AEF2635D40"
         "OwnerKey" = "8:_3698190E8AF14CB3A3A0F1E8A0D8CF55"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -976,7 +976,7 @@
         "Entry"
         {
         "MsmKey" = "8:_EDF5BAE734F42503D0F7086FC3D9D66C"
-        "OwnerKey" = "8:_46C1EE3031C487E33517BE9BDBDD5C56"
+        "OwnerKey" = "8:_44259EDC0348EEE6A3DF42AEF2635D40"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1132,6 +1132,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_44259EDC0348EEE6A3DF42AEF2635D40"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_00F30F258D94B38D4B9E402C4488F64B"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1271,12 +1277,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_841928176E3BD632C12C58C74A447C2B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_46C1EE3031C487E33517BE9BDBDD5C56"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1991,7 +1991,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\gestVAESetup.msi"
+        "OutputFilename" = "8:Release\\gestVAESetup20200428.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -3193,14 +3193,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_46C1EE3031C487E33517BE9BDBDD5C56"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_44259EDC0348EEE6A3DF42AEF2635D40"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:GestVAEcls, Version=2019.9.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_46C1EE3031C487E33517BE9BDBDD5C56"
+                    "_44259EDC0348EEE6A3DF42AEF2635D40"
                     {
                     "Name" = "8:GestVAEcls.dll"
                     "Attributes" = "3:512"
@@ -6536,7 +6536,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:gestVAE"
         "ProductCode" = "8:{6143D5E6-41DF-44F8-8E99-696E9F1A6BED}"
-        "PackageCode" = "8:{423B3605-B240-4273-956B-72244F212DC3}"
+        "PackageCode" = "8:{416C9E24-0CC7-419C-9921-4E63604B8E2E}"
         "UpgradeCode" = "8:{A4442766-10E4-4285-900C-D95A9C2BD4E4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

@@ -261,6 +261,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="SQL\patch20200207extract.sql" />
+    <Content Include="SQL\patch20200210.sql" />
+    <Content Include="SQL\patch20200515.sql" />
+    <Content Include="SQL\patch20200217.sql" />
     <Resource Include="IMG\StickynoteGray.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

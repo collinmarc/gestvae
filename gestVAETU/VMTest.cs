@@ -902,6 +902,7 @@ namespace GestVAETU
             Int32 nDiplomeCandAvant, nDiplomeCandApres, nDCCandAvant, nDCCandApres, nCandAvant, nCandApres;
             System.Data.Common.DbConnection oConn = Context.instance.Database.Connection;
             System.Data.Common.DbCommand ocmd = oConn.CreateCommand();
+
             oConn.Open();
             ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
             nDiplomeCandAvant = (Int32)(ocmd.ExecuteScalar());
@@ -977,10 +978,12 @@ namespace GestVAETU
             VM.rechNom = "TESTRECOURS";
             VM.Recherche();
             VM.CurrentCandidat = VM.lstCandidatVM[0];
+            VM.LockCurrentCandidat();
             VM.CurrentCandidat.IsCAFDES = false;
             //            VM.CurrentCandidat.IsCAFERUIS = false;
             //            VM.CurrentCandidat.IsCAFDES = false;
             Assert.IsTrue(VM.saveData());
+
             oConn.Open();
             ocmd.CommandText = "SELECT Count(*) from DiplomeCands";
             nDiplomeCandApres = (Int32)(ocmd.ExecuteScalar());
@@ -989,6 +992,7 @@ namespace GestVAETU
             ocmd.CommandText = "SELECT Count(*) from Candidats";
             nCandApres = (Int32)(ocmd.ExecuteScalar());
             oConn.Close();
+
             Assert.AreEqual(nDiplomeCandAvant , nDiplomeCandApres);
             Assert.AreEqual(nDCCandAvant , nDCCandApres);
             Assert.AreEqual(nCandAvant + 1, nCandApres);

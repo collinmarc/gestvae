@@ -163,8 +163,8 @@ namespace GestVAETU
 
             Assert.AreEqual(oL1.IsCNIOK, oL2.IsCNIOK);
             Assert.AreEqual(oL1.DateValiditeCNI, oL2.DateValiditeCNI);
-            Assert.AreEqual(oL1.IsEnregistre, oL2.IsEnregistre);
-            Assert.AreEqual(oL1.IsPaye, oL2.IsPaye);
+            Assert.AreEqual(false, oL2.IsEnregistre);
+            Assert.AreEqual(false, oL2.IsPaye);
 
 
         }

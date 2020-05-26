@@ -124,7 +124,11 @@
                     <TextBox  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbRechVille" Margin="5"  ></TextBox>
 
                     <Label  Grid.Row="4" Grid.Column="0"  Content="Date de &#xD;&#xA;naissance :" />
-                    <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" BorderThickness="1" />
+                    <DatePicker x:Name="dpRechDateNaiss" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" BorderThickness="1" >
+                        <DatePicker.BlackoutDates>
+                            <CalendarDateRange Start="2080-01-01"/>
+                        </DatePicker.BlackoutDates>
+                    </DatePicker>
 
                     <CheckBox x:Name="ckRechHandicap" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Content="Handicapé" IsThreeState="True"
                               />
@@ -133,11 +137,21 @@
                             >Réception Livret1:</Label>
                     <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label  VerticalAlignment="Center">entre le :</Label>
-                        <DatePicker  Name="dpRechReceptL1Deb" Margin="5" Width="100" VerticalAlignment="Center" ></DatePicker>
+                        <DatePicker  Name="dpRechReceptL1Deb" Margin="5" Width="100" VerticalAlignment="Center" >
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2">
                         <Label  VerticalAlignment="Center">et le :</Label>
-                        <DatePicker  Name="dpRechReceptL1Fin" Margin="5" Width="100" Height="26"></DatePicker>
+                        <DatePicker  Name="dpRechReceptL1Fin" Margin="5" Width="100" Height="26">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
                     </StackPanel>
                     <Label  Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" >Etat Livret1 :</Label>
                     <ComboBox Grid.Row="6" Grid.Column="1" Name="cbxEtatL1" Margin="5" Grid.ColumnSpan="2"
@@ -145,11 +159,21 @@
                     <Label  Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">Réception Livret2:</Label>
                     <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label VerticalAlignment="Center" >entre le :</Label>
-                        <DatePicker  Name="dpRechReceptL2Deb" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                        <DatePicker  Name="dpRechReceptL2Deb" Margin="5" Width="100" VerticalAlignment="Center">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2">
                         <Label Margin="10" >et le :</Label>
-                        <DatePicker  Name="dpRechReceptL2Fin" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                        <DatePicker  Name="dpRechReceptL2Fin" Margin="5" Width="100" VerticalAlignment="Center">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
                     </StackPanel>
                     <Label  Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" >Etat Livret2 :</Label>
                     <ComboBox Grid.Row="8" Grid.Column="1" Name="cbxEtatL2" Margin="5" Grid.ColumnSpan="2"
@@ -159,21 +183,41 @@
                     <Label  Grid.Row="9" Grid.Column="0" VerticalAlignment="Center">Recevabilité Liv1:</Label>
                     <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label VerticalAlignment="Center" >entre le :</Label>
-                        <DatePicker  Name="dpRechValidL1Deb" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                        <DatePicker  Name="dpRechValidL1Deb" Margin="5" Width="100" VerticalAlignment="Center">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2">
                         <Label Margin="10" >et le :</Label>
-                        <DatePicker  Name="dpRechValidL1Fin" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                        <DatePicker  Name="dpRechValidL1Fin" Margin="5" Width="100" VerticalAlignment="Center">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
                     </StackPanel>
 
                     <Label  Grid.Row="10" Grid.Column="0" VerticalAlignment="Center">Notification Liv2:</Label>
                     <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label VerticalAlignment="Center" >entre le :</Label>
-                        <DatePicker  Name="dpRechValidL2Deb" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                        <DatePicker  Name="dpRechValidL2Deb" Margin="5" Width="100" VerticalAlignment="Center">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="2">
                         <Label Margin="10" >et le :</Label>
-                        <DatePicker  Name="dpRechValidL2Fin" Margin="5" Width="100" VerticalAlignment="Center"></DatePicker>
+                        <DatePicker  Name="dpRechValidL2Fin" Margin="5" Width="100" VerticalAlignment="Center">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
                     </StackPanel>
 
                     <Button  Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="5" Name="cbRecherche" 
@@ -359,7 +403,12 @@
 
                         <Label Content="Nationalité naissance : " Grid.Row="19" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" />
                         <TextBox x:Name="tbNationaliteNaissance" Grid.Row="19" Text="{Binding TheCandidat.NationaliteNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5"/>
-                        <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="15" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  VerticalAlignment="Center" Height="24" HorizontalAlignment="Left"/>
+                        <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="15" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  VerticalAlignment="Center" Height="24" HorizontalAlignment="Left">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+                        </DatePicker>
+
                         <Button x:Name="btnAddDiplomeCand" Grid.Row ="20" Grid.Column="1" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,10,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                             Command="{ Binding DataContext.AjouteDiplomeCandCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="21" Width="32"/>
                         <StackPanel Grid.Row ="20" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="0">
@@ -442,7 +491,12 @@
                         </StackPanel>
                         <Label Content="Diplômes : " Grid.Row="20" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <Label Content="Date de création : " Grid.Row="21" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,6" Height="26" Width="107" />
-                        <DatePicker x:Name="dtpDateCreation" Grid.Row="21" Grid.Column="1" SelectedDate="{Binding DateCreation, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5" VerticalAlignment="Center" Height="24"/>
+                        <DatePicker x:Name="dtpDateCreation" Grid.Row="21" Grid.Column="1" SelectedDate="{Binding DateCreation, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="5" VerticalAlignment="Center" Height="24">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
 
                         <Label Content="Type demande :" Grid.Row="22" Grid.Column="0"/>
                         <ComboBox x:Name="cbxTypeDemande" Grid.Row="22" Grid.Column="1" BorderThickness="1"

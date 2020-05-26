@@ -124,15 +124,21 @@
                 -->
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date envoi EHESP : " Width="200" VerticalAlignment="Center" />
-                    <DatePicker x:Name="dtpenvoiEHESP" SelectedDate="{Binding DateEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
-                                />
-                </StackPanel>
+                        <DatePicker x:Name="dtpenvoiEHESP" SelectedDate="{Binding DateEnvoiEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
+                                >
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
+                    </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date réception pièces manquantes : " Width="200" VerticalAlignment="Center" />
-                    <DatePicker x:Name="dtpReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
+                        <DatePicker x:Name="dtpReceptPM" SelectedDate="{Binding DateReceptionPiecesManquantes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
                                 DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" 
-                                />
-                </StackPanel>
+                                >
+                        </DatePicker>
+                    </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatEnvoye, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
 
@@ -141,25 +147,42 @@
                         IsEnabled="{Binding IsLivretNonClos}" >
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date cachet de la poste  : " Width="160" VerticalAlignment="Center" />
-                    <DatePicker x:Name="dtpEnvoiCandidat"  SelectedDate="{Binding DateEnvoiCandidat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" DisplayDateEnd="{Binding DateValidite}" Margin="10,10,0,10"/>
-                    <Label Content="*" VerticalAlignment="Top" Foreground="red" Margin="0"/>
+                        <DatePicker x:Name="dtpEnvoiCandidat"  SelectedDate="{Binding DateEnvoiCandidat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" DisplayDateEnd="{Binding DateValidite}" Margin="10,10,0,10">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+                        </DatePicker>
+                        <Label Content="*" VerticalAlignment="Top" Foreground="red" Margin="0"/>
                     </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date tampon secrétariat : " Width="160" VerticalAlignment="Center" />
-                    <DatePicker x:Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" 
-                                />
-                </StackPanel>
+                        <DatePicker x:Name="dtpReceptEHESP"  SelectedDate="{Binding DateReceptEHESP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" >
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+                        </DatePicker>
+                    </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date courrier complétude :" Width="160" VerticalAlignment="Center" />
-                    <DatePicker x:Name="dtpReceptComplet"  SelectedDate="{Binding DateReceptEHESPComplet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29"/>
-                </StackPanel>
+                        <DatePicker x:Name="dtpReceptComplet"  SelectedDate="{Binding DateReceptEHESPComplet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29">
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
+                    </StackPanel>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecuComplet, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <StackPanel Orientation="Horizontal" Visibility="Visible">
                     <Label Content="Date validité : "  Width="160"  VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                    <DatePicker x:Name="dtpValidite"     HorizontalAlignment="Left"
+                        <DatePicker x:Name="dtpValidite"     HorizontalAlignment="Left"
                             SelectedDate="{Binding DateValidite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="29" Width="100" 
-                            />
-                </StackPanel>
+                            >
+                            <DatePicker.BlackoutDates>
+                                <CalendarDateRange Start="2080-01-01"/>
+                            </DatePicker.BlackoutDates>
+
+                        </DatePicker>
+                    </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="3">
 
@@ -214,22 +237,42 @@
                         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Date 1er courrier pièces manquantes  :" VerticalAlignment="Center"/>
-                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" Margin="0" VerticalAlignment="Center"></DatePicker>
+                                <DatePicker Name="dtpDate1ereDemandePJ" SelectedDate="{Binding Date1ereDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" Margin="0" VerticalAlignment="Center">
+                                        <DatePicker.BlackoutDates>
+                                            <CalendarDateRange Start="2080-01-01"/>
+                                        </DatePicker.BlackoutDates>
+
+                                    </DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Date 2nd courrier pièces manquantes :" VerticalAlignment="Center"/>
-                                <DatePicker Name="dtpDate2ndDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" Margin="0" VerticalAlignment="Center"></DatePicker>
+                                <DatePicker Name="dtpDate2ndDemandePJ" SelectedDate="{Binding Date2emeDemandePieceManquantes}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptEHESP}" Margin="0" VerticalAlignment="Center">
+                                        <DatePicker.BlackoutDates>
+                                            <CalendarDateRange Start="2080-01-01"/>
+                                        </DatePicker.BlackoutDates>
+
+                                    </DatePicker>
 
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0">
                             <StackPanel Orientation="Horizontal">
                                 <Label Name="lblDateRetourPM" Content="Date de retour demandée 1er courrier :" Width="230" VerticalAlignment="Center"/>
-                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemande1erRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate1ereDemandePJ}" Margin="0"></DatePicker>
+                                <DatePicker Name="dtpDateRetourDemandePJ" SelectedDate="{Binding DateDemande1erRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate1ereDemandePJ}" Margin="0">
+                                        <DatePicker.BlackoutDates>
+                                            <CalendarDateRange Start="2080-01-01"/>
+                                        </DatePicker.BlackoutDates>
+
+                                    </DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Label Name="lblDateReceptPM" Content="Date de retour demandée 2nd courrier :" Width="230" VerticalAlignment="Center" />
-                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateDemande2emeRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate2ndDemandePJ}" VerticalAlignment="Center" Margin="0"></DatePicker>
+                                <DatePicker Name="dtpDateReceptPM" SelectedDate="{Binding DateDemande2emeRetour}" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDate2ndDemandePJ}" VerticalAlignment="Center" Margin="0">
+                                        <DatePicker.BlackoutDates>
+                                            <CalendarDateRange Start="2080-01-01"/>
+                                        </DatePicker.BlackoutDates>
+
+                                    </DatePicker>
                             </StackPanel>
                         </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
@@ -238,7 +281,12 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                                 <Label VerticalAlignment="Center">Date de validité CNI :</Label>
-                                <DatePicker Name="dtpDateValiditeCNI" SelectedDate="{Binding DateValiditeCNI}" VerticalAlignment="Center" Margin="0"></DatePicker>
+                                <DatePicker Name="dtpDateValiditeCNI" SelectedDate="{Binding DateValiditeCNI}" VerticalAlignment="Center" Margin="0">
+                                    <DatePicker.BlackoutDates>
+                                        <CalendarDateRange Start="2080-01-01"/>
+                                    </DatePicker.BlackoutDates>
+
+                                </DatePicker>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
                                 <Label VerticalAlignment="Center">Attestation OK :</Label>
@@ -331,18 +379,33 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2"  Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,6,0,7">
                         <Label Content="Date prévisionnelle entre le :" VerticalAlignment="Center"/>
-                        <DatePicker x:Name="dtpDatePrevJury1" Margin="0" VerticalAlignment="Center"  
-                                    SelectedDate="{Binding DatePrevJury1}"/>
-                        <Label Content="et le :" VerticalAlignment="Center"/>
-                        <DatePicker x:Name="dtpDatePrevJury2" Margin="0" VerticalAlignment="Center"  
-                            SelectedDate="{Binding DatePrevJury2}"/>
+                            <DatePicker x:Name="dtpDatePrevJury1" Margin="0" VerticalAlignment="Center"  
+                                    SelectedDate="{Binding DatePrevJury1}">
+                                <DatePicker.BlackoutDates>
+                                    <CalendarDateRange Start="2080-01-01"/>
+                                </DatePicker.BlackoutDates>
 
-                    </StackPanel>
+                            </DatePicker>
+                            <Label Content="et le :" VerticalAlignment="Center"/>
+                            <DatePicker x:Name="dtpDatePrevJury2" Margin="0" VerticalAlignment="Center"  
+                            SelectedDate="{Binding DatePrevJury2}">
+                                <DatePicker.BlackoutDates>
+                                    <CalendarDateRange Start="2080-01-01"/>
+                                </DatePicker.BlackoutDates>
+
+                            </DatePicker>
+
+                        </StackPanel>
 
                     <StackPanel Orientation="Horizontal"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,20">
                         <Label Content="Date envoi courrier :" VerticalAlignment="Center" Width="160"/>
-                        <DatePicker x:Name="dtpDateEnvoiCourierJury" Margin="0" VerticalAlignment="Center"  />
-                    </StackPanel>
+                            <DatePicker x:Name="dtpDateEnvoiCourierJury" Margin="0" VerticalAlignment="Center">
+                                <DatePicker.BlackoutDates>
+                                    <CalendarDateRange Start="2080-01-01"/>
+                                </DatePicker.BlackoutDates>
+
+                            </DatePicker>
+                        </StackPanel>
                     <Grid Grid.Row="1" Grid.Column="2" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
@@ -355,8 +418,13 @@
 
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                             <Label Content="Date jury :" VerticalAlignment="Center"/>
-                            <DatePicker x:Name="dtpDateJury" Margin="0" VerticalAlignment="Center" SelectedDateFormat="Long"  />
-                        </StackPanel>
+                                <DatePicker x:Name="dtpDateJury" Margin="0" VerticalAlignment="Center" SelectedDateFormat="Long">
+                                    <DatePicker.BlackoutDates>
+                                        <CalendarDateRange Start="2080-01-01"/>
+                                    </DatePicker.BlackoutDates>
+
+                                </DatePicker>
+                            </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2">
                             <Label  Content="Heure jury :" VerticalAlignment="Center" />
@@ -460,14 +528,18 @@
                         <DatePicker x:Name="dtpDateNotificationJury" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" Width="100"
                                 SelectedDate="{Binding DateNotificationJury}"
                                     DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}">
-                        </DatePicker>
+                                <DatePicker.BlackoutDates>
+                                    <CalendarDateRange Start="2080-01-01"/>
+                                </DatePicker.BlackoutDates>
+                            </DatePicker>
 
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,9">
                         <Label Content="Date de validité:" VerticalAlignment="Center"/>
-                        <DatePicker x:Name="dtpDateValidite" Margin="0" VerticalAlignment="Center"
-                                    SelectedDate="{Binding DateValidite}"/>
-                    </StackPanel>
+                            <DatePicker x:Name="dtpDateValidite" Margin="0" VerticalAlignment="Center"
+                                    SelectedDate="{Binding DateValidite}">
+                            </DatePicker>
+                        </StackPanel>
 
                     <DataGrid x:Name="dgDCLivretDecision"
                                     ItemsSource="{Binding lstDCLivretAValider}" 

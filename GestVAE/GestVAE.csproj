@@ -265,6 +265,7 @@
     <Content Include="SQL\patch20200210.sql" />
     <Content Include="SQL\patch20200515.sql" />
     <Content Include="SQL\patch20200217.sql" />
+    <Content Include="SQL\Patch20200526.sql" />
     <Resource Include="IMG\StickynoteGray.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

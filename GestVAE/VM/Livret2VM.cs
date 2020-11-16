@@ -339,6 +339,7 @@ namespace GestVAE.VM
                 {
                     oL2.DateEnvoiCandidat = value;
                     RaisePropertyChanged();
+                    RaisePropertyChanged("DateEnvoiColor");
                 }
             }
         }
@@ -797,10 +798,10 @@ namespace GestVAE.VM
                 {
                     if (DateEnvoiCandidat != null)
                     {
-                        if (DateEnvoiCandidat < DateValidite)
-                        {
+                        //if (DateEnvoiCandidat < DateValidite)
+                        //{
                             bReturn = true;
-                        }
+                        //}
                     }
                 }
                 else
@@ -811,5 +812,20 @@ namespace GestVAE.VM
             return bReturn;
         }
 
+        public String DateEnvoiColor
+        {
+            get
+            {
+                if (!DateEnvoiCandidat.HasValue)
+                {
+                    return "red";
+
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
     }
 }

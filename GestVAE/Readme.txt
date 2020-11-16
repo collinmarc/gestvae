@@ -1,5 +1,6 @@
 ﻿BUILD 20200526
-	0001235: Saisie des dates : < 01/01/2080
+0001235: Saisie des dates : < 01/01/2080
+0001236: L2 : Validation partielle : Click sur Défavorable
 
 Build 20200515
 0001225: Ajout du libellé des piéces jointes dans l'extraction RQ_L2_DOC

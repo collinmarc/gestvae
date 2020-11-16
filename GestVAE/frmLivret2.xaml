@@ -147,7 +147,7 @@
                         IsEnabled="{Binding IsLivretNonClos}" >
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date cachet de la poste  : " Width="160" VerticalAlignment="Center" />
-                        <DatePicker x:Name="dtpEnvoiCandidat"  SelectedDate="{Binding DateEnvoiCandidat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" DisplayDateEnd="{Binding DateValidite}" Margin="10,10,0,10">
+                        <DatePicker x:Name="dtpEnvoiCandidat"  SelectedDate="{Binding DateEnvoiCandidat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" DisplayDateEnd="{Binding DateValidite}" Margin="10,10,0,10" Background="{Binding DateEnvoiColor}">
                             <DatePicker.BlackoutDates>
                                 <CalendarDateRange Start="2080-01-01"/>
                             </DatePicker.BlackoutDates>

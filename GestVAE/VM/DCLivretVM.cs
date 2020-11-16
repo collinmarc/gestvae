@@ -133,7 +133,7 @@ namespace GestVAE.VM
                     }
                     else
                     { // si pas de decision =< Pas défavorable
-                        return false;
+                        return true;
                     }
             }
             set

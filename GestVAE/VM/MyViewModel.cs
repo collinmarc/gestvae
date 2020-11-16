@@ -1041,6 +1041,7 @@ public void AjoutePJL1()
             if (oL1VM.IsNew)
             {
                 CurrentCandidat.lstLivrets.Add(oL1VM);
+                SetModelHasChanges();
             }
             CurrentCandidat.refreshlstLivrets();
             if (!IsInTest)
@@ -1064,6 +1065,7 @@ public void AjoutePJL1()
             if (oL2VM.IsNew)
             {
                 CurrentCandidat.lstLivrets.Add(oL2VM);
+                SetModelHasChanges();
             }
             if (!IsInTest)
             {

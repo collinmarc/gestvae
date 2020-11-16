@@ -1,4 +1,6 @@
-﻿BUILD 20200526
+﻿BUILD XXXXXXXX
+	0001279: La fenêtre détail des diplomes ne met pas à jour les données
+BUILD 20200526
 0001235: Saisie des dates : < 01/01/2080
 0001236: L2 : Validation partielle : Click sur Défavorable
 

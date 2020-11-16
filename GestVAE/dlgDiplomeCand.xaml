@@ -48,7 +48,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="10">
             <Label Content="Date d'obtention : " VerticalAlignment="Center"/>
-            <DatePicker Name ="dtDateObtention"   Width="152" />
+            <DatePicker Name ="dtDateObtention"   Width="152" SelectedDate="{Binding Currentcandidat., Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
 
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="10">

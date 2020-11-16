@@ -195,6 +195,10 @@ namespace GestVAEcls
                 {
                     oDCL.IsAValider = true;
                 }
+                if (oDCL.Statut == "")
+                {
+                    oDCL.Statut = "En Cours";
+                }
             }
         }
         /// <summary>

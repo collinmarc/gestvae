@@ -191,13 +191,20 @@ namespace GestVAEcls
                 oDCL.ModeObtention = oDCCand.ModeObtention;
                 oDCL.DateObtention = oDCCand.DateObtention;
                 oDCL.Commentaire = oDCCand.Commentaire;
-                if (oDCCand.Statut != "Validé")
-                {
-                    oDCL.IsAValider = true;
-                }
                 if (oDCL.Statut == "")
                 {
-                    oDCL.Statut = "En Cours";
+                    if (NumPassage >1)
+                    {
+                        oDCL.Statut = "Refusé";
+                    }
+                    else
+                    {
+                        oDCL.Statut = "En Cours";
+                    }
+                }
+                if (oDCL.Statut != "Validé")
+                {
+                    oDCL.IsAValider = true;
                 }
             }
         }

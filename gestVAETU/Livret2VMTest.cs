@@ -66,26 +66,33 @@ namespace GestVAETU
         /// </summary>
         [TestMethod]
         [TestCategory("#1040")]
+        [TestCategory("#1278")]
 
         public void testDCAValider()
         {
             MyViewModel VM = new MyViewModel(true);
-
+            //Ajout d'un candidat avec un L1 Favorable
             VM.AjouteCandidat();
             CandidatVM oCand = VM.CurrentCandidat;
-
             VM.AjouteL1();
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
             oL1.FTO_SetDecisionJuryL1Favorable();
             VM.ValideretQuitterL1();
             VM.saveData();
+
+            // Ajout D'un L2
             VM.AjouteL2();
             Livret2VM oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             Assert.IsTrue(oL2.lstDCLivret[0].IsAValider);
             Assert.IsTrue(oL2.lstDCLivret[1].IsAValider);
             Assert.IsTrue(oL2.lstDCLivret[2].IsAValider);
             Assert.IsTrue(oL2.lstDCLivret[3].IsAValider);
+            Assert.AreEqual("En Cours", oL2.lstDCLivret[0].Statut);
+            Assert.AreEqual("En Cours", oL2.lstDCLivret[1].Statut);
+            Assert.AreEqual("En Cours", oL2.lstDCLivret[2].Statut);
+            Assert.AreEqual("En Cours", oL2.lstDCLivret[3].Statut);
 
+            // Validation partielle du L2
             oL2.FTO_SetDecisionJuryL2Partielle();
             oL2.lstDCLivret[0].Decision = oL2.DecisionL2ModuleFavorable;
             oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleDeFavorable;
@@ -94,20 +101,26 @@ namespace GestVAETU
             VM.ValideretQuitterL2();
             VM.saveData();
 
-            // test de l'état des DCCand
+            // test de l'état des DCCand après Décision du jury
             Assert.AreEqual("Validé", oCand.lstDiplomesCandVMs[0].StatutDC1);
             Assert.AreEqual("Refusé", oCand.lstDiplomesCandVMs[0].StatutDC2);
             Assert.AreEqual("Validé", oCand.lstDiplomesCandVMs[0].StatutDC1);
             Assert.AreEqual("Refusé", oCand.lstDiplomesCandVMs[0].StatutDC4);
 
+            // Création d'un nouveau L2
             VM.AjouteL2();
             oL2 = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             Assert.IsFalse(oL2.lstDCLivret[0].IsAValider);
             Assert.IsTrue(oL2.lstDCLivret[1].IsAValider);
             Assert.IsFalse(oL2.lstDCLivret[2].IsAValider);
             Assert.IsTrue(oL2.lstDCLivret[3].IsAValider);
-            oL2.FTO_SetDecisionJuryL2Partielle();
+            Assert.AreEqual("Validé", oL2.lstDCLivret[0].Statut);
+            Assert.AreEqual("Refusé", oL2.lstDCLivret[1].Statut);
+            Assert.AreEqual("Validé", oL2.lstDCLivret[2].Statut);
+            Assert.AreEqual("Refusé", oL2.lstDCLivret[3].Statut);
 
+            // Validation PArtielle du L2
+            oL2.FTO_SetDecisionJuryL2Partielle();
             oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleFavorable;
             oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleDeFavorable;
             VM.ValideretQuitterL2();
@@ -124,6 +137,10 @@ namespace GestVAETU
             Assert.IsFalse(oL2.lstDCLivret[1].IsAValider);
             Assert.IsFalse(oL2.lstDCLivret[2].IsAValider);
             Assert.IsTrue(oL2.lstDCLivret[3].IsAValider);
+            Assert.AreEqual("Validé", oL2.lstDCLivret[0].Statut);
+            Assert.AreEqual("Validé", oL2.lstDCLivret[1].Statut);
+            Assert.AreEqual("Validé", oL2.lstDCLivret[2].Statut);
+            Assert.AreEqual("Refusé", oL2.lstDCLivret[3].Statut);
             oL2.FTO_SetDecisionJuryL2Partielle();
             oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleFavorable;
             VM.ValideretQuitterL2();

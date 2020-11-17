@@ -1,0 +1,13 @@
+﻿https://docs.microsoft.com/fr-fr/ef/ef6/modeling/code-first/migrations/
+Pour utiliser les migrations :
+1-utiliser la console du Gestionnaire de package
+2-Projet par defaut = GestVAEcls (Projet des migrations)
+3- Déclarer l'appli par défaut (GestVAE pour de DEV, GESTVAETU pour les tests)
+4- Création d'une migration 
+    Add-Migration "NomDeLaMigration" -ConfigurationTypeName Configuration
+5- Mise à jour de la base de données sur la derniere Migration
+    Update-DataBase -ConfigurationTypeName Configuration
+6- Mise à jour de la base de données sur une Migration données
+    Update-DataBase -ConfigurationTypeName Configuration - TargetMigration [NomDelaMigrationCible]
+7- Liste des Migrations appliquée
+	Get-Migrations -ConfigurationTypeName Configuration

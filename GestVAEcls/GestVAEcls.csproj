@@ -299,6 +299,10 @@
     <Compile Include="Migrations\202005151322026_AjoutPJL2.Designer.cs">
       <DependentUpon>202005151322026_AjoutPJL2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011161648179_UpdateDCLivrets.cs" />
+    <Compile Include="Migrations\202011161648179_UpdateDCLivrets.Designer.cs">
+      <DependentUpon>202011161648179_UpdateDCLivrets.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -527,6 +531,12 @@
     <EmbeddedResource Include="Migrations\202005151322026_AjoutPJL2.resx">
       <DependentUpon>202005151322026_AjoutPJL2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161648179_UpdateDCLivrets.resx">
+      <DependentUpon>202011161648179_UpdateDCLivrets.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Migrations\Utilisation des Migrations.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

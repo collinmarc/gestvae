@@ -466,7 +466,7 @@
                                     <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
                                     <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}"/>
                                     <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret}"/>
-                                    <DataGridTextColumn Header="Validité" Binding="{Binding DateValidite2, StringFormat='dd/MM/yyyy', Mode=OneWay}"/>
+                                    <DataGridTextColumn Header="Validité" Binding="{Binding DateValiditeBase, StringFormat='dd/MM/yyyy', Mode=OneWay}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
 

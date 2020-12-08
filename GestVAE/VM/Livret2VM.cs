@@ -827,5 +827,9 @@ namespace GestVAE.VM
                 }
             }
         }
+        public override void CalcDateValidite()
+        {
+        }
+
     }
 }

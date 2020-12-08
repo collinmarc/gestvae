@@ -95,13 +95,14 @@ namespace GestVAE.VM
                     ((Livret2)TheLivret).DateValidite = value;
                 }
                 RaisePropertyChanged();
-                RaisePropertyChanged("DateValidite2");
+                RaisePropertyChanged("DateValiditeBase");
                 RaisePropertyChanged("IsTolere");
                 RaisePropertyChanged("IsL1Tolere");
 
             }
         }
-        public DateTime? DateValidite2
+        public abstract void CalcDateValidite();
+        public DateTime? DateValiditeBase
         {
             get
             {
@@ -251,11 +252,12 @@ namespace GestVAE.VM
                     oJury.DateNotificationJuryRecours = value;
 
                     RaisePropertyChanged();
+                    CalcDateValidite();
                 }
-                if (value != null)
-                {
-                    DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
-                }
+                //if (value != null)
+                //{
+                //    DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                //}
 
             }
         }

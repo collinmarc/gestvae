@@ -58,7 +58,7 @@ namespace GestVAETU
             oL1.DecisionJuryRecours = String.Format("{0:D}-Defavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
             Assert.AreEqual(oL1.DateJury, oL1.DateValidite);
             oL1.DecisionJuryRecours = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
-            Assert.AreEqual(oL1.DateJuryRecours.Value.AddYears(3), oL1.DateValidite);
+            Assert.AreEqual(oL1.DateJury.Value.AddYears(3), oL1.DateValidite);
 
 
         }
@@ -129,7 +129,7 @@ namespace GestVAETU
             oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
             oL1.DateValidite = dateV1;
             oL1.DateNotificationJury = DateTime.Today.AddDays(1);
-            Assert.AreNotEqual(dateV1,oL1.DateValidite);
+            Assert.AreEqual(dateV1,oL1.DateValidite);
         }
 
         [TestMethod]

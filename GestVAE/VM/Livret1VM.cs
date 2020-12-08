@@ -94,31 +94,31 @@ namespace GestVAE.VM
                     {
                         Numero = DateTime.Now.ToString("yyMM") + ParamVM.incrementLivret().ToString("00000");
                     }
-                    SetDateValidite();
+                    CalcDateValidite();
 
                 }
             }
         }
 
-        private void SetDateValidite()
+        public override void CalcDateValidite()
         {
             if (IsEtatAccepte)
             {
                 DateTime DateRef=DateTime.Now;
-                if (IsRecoursDemande)
-                {
-                    if (DateJuryRecours != null)
-                    {
-                        DateRef = DateJuryRecours.Value;
-                    }
-                    else
-                    {
-                        DateRef = DateJury.Value;
+                //if (IsRecoursDemande)
+                //{
+                //    if (DateJuryRecours != null)
+                //    {
+                //        DateRef = DateJuryRecours.Value;
+                //    }
+                //    else
+                //    {
+                //        DateRef = DateJury.Value;
 
-                    }
-                }
-                else
-                {
+                //    }
+                //}
+                //else
+                //{
                     if (DateJury == null)
                     {
                         DateRef = DateTime.Now;
@@ -127,7 +127,7 @@ namespace GestVAE.VM
                     {
                         DateRef = DateJury.Value;
                     }
-                }
+//                }
                 DateValidite = DateRef.AddYears(Properties.Settings.Default.DelaiValidite);
 
             }
@@ -537,7 +537,7 @@ namespace GestVAE.VM
                     base.DateJury = value;
                     if (value != null)
                     {
-                        DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                        CalcDateValidite();
                         DateLimiteRecours = value.Value.AddMonths(Properties.Settings.Default.DelaiDepotRecours);
                     }
                     RaisePropertyChanged();
@@ -569,7 +569,7 @@ namespace GestVAE.VM
                 }
                 if (value != null)
                 {
-                    DateValidite = value.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+                    CalcDateValidite();
                 }
 
             }

@@ -494,12 +494,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GestVAEcls\GestVAEcls.csproj">
-      <Project>{2537158c-ede7-47d6-835d-1d95b30f4620}</Project>
-      <Name>GestVAEcls</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="IMG\add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -540,6 +534,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GestVAEcls\GestVAEcls.csproj">
+      <Project>{2537158c-ede7-47d6-835d-1d95b30f4620}</Project>
+      <Name>GestVAEcls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

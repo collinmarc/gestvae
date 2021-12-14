@@ -39,5 +39,10 @@ namespace GestVAETU
 
             Assert.AreEqual(NumCand + 1, NumCand2);
         }
+        [TestMethod]
+        public void BDDMemebreJuryTest()
+        {
+        }
+
     }
 }

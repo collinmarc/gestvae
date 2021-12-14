@@ -87,6 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="BD Globale convertie Jurés en fonction %28EHESP%29.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="BD Globale convertie Jurés en fonction .csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

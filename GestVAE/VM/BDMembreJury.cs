@@ -63,16 +63,18 @@ namespace GestVAE.VM
         public static List<BDMembreJury> loadFrom(String pFile)
         {
             List<BDMembreJury> olstReturn = new List<BDMembreJury>();
-            using (var reader = new StreamReader(pFile))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            using (var reader = new StreamReader(pFile, Encoding.GetEncoding(1252)))
             {
-                //csv.Configuration.RegisterClassMap<BDMembreJuryMap>();
-                csv.Configuration.Delimiter = ";";
-                //csv.Configuration.HeaderValidated=null;
-                //csv.Configuration.MissingFieldFound = null;
-//                csv.Configuration.BadDataFound = null;
-                olstReturn = csv.GetRecords<BDMembreJury>().ToList();
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    //csv.Configuration.RegisterClassMap<BDMembreJuryMap>();
+                    csv.Configuration.Delimiter = ";";
+                    //csv.Configuration.HeaderValidated=null;
+                    //csv.Configuration.MissingFieldFound = null;
+                    //                csv.Configuration.BadDataFound = null;
+                    olstReturn = csv.GetRecords<BDMembreJury>().ToList();
 
+                }
             }
             return olstReturn; 
         }

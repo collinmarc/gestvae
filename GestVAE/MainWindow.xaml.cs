@@ -57,7 +57,9 @@ namespace GestVAE
             MyViewModel _VM = new MyViewModel();
             this.DataContext = _VM;
             _VM.getParams();
-#if _DEBUG
+            
+            //cbxPaysNaissance.ItemsSource = VM.lstParamBDPays;
+#if DEBUG
             VM.rechNom = "COLLIN";
             VM.Recherche();
             VM.CurrentCandidat = VM.lstCandidatVM[0];
@@ -93,7 +95,7 @@ namespace GestVAE
         {
             Window ofrm = null;
             VM.CurrentCandidat.CurrentLivret = (LivretVMBase)gridLstLivrets.SelectedItem;
-            VM.CurrentCandidat.CurrentLivret.IsLocked = VM.CurrentCandidat.IsLocked;
+            VM.CurrentCandidat.CurrentLivret.IsLocked = VM.IsCurrentCandidatLocked;
             if (VM.CurrentCandidat.CurrentLivret is Livret1VM)
             {
                 ofrm = new frmLivret1();
@@ -127,6 +129,44 @@ namespace GestVAE
             }
 
 
+        }
+
+        private void CbxDepartementNaissance_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CbxPaysNaissance_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                BDPays oPays = (BDPays)e.AddedItems[0];
+                tbCodeInseePaysNaissance.Text = oPays.CODENUM3;
+                if (!oPays.IsPaysFrance)
+                {
+                    tbCodeINSEECommuneNaissance.Text = oPays.CODENUM3;
+
+                }
+
+            }
+        }
+
+        private void CbxVilleNaissance_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                BDCommune oCommune = (BDCommune)e.AddedItems[0];
+                VM.CurrentCandidat.INSEECommuneNaissance = oCommune.code_commune_insee;
+                VM.CurrentCandidat.CPNaissance = oCommune.code_postal;
+            }
+
+        }
+
+
+        private void TbCPNaissance_LostFocus(object sender, RoutedEventArgs e)
+        {
+            //VM.RaisePropertyChanged("lstParamBDCommunes");
+            //VM.RaisePropertyChanged("lstParamBDCommunesFiltreesparCPNaissance");
         }
     }
 }

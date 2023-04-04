@@ -175,6 +175,8 @@
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="VM\BDPays.cs" />
+    <Compile Include="VM\BDCommune.cs" />
     <Compile Include="VM\BDMembreJury.cs" />
     <Compile Include="VM\BindingProxy.cs" />
     <Compile Include="MyDataGridComboboxColumn.cs" />

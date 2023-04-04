@@ -38,6 +38,65 @@ namespace GestVAE.VM
         private CandidatVM _candidatVM;
         public Action CloseAction { get; set; }
         public List<BDMembreJury> lstParamBDMembreJury { get; set; }
+        public ObservableCollection<BDPays> lstParamBDPays { get; set; }
+        private ObservableCollection<BDCommune> _lstParamBDCommunes; 
+        public ObservableCollection<BDCommune> lstParamBDCommunes
+        {
+            get
+            { return _lstParamBDCommunes; }
+            set
+            { _lstParamBDCommunes = value; RaisePropertyChanged(); }
+        }
+        public BindingList<BDCommune> lstParamBDCommunesFiltreesparCPNaissance
+        {
+            get
+            {
+                if (lstParamBDCommunes == null || CurrentCandidat == null)
+                {
+                    return new BindingList<BDCommune>();
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(CPNaissance))
+                    {
+                        return new BindingList<BDCommune>(lstParamBDCommunes.Where(C => C.code_postal.StartsWith(CurrentCandidat.CPNaissance)).ToList());
+                    }
+                    else
+                    {
+                        return new BindingList<BDCommune>(lstParamBDCommunes.ToList());
+                    }
+
+                }
+            }
+        }
+        /// <summary>
+        /// Code postal de naissance
+        /// il est dans la VM, car il à de l'influeence sur d'autres propriétées
+        /// </summary>
+        public String CPNaissance
+        {
+            get
+            {
+                if (CurrentCandidat != null)
+                {
+                    return CurrentCandidat.CPNaissance;
+                }
+                else
+                { return "";
+                }
+            }
+            set
+            {
+                if (value != CPNaissance)
+                    if (CurrentCandidat != null)
+                    {
+                        CurrentCandidat.CPNaissance = value;
+                        RaisePropertyChanged();
+                        RaisePropertyChanged("lstParamBDCommunes");
+                        RaisePropertyChanged("lstParamBDCommunesFiltreesparCPNaissance");
+                    }
+            }
+             }
         public ObservableCollection<ParamCollege> lstParamCollege { get; set; }
         public ObservableCollection<ParamDepartement> lstParamDepartement { get; set; }
         public ObservableCollection<ParamTypeDemande> lstParamTypeDemande { get; set; }
@@ -52,9 +111,17 @@ namespace GestVAE.VM
                 if (CurrentCandidat != null)
                 {
                     CurrentCandidat.LoadDetails();
+                    CurrentCandidat.lstParamBDCommunes = lstParamBDCommunes;
                 }
                 RaisePropertyChanged("IsCurrentCandidatLockable");
                 RaisePropertyChanged("IsCurrentCandidatSelected");
+                RaisePropertyChanged("IsCurrentCandidatLocked");
+                RaisePropertyChanged("IsCurrentCandidatAddL1Available");
+                RaisePropertyChanged("IsCurrentCandidatAddL2Available");
+                RaisePropertyChanged("IsCurrentCandidatLockable");
+                RaisePropertyChanged("IsCurrentCandidatLockedByMe");
+
+
                 RaisePropertyChanged(); }
         }
         public String AppVersion
@@ -166,32 +233,25 @@ namespace GestVAE.VM
                                            );
             IsPostFormationCommand = new RelayCommand<bool>(o => { IsPostFormation(o); }
                                            );
-            AjouteL1Command = new RelayCommand<MyViewModel>(o => { AjouteL1(); },
-                                                            o => { return IsCurrentCandidatAddL1Available; }
+            AjouteL1Command = new RelayCommand<MyViewModel>(o => { AjouteL1(); }
                                            );
-            AjoutePJL1Command = new RelayCommand<MyViewModel>(o => { AjoutePJL1(); },
-                                                              o => { return IsAjoutPJPossible(); }
+             AjoutePJL1Command = new RelayCommand<MyViewModel>(o => { AjoutePJL1(); }
                                            );
-            AjoutePJL2Command = new RelayCommand<MyViewModel>(o => { AjoutePJL2(); },
-                                                                o => { return IsAjoutPJPossible(); }
-                                           );
-            DeletePJCommand = new RelayCommand<MyViewModel>(o => { DeletePJ(); },
-                                                            o => { return IsDeletePJPossible(); }
+            AjoutePJL2Command = new RelayCommand<MyViewModel>(o => { AjoutePJL2(); }
+                                                                );
+            DeletePJCommand = new RelayCommand<MyViewModel>(o => { DeletePJ(); }
                                            );
             DeleteMembreJuryCommand = new RelayCommand<MyViewModel>(o => { DeleteMembreJury(); }
                                            );
             AjouterMembreJuryCommand = new RelayCommand<MyViewModel>(o => { AjouterMembreJury(); }
                                             );
-            AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); },
-                                                            o => { return IsCurrentCandidatAddL2Available; }
+            AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); }
                                             );
             dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
                                            );
-            ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); },
-                                                                        o => { return IsValiderEtQuitterAvailable; }
+            ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); }
                                            );
-            ValideretQuitterL2Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL2(); },
-                                                                        o => { return IsValiderEtQuitterAvailable; }
+            ValideretQuitterL2Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL2(); }
                                            );
             CloturerL1etCreerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL1etCreerL2(); }
                                            );
@@ -204,12 +264,10 @@ namespace GestVAE.VM
 
             CloturerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL2(); }
                                            );
-            LockCommand = new RelayCommand<MyViewModel>(o => { LockCurrentCandidat(); },
-                                                        o => { return IsCurrentCandidatLockable(); }
+            LockCommand = new RelayCommand<MyViewModel>(o => { LockCurrentCandidat(); }
                                                         );
 
-            UnLockCommand = new RelayCommand<MyViewModel>(o => { UnLockCurrentCandidat(); },
-                                                        o => { return this.IsCurrentCandidatLockedByMe; }
+            UnLockCommand = new RelayCommand<MyViewModel>(o => { UnLockCurrentCandidat(); }
                                                         );
             ExecSQLCommand = new RelayCommand<MyViewModel>(o => { ExecSQL(); }
                                                         );
@@ -222,6 +280,10 @@ namespace GestVAE.VM
                                                                         );
 
             _RechercherBaseMembreJurycommand = new RelayCommand<MyViewModel>(o => { RechercherBaseMembreJury(); }
+                                                                    );
+            _RechercherBasePayscommand = new RelayCommand<MyViewModel>(o => { RechercherBasePays(); }
+                                                                    );
+            _RechercherBaseCommunescommand = new RelayCommand<MyViewModel>(o => { RechercherBaseCommunes(); }
                                                                     );
 
             CommentaireCommand = new RelayCommand<MyViewModel>(o => { Commentaire(); });
@@ -462,13 +524,35 @@ namespace GestVAE.VM
 
                 try
                 {
-                    lstParamBDMembreJury = BDMembreJury.loadFrom(ParamPathToBaseJury);
+                    if (!String.IsNullOrEmpty(ParamPathToBaseJury))
+                    {
+                        lstParamBDMembreJury = BDMembreJury.loadFrom(ParamPathToBaseJury);
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBoxShow("erreur en chargement de la liste des membres du jurys:" + ex.Message);
                 }
 
+                try
+                {
+                    lstParamBDPays = new ObservableCollection<BDPays>(BDPays.loadFrom(ParamPathToBasePays).OrderBy(p=>p.LIBCOG));
+                    RaisePropertyChanged("lstParamBDPays");
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxShow("erreur en chargement de la liste des Pays:" + ex.Message);
+                }
+                try
+                {
+                    lstParamBDCommunes = new ObservableCollection<BDCommune>(BDCommune.loadFrom(ParamPathToBaseCommunes).OrderBy(c => c.nom_commune));
+                    RaisePropertyChanged("lstParamBDCommunes"); 
+                    RaisePropertyChanged("lstParamBDCommunesFiltreesparCPNaissance");
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxShow("erreur en chargement de la liste des Communes:" + ex.Message);
+                }
 
 
                 IsBusy = false;
@@ -573,6 +657,16 @@ namespace GestVAE.VM
         public ICommand RechercherBaseMembreJurycommand
         {
             get { return _RechercherBaseMembreJurycommand; }
+        }
+        private ICommand _RechercherBasePayscommand;
+        public ICommand RechercherBasePayscommand
+        {
+            get { return _RechercherBasePayscommand; }
+        }
+        private ICommand _RechercherBaseCommunescommand;
+        public ICommand RechercherBaseCommunescommand
+        {
+            get { return _RechercherBaseCommunescommand; }
         }
 
         private ICommand _RechercherCommand;
@@ -824,6 +918,9 @@ namespace GestVAE.VM
                 odlg.setContexte(this);
                 odlg.ShowDialog();
             }
+            RaisePropertyChanged("IsCurrentCandidatAddL1Available");
+            RaisePropertyChanged("IsCurrentCandidatAddL2Available");
+
         }//AjouteL1
          /// <summary>
          /// Ajout d'un Livret2
@@ -916,7 +1013,6 @@ namespace GestVAE.VM
                     }
                     oL2VM.lstDCLivret.Add(new DCLivretVM(oDCL));
                 }
-
                 CurrentCandidat.CurrentLivret = oL2VM;
 
                 if (!IsInTest)
@@ -931,9 +1027,11 @@ namespace GestVAE.VM
                 CSDebug.TraceException("MVM.AjouteL2", ex);
                 oL2VM = null;
             }
+            RaisePropertyChanged("IsCurrentCandidatAddL1Available");
+            RaisePropertyChanged("IsCurrentCandidatAddL2Available");
 
-    }
-public void AjoutePJL1()
+        }
+        public void AjoutePJL1()
         {
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
             oLiv.AjoutePJ("L1");
@@ -947,10 +1045,12 @@ public void AjoutePJL1()
         }
         public void DeletePJ()
         {
-           
-            LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
-            oLiv.DeletePJ();
-            SetModelHasChanges();
+            if (IsDeletePJPossible)
+            {
+                LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
+                oLiv.DeletePJ();
+                SetModelHasChanges();
+            }
         }
 
         public void DeleteMembreJury()
@@ -1037,10 +1137,11 @@ public void AjoutePJL1()
         public void ValideretQuitterL1()
         {
             Livret1VM oL1VM = (Livret1VM)CurrentCandidat.CurrentLivret;
-            // Si le livret est Nouveau => Ajout dans la Collection des Livrets
-            if (oL1VM.IsNew)
+            // Si le livret est Nouveau et qu'il n'a pas été ajouté => Ajout dans la Collection des Livrets
+            if (oL1VM.IsNew && ! oL1VM.isAdded)
             {
                 CurrentCandidat.lstLivrets.Add(oL1VM);
+                oL1VM.isAdded = true;
                 SetModelHasChanges();
             }
             CurrentCandidat.refreshlstLivrets();
@@ -1061,12 +1162,14 @@ public void AjoutePJL1()
             {
                 UpdateDiplomeCand(oL2VM);
             }
-            // Si le livret est Nouveau => Ajout dans la Collection des Livrets
-            if (oL2VM.IsNew)
+            // Si le livret est Nouveau et qu'il n'a pas été ajouté => Ajout dans la Collection des Livrets
+            if (oL2VM.IsNew  & ! oL2VM.isAdded )
             {
                 CurrentCandidat.lstLivrets.Add(oL2VM);
+                oL2VM.isAdded = true;
                 SetModelHasChanges();
             }
+            CurrentCandidat.refreshlstLivrets();
             if (!IsInTest)
             {
                 CloseAction();
@@ -1215,7 +1318,7 @@ public void AjoutePJL1()
         {
             if (CurrentCandidat != null)
             {
-                if (CurrentCandidat.IsLocked)
+                if (IsCurrentCandidatLocked)
                 {
 
                     if (MessageBoxShow("Etes-vous sur de souloir supprimer le candidat", "Suppression d'un candidat", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -1277,10 +1380,14 @@ public void AjoutePJL1()
             Context ctxLock = new Context();
             if (CurrentCandidat != null)
             {
-                if (!CurrentCandidat.IsLocked)
+                if (!IsCurrentCandidatLocked)
                 {
                     CurrentCandidat.Lock(_ContextID);
                     RaisePropertyChanged("IsCurrentCandidatLocked");
+                    RaisePropertyChanged("IsCurrentCandidatAddL1Available");
+                    RaisePropertyChanged("IsCurrentCandidatAddL2Available");
+                    RaisePropertyChanged("IsCurrentCandidatLockable");
+                    RaisePropertyChanged("IsCurrentCandidatLockedByMe");
                 }
             }
             return true;
@@ -1293,23 +1400,35 @@ public void AjoutePJL1()
                 if (IsCurrentCandidatLockedByMe)
                 { 
                     CurrentCandidat.UnLock(_ContextID);
+                    RaisePropertyChanged("IsCurrentCandidatLocked");
+                    RaisePropertyChanged("IsCurrentCandidatAddL1Available");
+                    RaisePropertyChanged("IsCurrentCandidatAddL2Available");
+                    RaisePropertyChanged("IsCurrentCandidatLockable");
+                    RaisePropertyChanged("IsCurrentCandidatLockedByMe");
                 }
             }
             return true;
         }
-        public Boolean IsCurrentCandidatLockable()
+
+
+        public int MyProperty { get; set; }
+
+
+        public Boolean IsCurrentCandidatLockable
         {
-            
-            Boolean bReturn = true;
-            if (CurrentCandidat == null)
+            get
             {
-                bReturn = false;
+                Boolean bReturn = true;
+                if (CurrentCandidat == null)
+                {
+                    bReturn = false;
+                }
+                else
+                {
+                    bReturn = !IsCurrentCandidatLocked;
+                }
+                return bReturn;
             }
-            else
-            {
-                bReturn = ! IsCurrentCandidatLocked ;
-            }
-            return bReturn;
         }
         public Boolean IsCurrentCandidatLocked
         {
@@ -1369,16 +1488,19 @@ public void AjoutePJL1()
                 Boolean bReturn = false;
                 if (CurrentCandidat == null)
                 {
-                    bReturn=  false;
+                    bReturn = false;
                 }
-                if (IsCurrentCandidatLocked)
+                else
                 {
-                    // L'ajout d'un L1 n'est pas possible s'il y a un L1 de valide
-                    bReturn = !CurrentCandidat.IsL1Valide;
-                    if (bReturn)
+                    if (IsCurrentCandidatLocked)
                     {
-                        // OU S'il y a un L1 en cours
-                        bReturn = !CurrentCandidat.IsL1Encours;
+                        // L'ajout d'un L1 n'est pas possible s'il y a un L1 de valide
+                        bReturn = !CurrentCandidat.IsL1Valide;
+                        if (bReturn)
+                        {
+                            // OU S'il y a un L1 en cours
+                            bReturn = !CurrentCandidat.IsL1Encours;
+                        }
                     }
                 }
                 return bReturn;
@@ -1396,7 +1518,7 @@ public void AjoutePJL1()
                 Boolean bReturn = false;
                 if (CurrentCandidat != null)
                 {
-                    if (CurrentCandidat.IsLocked)
+                    if (IsCurrentCandidatLocked)
                     {
                         bReturn = CurrentCandidat.IsAddL2Available;
 
@@ -1636,7 +1758,7 @@ public void AjoutePJL1()
             }
         }
         /// <summary>
-        /// Chemoin d'accès au fichier des membres du jury
+        /// Chemin d'accès au fichier des membres du jury
         /// </summary>
         public String ParamPathToBaseJury
         {
@@ -1660,6 +1782,67 @@ public void AjoutePJL1()
                     {
                         objParam.PathToBaseJury = value;
                         _ctxParam.SaveChanges();
+                        RaisePropertyChanged();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Chemin d'accès au fichier des pays
+        /// </summary>
+        public String ParamPathToBasePays
+        {
+            get
+            {
+                String nReturn = "";
+                Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                if (objParam != null)
+                {
+                    _ctxParam.Entry(objParam).Reload();
+                    nReturn = objParam.PathToBasePays;
+                }
+                return nReturn;
+            }
+            set
+            {
+                if (value != ParamPathToBasePays)
+                {
+                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                    if (objParam != null)
+                    {
+                        objParam.PathToBasePays = value;
+                        _ctxParam.SaveChanges();
+                        RaisePropertyChanged();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Chemin d'accès au fichier des pays
+        /// </summary>
+        public String ParamPathToBaseCommunes
+        {
+            get
+            {
+                String nReturn = "";
+                Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                if (objParam != null)
+                {
+                    _ctxParam.Entry(objParam).Reload();
+                    nReturn = objParam.PathToBaseCommunes;
+                }
+                return nReturn;
+            }
+            set
+            {
+                if (value != ParamPathToBaseCommunes)
+                {
+                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                    if (objParam != null)
+                    {
+                        objParam.PathToBaseCommunes = value;
+                        _ctxParam.SaveChanges();
+                        RaisePropertyChanged();
                     }
                 }
             }
@@ -1677,17 +1860,21 @@ public void AjoutePJL1()
             }
             return bReturn;
         }
-        private Boolean IsDeletePJPossible()
+        public Boolean IsDeletePJPossible
+
         {
-            Boolean bReturn = false;
-            if (CurrentCandidat != null)
+            get
             {
-                if (CurrentCandidat.CurrentLivret != null)
+                Boolean bReturn = false;
+                if (CurrentCandidat != null)
                 {
-                    bReturn = (CurrentCandidat.CurrentLivret.selectedPJ != null );
+                    if (CurrentCandidat.CurrentLivret != null)
+                    {
+                        bReturn = (CurrentCandidat.CurrentLivret.selectedPJ != null);
+                    }
                 }
+                return bReturn;
             }
-            return bReturn;
         }
 
 
@@ -1723,6 +1910,8 @@ public void AjoutePJL1()
                 RaisePropertyChanged("IsParamNumerotation");
                 RaisePropertyChanged("IsParamDelaiValiditeL1");
                 RaisePropertyChanged("IsParamPathToBDMembreJury");
+                RaisePropertyChanged("IsParamPathToBDPays");
+                RaisePropertyChanged("IsParamPathToBDCommunes");
             }
         }
 
@@ -1747,6 +1936,8 @@ public void AjoutePJL1()
         public Boolean IsParamNumerotation { get { return NomParametreEquals("Numérotation"); } }
         public Boolean IsParamDelaiValiditeL1 { get { return NomParametreEquals("Délai Validité du L1"); } }
         public Boolean IsParamPathToBDMembreJury { get { return NomParametreEquals("Base des membres du jury"); } }
+        public Boolean IsParamPathToBDPays { get { return NomParametreEquals("Base des pays"); } }
+        public Boolean IsParamPathToBDCommunes { get { return NomParametreEquals("Base des communes"); } }
 
         public Boolean saveDataParam()
         {
@@ -1906,6 +2097,54 @@ public void AjoutePJL1()
 
                     MessageBoxShow("erreur en lecture du fichier " + ex.Message);
                     ParamPathToBaseJury = "";
+
+                }
+            }
+
+        }
+        public void RechercherBasePays()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = false;
+            openFileDialog.Filter = "fichier CSV (*.csv)|*.csv";
+            openFileDialog.CheckFileExists = true;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    ParamPathToBasePays = openFileDialog.FileName;
+                    BDPays.loadFrom(ParamPathToBasePays);
+                }
+                catch (Exception ex)
+                {
+
+
+                    MessageBoxShow("erreur en lecture du fichier " + ex.Message);
+                    ParamPathToBasePays = "";
+
+                }
+            }
+
+        }
+        public void RechercherBaseCommunes()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = false;
+            openFileDialog.Filter = "fichier CSV (*.csv)|*.csv";
+            openFileDialog.CheckFileExists = true;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    ParamPathToBaseCommunes = openFileDialog.FileName;
+                    BDCommune.loadFrom(ParamPathToBaseCommunes);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxShow("erreur en lecture du fichier " + ex.Message);
+                    ParamPathToBaseCommunes = "";
 
                 }
             }

@@ -41,6 +41,7 @@ namespace GestVAE.VM
         {
             lstPieceJointe = new ObservableCollection<PieceJointeLivretVM>();
             SetLstJuryVM();
+            isAdded = false;
         }
         private void SetLstJuryVM()
         {
@@ -1225,5 +1226,6 @@ namespace GestVAE.VM
 
         }
         public abstract Boolean IsValiderOK();
+        public bool isAdded{ get; set; }
     }
 }

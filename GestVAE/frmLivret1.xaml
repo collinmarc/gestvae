@@ -8,7 +8,7 @@
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="window" x:Class="GestVAE.frmLivret1" 
         mc:Ignorable="d"
-        Title="Gestion du Livret 1" Icon="IMG/LivretN.ico" Unloaded="window_Unloaded" Width="1200" Height="827">
+        Title="Gestion du Livret 1" Icon="IMG/LivretN.ico" Unloaded="window_Unloaded" Width="1200" Height="827" DataContextChanged="Window_DataContextChanged">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"/>
@@ -312,13 +312,13 @@
                             <ComboBox Name="cbxCategoriePJ" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3"
                             SelectedValue="{Binding CategoriePJ}" 
                             ItemsSource="{Binding lstCategoriePJ}"
-                                  DisplayMemberPath="Categorie" Style="{DynamicResource ComboboxReadOnlyStyle}"
+                                  DisplayMemberPath="Categorie" Style="{DynamicResource ComboboxReadOnlyStyle}" SelectionChanged="CbxCategoriePJ_SelectionChanged"
                         />
 
                             <ComboBox Name="cbxLibellePJ" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3" 
                             SelectedValue="{Binding LibellePJ}" 
                             ItemsSource="{Binding lstLibellePJ}"
-                                  Style="{DynamicResource ComboboxReadOnlyStyle}">
+                                  Style="{DynamicResource ComboboxReadOnlyStyle}" SelectionChanged="CbxLibellePJ_SelectionChanged">
                                 <ComboBox.ItemTemplate >
                                     <DataTemplate>
                                         <TextBlock TextWrapping="Wrap" Text="{Binding Libelle}"/>
@@ -329,7 +329,8 @@
 
 
                             <Button x:Name="btnAddPJ" Grid.Row="3" Grid.Column="2" Margin="10"
-                            Command="{Binding DataContext.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 
+                            Command="{Binding DataContext.AjoutePJL1Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
+                                    IsEnabled="{Binding DataContext.IsAjoutPJPossible , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
                             Content="Ajouter pièce jointe"
                             />
                         </Grid>

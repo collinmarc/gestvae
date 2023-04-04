@@ -134,5 +134,21 @@ namespace GestVAE
             m_oLivret.IsNonRecu = rbIsNonRecu.IsChecked.Value;
 
         }
+
+ 
+        private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            cbValider.IsEnabled = m_oLivret.IsValiderOK();
+        }
+
+        private void CbxCategoriePJ_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VM.RaisePropertyChanged("IsAjoutPJPossible");
+        }
+
+        private void CbxLibellePJ_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VM.RaisePropertyChanged("IsAjoutPJPossible");
+        }
     }
 }

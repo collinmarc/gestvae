@@ -340,6 +340,7 @@ namespace GestVAE.VM
                     oL2.DateEnvoiCandidat = value;
                     RaisePropertyChanged();
                     RaisePropertyChanged("DateEnvoiColor");
+                    
                 }
             }
         }
@@ -823,7 +824,7 @@ namespace GestVAE.VM
                 }
                 else
                 {
-                    return "";
+                    return "green";
                 }
             }
         }

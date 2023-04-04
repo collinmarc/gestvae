@@ -119,5 +119,28 @@ namespace GestVAE
         {
             //'CSDebug.TraceINFO(VM.CurrentCandidat.CurrentLivret.SelectedMembreJ.Nom);
         }
+
+        private void DtpEnvoiCandidat_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cbValider.IsEnabled = oLivret2VM.IsValiderOK();
+        }
+
+        private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            cbValider.IsEnabled = oLivret2VM.IsValiderOK();
+
+        }
+
+        private void CbxCategoriePJ_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VM.RaisePropertyChanged("IsAjoutPJPossible");
+
+        }
+
+        private void CbxLibellePJ_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VM.RaisePropertyChanged("IsAjoutPJPossible");
+
+        }
     }
 }

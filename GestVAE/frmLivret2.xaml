@@ -12,7 +12,7 @@
         x:Name="window" 
         x:Class="GestVAE.frmLivret2" 
         mc:Ignorable="d"
-        Title="Gestion du Livret 2" Height="1062" Width="1200" Icon="IMG/LivretN.ico">
+        Title="Gestion du Livret 2" Height="1062" Width="1200" Icon="IMG/LivretN.ico" DataContextChanged="Window_DataContextChanged">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"/>
@@ -147,7 +147,7 @@
                         IsEnabled="{Binding IsLivretNonClos}" >
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Date cachet de la poste  : " Width="160" VerticalAlignment="Center" />
-                        <DatePicker x:Name="dtpEnvoiCandidat"  SelectedDate="{Binding DateEnvoiCandidat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" DisplayDateEnd="{Binding DateValidite}" Margin="10,10,0,10" Background="{Binding DateEnvoiColor}">
+                        <DatePicker x:Name="dtpEnvoiCandidat"  SelectedDate="{Binding DateEnvoiCandidat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="29" DisplayDateEnd="{Binding DateValidite}" Margin="10,10,0,10" Background="{Binding DateEnvoiColor}" SelectedDateChanged="DtpEnvoiCandidat_SelectedDateChanged">
                             <DatePicker.BlackoutDates>
                                 <CalendarDateRange Start="2080-01-01"/>
                             </DatePicker.BlackoutDates>
@@ -330,12 +330,12 @@
                         <ComboBox Name="cbxCategoriePJ" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3"
                             SelectedValue="{Binding CategoriePJ}" 
                             ItemsSource="{Binding lstCategoriePJ}"
-                                  DisplayMemberPath="Categorie" Style="{DynamicResource ComboboxReadOnlyStyle}"
+                                  DisplayMemberPath="Categorie" Style="{DynamicResource ComboboxReadOnlyStyle}" SelectionChanged="CbxCategoriePJ_SelectionChanged"
                         />
 
                         <ComboBox Name="cbxLibellePJ" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3" 
                             SelectedValue="{Binding LibellePJ}" 
-                            ItemsSource="{Binding lstLibellePJ}" Style="{DynamicResource ComboboxReadOnlyStyle}">
+                            ItemsSource="{Binding lstLibellePJ}" Style="{DynamicResource ComboboxReadOnlyStyle}" SelectionChanged="CbxLibellePJ_SelectionChanged">
                             <ComboBox.ItemTemplate >
                                 <DataTemplate>
                                     <TextBlock TextWrapping="Wrap" Text="{Binding Libelle}"/>
@@ -346,6 +346,8 @@
 
                         <Button x:Name="btnAddPJ" Grid.Row="3" Grid.Column="2" Margin="10"
                             Command="{Binding DataContext.AjoutePJL2Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" 
+                            IsEnabled="{Binding DataContext.IsAjoutPJPossible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}"
+
                             Content="Ajouter pièce jointe"
                             />
                     </Grid>
@@ -641,7 +643,9 @@
         <UniformGrid Grid.Row="3" >
                 <!--                    IsEnabled="{Binding IsLivretModifiable}" -->
                 <Button x:Name="cbValider"  Margin="10"  IsCancel="True" Content="Valider et Quitter"
-                    Command="{Binding DataContext.ValideretQuitterL2Command, ElementName=window}"/>
+                    Command="{Binding DataContext.ValideretQuitterL2Command, ElementName=window}"
+                    IsEnabled="{Binding DataContext.IsValiderEtQuitterAvailable, ElementName=window}"
+/>
             <Button x:Name="cbQuitter" Margin="10" Command="{Binding DataContext.CloseCommand, ElementName=window}"  IsCancel="True" Content="Quitter"/>
             <Button x:Name="dbCloturerL2"  Margin="10"  IsCancel="True" Content="Clôturer" 
                     IsEnabled="{Binding IsLivretModifiable}"

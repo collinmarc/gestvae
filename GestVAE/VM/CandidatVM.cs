@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
@@ -182,9 +183,57 @@ namespace GestVAE.VM
         public String PaysNaissance
         {
             get { return TheCandidat.PaysNaissance; }
-            set { TheCandidat.PaysNaissance = value; RaisePropertyChanged(); }
+            set { TheCandidat.PaysNaissance = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("IsPaysNaissanceFrance");
+                RaisePropertyChanged("IsNotPaysNaissanceFrance"); }
+        }
+        public bool IsPaysNaissanceFrance
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(PaysNaissance))
+                {
+                    return false;
+                }
+                else
+                {
+                    return (PaysNaissance.Equals("FRANCE"));
+                }
+            }
+        }
+        public bool IsNotPaysNaissanceFrance
+        {
+            get
+            {
+                return (!IsPaysNaissanceFrance);
+            }
+        }
+        public String CPNaissance
+        {
+            get { return TheCandidat.CPNaissance; }
+            set { TheCandidat.CPNaissance = value;
+                DptNaissance = CPNaissance.Substring(0, 2);
+                RaisePropertyChanged();
+                RaisePropertyChanged("lstParamBDCommunesFiltreesparCPNaissance");
+            }
+        }
+        public String INSEECommuneNaissance
+        {
+            get { return TheCandidat.INSEECommuneNaissance; }
+            set { TheCandidat.INSEECommuneNaissance = value; RaisePropertyChanged(); }
+        }
+        public String INSEEPaysNaissance
+        {
+            get { return TheCandidat.INSEEPaysNaissance; }
+            set { TheCandidat.INSEEPaysNaissance = value; RaisePropertyChanged(); }
         }
 
+        public String VilleNaissance
+        {
+            get { return TheCandidat.VilleNaissance; }
+            set { TheCandidat.VilleNaissance = value; RaisePropertyChanged(); }
+        }
 
         private DiplomeCandVM diplomeCAFDESCandidat
         {
@@ -849,5 +898,36 @@ namespace GestVAE.VM
                 return bReturn;
             }
         }
+        private ObservableCollection<BDCommune> _lstParamBDCommunes;
+        public ObservableCollection<BDCommune> lstParamBDCommunes
+        {
+            get
+            { return _lstParamBDCommunes; }
+            set
+            { _lstParamBDCommunes = value; RaisePropertyChanged(); }
+        }
+        public BindingList<BDCommune> lstParamBDCommunesFiltreesparCPNaissance
+        {
+            get
+            {
+                if (lstParamBDCommunes == null )
+                {
+                    return new BindingList<BDCommune>();
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(CPNaissance))
+                    {
+                        return new BindingList<BDCommune>(lstParamBDCommunes.Where(C => C.code_postal.StartsWith(CPNaissance)).ToList());
+                    }
+                    else
+                    {
+                        return new BindingList<BDCommune>(lstParamBDCommunes.ToList());
+                    }
+
+                }
+            }
+        }
+
     }
 }

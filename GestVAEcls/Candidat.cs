@@ -30,10 +30,12 @@ namespace GestVAEcls
         public String Nationalite { get; set; }
         public DateTime? DateNaissance { get; set; }
         public String CPNaissance { get; set; }
+        public String INSEECommuneNaissance { get; set; }
         public String VilleNaissance { get; set; }
         public String DptNaissance { get; set; }
         public String NationaliteNaissance { get; set; }
         public String PaysNaissance { get; set; }
+        public String INSEEPaysNaissance { get; set; }
         public String Adresse { get; set; }
         public String CodePostal { get; set; }
         public String Ville { get; set; }

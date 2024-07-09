@@ -1,4 +1,8 @@
 ﻿BUILD XXXXXXXX
+	0001569: Ajout d'une extraction pour 'moncompteFormation'
+
+
+BUILD XXXXXXXX
 	0001279: La fenêtre détail des diplomes ne met pas à jour les données
 	0001278: Initialisation du statut des Domaines de Compétences
 BUILD 20200526

@@ -86,8 +86,8 @@ namespace GestVAE
 
         public void setContexte(MyViewModel pViewModel)
         {
+            m_oLivret = (Livret1VM)pViewModel.CurrentCandidat.CurrentLivret;
             this.DataContext = pViewModel;
-            m_oLivret = (Livret1VM) pViewModel.CurrentCandidat.CurrentLivret;
             // Mise a jour de la liste des Etat pour faire fonctionner le Set Etat
             m_oLivret.LstEtatLivret = pViewModel.LstEtatLivret1;
             // Bind Manuel car incompréhensible

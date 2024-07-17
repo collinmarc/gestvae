@@ -37,7 +37,7 @@ namespace GestVAEcls.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CAFDES")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CAFDESV2")]
         public string NomDiplomeDefaut {
             get {
                 return ((string)(this["NomDiplomeDefaut"]));

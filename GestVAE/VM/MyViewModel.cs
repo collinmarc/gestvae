@@ -281,11 +281,6 @@ namespace GestVAE.VM
 
             _RechercherBaseMembreJurycommand = new RelayCommand<MyViewModel>(o => { RechercherBaseMembreJury(); }
                                                                     );
-            _RechercherBasePayscommand = new RelayCommand<MyViewModel>(o => { RechercherBasePays(); }
-                                                                    );
-            _RechercherBaseCommunescommand = new RelayCommand<MyViewModel>(o => { RechercherBaseCommunes(); }
-                                                                    );
-
             CommentaireCommand = new RelayCommand<MyViewModel>(o => { Commentaire(); });
         }//Createcommand
 
@@ -534,26 +529,7 @@ namespace GestVAE.VM
                     MessageBoxShow("erreur en chargement de la liste des membres du jurys:" + ex.Message);
                 }
 
-                try
-                {
-                    lstParamBDPays = new ObservableCollection<BDPays>(BDPays.loadFrom(ParamPathToBasePays).OrderBy(p=>p.LIBCOG));
-                    RaisePropertyChanged("lstParamBDPays");
-                }
-                catch (Exception ex)
-                {
-                    MessageBoxShow("erreur en chargement de la liste des Pays:" + ex.Message);
-                }
-                try
-                {
-                    lstParamBDCommunes = new ObservableCollection<BDCommune>(BDCommune.loadFrom(ParamPathToBaseCommunes).OrderBy(c => c.nom_commune));
-                    RaisePropertyChanged("lstParamBDCommunes"); 
-                    RaisePropertyChanged("lstParamBDCommunesFiltreesparCPNaissance");
-                }
-                catch (Exception ex)
-                {
-                    MessageBoxShow("erreur en chargement de la liste des Communes:" + ex.Message);
-                }
-
+ 
 
                 IsBusy = false;
             }
@@ -904,14 +880,50 @@ namespace GestVAE.VM
             Debug.Assert(CurrentCandidat != null);
 
             CandidatVM oCandVM = CurrentCandidat;
-            Livret1VM oLivVM = new Livret1VM(CurrentCandidat.IsLocked);
-            oLivVM.LstEtatLivret = LstEtatLivret1;
-            oLivVM.EtatLivret = LstEtatLivret1[2];
-            oLivVM.DateDemande = oCandVM.DateCreation;
-            oLivVM.DateEnvoiEHESP = oCandVM.DateCreation;
-            oLivVM.DateValidite = oLivVM.DateDemande.Value.AddYears(Properties.Settings.Default.DelaiValidite);
-            oLivVM.TypeDemande = CurrentCandidat.TypeDemande;
-            CurrentCandidat.CurrentLivret = oLivVM;
+            Livret1VM oL1VM = new Livret1VM(CurrentCandidat.IsLocked);
+            oL1VM.LstEtatLivret = LstEtatLivret1;
+            oL1VM.EtatLivret = LstEtatLivret1[2];
+            oL1VM.DateDemande = oCandVM.DateCreation;
+            oL1VM.DateEnvoiEHESP = oCandVM.DateCreation;
+            oL1VM.DateValidite = oL1VM.DateDemande.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+            oL1VM.TypeDemande = CurrentCandidat.TypeDemande;
+
+            // Récupération du diplome du candidat (si présent)
+            DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oL1VM.TheLivret.oDiplome.ID).FirstOrDefault();
+            if (oDiplomeCandidat == null)
+            {
+                DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand(oL1VM.TheLivret.oDiplome);
+                oDiplomeCandidat = oDipCandVM.TheDiplomeCand;
+                oDipCandVM.ModeObtention = "VAE";
+                oDipCandVM.StatutDiplome = "En cours";
+                oDipCandVM.StatutDC1 = "";
+                oDipCandVM.StatutDC2 = "";
+                oDipCandVM.StatutDC3 = "";
+                oDipCandVM.StatutDC4 = "";
+            }
+
+            // Initialisation des Domaines de compétences (transférés dans Ajout L1)
+                ((Livret1)oL1VM.TheLivret).InitDCLivrets(oDiplomeCandidat);
+                foreach (DCLivret oDCL in ((Livret)oL1VM.TheLivret).lstDCLivrets)
+                {
+                    if (CurrentCandidat.IsCAFERUIS && oDCL.NomDC=="DC4" && oDCL.IsAValider)
+                    {
+                        oDCL.PropositionDecision = "CAFERUIS";
+                    }
+                    if (CurrentCandidat.IsDEIS && oDCL.NomDC == "DC1" && oDCL.IsAValider)
+                    {
+                        oDCL.PropositionDecision = "DEIS";
+                    }
+                    if (CurrentCandidat.IsDEIS && oDCL.NomDC == "DC4" && oDCL.IsAValider)
+                    {
+                        oDCL.PropositionDecision = "DEIS";
+                    }
+                    oL1VM.lstDCLivret.Add(new DCLivretVM(oDCL));
+                }
+
+
+
+            CurrentCandidat.CurrentLivret = oL1VM;
             if (!IsInTest)
             {
                 frmLivret1 odlg = new frmLivret1();
@@ -995,7 +1007,7 @@ namespace GestVAE.VM
                     oDipCandVM.StatutDC3 = "";
                     oDipCandVM.StatutDC4 = "";
                 }
-
+/* Initialisation des Domaines de compétences (transférés dans Ajout L1)
                 ((Livret2)oL2VM.TheLivret).InitDCLivrets(oDiplomeCandidat);
                 foreach (DCLivret oDCL in ((Livret2)oL2VM.TheLivret).lstDCLivrets)
                 {
@@ -1013,6 +1025,7 @@ namespace GestVAE.VM
                     }
                     oL2VM.lstDCLivret.Add(new DCLivretVM(oDCL));
                 }
+*/
                 CurrentCandidat.CurrentLivret = oL2VM;
 
                 if (!IsInTest)
@@ -1787,66 +1800,6 @@ namespace GestVAE.VM
                 }
             }
         }
-        /// <summary>
-        /// Chemin d'accès au fichier des pays
-        /// </summary>
-        public String ParamPathToBasePays
-        {
-            get
-            {
-                String nReturn = "";
-                Param objParam = _ctxParam.dbParam.FirstOrDefault();
-                if (objParam != null)
-                {
-                    _ctxParam.Entry(objParam).Reload();
-                    nReturn = objParam.PathToBasePays;
-                }
-                return nReturn;
-            }
-            set
-            {
-                if (value != ParamPathToBasePays)
-                {
-                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
-                    if (objParam != null)
-                    {
-                        objParam.PathToBasePays = value;
-                        _ctxParam.SaveChanges();
-                        RaisePropertyChanged();
-                    }
-                }
-            }
-        }
-        /// <summary>
-        /// Chemin d'accès au fichier des pays
-        /// </summary>
-        public String ParamPathToBaseCommunes
-        {
-            get
-            {
-                String nReturn = "";
-                Param objParam = _ctxParam.dbParam.FirstOrDefault();
-                if (objParam != null)
-                {
-                    _ctxParam.Entry(objParam).Reload();
-                    nReturn = objParam.PathToBaseCommunes;
-                }
-                return nReturn;
-            }
-            set
-            {
-                if (value != ParamPathToBaseCommunes)
-                {
-                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
-                    if (objParam != null)
-                    {
-                        objParam.PathToBaseCommunes = value;
-                        _ctxParam.SaveChanges();
-                        RaisePropertyChanged();
-                    }
-                }
-            }
-        }
 
         private Boolean IsAjoutPJPossible()
         {
@@ -2102,55 +2055,7 @@ namespace GestVAE.VM
             }
 
         }
-        public void RechercherBasePays()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = false;
-            openFileDialog.Filter = "fichier CSV (*.csv)|*.csv";
-            openFileDialog.CheckFileExists = true;
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                try
-                {
-                    ParamPathToBasePays = openFileDialog.FileName;
-                    BDPays.loadFrom(ParamPathToBasePays);
-                }
-                catch (Exception ex)
-                {
-
-
-                    MessageBoxShow("erreur en lecture du fichier " + ex.Message);
-                    ParamPathToBasePays = "";
-
-                }
-            }
-
-        }
-        public void RechercherBaseCommunes()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = false;
-            openFileDialog.Filter = "fichier CSV (*.csv)|*.csv";
-            openFileDialog.CheckFileExists = true;
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                try
-                {
-                    ParamPathToBaseCommunes = openFileDialog.FileName;
-                    BDCommune.loadFrom(ParamPathToBaseCommunes);
-                }
-                catch (Exception ex)
-                {
-                    MessageBoxShow("erreur en lecture du fichier " + ex.Message);
-                    ParamPathToBaseCommunes = "";
-
-                }
-            }
-
-        }
-        private BDMembreJury _DBMembreJurySelected;
+         private BDMembreJury _DBMembreJurySelected;
 
         public BDMembreJury DBMembreJurySelected
         {

@@ -390,87 +390,57 @@
                         <TextBox x:Name="tbMail3" Grid.Row="14" Text="{Binding TheCandidat.Mail3}"  Grid.Column="1"  Style="{DynamicResource TextBoxReadOnlyStyle}" TabIndex="23"/>
 
                         <Label Content="Date naissance : " Grid.Row="15" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0,0,0,0" Width="98" />
-                        <ComboBox x:Name="cbxVilleNaissance" IsEditable="True" Grid.Row="18"  Grid.Column="1"  
-                            Text="{Binding VilleNaissance}"
-                            ItemsSource="{Binding Path=lstParamBDCommunesFiltreesparCPNaissance}"
-                            DisplayMemberPath="nom_commune"
-                            SelectedValuePath="nom_commune" 
-                            IsEnabled="{Binding IsPaysNaissanceFrance}"
-                            Visibility="{Binding IsPaysNaissanceFrance, Converter={StaticResource BooleanToVisibilityConverter} }"
-                            Style="{DynamicResource ComboboxReadOnlyStyle}"
-                            VerticalAlignment="Center" Margin="5,0,0,0" SelectionChanged="CbxVilleNaissance_SelectionChanged"
-
-                        />
+                        
                                
  
 
                         <Label Content="Pays naissance : " Grid.Row="16" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,1.5" />
                         <StackPanel Orientation="Horizontal" Grid.Row="16" Grid.Column="1"  Margin="0">
-                            <ComboBox x:Name="cbxPaysNaissance" IsEditable="True"  
-                            Text="{Binding PaysNaissance}"
-                            ItemsSource="{Binding Path=DataContext.lstParamBDPays, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}} }"
-                            DisplayMemberPath="LIBCOG"
-                            SelectedValuePath="LIBCOG" 
-                            Style="{DynamicResource ComboboxReadOnlyStyle}" SelectionChanged="CbxPaysNaissance_SelectionChanged" Width="250" Margin="5,0" VerticalAlignment="Center" TabIndex="25" 
-                                     
-                            />
-                            <TextBox x:Name="tbCodeInseePaysNaissance" Margin="5,0,0,0" Width="117" Text="{Binding INSEEPaysNaissance}" HorizontalAlignment="Right" IsEnabled="False" VerticalAlignment="Center"/>
-                        </StackPanel>
-
-                        <Label Content="CP naissance" HorizontalAlignment="Left" Margin="0" Grid.Row="17
-                               " VerticalAlignment="Center"/>
-                        <StackPanel Orientation="Horizontal" Grid.Row="17
-                                    " Grid.Column="1"  Margin="0">
-                            <!-- le relativeSource Sert à retrouvr le DataContext de la window , car le datacontext de la frame est le candidat-->
-                            <TextBox x:Name="tbCPNaissance" HorizontalAlignment="Left" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" 
-                                     Text="{Binding CPNaissance}" 
-                                     IsEnabled="{Binding IsPaysNaissanceFrance}"
-                                     Visibility="{Binding IsPaysNaissanceFrance, Converter={StaticResource BooleanToVisibilityConverter} }" 
+                            <TextBox x:Name="tbPaysNaissance" HorizontalAlignment="Left" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" 
+                                     Text="{Binding PaysNaissance}" 
                                      TabIndex="1"
                                      LostFocus="TbCPNaissance_LostFocus"                                     
                            />
-                            <Label Content="INSEE" HorizontalAlignment="Left" Margin="94,0,5,0" 
-                                                                         Visibility="{Binding IsPaysNaissanceFrance, Converter={StaticResource BooleanToVisibilityConverter} }"
-                            />
-                            <TextBox x:Name="tbCodeINSEECommuneNaissance" HorizontalAlignment="Left" Margin="5,5,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" 
-                                     Text="{Binding INSEECommuneNaissance}"
-                                     IsEnabled="False"
-                                      Visibility="{Binding IsPaysNaissanceFrance, Converter={StaticResource BooleanToVisibilityConverter} }"
-                            />
                         </StackPanel>
 
-                        <Label Content="Ville naissance : " Grid.Row="18" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="129" Margin="0,1,0,2" />
-                        <TextBox x:Name="tbVilleNaissance" Grid.Row="18"  Grid.Column="1"
+                        <Label Content="CP naissance" HorizontalAlignment="Left" Margin="0" Grid.Row="18" VerticalAlignment="Center"/>
+                            <TextBox x:Name="tbCPNaissance" HorizontalAlignment="Left" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" 
+                                     Grid.Row="18" Grid.Column="1"
+                                     Text="{Binding CPNaissance}" 
+                                     TabIndex="1"
+                           />
+                        <!--IsEnabled="{Binding IsPaysNaissanceFrance}"
+                                     Visibility="{Binding IsPaysNaissanceFrance, Converter={StaticResource BooleanToVisibilityConverter} }"-->
+
+                        <Label Content="Ville naissance : " Grid.Row="19" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="129" Margin="0,1,0,2" />
+                        <TextBox x:Name="tbVilleNaissance" Grid.Row="19"  Grid.Column="1"
                                  Text="{Binding TheCandidat.VilleNaissance}"  
                                      Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5,5,0,5" Height="20" VerticalAlignment="Center"
-                            IsEnabled="{Binding IsNotPaysNaissanceFrance}"
-                            Visibility="{Binding IsNotPaysNaissanceFrance, Converter={StaticResource BooleanToVisibilityConverter} }" 
                                  TabIndex="27"
                         />
+                        <!--IsEnabled="{Binding IsNotPaysNaissanceFrance}"
+                            Visibility="{Binding IsNotPaysNaissanceFrance, Converter={StaticResource BooleanToVisibilityConverter} }"-->
 
-                        <Label Content="Départ. naissance : " Grid.Row="19" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,1.5" />
-                        <ComboBox x:Name="cbxDepartementNaissance" Grid.Row="19"  Grid.Column="1" IsEditable="True"  
-                              Text="{Binding DptNaissance}"
-                              ItemsSource="{Binding Path=DataContext.lstParamDepartement, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                              DisplayMemberPath="Nom"
-                              SelectedValuePath="Nom" IsHitTestVisible="True" IsSynchronizedWithCurrentItem="True" 
-                              Style="{DynamicResource ComboboxReadOnlyStyle}" SelectionChanged="CbxDepartementNaissance_SelectionChanged" VerticalAlignment="Center" 
-                              Margin="3,7,2,6"
-                            Visibility="{Binding IsPaysNaissanceFrance, Converter={StaticResource BooleanToVisibilityConverter} }"
-                            TabIndex="28"
-                        >
-                        </ComboBox>
+                        <Label Content="Départ. naissance : " Grid.Row="20" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,1.5" />
+                        <TextBox x:Name="tbDepartementNaissance" HorizontalAlignment="Left" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="404" 
+                                    Grid.Row="20"  Grid.Column="1"
+                                    Text="{Binding DptNaissance}" 
+                                     IsEnabled="{Binding IsPaysNaissanceFrance}"
+                                     Visibility="{Binding IsPaysNaissanceFrance, Converter={StaticResource BooleanToVisibilityConverter} }" 
+                                     TabIndex="1"
+                           />
 
 
-                        <Label Content="Nationalité naissance : " Grid.Row="20" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" />
-                        <TextBox x:Name="tbNationaliteNaissance" Grid.Row="20" Text="{Binding TheCandidat.NationaliteNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5" TabIndex="29"/>
+
                         <DatePicker x:Name="dtpDateNaissance" Grid.Column="1"  Grid.Row="15" SelectedDate="{Binding TheCandidat.DateNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  VerticalAlignment="Center" Height="24" HorizontalAlignment="Left" Margin="5" TabIndex="24">
                             <DatePicker.BlackoutDates>
                                 <CalendarDateRange Start="2080-01-01"/>
                             </DatePicker.BlackoutDates>
                         </DatePicker>
+                        <Label Content="Nationalité naissance : " Grid.Row="17" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" />
+                        <TextBox x:Name="tbNationaliteNaissance" Grid.Row="17" Text="{Binding TheCandidat.NationaliteNaissance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="5" TabIndex="29"/>
 
-                        <Label Content="Diplômes : " Grid.Row="21" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <Label Content="Diplômes obtenus : " Grid.Row="21" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <StackPanel Grid.Row ="21" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="0">
                             <StackPanel Orientation="Horizontal" >
                                 <Label VerticalAlignment="Center">DEIS :</Label>
@@ -486,6 +456,8 @@
                                           VerticalAlignment="Center" TabIndex="33"
                                           >
                                 </CheckBox>
+                                <Label VerticalAlignment="Center">CAFDESV2 :</Label>
+                                <CheckBox Name="chkIsCAFDESV2" IsChecked="{Binding IsCAFDESV2}" VerticalAlignment="Center" TabIndex="34"></CheckBox>
                                 <Button x:Name="btnAddDiplomeCand" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="0,0,19,33"  VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                             Command="{ Binding DataContext.AjouteDiplomeCandCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="6" Width="32" RenderTransformOrigin="0.5,0.5">
                                 </Button>
@@ -555,7 +527,7 @@
                                 </Button>
                             </UniformGrid>
                         </StackPanel>
-                        <Label Content="demande/Création :" Grid.Row="22" Grid.Column="0"/>
+                        <Label Content="Type de demande:" Grid.Row="22" Grid.Column="0"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="22" Grid.Column="1">
 
                             <ComboBox x:Name="cbxTypeDemande"  BorderThickness="1" TabIndex="37"

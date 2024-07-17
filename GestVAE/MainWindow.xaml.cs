@@ -136,33 +136,6 @@ namespace GestVAE
 
         }
 
-        private void CbxPaysNaissance_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0)
-            {
-                BDPays oPays = (BDPays)e.AddedItems[0];
-                tbCodeInseePaysNaissance.Text = oPays.CODENUM3;
-                if (!oPays.IsPaysFrance)
-                {
-                    tbCodeINSEECommuneNaissance.Text = oPays.CODENUM3;
-
-                }
-
-            }
-        }
-
-        private void CbxVilleNaissance_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0)
-            {
-                BDCommune oCommune = (BDCommune)e.AddedItems[0];
-                VM.CurrentCandidat.INSEECommuneNaissance = oCommune.code_commune_insee;
-                VM.CurrentCandidat.CPNaissance = oCommune.code_postal;
-            }
-
-        }
-
-
         private void TbCPNaissance_LostFocus(object sender, RoutedEventArgs e)
         {
             //VM.RaisePropertyChanged("lstParamBDCommunes");

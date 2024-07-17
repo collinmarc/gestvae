@@ -303,9 +303,13 @@
     <Compile Include="Migrations\202011161648179_UpdateDCLivrets.Designer.cs">
       <DependentUpon>202011161648179_UpdateDCLivrets.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303290911103_codeINSEE.cs" />
-    <Compile Include="Migrations\202303290911103_codeINSEE.Designer.cs">
-      <DependentUpon>202303290911103_codeINSEE.cs</DependentUpon>
+    <Compile Include="Migrations\202407161337067_AjoutCAFDESV2.cs" />
+    <Compile Include="Migrations\202407161337067_AjoutCAFDESV2.Designer.cs">
+      <DependentUpon>202407161337067_AjoutCAFDESV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202407170849289_DCLivrets.cs" />
+    <Compile Include="Migrations\202407170849289_DCLivrets.Designer.cs">
+      <DependentUpon>202407170849289_DCLivrets.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
@@ -538,8 +542,11 @@
     <EmbeddedResource Include="Migrations\202011161648179_UpdateDCLivrets.resx">
       <DependentUpon>202011161648179_UpdateDCLivrets.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303290911103_codeINSEE.resx">
-      <DependentUpon>202303290911103_codeINSEE.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202407161337067_AjoutCAFDESV2.resx">
+      <DependentUpon>202407161337067_AjoutCAFDESV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407170849289_DCLivrets.resx">
+      <DependentUpon>202407170849289_DCLivrets.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

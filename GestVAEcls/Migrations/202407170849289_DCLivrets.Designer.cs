@@ -7,13 +7,13 @@ namespace GestVAEcls.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class codeINSEE : IMigrationMetadata
+    public sealed partial class DCLivrets : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(codeINSEE));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DCLivrets));
         
         string IMigrationMetadata.Id
         {
-            get { return "202303290911103_codeINSEE"; }
+            get { return "202407170849289_DCLivrets"; }
         }
         
         string IMigrationMetadata.Source

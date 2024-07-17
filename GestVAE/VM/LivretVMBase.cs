@@ -20,6 +20,8 @@ namespace GestVAE.VM
                 return (Livret)TheItem;
             }
         }
+        public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
+
         public ObservableCollection<JuryVM> lstJuryVM;
         public ObservableCollection<PieceJointeLivretVM> lstPieceJointe { get; set; }
         public List<PieceJointeLivretVM> lstPieceJointeActif { get { return lstPieceJointe.Where(pj => !pj.IsDeleted).ToList(); } }
@@ -39,9 +41,15 @@ namespace GestVAE.VM
 
         public LivretVMBase(Livret pLivret):base(pLivret)
         {
+            lstDCLivret = new ObservableCollection<DCLivretVM>();
             lstPieceJointe = new ObservableCollection<PieceJointeLivretVM>();
             SetLstJuryVM();
             isAdded = false;
+            foreach (DCLivret oDCL in pLivret.lstDCLivrets)
+            {
+                lstDCLivret.Add(new DCLivretVM(oDCL));
+            }
+
         }
         private void SetLstJuryVM()
         {
@@ -57,6 +65,7 @@ namespace GestVAE.VM
         public LivretVMBase(Boolean pIsCandidatLocked):base()
         {
             IsLocked = pIsCandidatLocked;
+            lstDCLivret = new ObservableCollection<DCLivretVM>();
             lstPieceJointe = new ObservableCollection<PieceJointeLivretVM>();
             lstJuryVM = new ObservableCollection<JuryVM>();
             create1erJury();
@@ -1227,5 +1236,14 @@ namespace GestVAE.VM
         }
         public abstract Boolean IsValiderOK();
         public bool isAdded{ get; set; }
+
+        public List<DCLivretVM> lstDCLivretAValider
+        {
+            get
+            {
+                return lstDCLivret.Where(i => i.IsAValider == true).ToList<DCLivretVM>();
+            }
+        }
     }
+
 }

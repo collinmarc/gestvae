@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="NomDiplomeDefaut" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">CAFDES</Value>
+      <Value Profile="(Default)">CAFDESV2</Value>
     </Setting>
     <Setting Name="DelaiEnvoiL1" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">30</Value>

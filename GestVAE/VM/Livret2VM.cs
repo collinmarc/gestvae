@@ -14,7 +14,6 @@ namespace GestVAE.VM
     public class Livret2VM : LivretVMBase
     {
         private Livret2 oL2 { get { return (Livret2)TheLivret; } }
-        public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
         public DCLivretVM selectedDCLivret { get; set; }
 
         private ObservableCollection<MembreJuryVM> _lstMembreJuryVM;
@@ -33,7 +32,6 @@ namespace GestVAE.VM
         }
         public Livret2VM(Livret2 pLivret) :  base(pLivret)
         {
-            lstDCLivret = new ObservableCollection<DCLivretVM>();
             _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
 
             foreach (PieceJointeL2 opj in pLivret.lstPiecesJointes)
@@ -41,10 +39,6 @@ namespace GestVAE.VM
                 lstPieceJointe.Add(new PieceJointeLivretVM(opj, "L2"));
             }
 
-            foreach (DCLivret oDCL in pLivret.lstDCLivrets)
-            {
-                lstDCLivret.Add(new DCLivretVM(oDCL));
-            }
 
             foreach (MembreJury oItem in pLivret.lstMembreJurys)
             {
@@ -62,7 +56,6 @@ namespace GestVAE.VM
             oReturn.oDiplome = Diplome.getDiplomeParDefaut();
             TheItem = oReturn;
 
-            lstDCLivret = new ObservableCollection<DCLivretVM>();
             _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
 
             //foreach (DomaineCompetence item in TheLivret.oDiplome.lstDomainesCompetences)
@@ -649,13 +642,7 @@ namespace GestVAE.VM
         }
 
 
-        public List<DCLivretVM> lstDCLivretAValider
-        {
-            get
-            {
-                return lstDCLivret.Where(i => i.IsAValider == true).ToList<DCLivretVM>();
-            }
-        }
+
         public override  List<PieceJointeCategorie> lstCategoriePJ
         {
             get

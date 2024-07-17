@@ -19,6 +19,7 @@ namespace GestVAE.VM
         const String cstDEIS = "DEIS";
         const String cstCAFERUIS = "CAFERUIS";
         const String cstCAFDES = "CAFDES";
+        const String cstCAFDESV2 = "CAFDESV2";
         public Candidat TheCandidat { get; set; }
         public ObservableCollection<DiplomeCandVM> lstDiplomesCandVMs { get; set; }
         public List<DiplomeCandVM> lstDiplomesCandVMsActifs { get { return lstDiplomesCandVMs.Where(d => !d.IsDeleted).ToList(); } }
@@ -198,7 +199,7 @@ namespace GestVAE.VM
                 }
                 else
                 {
-                    return (PaysNaissance.Equals("FRANCE"));
+                    return (PaysNaissance.ToUpper().Equals("FRANCE"));
                 }
             }
         }
@@ -218,16 +219,6 @@ namespace GestVAE.VM
                 RaisePropertyChanged("lstParamBDCommunesFiltreesparCPNaissance");
             }
         }
-        public String INSEECommuneNaissance
-        {
-            get { return TheCandidat.INSEECommuneNaissance; }
-            set { TheCandidat.INSEECommuneNaissance = value; RaisePropertyChanged(); }
-        }
-        public String INSEEPaysNaissance
-        {
-            get { return TheCandidat.INSEEPaysNaissance; }
-            set { TheCandidat.INSEEPaysNaissance = value; RaisePropertyChanged(); }
-        }
 
         public String VilleNaissance
         {
@@ -241,6 +232,15 @@ namespace GestVAE.VM
             {
                 return (from oDiplomeCand in lstDiplomesCandVMsActifs
                         where oDiplomeCand.oDiplome.Nom == cstCAFDES
+                        select oDiplomeCand).FirstOrDefault<DiplomeCandVM>();
+            }
+        }
+        private DiplomeCandVM diplomeCAFDESV2Candidat
+        {
+            get
+            {
+                return (from oDiplomeCand in lstDiplomesCandVMsActifs
+                        where oDiplomeCand.oDiplome.Nom == cstCAFDESV2
                         select oDiplomeCand).FirstOrDefault<DiplomeCandVM>();
             }
         }
@@ -408,6 +408,29 @@ namespace GestVAE.VM
                     else
                     {
                         CurrentDiplomeCand = lstDiplomesCandVMs.Where(d=>d.NomDiplome== cstCAFDES).FirstOrDefault();
+                        DeleteCurrentDiplome();
+                    }
+                }
+            }
+        }
+        public Boolean IsCAFDESV2
+        {
+            get
+            {
+                return (diplomeCAFDESV2Candidat != null);
+            }
+            set
+            {
+                if (value != IsCAFDESV2)
+                {
+                    if (value)
+                    {
+                        Diplome oDiplome = (from o in _ctx.Diplomes where o.Nom == cstCAFDESV2 select o).FirstOrDefault<Diplome>();
+                        DiplomeCandVM oDip = AjoutDiplomeCand(oDiplome);
+                    }
+                    else
+                    {
+                        CurrentDiplomeCand = lstDiplomesCandVMs.Where(d => d.NomDiplome == cstCAFDESV2).FirstOrDefault();
                         DeleteCurrentDiplome();
                     }
                 }

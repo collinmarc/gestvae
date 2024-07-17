@@ -122,7 +122,13 @@ namespace GestVAE
 
         private void DtpEnvoiCandidat_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            cbValider.IsEnabled = oLivret2VM.IsValiderOK();
+            Boolean bEnabled = false;
+            if (oLivret2VM != null)
+            {
+                bEnabled = oLivret2VM.IsValiderOK();
+
+            }
+            cbValider.IsEnabled = bEnabled;
         }
 
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

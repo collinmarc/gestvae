@@ -48,10 +48,11 @@
                 </Grid.ColumnDefinitions>
                 <Grid x:Name="grdEntete2"  Grid.Row="0" Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="28*"/>
+                        <RowDefinition Height="29*"/>
+                        <RowDefinition Height="27*"/>
+                        <RowDefinition Height="28*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -70,6 +71,27 @@
                     <Label Content="Diplome :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
                     <TextBox x:Name="tbDiplome" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsEnabled="{Binding IsLivretModifiable}"
                          Text="{Binding NomDiplome,Mode=OneWay}" Style="{DynamicResource TextBoxReadOnlyStyle}"/>
+                    <DataGrid x:Name="dgDCLivret"  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                           ItemsSource="{Binding lstDCLivret, UpdateSourceTrigger=PropertyChanged}" 
+                            AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" 
+                           Style="{DynamicResource MyDataGridStyle}">
+                        <DataGrid.Resources>
+                            <VM:BindingProxy x:Key="proxy" Data="{Binding VM.CurrentCandidat.CurrentLivret, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="2*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="3*" IsReadOnly="True"/>
+                            <DataGridCheckBoxColumn Header="A Valider ?" Binding="{Binding IsAValider}" Width="2*" IsReadOnly="{Binding Data.IsLivretNotEnCours,Source={StaticResource proxy}}"/>
+                            <DataGridTextColumn Header="Proposition" Binding="{Binding PropositionDecision}" Width="4*">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style>
+                                        <Setter Property="UIElement.IsEnabled" Value="{Binding IsAValider}" />
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
 
 
@@ -168,13 +190,13 @@
                                 <RadioButton x:Name="rbIsNonRecu" Content="Non Reçu"  GroupName="ContratLivret" Margin="10" HorizontalAlignment="Right"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                    <Label VerticalAlignment="Center">Enregistré  :</Label>
-                                    <CheckBox Margin="0" VerticalAlignment="Center" IsChecked="{Binding IsEnregistre}"></CheckBox>
-                                </StackPanel>
+                                <Label VerticalAlignment="Center">Enregistré  :</Label>
+                                <CheckBox Margin="0" VerticalAlignment="Center" IsChecked="{Binding IsEnregistre}"></CheckBox>
+                            </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Column="2">
-                                    <Label VerticalAlignment="Center">Payé  :</Label>
-                                    <CheckBox Margin="0" VerticalAlignment="Center" IsChecked="{Binding IsPaye}"></CheckBox>
-                                </StackPanel>
+                                <Label VerticalAlignment="Center">Payé  :</Label>
+                                <CheckBox Margin="0" VerticalAlignment="Center" IsChecked="{Binding IsPaye}"></CheckBox>
+                            </StackPanel>
 
                         </UniformGrid>
                         <Grid x:Name="grdTypeOrigine" >
@@ -262,11 +284,11 @@
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
-                                <Label VerticalAlignment="Center"> CNI OK : </Label>
+                                <Label VerticalAlignment="Center">CNI OK :</Label>
                                 <CheckBox Margin="0" VerticalAlignment="Center" IsChecked="{Binding IsCNIOK}"></CheckBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                                <Label VerticalAlignment="Center">Date de validité CNI : </Label>
+                                <Label VerticalAlignment="Center">Date de validité CNI :</Label>
                                 <DatePicker Name="dtpDateValiditeCNI" SelectedDate="{Binding DateValiditeCNI}" VerticalAlignment="Center" Margin="0">
                                     <DatePicker.BlackoutDates>
                                         <CalendarDateRange Start="2080-01-01"/>

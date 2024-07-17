@@ -11,6 +11,7 @@ namespace GestVAEcls
 {
     public abstract class Livret : GestVAEBase
     {
+        public Int32 NumPassage { get; set; }
         public DateTime? DateEcheance { get; set; }
         [NotMapped]
         public String Typestr { get; set; }
@@ -60,6 +61,7 @@ namespace GestVAEcls
             EtatLivret = "";
             Typestr = "";
             lstJurys = new ObservableCollection<Jury>();
+            lstDCLivrets = new ObservableCollection<DCLivret>();
             //lstJurys.Add(new Jury());
             oDiplome = Diplome.getDiplomeParDefaut();
         }
@@ -70,6 +72,43 @@ namespace GestVAEcls
                 lstJurys.Add(new Jury());
             }
         }
+        public virtual ObservableCollection<DCLivret> lstDCLivrets { get; set; }
+        /// <summary>
+        /// initialisation des stattus des domaines de compétences du Livret
+        /// </summary>
+        /// <param name="pdiplomeCand"></param>
+        public void InitDCLivrets(DiplomeCand pdiplomeCand)
+        {
+            foreach (DomaineCompetenceCand oDCCand in pdiplomeCand.lstDCCands)
+            {
+                DCLivret oDCL = lstDCLivrets.Where(i => i.NomDC == oDCCand.NomDomaineCompetence).FirstOrDefault();
+                if (oDCL == null)
+                {
+                    oDCL = new DCLivret(oDCCand.oDomaineCompetence);
+                    lstDCLivrets.Add(oDCL);
+                }
+                oDCL.Statut = oDCCand.Statut;
+                oDCL.ModeObtention = oDCCand.ModeObtention;
+                oDCL.DateObtention = oDCCand.DateObtention;
+                oDCL.Commentaire = oDCCand.Commentaire;
+                if (oDCL.Statut == "")
+                {
+                    if (NumPassage > 1)
+                    {
+                        oDCL.Statut = "Refusé";
+                    }
+                    else
+                    {
+                        oDCL.Statut = "En Cours";
+                    }
+                }
+                if (oDCL.Statut != "Validé")
+                {
+                    oDCL.IsAValider = true;
+                }
+            }
+        }
+
 
     }
     public class Livret1 : Livret
@@ -118,7 +157,6 @@ namespace GestVAEcls
         static public String TYPELIVRET { get { return "LIVRET2"; } }
 
         public String Numero { get; set; }
-        public Int32 NumPassage { get; set; }
         public Boolean IsOuvertureApresRecours{ get; set; }
         public DateTime? DateDemande { get; set; }
         public DateTime? DateLimiteEnvoiEHESP { get; set; }
@@ -142,7 +180,6 @@ namespace GestVAEcls
         public Boolean IsTrtSpecial { get; set; }
         public virtual ObservableCollection<PieceJointeL2> lstPiecesJointes { get; set; }
         public virtual ObservableCollection<EchangeL2> lstEchanges { get; set; }
-        public virtual ObservableCollection<DCLivret> lstDCLivrets { get; set; }
         public virtual ObservableCollection<MembreJury> lstMembreJurys { get; set; }
         public virtual int Candidat_ID { get; set; }
         [ForeignKey("Candidat_ID")]
@@ -172,41 +209,6 @@ namespace GestVAEcls
             }
 
 
-        }
-        /// <summary>
-        /// initialisation des stattus des domaines de compétences du Livret
-        /// </summary>
-        /// <param name="pdiplomeCand"></param>
-        public void InitDCLivrets(DiplomeCand pdiplomeCand )
-        {
-            foreach (DomaineCompetenceCand oDCCand in pdiplomeCand.lstDCCands)
-            {
-                DCLivret oDCL = lstDCLivrets.Where(i => i.NomDC == oDCCand.NomDomaineCompetence).FirstOrDefault();
-                if (oDCL == null)
-                {
-                    oDCL = new DCLivret(oDCCand.oDomaineCompetence);
-                    lstDCLivrets.Add(oDCL);
-                }
-                oDCL.Statut = oDCCand.Statut;
-                oDCL.ModeObtention = oDCCand.ModeObtention;
-                oDCL.DateObtention = oDCCand.DateObtention;
-                oDCL.Commentaire = oDCCand.Commentaire;
-                if (oDCL.Statut == "")
-                {
-                    if (NumPassage >1)
-                    {
-                        oDCL.Statut = "Refusé";
-                    }
-                    else
-                    {
-                        oDCL.Statut = "En Cours";
-                    }
-                }
-                if (oDCL.Statut != "Validé")
-                {
-                    oDCL.IsAValider = true;
-                }
-            }
         }
         /// <summary>
         /// Valider le Livret2 (Créer ou mettre à jour le diplome du candidiat

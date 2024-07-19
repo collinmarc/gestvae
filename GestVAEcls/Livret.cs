@@ -33,7 +33,16 @@ namespace GestVAEcls
         public DateTime? DateEnvoiCandidat { get; set; }
         public DateTime? DateReceptEHESP { get; set; }
         public DateTime? DateReceptEHESPComplet { get; set; }
-        public virtual int Diplome_ID { get; set; }
+        private int _Diplome_ID;  
+        public virtual int Diplome_ID
+        {
+            get{ return _Diplome_ID;}
+            set
+            {
+                _Diplome_ID = value;
+            }
+        }
+
         [ForeignKey("Diplome_ID")]
         public virtual Diplome oDiplome { get; set; }
         public virtual ObservableCollection<Jury> lstJurys { get; set; }
@@ -85,26 +94,26 @@ namespace GestVAEcls
                 if (oDCL == null)
                 {
                     oDCL = new DCLivret(oDCCand.oDomaineCompetence);
+                    oDCL.Statut = "";
                     lstDCLivrets.Add(oDCL);
                 }
-                oDCL.Statut = oDCCand.Statut;
-                oDCL.ModeObtention = oDCCand.ModeObtention;
-                oDCL.DateObtention = oDCCand.DateObtention;
-                oDCL.Commentaire = oDCCand.Commentaire;
-                if (oDCL.Statut == "")
+                else
                 {
-                    if (NumPassage > 1)
+                    oDCL.Statut = oDCCand.Statut;
+                    oDCL.ModeObtention = oDCCand.ModeObtention;
+                    oDCL.DateObtention = oDCCand.DateObtention;
+                    oDCL.Commentaire = oDCCand.Commentaire;
+                    if (oDCL.Statut == "")
                     {
-                        oDCL.Statut = "Refusé";
+                        if (NumPassage > 1)
+                        {
+                            oDCL.Statut = "Refusé";
+                        }
+                        else
+                        {
+                            oDCL.Statut = "En Cours";
+                        }
                     }
-                    else
-                    {
-                        oDCL.Statut = "En Cours";
-                    }
-                }
-                if (oDCL.Statut != "Validé")
-                {
-                    oDCL.IsAValider = true;
                 }
             }
         }

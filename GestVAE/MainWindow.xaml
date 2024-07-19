@@ -499,6 +499,7 @@
                                 </DataGrid.InputBindings>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
+                                    <DataGridTextColumn Header="Diplome" Binding="{Binding NomDiplome}"/>
                                     <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}"/>
                                     <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret}"/>
                                     <DataGridTextColumn Header="Validité" Binding="{Binding DateValiditeBase, StringFormat='dd/MM/yyyy', Mode=OneWay}"/>

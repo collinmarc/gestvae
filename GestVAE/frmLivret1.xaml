@@ -76,20 +76,13 @@
                             AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" 
                            Style="{DynamicResource MyDataGridStyle}">
                         <DataGrid.Resources>
-                            <VM:BindingProxy x:Key="proxy" Data="{Binding VM.CurrentCandidat.CurrentLivret, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" />
+                            <VM:BindingProxy x:Key="proxy" Data="{Binding VM.CurrentCandidat.CurrentLivret, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
                         </DataGrid.Resources>
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="2*" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="3*" IsReadOnly="True"/>
-                            <DataGridCheckBoxColumn Header="A Valider ?" Binding="{Binding IsAValider}" Width="2*" IsReadOnly="{Binding Data.IsLivretNotEnCours,Source={StaticResource proxy}}"/>
-                            <DataGridTextColumn Header="Proposition" Binding="{Binding PropositionDecision}" Width="4*">
-                                <DataGridTextColumn.CellStyle>
-                                    <Style>
-                                        <Setter Property="UIElement.IsEnabled" Value="{Binding IsAValider}" />
-                                    </Style>
-                                </DataGridTextColumn.CellStyle>
-                            </DataGridTextColumn>
+                            <DataGridCheckBoxColumn Header="Bloc demandé" Binding="{Binding IsAValider}" Width="2*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

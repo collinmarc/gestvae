@@ -33,25 +33,8 @@ namespace GestVAE.VM
 
             oReturn.oDiplome = Diplome.getDiplomeParDefaut();
             TheItem = oReturn;
-
-
         }
 
-        public String NomDiplome
-        {
-            get
-            {
-                return TheLivret.oDiplome.Nom;
-            }
-            set
-            {
-                if (value != NomDiplome)
-                {
-                    TheLivret.oDiplome.Nom = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
 
         public override String Numero
         {

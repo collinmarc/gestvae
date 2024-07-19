@@ -71,6 +71,21 @@ namespace GestVAE.VM
             create1erJury();
         }
         public abstract String Numero { get; set; }
+        public String NomDiplome
+        {
+            get
+            {
+                return TheLivret.oDiplome.Nom;
+            }
+            set
+            {
+                //if (value != NomDiplome)
+                //{
+                //    TheLivret.oDiplome.Nom = value;
+                //    RaisePropertyChanged();
+                //}
+            }
+        }
 
         public String Typestr
         {

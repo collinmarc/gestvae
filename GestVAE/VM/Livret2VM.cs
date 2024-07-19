@@ -73,20 +73,6 @@ namespace GestVAE.VM
             return entry;
         }
 
-        public String NomDiplome
-        {
-            get
-            {
-                if (TheLivret.oDiplome == null)
-                {
-                    return "";
-                }
-                else
-                {
-                    return TheLivret.oDiplome.Nom;
-                }
-            }
-        }
 
         public override String Numero
         {
@@ -103,22 +89,6 @@ namespace GestVAE.VM
                 }
             }
         }
-
-        //public String NumeroDiplome
-        //{
-        //    get
-        //    {
-        //        return oL2.NumDiplome;
-        //    }
-        //    set
-        //    {
-        //        if (value != NumeroDiplome)
-        //        {
-        //            oL2.NumDiplome = value;
-        //            RaisePropertyChanged();
-        //        }
-        //    }
-        //}
         public Int32 NumPassage
         {
             get

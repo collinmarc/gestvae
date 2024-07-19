@@ -1194,7 +1194,7 @@ namespace GestVAE.VM
         /// <param name="pLivret"></param>
         private void UpdateDiplomeCand(Livret2VM pLivret)
         {
-
+            // Lecture du Diplome associé au livret
             DiplomeCandVM oDip = CurrentCandidat.getDiplomeCand(pLivret);
             if (oDip != null)
 
@@ -1801,7 +1801,12 @@ namespace GestVAE.VM
             }
         }
 
-        private Boolean IsAjoutPJPossible()
+        public Boolean IsAjoutPJPossible
+        {
+            get { return _IsAjoutPJPossible(); }
+        }
+
+        private Boolean _IsAjoutPJPossible()
         {
             Boolean bReturn = false;
             if (CurrentCandidat != null)

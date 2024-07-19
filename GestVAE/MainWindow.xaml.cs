@@ -60,9 +60,9 @@ namespace GestVAE
             
             //cbxPaysNaissance.ItemsSource = VM.lstParamBDPays;
 #if DEBUG
-            VM.rechNom = "COLLIN";
-            VM.Recherche();
-            VM.CurrentCandidat = VM.lstCandidatVM[0];
+            //VM.rechNom = "COLLIN";
+            //VM.Recherche();
+            //VM.CurrentCandidat = VM.lstCandidatVM[0];
 
 #endif
 

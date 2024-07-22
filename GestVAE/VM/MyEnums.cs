@@ -24,7 +24,8 @@ namespace GestVAE.VM
         public enum DecisionJuryL1
         {
             DECISION_L1_FAVORABLE = 10,
-            DECISION_L1_DEFAVORABLE = 20
+            DECISION_L1_DEFAVORABLE = 20,
+            DECISION_L1_PARTIELLE = 30
         }
         public enum DecisionJuryL2
         {

@@ -46,8 +46,8 @@ namespace GestVAE
 
 
 
-            cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
-            cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
+            //cbxDecision.SetBinding(ComboBox.SelectedItemProperty, "DecisionJury");
+            //cbxDecision.SetBinding(ComboBox.ItemsSourceProperty, "LstDecisionL1");
 
          //   cbxMotifDetaille.SetBinding(ComboBox.SelectedItemProperty, "MotifDetailJury");
   //          cbxMotifDetaille.SetBinding(ComboBox.ItemsSourceProperty, "LstMotifDetaille");
@@ -57,7 +57,7 @@ namespace GestVAE
 //            cbxMotifGeneral.SetBinding(ComboBox.ItemsSourceProperty, "lstMotifGL1");
            // cbxMotifGeneral.SetBinding(ComboBox.IsEnabledProperty, "IsEtatRefuse");
 
-            tbCommentaire.SetBinding(TextBox.TextProperty, "CommentaireJury");
+            //tbCommentaire.SetBinding(TextBox.TextProperty, "CommentaireJury");
             dtpDateLimiteRecours.SetBinding(DatePicker.SelectedDateProperty, "DateLimiteRecours");
 
             // Recours
@@ -150,5 +150,18 @@ namespace GestVAE
         {
             VM.RaisePropertyChanged("IsAjoutPJPossible");
         }
+
+        void OnDCDecisionChecked(object sender, RoutedEventArgs e)
+        {
+            Livret1VM oLiv = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
+            if (oLiv != null)
+            {
+                if (oLiv.selectedDCLivret != null)
+                {
+                    oLiv.calcDecisionJury();
+                }
+            }
+        }
+
     }
 }

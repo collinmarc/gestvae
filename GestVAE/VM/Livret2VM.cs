@@ -14,7 +14,6 @@ namespace GestVAE.VM
     public class Livret2VM : LivretVMBase
     {
         private Livret2 oL2 { get { return (Livret2)TheLivret; } }
-        public DCLivretVM selectedDCLivret { get; set; }
 
         private ObservableCollection<MembreJuryVM> _lstMembreJuryVM;
         public ObservableCollection<MembreJuryVM> lstMembreJury{
@@ -67,6 +66,59 @@ namespace GestVAE.VM
 
 
         }
+
+        /// <summary>
+        /// création d'un livret1 à partir d'un livret1
+        /// </summary>
+        /// <param name="pL1"></param>
+        public Livret2VM(Livret1VM pL1) : base(pL1.IsLocked)
+        {
+            Livret oReturn = null;
+
+            oReturn = new Livret2();
+            oReturn.oDiplome = pL1.TheLivret.oDiplome;
+            TheItem = oReturn;
+
+            _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
+
+            this.Numero = pL1.Numero;
+            this.DateValidite = pL1.DateValidite;
+            this.DateLimiteReceptEHESP = pL1.DateValidite;
+            if (pL1.IsRecoursDemande)
+            {
+                this.IsOuvertureApresRecours = true;
+            }
+            if (pL1.DateEnvoiL2.HasValue)
+            {
+                this.DateEnvoiEHESP = pL1.DateEnvoiL2;
+            }
+            else
+            {
+                pL1.DateEnvoiL2 = DateTime.Today;
+                this.DateEnvoiEHESP = DateTime.Today;
+            }
+            this.IsContrat = pL1.IsContrat;
+            this.IsConvention = pL1.IsConvention;
+            this.IsNonRecu = pL1.IsNonRecu;
+            this.IsCNIOK = pL1.IsCNIOK;
+            this.DateValiditeCNI = pL1.DateValiditeCNI;
+            this.IsEnregistre = false;
+            this.IsPaye = false;
+
+            // Transfert des blocs depuis le Livret1 vers le Livret2
+            foreach (DCLivretVM item in pL1.lstDCLivret)
+            {
+                DCLivretVM oDCLivret = new DCLivretVM();
+                oDCLivret.TheDCLivret.oDomaineCompetence = item.TheDCLivret.oDomaineCompetence;
+                if (item.IsDecisionFavorable.HasValue)
+                {
+                    oDCLivret.IsAValider = item.IsDecisionFavorable.Value;
+                }
+
+                this.lstDCLivret.Add(oDCLivret);
+            }
+        }
+
         public override DbEntityEntry getEntity()
         {
             DbEntityEntry<Livret2> entry = _ctx.Entry<Livret2>(oL2);
@@ -548,13 +600,6 @@ namespace GestVAE.VM
 
                     RaisePropertyChanged();
                 }
-            }
-        }
-        public Boolean IsDecisionJuryPartielle
-        {
-            get
-            {
-                return ((getNumDecisionJury() >= (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
             }
         }
 

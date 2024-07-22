@@ -122,7 +122,7 @@ namespace GestVAEcls
     }
     public class Livret1 : Livret
     {
-        static public String TYPELIVRET { get { return "LIVRET1"; } }
+        static public String TYPELIVRET { get { return "L1"; } }
 
         public String Numero { get; set; }
         public String TypeDemande { get; set; }
@@ -163,7 +163,7 @@ namespace GestVAEcls
     }
     public class Livret2 : Livret
     {
-        static public String TYPELIVRET { get { return "LIVRET2"; } }
+        static public String TYPELIVRET { get { return "L2"; } }
 
         public String Numero { get; set; }
         public Boolean IsOuvertureApresRecours{ get; set; }

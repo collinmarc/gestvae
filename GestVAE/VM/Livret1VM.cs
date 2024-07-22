@@ -130,9 +130,12 @@ namespace GestVAE.VM
         {
             Boolean bReturn = false;
             //            bReturn = (IsEtatAccepte && DateValidite > DateTime.Now);
-            DateTime dDateValid;
+            DateTime dDateValid = DateTime.Now;
             Int32 nDelai = new ContextParam() .dbParam.First().DelaiValiditeL1;
-            dDateValid = DateValidite.Value.AddDays(nDelai);
+            if (DateValidite.HasValue)
+            {
+                dDateValid = DateValidite.Value.AddDays(nDelai);
+            }
             bReturn = (IsEtatAccepte && (dDateValid > DateTime.Now));
 
             if (!bReturn)
@@ -148,7 +151,7 @@ namespace GestVAE.VM
                             foreach (DCLivretVM oDC in oLiv.lstDCLivretAValider)
                             {
                                 // Si un DC a une décision Favorable
-                                if (oDC.IsDecisionFavorable)
+                                if (oDC.IsDecisionFavorable.HasValue && oDC.IsDecisionFavorable.Value)
                                 {
                                     bReturn = true;
                                     break;

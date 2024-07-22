@@ -21,6 +21,8 @@ namespace GestVAE.VM
             }
         }
         public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
+        public DCLivretVM selectedDCLivret { get; set; }
+
 
         public ObservableCollection<JuryVM> lstJuryVM;
         public ObservableCollection<PieceJointeLivretVM> lstPieceJointe { get; set; }
@@ -400,6 +402,43 @@ namespace GestVAE.VM
                 }
             }
         }
+
+        public void calcDecisionJury()
+        {
+            int nDCFavorable = lstDCLivretAValider.Count(x => x.IsDecisionFavorable.HasValue && x.IsDecisionFavorable.Value);
+            int nDCdeFavorable = lstDCLivretAValider.Count(x => x.IsDecisionDefavorable.HasValue && x.IsDecisionDefavorable.Value);
+            int nDCsansDecision = lstDCLivretAValider.Count(x => !x.IsDecisionDefavorable.HasValue);
+            if (nDCsansDecision > 0)
+            {
+                DecisionJury = "";
+            }
+            else
+            {
+                // Les enums de L1 et L2 sont les mêmes (ouf!!!)
+                if (nDCFavorable > 0 && nDCdeFavorable == 0)
+                {
+                    DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+                }
+                if (nDCFavorable == 0 && nDCdeFavorable > 0)
+                {
+                    DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                }
+                if (nDCFavorable > 0 && nDCdeFavorable > 0)
+                {
+                    DecisionJury = String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL1.DECISION_L1_PARTIELLE);
+                }
+            }
+
+        }
+
+        public Boolean IsDecisionJuryPartielle
+        {
+            get
+            {
+                return ((getNumDecisionJury() >= (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
+            }
+        }
+
         public virtual String EtatLivret
         {
             get
@@ -1259,6 +1298,57 @@ namespace GestVAE.VM
                 return lstDCLivret.Where(i => i.IsAValider == true).ToList<DCLivretVM>();
             }
         }
+
+        private Boolean IsBloc(int pNum)
+        {
+            return lstDCLivretAValider.Exists(b => b.NumDC == pNum);
+        }
+        public Boolean IsBlocDecisionFavorable (int pNum)
+        {
+            Boolean breturn = false;
+            if (IsBloc(pNum))
+            {
+                breturn = lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.Value;
+            }
+            return breturn;
+
+        }
+
+        public Boolean IsBloc1
+        {
+            get { return IsBloc(1); }
+        }
+
+        public Boolean IsBloc1DecisionFavorable
+        {
+            get { return IsBlocDecisionFavorable(1);}
+        }
+        public Boolean IsBloc2
+        {
+            get { return IsBloc(2); }
+        }
+        public Boolean IsBloc2DecisionFavorable
+        {
+            get { return IsBlocDecisionFavorable(2); }
+        }
+        public Boolean IsBloc3
+        {
+            get { return IsBloc(3); }
+        }
+        public Boolean IsBloc3DecisionFavorable
+        {
+            get { return IsBlocDecisionFavorable(3); }
+        }
+        public Boolean IsBloc4
+        {
+            get { return IsBloc(4); }
+        }
+        public Boolean IsBloc4DecisionFavorable
+        {
+            get { return IsBlocDecisionFavorable(4); }
+        }
+
+
     }
 
 }

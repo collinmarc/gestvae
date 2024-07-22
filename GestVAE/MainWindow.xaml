@@ -482,13 +482,13 @@
 
                         </StackPanel>
 
-                        <Label Content="Livrets : " Grid.Row="23" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="23">
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="23" Grid.ColumnSpan="2">
                             <DataGrid Name="gridLstLivrets"  Margin="5,5,5,0"  VerticalAlignment="Top" TabIndex="39"
                               HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"
                               ItemsSource="{Binding lstLivretsActif, UpdateSourceTrigger=PropertyChanged}"  
                               SelectedItem="{Binding CurrentLivret}"
-                              AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
+                              AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="true" CanUserResizeRows="False"
+                              RowHeaderWidth="0"
                               CellEditEnding="gridLstLivrets_CellEditEnding" 
                               MouseDoubleClick="gridLstLivrets_MouseDoubleClick"
                               IsReadOnly="True" 
@@ -498,11 +498,56 @@
                                     <KeyBinding Key="Delete" Command="{Binding DeleteLivretCommand}" />
                                 </DataGrid.InputBindings>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Numero" Binding="{Binding Numero}"/>
-                                    <DataGridTextColumn Header="Diplome" Binding="{Binding NomDiplome}"/>
-                                    <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}"/>
-                                    <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret}"/>
-                                    <DataGridTextColumn Header="Validité" Binding="{Binding DateValiditeBase, StringFormat='dd/MM/yyyy', Mode=OneWay}"/>
+                                    <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}" Width="1*" />
+                                    <DataGridTextColumn Header="Numero" Binding="{Binding Numero}" Width="2*"/>
+                                    <DataGridTextColumn Header="Diplome" Binding="{Binding NomDiplome}" Width="3*"/>
+                                    <DataGridCheckBoxColumn Header="B1" Binding="{Binding IsBloc1, Mode=OneWay}" IsReadOnly="true"  Width="1*" >
+                                        <DataGridCheckBoxColumn.ElementStyle>
+                                            <Style TargetType="CheckBox">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsBloc1DecisionFavorable}" Value="true" >
+                                                        <Setter Property="Background" Value="Green"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGridCheckBoxColumn.ElementStyle>
+                                    </DataGridCheckBoxColumn>
+                                    <DataGridCheckBoxColumn Header="B2" Binding="{Binding IsBloc2, Mode=OneWay}" IsReadOnly="true" Width="1*">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsBloc2DecisionFavorable}" Value="true" >
+                                                    <Setter Property="Background" Value="Green"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    </DataGridCheckBoxColumn>
+                                    <DataGridCheckBoxColumn Header="B3" Binding="{Binding IsBloc3, Mode=OneWay}" IsReadOnly="true" Width="1*">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsBloc3DecisionFavorable}" Value="true" >
+                                                    <Setter Property="Background" Value="Green"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    </DataGridCheckBoxColumn>
+                                    <DataGridCheckBoxColumn Header="B4" Binding="{Binding IsBloc4, Mode=OneWay}" IsReadOnly="true" Width="1*">
+                                        <DataGridCheckBoxColumn.ElementStyle>
+                                            <Style TargetType="CheckBox">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsBloc4DecisionFavorable}" Value="true" >
+                                                        <Setter Property="Background" Value="Green"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGridCheckBoxColumn.ElementStyle>
+                                    </DataGridCheckBoxColumn>
+
+                                    <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret, Mode=OneWay}" Width="3*"/>
+                                    <DataGridTextColumn Header="Validité" Binding="{Binding DateValiditeBase, StringFormat='dd/MM/yyyy', Mode=OneWay}"  Width="3*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
 

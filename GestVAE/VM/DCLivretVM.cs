@@ -35,6 +35,13 @@ namespace GestVAE.VM
                 return TheDCLivret.NomDC;
             }
         }
+        public int NumDC
+        {
+            get
+            {
+                return TheDCLivret.oDomaineCompetence.Numero;
+            }
+        }
         public String Statut
         {
             get
@@ -82,7 +89,7 @@ namespace GestVAE.VM
                 if (value != Decision)
                 {
                     TheDCLivret.Decision= value;
-                    if (IsDecisionFavorable)
+                    if (IsDecisionFavorable.HasValue && IsDecisionFavorable.Value)
                     {
                         MotifGeneral = "";
                         MotifDetaille = "";
@@ -95,7 +102,7 @@ namespace GestVAE.VM
                 }
             }
         }
-        public Boolean IsDecisionFavorable
+        public Boolean? IsDecisionFavorable
         {
             get {
                 if (getNumDecision() > 0)
@@ -104,7 +111,7 @@ namespace GestVAE.VM
                 }
                 else
                 { // si pas de decision =< Pas favorable
-                    return false;
+                    return null;
                 }
             }
             set
@@ -112,7 +119,12 @@ namespace GestVAE.VM
 
                 if (value != IsDecisionFavorable)
                 {
-                    if (value)
+                    if (value == null)
+                    {
+                        Decision = "";
+                    }
+                    else
+                        if (value.Value)
                     {
                         Decision = new Livret2VM(false).DecisionL2ModuleFavorable;
                     }
@@ -123,7 +135,7 @@ namespace GestVAE.VM
                 }
             }
         }
-        public Boolean IsDecisionDefavorable
+        public Boolean? IsDecisionDefavorable
         {
             get
             {
@@ -133,7 +145,7 @@ namespace GestVAE.VM
                     }
                     else
                     { // si pas de decision =< Pas défavorable
-                        return true;
+                        return null;
                     }
             }
             set
@@ -251,21 +263,7 @@ namespace GestVAE.VM
             return nReturn;
         }
 
-        public Boolean isDecisionFavorable
-        {
-            get
-            {
-                if (getNumDecision() > 0)
-                {
-                    return (getNumDecision() < (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
-                }
-                else
-                { // si pas de decision =< Pas favorable
-                    return false;
-                }
 
-            }
-        }
 
 
     }

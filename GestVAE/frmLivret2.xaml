@@ -564,20 +564,8 @@
                                                         ItemsSource="{Binding Data.LstDecisionL2Module, Source={StaticResource proxy}}"
                                                         Width="2*"/>
                             -->
-                                <DataGridTemplateColumn Header="Favorable">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Name ="DCDecisionF" IsChecked="{Binding IsDecisionFavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Défavorable">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Name ="DCDecisionD" IsChecked="{Binding IsDecisionDefavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
+                                <DataGridCheckBoxColumn Header="Favorable" IsThreeState="True" Binding="{Binding IsDecisionFavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridCheckBoxColumn Header="Défavorable" IsThreeState="True" Binding="{Binding IsDecisionDefavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 <!-- How to bind a ComboboxCol to another(https://blogs.msdn.microsoft.com/vinsibal/2008/12/17/wpf-datagrid-dynamically-updating-datagridcomboboxcolumn/) -->
                             <!--                            
                             <DataGridComboBoxColumn x:Name="dgColMotifGeneral" Header="Motif général" 

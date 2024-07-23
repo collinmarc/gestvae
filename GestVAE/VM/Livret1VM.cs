@@ -664,12 +664,12 @@ namespace GestVAE.VM
             String strKey = "";
             if (IsDecisionJuryFavorable || (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursFavorable))
             {
-                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+                strKey = String.Format("{0:D}", MyEnums.EtatLivret.ETAT_Lv_ACCEPTE);
             }
             if ((IsDecisionJuryDefavorable && !IsRecoursDemande) ||
                 (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursDefavorable))
             {
-                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
+                strKey = String.Format("{0:D}", MyEnums.EtatLivret.ETAT_Lv_REFUSE);
             }
             if (!String.IsNullOrEmpty(strKey))
             {

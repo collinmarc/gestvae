@@ -34,7 +34,15 @@ namespace GestVAE
         {
             get
             {
-                return (Livret2VM) VM.CurrentCandidat.CurrentLivret;
+                if (VM.CurrentCandidat != null)
+                {
+
+                    return (Livret2VM)VM.CurrentCandidat.CurrentLivret;
+                }
+                else
+                {
+                    return null;
+                }
             }
 
         }

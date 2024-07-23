@@ -85,8 +85,7 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="3*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="2*" IsReadOnly="True"/>
                         <DataGridCheckBoxColumn Header="A Valider ?" Binding="{Binding IsAValider}" Width="2*" IsReadOnly="{Binding Data.IsLivretNotEnCours,Source={StaticResource proxy}}"/>
                             <DataGridTextColumn Header="Proposition" Binding="{Binding PropositionDecision}" Width="4*">
                                 <DataGridTextColumn.CellStyle>
@@ -95,8 +94,22 @@
                                     </Style>
                                 </DataGridTextColumn.CellStyle>
                             </DataGridTextColumn>
+                            <DataGridTextColumn Header="Décision" Binding="{Binding Decision}" Width="3*" IsReadOnly="True"/>
                         </DataGrid.Columns>
-                </DataGrid>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsDecisionFavorable}" Value="true">
+                                        <Setter Property="Background" Value="Green"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsAValider}" Value="false">
+                                        <Setter Property="Background" Value="Gray"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+
+                    </DataGrid>
 
 
 
@@ -538,10 +551,8 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,9">
                         <Label Content="Date de validité:" VerticalAlignment="Center"/>
-                            <DatePicker x:Name="dtpDateValidite" Margin="0" VerticalAlignment="Center"
-                                    SelectedDate="{Binding DateValidite}">
-                            </DatePicker>
-                        </StackPanel>
+                        <DatePicker x:Name="dtpDateValidite" Margin="0" VerticalAlignment="Center" SelectedDate="{Binding DateValidite}"/>
+                    </StackPanel>
 
                     <DataGrid x:Name="dgDCLivretDecision"
                                     ItemsSource="{Binding lstDCLivretAValider}" 

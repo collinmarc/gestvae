@@ -15,7 +15,7 @@ namespace GestVAETU
             // Création du premierLivret
             Livret1VM oL1 = new Livret1VM(false);
             Assert.IsTrue(String.IsNullOrEmpty(oL1.Numero));
-            oL1.EtatLivret = String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET);
+            oL1.EtatLivret = String.Format("{0:D}-Reçu incomplet", MyEnums.EtatLivret.ETAT_Lv_RECU_INCOMPLET);
             // Le numéro est calculé lors de la réception
             Assert.IsFalse(String.IsNullOrEmpty(oL1.Numero));
             Assert.AreEqual(DateTime.Now.ToString("yyMM"), oL1.Numero.Substring(0, 4));
@@ -23,7 +23,7 @@ namespace GestVAETU
 
             // Création d'un second Livret
             Livret1VM oL2 = new Livret1VM(false);
-            oL2.EtatLivret = String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET);
+            oL2.EtatLivret = String.Format("{0:D}-Reçu incomplet", MyEnums.EtatLivret.ETAT_Lv_RECU_INCOMPLET);
 
             // Les numéros sont bien différents
             Assert.AreNotEqual(oL1.Numero, oL2.Numero);
@@ -47,7 +47,7 @@ namespace GestVAETU
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
 
             Assert.AreEqual(oL1.DateDemande.Value.AddYears(3), oL1.DateValidite);
-            oL1.EtatLivret = String.Format("{0:D}-RecuComplet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            oL1.EtatLivret = String.Format("{0:D}-RecuComplet", MyEnums.EtatLivret.ETAT_Lv_RECU_COMPLET);
             Assert.AreEqual(oL1.DateDemande.Value.AddYears(3), oL1.DateValidite);
             oL1.FTO_SetDecisionJuryL1Favorable(DateTime.Today.AddDays(2));
             Assert.AreEqual(oL1.DateJury.Value.AddYears(3), oL1.DateValidite);
@@ -104,7 +104,7 @@ namespace GestVAETU
 
             VM.AjouteL1();
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
-            oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatLivret.ETAT_Lv_RECU_COMPLET);
             VM.ValideretQuitterL1();
 
              oL1 = (Livret1VM)oCand.CurrentLivret;
@@ -126,7 +126,7 @@ namespace GestVAETU
 
             VM.AjouteL1();
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
-            oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatLivret.ETAT_Lv_RECU_COMPLET);
             oL1.DateValidite = dateV1;
             oL1.DateNotificationJury = DateTime.Today.AddDays(1);
             Assert.AreEqual(dateV1,oL1.DateValidite);
@@ -145,7 +145,7 @@ namespace GestVAETU
 
             VM.AjouteL1();
             Livret1VM oL1 = (Livret1VM)oCand.CurrentLivret;
-            oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+            oL1.EtatLivret = String.Format("{0:D}-Recu complet", MyEnums.EtatLivret.ETAT_Lv_RECU_COMPLET);
             oL1.FTO_SetDecisionJuryL1Favorable(); 
             VM.ValideretQuitterL1();
             Assert.AreEqual(1, oCand.lstLivrets.Count);

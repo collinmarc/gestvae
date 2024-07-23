@@ -105,17 +105,19 @@ namespace GestVAE.VM
             this.IsEnregistre = false;
             this.IsPaye = false;
 
-            // Transfert des blocs depuis le Livret1 vers le Livret2
+            // Transfert des blocs Validé depuis le Livret1 vers le Livret2
             foreach (DCLivretVM item in pL1.lstDCLivret)
             {
-                DCLivretVM oDCLivret = new DCLivretVM();
-                oDCLivret.TheDCLivret.oDomaineCompetence = item.TheDCLivret.oDomaineCompetence;
-                if (item.IsDecisionFavorable.HasValue)
+                if (item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value)
                 {
-                    oDCLivret.IsAValider = item.IsDecisionFavorable.Value;
+                    DCLivretVM oDCLivret = new DCLivretVM();
+                    oDCLivret.TheDCLivret.oDomaineCompetence = item.TheDCLivret.oDomaineCompetence;
+                    oDCLivret.IsAValider = true;
+                    this.lstDCLivret.Add(oDCLivret);
+                    // Ajout de l'entité DB
+                    TheLivret.lstDCLivrets.Add(oDCLivret.TheDCLivret);
                 }
 
-                this.lstDCLivret.Add(oDCLivret);
             }
         }
 
@@ -218,34 +220,6 @@ namespace GestVAE.VM
                 }
             }
         }
-
-        private int getNumetat()
-        {
-            int nReturn = 0;
-            try
-            {
-                nReturn = Convert.ToInt32(this.EtatLivret.Split('-')[0]);
-            }
-            catch (Exception)
-            {
-                nReturn = 0;
-            }
-            return nReturn;
-        }
-        private int getNumDecisionJury()
-        {
-            int nReturn = 0;
-            try
-            {
-                nReturn = Convert.ToInt32(this.DecisionJury.Split('-')[0]);
-            }
-            catch (Exception)
-            {
-                nReturn = 0;
-            }
-            return nReturn;
-        }
-
 
         public String ResultatPiecesJointes
         {
@@ -718,11 +692,11 @@ namespace GestVAE.VM
             String strKey = "";
             if (IsDecisionJuryFavorable || (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursFavorable))
             {
-                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+                strKey = String.Format("{0:D}", MyEnums.EtatLivret.ETAT_Lv_ACCEPTE);
             }
             if (IsDecisionJuryDefavorable )
             {
-                strKey = String.Format("{0:D}", MyEnums.EtatL1.ETAT_L1_REFUSE);
+                strKey = String.Format("{0:D}", MyEnums.EtatLivret.ETAT_Lv_REFUSE);
             }
             if (!String.IsNullOrEmpty(strKey))
             {

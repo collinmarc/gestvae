@@ -332,13 +332,13 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add(String.Format("{0:D}-Sans_Suite", MyEnums.EtatL1.ETAT_L1_SANS_SUITE));
-                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatL1.ETAT_L1_DEMANDE));
-                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
-                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
-                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
-                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.EtatL1.ETAT_L1_REFUSE));
-                oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
+                oReturn.Add(String.Format("{0:D}-Sans_Suite", MyEnums.EtatLivret.ETAT_Lv_SANS_SUITE));
+                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatLivret.ETAT_Lv_DEMANDE));
+                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatLivret.ETAT_Lv_ENVOYE));
+                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatLivret.ETAT_Lv_RECU_INCOMPLET));
+                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatLivret.ETAT_Lv_RECU_COMPLET));
+                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.EtatLivret.ETAT_Lv_REFUSE));
+                oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.EtatLivret.ETAT_Lv_ACCEPTE));
                 return oReturn;
             }
             set { }
@@ -348,13 +348,13 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatL1.ETAT_L1_DEMANDE));
-                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatL1.ETAT_L1_ENVOYE));
-                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET));
-                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatL1.ETAT_L1_RECU_COMPLET));
-                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.EtatL1.ETAT_L1_REFUSE));
-                //                oReturn.Add(String.Format("{0:D}-Recours", MyEnums.EtatL1.ETAT_L1_RECOURS));
-                oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatL1.ETAT_L1_ACCEPTE));
+                oReturn.Add(String.Format("{0:D}-Sans_Suite", MyEnums.EtatLivret.ETAT_Lv_SANS_SUITE));
+                oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatLivret.ETAT_Lv_DEMANDE));
+                oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatLivret.ETAT_Lv_ENVOYE));
+                oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatLivret.ETAT_Lv_RECU_INCOMPLET));
+                oReturn.Add(String.Format("{0:D}-Reçu complet", MyEnums.EtatLivret.ETAT_Lv_RECU_COMPLET));
+                oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.EtatLivret.ETAT_Lv_REFUSE));
+                oReturn.Add(String.Format("{0:D}-Accepté", MyEnums.EtatLivret.ETAT_Lv_ACCEPTE));
                 return oReturn;
             }
             set { }
@@ -821,21 +821,13 @@ namespace GestVAE.VM
                     rq = rq.Where(c => c.bHandicap);
 
                 }
+                CurrentCandidat = null;
                 _lstCandidatVM.Clear();
                 foreach (Candidat item in rq)
                 {
 
                     CandidatVM oCand = new CandidatVM(item);
                     _lstCandidatVM.Add(oCand);
-                }
-                if (_lstCandidatVM.Count > 0)
-                {
-//                    CurrentCandidat = _lstCandidatVM[0];
-                    
-                }
-                else
-                {
-                    CurrentCandidat = null;
                 }
                 RaisePropertyChanged("lstCandidatVM");
                 RaisePropertyChanged("CurrentCandidat");
@@ -945,13 +937,9 @@ namespace GestVAE.VM
 
                 CandidatVM oCandVM = CurrentCandidat;
                 Livret1VM oL1 = null;
-                oL1 = (Livret1VM) CurrentCandidat.CurrentLivret;
-                if (oL1 == null)
-                {
-                    oL1 = CurrentCandidat.getL1Valide();
-                }
+                oL1 = CurrentCandidat.getL1Valide();
 
-                oL2VM = new Livret2VM((Livret1VM) CurrentCandidat.CurrentLivret);
+                oL2VM = new Livret2VM((Livret1VM) oL1);
                 oL2VM.LstEtatLivret = LstEtatLivret2;
 
                 oL2VM.EtatLivret = LstEtatLivret2[2];

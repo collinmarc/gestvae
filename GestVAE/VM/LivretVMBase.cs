@@ -20,6 +20,20 @@ namespace GestVAE.VM
                 return (Livret)TheItem;
             }
         }
+
+        private int myVar;
+
+        public Boolean  IsL1
+        {
+            get { return TheLivret.Typestr == Livret1.TYPELIVRET; }
+        }
+        public Boolean IsL2
+        {
+            get { return TheLivret.Typestr == Livret2.TYPELIVRET; }
+        }
+
+
+
         public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
         public DCLivretVM selectedDCLivret { get; set; }
 
@@ -64,9 +78,9 @@ namespace GestVAE.VM
 
         }
 
-        public LivretVMBase(Boolean pIsCandidatLocked):base()
+        public LivretVMBase(Boolean pIsLocked):base()
         {
-            IsLocked = pIsCandidatLocked;
+            IsLocked = pIsLocked;
             lstDCLivret = new ObservableCollection<DCLivretVM>();
             lstPieceJointe = new ObservableCollection<PieceJointeLivretVM>();
             lstJuryVM = new ObservableCollection<JuryVM>();
@@ -395,6 +409,18 @@ namespace GestVAE.VM
                         IsRecoursDemande = false;
                     }
                     setEtatLivret();
+                    // Passage de tous les items à Favorable
+                    foreach (DCLivretVM item in lstDCLivretAValider)
+                    {
+                        if (IsDecisionJuryFavorable)
+                        {
+                            item.IsDecisionFavorable = true;
+                        }
+                        if (IsDecisionJuryDefavorable)
+                        {
+                            item.IsDecisionDefavorable = true;
+                        }
+                    }
                     RaisePropertyChanged();
                     RaisePropertyChanged("IsDecisionJuryFavorable");
                     RaisePropertyChanged("IsDecisionJuryDefavorable");
@@ -632,14 +658,30 @@ namespace GestVAE.VM
         {
             get
             {
-                return (getNumDecisionJury() != (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                if (IsL1)
+                {
+                    return (getNumDecisionJury() != (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                }
+                else
+                {
+                    return (getNumDecisionJury() != (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+
+                }
+
             }
         }
         public Boolean IsDecisionJuryDefavorable
         {
             get
             {
-                return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                if (IsL1)
+                {
+                    return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                }
+                else
+                {
+                    return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+                }
             }
         }
         public Boolean IsDecisionJuryRecoursFavorable
@@ -1058,22 +1100,22 @@ namespace GestVAE.VM
         {
             get
             {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_DEMANDE);
+                return (getNumetat() >= (int)MyEnums.EtatLivret.ETAT_Lv_DEMANDE);
             }
         }
         public Boolean IsEtatEnvoye
         {
             get
             {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ENVOYE);
+                return (getNumetat() >= (int)MyEnums.EtatLivret.ETAT_Lv_ENVOYE);
             }
         }
         public Boolean IsEtatRecuIncomplet
         {
             get
             {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_INCOMPLET &&
-                    getNumetat() < (int)MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+                return (getNumetat() >= (int)MyEnums.EtatLivret.ETAT_Lv_RECU_INCOMPLET &&
+                    getNumetat() < (int)MyEnums.EtatLivret.ETAT_Lv_RECU_COMPLET);
             }
         }
         public Boolean IsEtatRecu
@@ -1087,22 +1129,22 @@ namespace GestVAE.VM
         {
             get
             {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_RECU_COMPLET);
+                return (getNumetat() >= (int)MyEnums.EtatLivret.ETAT_Lv_RECU_COMPLET);
             }
         }
         public Boolean IsEtatRefuse
         {
             get
             {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_REFUSE) &&
-                        (getNumetat() < (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+                return (getNumetat() >= (int)MyEnums.EtatLivret.ETAT_Lv_REFUSE) &&
+                        (getNumetat() < (int)MyEnums.EtatLivret.ETAT_Lv_ACCEPTE);
             }
         }
         public Boolean IsEtatAccepte
         {
             get
             {
-                return (getNumetat() >= (int)MyEnums.EtatL1.ETAT_L1_ACCEPTE);
+                return (getNumetat() >= (int)MyEnums.EtatLivret.ETAT_Lv_ACCEPTE);
             }
         }
         /// <summary>
@@ -1119,7 +1161,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return (getNumetat() == (int)MyEnums.EtatL1.ETAT_L1_SANS_SUITE);
+                return (getNumetat() == (int)MyEnums.EtatLivret.ETAT_Lv_SANS_SUITE);
             }
         }
 
@@ -1308,7 +1350,10 @@ namespace GestVAE.VM
             Boolean breturn = false;
             if (IsBloc(pNum))
             {
-                breturn = lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.Value;
+                if (lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.HasValue)
+                {
+                    breturn = lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.Value;
+                }
             }
             return breturn;
 

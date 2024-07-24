@@ -21,7 +21,6 @@ namespace GestVAE.VM
             }
         }
 
-        private int myVar;
 
         public Boolean  IsL1
         {
@@ -35,10 +34,8 @@ namespace GestVAE.VM
 
 
         public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
-        public DCLivretVM selectedDCLivret { get; set; }
-
-
-        public ObservableCollection<JuryVM> lstJuryVM;
+        public DCLivretVM selectedDCLivret { get; set;}
+                       public ObservableCollection<JuryVM> lstJuryVM;
         public ObservableCollection<PieceJointeLivretVM> lstPieceJointe { get; set; }
         public List<PieceJointeLivretVM> lstPieceJointeActif { get { return lstPieceJointe.Where(pj => !pj.IsDeleted).ToList(); } }
         public PieceJointeLivretVM selectedPJ { get; set; }
@@ -86,6 +83,17 @@ namespace GestVAE.VM
             lstJuryVM = new ObservableCollection<JuryVM>();
             create1erJury();
         }
+
+
+        public JuryVM Jury1er
+        {
+            get { if (lstJuryVM.Count == 0)
+                    {
+                        create1erJury();
+                    }
+                 return lstJuryVM[0]; }
+        }
+
         public abstract String Numero { get; set; }
         public String NomDiplome
         {
@@ -495,6 +503,7 @@ namespace GestVAE.VM
                     RaisePropertyChanged("IsEtatRecours");
                     RaisePropertyChanged("IsEtatAccepte");
                     RaisePropertyChanged("IsEtatFerme");
+                    RaisePropertyChanged("IsEtatIrrecevable");
                     if (!IsEtatRecuComplet)
                     {
                         DateJury = null;
@@ -502,6 +511,12 @@ namespace GestVAE.VM
                         HeureConvoc = null;
                         HeureJury = null;
                         DecisionJury = "";
+                    }
+                    if (IsEtatIrrecevable)
+                    {
+                        // Motif Irrecevabilité
+                        Jury1er.MotifCommentaire = _ctxParam.dbParam.First<Param>().MotifIrrecevabilite;
+                        RaisePropertyChanged("MotifIrrecevabilité");
                     }
                 }
             }
@@ -1101,6 +1116,13 @@ namespace GestVAE.VM
             get
             {
                 return (getNumetat() >= (int)MyEnums.EtatLivret.ETAT_Lv_DEMANDE);
+            }
+        }
+        public Boolean IsEtatIrrecevable
+        {
+            get
+            {
+                return (getNumetat() == (int)MyEnums.EtatLivret.ETAT_Lv_SANS_SUITE);
             }
         }
         public Boolean IsEtatEnvoye

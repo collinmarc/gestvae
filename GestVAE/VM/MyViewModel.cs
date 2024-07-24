@@ -1839,6 +1839,35 @@ namespace GestVAE.VM
                 }
             }
         }
+        /// <summary>
+        /// L2: Motif Irrecevabilité par défaut
+        /// </summary>
+        public String ParamMotifIrrecevabilite
+        {
+            get
+            {
+                String nReturn = "";
+                Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                if (objParam != null)
+                {
+                    _ctxParam.Entry(objParam).Reload();
+                    nReturn = objParam.MotifIrrecevabilite;
+                }
+                return nReturn;
+            }
+            set
+            {
+                if (value != ParamMotifIrrecevabilite)
+                {
+                    Param objParam = _ctxParam.dbParam.FirstOrDefault();
+                    if (objParam != null)
+                    {
+                        objParam.MotifIrrecevabilite = value;
+                        _ctxParam.SaveChanges();
+                    }
+                }
+            }
+        }
 
         public Boolean IsAjoutPJPossible
         {
@@ -1907,12 +1936,11 @@ namespace GestVAE.VM
                 RaisePropertyChanged("IsParamNumerotation");
                 RaisePropertyChanged("IsParamDelaiValiditeL1");
                 RaisePropertyChanged("IsParamPathToBDMembreJury");
-                RaisePropertyChanged("IsParamPathToBDPays");
-                RaisePropertyChanged("IsParamPathToBDCommunes");
+                RaisePropertyChanged("IsParamMotifIrrecevabilite");
             }
         }
 
-        private Boolean NomParametreEquals(String pNom)
+        private Boolean NomParametreContains(String pNom)
         {
             Boolean bReturn = false;
             if (NomParametre != null)
@@ -1921,20 +1949,19 @@ namespace GestVAE.VM
             }
             return bReturn;
         }
-        public Boolean IsParamRegion { get { return NomParametreEquals("Régions"); } }
-        public Boolean IsParamDepartement { get { return NomParametreEquals("Départements"); } }
-        public Boolean IsParamDiplome { get { return NomParametreEquals("Diplômes"); } }
-        public Boolean IsParamPJ { get { return NomParametreEquals("Pièces jointes"); } }
-        public Boolean IsParamMotifRefusL1 { get { return NomParametreEquals("Motif refus L1"); } }
-        public Boolean IsParamMotifRefusL2 { get { return NomParametreEquals("Motif refus L2"); } }
-        public Boolean IsParamColleges { get { return NomParametreEquals("Collèges jury"); } }
-        public Boolean IsParamTypeDemande { get { return NomParametreEquals("Type de la demande"); } }
-        public Boolean IsParamVecteur { get { return NomParametreEquals("Vecteur d'information"); } }
-        public Boolean IsParamNumerotation { get { return NomParametreEquals("Numérotation"); } }
-        public Boolean IsParamDelaiValiditeL1 { get { return NomParametreEquals("Délai Validité du L1"); } }
-        public Boolean IsParamPathToBDMembreJury { get { return NomParametreEquals("Base des membres du jury"); } }
-        public Boolean IsParamPathToBDPays { get { return NomParametreEquals("Base des pays"); } }
-        public Boolean IsParamPathToBDCommunes { get { return NomParametreEquals("Base des communes"); } }
+        public Boolean IsParamRegion { get { return NomParametreContains("Régions"); } }
+        public Boolean IsParamDepartement { get { return NomParametreContains("Départements"); } }
+        public Boolean IsParamDiplome { get { return NomParametreContains("Diplômes"); } }
+        public Boolean IsParamPJ { get { return NomParametreContains("Pièces jointes"); } }
+        public Boolean IsParamMotifRefusL1 { get { return NomParametreContains("Motif refus L1"); } }
+        public Boolean IsParamMotifRefusL2 { get { return NomParametreContains("Motif refus L2"); } }
+        public Boolean IsParamColleges { get { return NomParametreContains("Collèges jury"); } }
+        public Boolean IsParamTypeDemande { get { return NomParametreContains("Type de la demande"); } }
+        public Boolean IsParamVecteur { get { return NomParametreContains("Vecteur d'information"); } }
+        public Boolean IsParamNumerotation { get { return NomParametreContains("Numérotation"); } }
+        public Boolean IsParamDelaiValiditeL1 { get { return NomParametreContains("Délai Validité du L1"); } }
+        public Boolean IsParamPathToBDMembreJury { get { return NomParametreContains("Base des membres du jury"); } }
+        public Boolean IsParamMotifIrrecevabilite { get { return NomParametreContains("L2 : Motif irrecevabilité"); } }
 
         public Boolean saveDataParam()
         {

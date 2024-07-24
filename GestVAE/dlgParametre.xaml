@@ -14,28 +14,42 @@
     <Window.Resources>
         <local:BoolToGridRowHeightConverter x:Key="BoolToGridRowHeightConverter" />
     </Window.Resources>
-    <ScrollViewer >
+    <ScrollViewer Margin="0,0,0,-382" >
         <Grid ShowGridLines="false" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <!--0 -->
+                <RowDefinition Height="Auto" />
+                <!--1 -->
                 <RowDefinition Height="{Binding IsParamRegion, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--2 -->
                 <RowDefinition Height="{Binding IsParamDepartement, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--3 -->
                 <RowDefinition Height="{Binding IsParamDiplome, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--4 -->
                 <RowDefinition Height="{Binding IsParamPJ, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--5-->
                 <RowDefinition Height="{Binding IsParamMotifRefusL1, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--6 -->
                 <RowDefinition Height="{Binding IsParamMotifRefusL2, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--7 -->
                 <RowDefinition Height="{Binding IsParamColleges, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--8 -->
                 <RowDefinition Height="{Binding IsParamTypeDemande, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--9 -->
                 <RowDefinition Height="{Binding IsParamVecteur, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--10 -->
                 <RowDefinition Height="{Binding IsParamNumerotation, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--11 -->
                 <RowDefinition Height="{Binding IsParamDelaiValiditeL1, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--12 -->
                 <RowDefinition Height="{Binding IsParamPathToBDMembreJury, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
-                <RowDefinition Height="{Binding IsParamPathToBDPays, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
-                <RowDefinition Height="{Binding IsParamPathToBDCommunes, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--13 -->
+                <RowDefinition Height="{Binding IsParamMotifIrrecevabilite, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <!--14 -->
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <ComboBox  Margin="10" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Grid.RowSpan="10" VerticalAlignment="Top"
@@ -55,8 +69,7 @@
                 <ComboBoxItem Content="Numérotation"/>
                 <ComboBoxItem Content="Délai Validité du L1"/>
                 <ComboBoxItem Content="Base des membres du jury"/>
-                <ComboBoxItem Content="Base des pays"/>
-                <ComboBoxItem Content="Base des communes"/>
+                <ComboBoxItem Content="L2 : Motif irrecevabilité"/>
             </ComboBox>
             
             <DataGrid Name="dgRegion" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding lstRegionVM}" CanUserAddRows="true" CanUserDeleteRows="true" AutoGenerateColumns="False" AddingNewItem="dgRegion_AddingNewItem" Margin="10">
@@ -222,22 +235,15 @@
                 <Button Command="{Binding RechercherBaseMembreJurycommand}">
                     Rechercher</Button>
             </UniformGrid>
-            <UniformGrid Name="ugBasePays" Grid.Row="13" Grid.Column="1" Rows="1" Columns="3">
-                <Label>Base des pays:</Label>
-                <TextBox Text="{Binding ParamPathToBasePays, Mode=TwoWay}" Grid.ColumnSpan="2" ></TextBox>
-                <Button Command="{Binding RechercherBasePayscommand}">
-                    Rechercher</Button>
-            </UniformGrid>
-            <UniformGrid Name="ugBaseCommunes" Grid.Row="14" Grid.Column="1" Rows="1" Columns="3">
-                <Label>Base des communes:</Label>
-                <TextBox Text="{Binding ParamPathToBaseCommunes}" Grid.ColumnSpan="2" ></TextBox>
-                <Button Command="{Binding RechercherBaseCommunescommand}">
-                    Rechercher</Button>
+            
+            <UniformGrid Name="ugMotifIrrecevabilité" Grid.Row="13" Grid.Column="1" Rows="1" Columns="3">
+                <Label>Motif par défaut:</Label>
+                <TextBox Text="{Binding ParamMotifIrrecevabilite}" Grid.ColumnSpan="2" ></TextBox>
             </UniformGrid>
 
 
 
-            <Button Name="btnOk" Content="Ok" Grid.Column="1" Grid.Row="15"  
+            <Button Name="btnOk" Content="Ok" Grid.Row="14" Grid.Column="1"   
                     IsCancel="True" 
                     HorizontalContentAlignment="Center" Width="100" HorizontalAlignment="Right" 
                     VerticalAlignment="Center" Margin="10"

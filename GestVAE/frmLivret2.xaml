@@ -57,26 +57,31 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
-                </Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Numéro Livret :" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbNumLivret"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource TextBoxReadOnlyStyle}"  Margin="0"/>
-                <Label Content="Etat Livret :" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-                <ComboBox x:Name="cbxEtatLivret" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0"
+                        <Label Content="Etat Livret :"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbxEtatLivret"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0"
                           SelectedItem="{Binding EtatLivret}" ItemsSource="{Binding VM.lstCandidatVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" Style="{DynamicResource ComboboxReadOnlyStyle}" 
                           />
-                <Label Content="Livret CLOTURE :" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                <CheckBox x:Name="ckIsClos" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                    <Label Content="Traitement spécial :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-                    <CheckBox x:Name="ckIsTrtSpecial" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding IsTrtSpecial}"/>
+                    <TextBox x:Name="tbMotifIrrecevable" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="0,5,0,0"  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                         Text="{Binding MotifIrrecevabilité}"
+                         Visibility="{Binding IsEtatIrrecevable, Converter={StaticResource BooleanToVisibilityConverter}}"
+                         />
+                    <Label Content="Livret CLOTURE :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox x:Name="ckIsClos" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    <Label Content="Traitement spécial :" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+                    <CheckBox x:Name="ckIsTrtSpecial" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding IsTrtSpecial}"/>
 
-                    <Label Content="Diplôme :" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="tbDiplome" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="0"
+                    <Label Content="Diplôme :" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="tbDiplome" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Style="{DynamicResource TextBoxReadOnlyStyle}" Margin="0"
                          Text="{Binding NomDiplome, Mode=OneWay}"/>
-                <DataGrid x:Name="dgDCLivret"  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
+                <DataGrid x:Name="dgDCLivret"  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
                            ItemsSource="{Binding lstDCLivret, UpdateSourceTrigger=PropertyChanged}" 
                             AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" 
                           CellEditEnding="dgDCLivret_CellEditEnding" Style="{DynamicResource MyDataGridStyle}">

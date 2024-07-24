@@ -808,5 +808,11 @@ namespace GestVAE.VM
         {
         }
 
+        public String MotifIrrecevabilité
+        {
+            get { return Jury1er.MotifCommentaire; }
+            set { Jury1er.MotifCommentaire = value; RaisePropertyChanged(); }
+        }
+
     }
 }

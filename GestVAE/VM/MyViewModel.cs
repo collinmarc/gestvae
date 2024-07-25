@@ -264,6 +264,9 @@ namespace GestVAE.VM
 
             CloturerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL2(); }
                                            );
+
+            MigrationCAFDESV2Command = new RelayCommand<MyViewModel>(o => { MigrationCAFDESV2(); },o=> { return IsL2CAFDES(); });
+
             LockCommand = new RelayCommand<MyViewModel>(o => { LockCurrentCandidat(); }
                                                         );
 
@@ -664,6 +667,7 @@ namespace GestVAE.VM
         public ICommand ValideretQuitterL2Command { get; set; }
         public ICommand CloturerL1etCreerL2Command { get; set; }
         public ICommand CloturerL2Command { get; set; }
+        public ICommand MigrationCAFDESV2Command { get; set; }
         public ICommand AjouterMembreJuryCommand { get; set; }
         public ICommand DecloturerLivretCommand { get; set; }
         public ICommand DoubleClickCandidat { get; set; }
@@ -894,7 +898,7 @@ namespace GestVAE.VM
                 oDipCandVM.StatutDC4 = "";
             }
 
-            // Initialisation des Domaines de compétences (transférés dans Ajout L1)
+            // Initialisation des Domaines de compétences 
                 ((Livret1)oL1VM.TheLivret).InitDCLivrets(oDiplomeCandidat);
                 foreach (DCLivret oDCL in ((Livret)oL1VM.TheLivret).lstDCLivrets)
                 {
@@ -1147,6 +1151,33 @@ namespace GestVAE.VM
             }
         }
 
+        public Boolean IsL2CAFDES()
+        {
+            Boolean breturn = false;
+            if (CurrentCandidat != null)
+            {
+                if (CurrentCandidat.CurrentLivret != null)
+                {
+                    breturn = (!CurrentCandidat.CurrentLivret.ISCAFDESV2) && CurrentCandidat.CurrentLivret.IsL2;
+
+                }
+            }
+            return breturn;
+        }
+
+        public void MigrationCAFDESV2()
+        {
+            if (IsL2CAFDES())
+            {
+                Livret2VM oL2Ancien = (Livret2VM)CurrentCandidat.CurrentLivret;
+                Livret2VM oL2CAFDESV2 = new Livret2VM(oL2Ancien);
+                CurrentCandidat.lstLivrets.Add(oL2CAFDESV2);
+                oL2Ancien.Cloturer();
+                CurrentCandidat.CurrentLivret = oL2CAFDESV2;
+
+            }
+
+        }
         public void GestionDiplome()
         {
             dlgDiplome odlg = new dlgDiplome();

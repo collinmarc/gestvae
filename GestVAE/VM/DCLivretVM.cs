@@ -42,6 +42,25 @@ namespace GestVAE.VM
                 return TheDCLivret.oDomaineCompetence.Numero;
             }
         }
+        public int getNumBlocV2()
+        {
+            int nreturn = 0;
+            switch (NumDC)
+            {
+                case 1:
+                    nreturn = 2; break;
+                case 2:
+                    nreturn = 3; break;
+                case 3:
+                    nreturn = 4; break;
+                case 4:
+                    nreturn = 1; break;
+
+                default:
+                    break;
+            }
+            return nreturn;
+        }
         public String Statut
         {
             get
@@ -63,6 +82,14 @@ namespace GestVAE.VM
             {
                 return TheDCLivret.ModeObtention;
             }
+            set
+            {
+                if (value != ModeObtention)
+                {
+                    TheDCLivret.ModeObtention = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
         public DateTime? DateObtention
         {
@@ -70,12 +97,28 @@ namespace GestVAE.VM
             {
                 return TheDCLivret.DateObtention;
             }
+            set
+            {
+                if (value != DateObtention)
+                {
+                    TheDCLivret.DateObtention = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
         public String Commentaire
         {
             get
             {
                 return TheDCLivret.Commentaire;
+            }
+            set
+            {
+                if (value != Commentaire)
+                {
+                    TheDCLivret.Commentaire = value;
+                    RaisePropertyChanged();
+                }
             }
         }
         public String Decision

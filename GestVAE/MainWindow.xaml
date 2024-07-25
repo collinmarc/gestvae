@@ -545,7 +545,6 @@
                                             </Style>
                                         </DataGridCheckBoxColumn.ElementStyle>
                                     </DataGridCheckBoxColumn>
-
                                     <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret, Mode=OneWay}" Width="3*"/>
                                     <DataGridTextColumn Header="Validité" Binding="{Binding DateValiditeBase, StringFormat='dd/MM/yyyy', Mode=OneWay}"  Width="3*"/>
                                 </DataGrid.Columns>

@@ -156,5 +156,6 @@ namespace GestVAE
             VM.RaisePropertyChanged("IsAjoutPJPossible");
 
         }
+
     }
 }

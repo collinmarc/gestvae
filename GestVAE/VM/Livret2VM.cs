@@ -67,8 +67,9 @@ namespace GestVAE.VM
 
         }
 
+
         /// <summary>
-        /// création d'un livret1 à partir d'un livret1
+        /// création d'un livret2 à partir d'un livret1
         /// </summary>
         /// <param name="pL1"></param>
         public Livret2VM(Livret1VM pL1) : base(pL1.IsLocked)
@@ -120,6 +121,122 @@ namespace GestVAE.VM
 
             }
         }
+        /// <summary>
+        /// Clonage de l'objet
+        /// NB: on ne peut utiliser le MemberwiseClone car il faut recréer une nouvelle entity
+        /// </summary>
+        /// <returns></returns>
+        public Livret2VM (Livret2VM pLivAncien) : base(pLivAncien.IsLocked)
+        {
+            this.TheItem = (Livret)new Livret2(); // Recréation de l'entité
+            this.TheLivret.oDiplome = Diplome.getDiplomeParDefaut(); // Diplome CAFDESV2
+            // Création des Blocs à partir du Diplome par defaut
+            foreach (DomaineCompetence oDC in Diplome.getDiplomeParDefaut().lstDomainesCompetences)
+            {
+                DCLivretVM oDCLivretVM = new DCLivretVM(new DCLivret(oDC));
+                this.lstDCLivret.Add(oDCLivretVM);
+            }
+            // Transfert des blocs de CAFDES V2 vers CAFDESV2
+            foreach (DCLivretVM item in pLivAncien.lstDCLivret)
+            {
+                DCLivretVM oItemNew = this.lstDCLivret.First(d => d.NumDC == item.NumDC);
+                if (!pLivAncien.ISCAFDESV2)
+                {
+                    oItemNew = this.lstDCLivret.First(d => d.NumDC == item.getNumBlocV2());
+                }
+                oItemNew.IsAValider = item.IsAValider;
+                oItemNew.Commentaire = item.Commentaire;
+                oItemNew.Decision = item.Decision;
+                oItemNew.DateObtention = item.DateObtention;
+                oItemNew.ModeObtention = item.ModeObtention;
+                oItemNew.PropositionDecision = item.PropositionDecision;
+                oItemNew.Statut = item.Statut;
+            }
+
+            // Recopie des attributs
+            this.Numero = pLivAncien.Numero;
+            this.NumPassage = pLivAncien.NumPassage;
+            this.IsOuvertureApresRecours = pLivAncien.IsOuvertureApresRecours;
+            this.DateDemande = pLivAncien.DateDemande;
+            this.DateLimiteReceptEHESP = pLivAncien.DateLimiteReceptEHESP;
+            this.Date1ereDemandePieceManquantes = pLivAncien.Date1ereDemandePieceManquantes;
+            this.Date2emeDemandePieceManquantes = pLivAncien.Date2emeDemandePieceManquantes;
+            this.DateReceptionPiecesManquantes = pLivAncien.DateReceptionPiecesManquantes;
+            this.DatePrevJury1 = pLivAncien.DatePrevJury1;
+            this.DatePrevJury2 = pLivAncien.DatePrevJury2;
+            this.SessionJury = pLivAncien.SessionJury;
+            this.DateLimiteJury = pLivAncien.DateLimiteJury;
+            this.DateValidite = pLivAncien.DateValidite;
+            this.IsAttestationOK = pLivAncien.IsAttestationOK;
+            this.IsCNIOK = pLivAncien.IsCNIOK;
+            this.IsDispenseArt2 = pLivAncien.IsDispenseArt2;
+            this.IsContrat = pLivAncien.IsContrat;
+            this.EtatLivret = pLivAncien.EtatLivret;
+            this.DateEnvoiEHESP = pLivAncien.DateEnvoiEHESP;
+            this.DateEnvoiCandidat = pLivAncien.DateEnvoiCandidat;
+            this.DateReceptEHESP = pLivAncien.DateReceptEHESP;
+            this.DateReceptEHESPComplet = pLivAncien.DateReceptEHESPComplet;
+            this.IsLivretClos = pLivAncien.IsLivretClos;
+            this.DateEnvoiCourrierJury = pLivAncien.DateEnvoiCourrierJury;
+            this.DateDemande1erRetour = pLivAncien.DateDemande1erRetour;
+            this.DateDemande2emeRetour = pLivAncien.DateDemande2emeRetour;
+            this.IsConvention = pLivAncien.IsConvention;
+            this.IsNonRecu = pLivAncien.IsNonRecu;
+            this.DateValiditeCNI = pLivAncien.DateValiditeCNI;
+            this.IsEnregistre = pLivAncien.IsEnregistre;
+            this.IsPaye = pLivAncien.IsPaye;
+            this.IsTrtSpecial = pLivAncien.IsTrtSpecial;
+
+
+            this.lstJuryVM.Clear();
+            foreach (JuryVM item in pLivAncien.lstJuryVM)
+            {
+                JuryVM oItemNew = new JuryVM();
+                oItemNew.NumeroOrdre = item.NumeroOrdre;
+                oItemNew.Nom = item.Nom;
+                oItemNew.DateJury = item.DateJury;
+                oItemNew.HeureJury = item.HeureJury;
+                oItemNew.HeureConvoc = item.HeureConvoc;
+                oItemNew.DateLimiteRecours = item.DateLimiteRecours;
+                oItemNew.LieuJury = item.LieuJury;
+                oItemNew.Decision = item.Decision;
+                oItemNew.MotifGeneral = item.MotifGeneral;
+                oItemNew.MotifDetail = item.MotifDetail;
+                oItemNew.MotifCommentaire = item.MotifCommentaire;
+                oItemNew.DateNotificationJury = item.DateNotificationJury;
+                oItemNew.DateNotificationJury = item.DateNotificationJuryRecours;
+
+                this.lstJuryVM.Add(oItemNew);
+            }
+
+            _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
+            this.lstMembreJury.Clear();
+            foreach (MembreJuryVM item in pLivAncien.lstMembreJury)
+            {
+                MembreJuryVM oItemNew = new MembreJuryVM();
+                oItemNew.Nom = item.Nom;
+                oItemNew.College = item.College;
+                oItemNew.Region = item.Region;
+                oItemNew.DptDomicile = item.DptDomicile;
+                oItemNew.DptTravail = item.DptTravail;
+
+                this.lstMembreJury.Add(oItemNew);
+            }
+
+
+            this.lstPieceJointe.Clear();
+            foreach (PieceJointeLivretVM item in pLivAncien.lstPieceJointe)
+            {
+                PieceJointeLivretVM itemNew = new PieceJointeLivretVM(pLivAncien.Typestr);
+                itemNew.Categorie = item.Categorie;
+                itemNew.Libelle = item.Libelle;
+                itemNew.IsRecu = item.IsRecu;
+                itemNew.IsOK = item.IsOK;
+
+                this.lstPieceJointe.Add(itemNew);
+            }
+        } // Livret2CM()
+
 
         public override DbEntityEntry getEntity()
         {
@@ -808,10 +925,128 @@ namespace GestVAE.VM
         {
         }
 
+
         public String MotifIrrecevabilité
         {
             get { return Jury1er.MotifCommentaire; }
             set { Jury1er.MotifCommentaire = value; RaisePropertyChanged(); }
+        }
+        /// <summary>
+        /// Clonage de l'objet
+        /// NB: on ne peut utiliser le MemberwiseClone car il faut recréer une nouvelle entity
+        /// </summary>
+        /// <returns></returns>
+        object Clone()
+        {
+            Livret2VM oL2new = new Livret2VM(this.IsLocked);
+            oL2new.TheItem = (Livret)new Livret2(); // Recréation de l'entité
+            oL2new.TheLivret.oDiplome = Diplome.getDiplomeParDefaut(); // Diplome CAFDESV2
+            // Création des Blocs à partir du Diplome
+            foreach (DomaineCompetence oDC in Diplome.getDiplomeParDefaut().lstDomainesCompetences)
+            {
+                DCLivretVM oDCLivretVM = new DCLivretVM(new DCLivret(oDC));
+                oL2new.lstDCLivret.Add(oDCLivretVM);
+            }
+            // Transfert des blocs de CAFDES V2 vers CAFDESV2
+            foreach (DCLivretVM item in this.lstDCLivret)
+            {
+                DCLivretVM oItemNew = oL2new.lstDCLivret.First(d => d.NumDC == item.NumDC);
+                if (!this.ISCAFDESV2)
+                {
+                    oItemNew = oL2new.lstDCLivret.First(d => d.NumDC == item.getNumBlocV2());
+                }
+                oItemNew.IsAValider = item.IsAValider;
+                oItemNew.Commentaire = item.Commentaire;
+                oItemNew.Decision = item.Decision;
+                oItemNew.DateObtention = item.DateObtention;
+                oItemNew.ModeObtention = item.ModeObtention;
+                oItemNew.PropositionDecision = item.PropositionDecision;
+                oItemNew.Statut = item.Statut;
+            }
+
+            // Recopie des attributs
+            oL2new.Numero = this.Numero;
+            oL2new.NumPassage = this.NumPassage;
+            oL2new.IsOuvertureApresRecours = this.IsOuvertureApresRecours;
+            oL2new.DateDemande = this.DateDemande;
+            oL2new.DateLimiteReceptEHESP = this.DateLimiteReceptEHESP;
+            oL2new.Date1ereDemandePieceManquantes = this.Date1ereDemandePieceManquantes;
+            oL2new.Date2emeDemandePieceManquantes = this.Date2emeDemandePieceManquantes;
+            oL2new.DateReceptionPiecesManquantes = this.DateReceptionPiecesManquantes;
+            oL2new.DatePrevJury1 = this.DatePrevJury1;
+            oL2new.DatePrevJury2 = this.DatePrevJury2;
+            oL2new.SessionJury = this.SessionJury;
+            oL2new.DateLimiteJury = this.DateLimiteJury;
+            oL2new.DateValidite = this.DateValidite;
+            oL2new.IsAttestationOK = this.IsAttestationOK;
+            oL2new.IsCNIOK = this.IsCNIOK;
+            oL2new.IsDispenseArt2 = this.IsDispenseArt2;
+            oL2new.IsContrat = this.IsContrat;
+            oL2new.EtatLivret = this.EtatLivret;
+            oL2new.DateEnvoiEHESP = this.DateEnvoiEHESP;
+            oL2new.DateEnvoiCandidat = this.DateEnvoiCandidat;
+            oL2new.DateReceptEHESP = this.DateReceptEHESP;
+            oL2new.DateReceptEHESPComplet = this.DateReceptEHESPComplet;
+            oL2new.IsLivretClos = this.IsLivretClos;
+            oL2new.DateEnvoiCourrierJury = this.DateEnvoiCourrierJury;
+            oL2new.DateDemande1erRetour = this.DateDemande1erRetour;
+            oL2new.DateDemande2emeRetour = this.DateDemande2emeRetour;
+            oL2new.IsConvention = this.IsConvention;
+            oL2new.IsNonRecu = this.IsNonRecu;
+            oL2new.DateValiditeCNI = this.DateValiditeCNI;
+            oL2new.IsEnregistre = this.IsEnregistre;
+            oL2new.IsPaye = this.IsPaye;
+            oL2new.IsTrtSpecial = this.IsTrtSpecial;
+
+
+            oL2new.lstJuryVM.Clear();
+            foreach (JuryVM item in this.lstJuryVM)
+            {
+                JuryVM oItemNew = new JuryVM();
+                oItemNew.NumeroOrdre = item.NumeroOrdre;
+                oItemNew.Nom = item.Nom;
+                oItemNew.DateJury = item.DateJury;
+                oItemNew.HeureJury = item.HeureJury;
+                oItemNew.HeureConvoc = item.HeureConvoc;
+                oItemNew.DateLimiteRecours = item.DateLimiteRecours;
+                oItemNew.LieuJury = item.LieuJury;
+                oItemNew.Decision = item.Decision;
+                oItemNew.MotifGeneral = item.MotifGeneral;
+                oItemNew.MotifDetail = item.MotifDetail;
+                oItemNew.MotifCommentaire = item.MotifCommentaire;
+                oItemNew.DateNotificationJury = item.DateNotificationJury;
+                oItemNew.DateNotificationJury = item.DateNotificationJuryRecours ;
+
+                oL2new.lstJuryVM.Add(oItemNew);
+            }
+
+            oL2new.lstMembreJury.Clear();
+            foreach (MembreJuryVM item in this.lstMembreJury)
+            {
+                MembreJuryVM oItemNew = new MembreJuryVM();
+                oItemNew.Nom = item.Nom;
+                oItemNew.College = item.College;
+                oItemNew.Region = item.Region;
+                oItemNew.DptDomicile = item.DptDomicile;
+                oItemNew.DptTravail = item.DptTravail;
+
+                oL2new.lstMembreJury.Add(oItemNew);
+            }
+
+
+            oL2new.lstPieceJointe.Clear();
+            foreach (PieceJointeLivretVM item in this.lstPieceJointe)
+            {
+                PieceJointeLivretVM itemNew = new PieceJointeLivretVM(this.Typestr);
+                itemNew.Categorie = item.Categorie;
+                itemNew.Libelle = item.Libelle;
+                itemNew.IsRecu = item.IsRecu;
+                itemNew.IsOK = item.IsOK;
+            }
+
+
+            return oL2new;
+
         }
 
     }

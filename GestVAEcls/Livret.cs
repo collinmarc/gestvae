@@ -72,7 +72,7 @@ namespace GestVAEcls
             lstJurys = new ObservableCollection<Jury>();
             lstDCLivrets = new ObservableCollection<DCLivret>();
             //lstJurys.Add(new Jury());
-            oDiplome = Diplome.getDiplomeParDefaut();
+//            oDiplome = Diplome.getDiplomeParDefaut();
         }
         public void create1erJury()
         {

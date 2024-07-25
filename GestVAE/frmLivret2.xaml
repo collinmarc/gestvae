@@ -193,8 +193,7 @@
                 <StackPanel Orientation="Horizontal" Visibility="Visible">
                     <Label Content="Date validité : "  Width="160"  VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                         <DatePicker x:Name="dtpValidite"     HorizontalAlignment="Left"
-                            SelectedDate="{Binding DateValidite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="29" Width="100" 
-                            >
+                            SelectedDate="{Binding DateValidite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="29" Width="100" >
                             <DatePicker.BlackoutDates>
                                 <CalendarDateRange Start="2080-01-01"/>
                             </DatePicker.BlackoutDates>
@@ -660,9 +659,14 @@
                 
                 Visibility="{Binding IsLivretClos, Converter={StaticResource BooleanToVisibilityConverter}}">
             </Button>
+                <Button x:Name="cbCreerCAFDESV2" Margin="10" 
+                Command="{Binding DataContext.MigrationCAFDESV2Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" 
+                Content="Transformer en CAFDESV2"
+                    Visibility="{Binding IsL2CAFDES, Converter={StaticResource BooleanToVisibilityConverter}}">
+                </Button>
 
-        </UniformGrid>
-        <!-- ECHANGE-->
+            </UniformGrid>
+            <!-- ECHANGE-->
         <!-- Jury-->
         <!--Recours -->
 

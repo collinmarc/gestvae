@@ -1365,7 +1365,14 @@ namespace GestVAE.VM
 
         private Boolean IsBloc(int pNum)
         {
-            return lstDCLivretAValider.Exists(b => b.NumDC == pNum);
+            if (ISCAFDESV2)
+            {
+                return lstDCLivretAValider.Exists(b => b.NumDC == pNum);
+            }
+            else
+            {
+                return false;
+            }
         }
         public Boolean IsBlocDecisionFavorable (int pNum)
         {
@@ -1413,6 +1420,11 @@ namespace GestVAE.VM
         public Boolean IsBloc4DecisionFavorable
         {
             get { return IsBlocDecisionFavorable(4); }
+        }
+
+        public Boolean ISCAFDESV2
+        {
+            get { return NomDiplome == Properties.Settings.Default.NomDiplomeDefaut; }
         }
 
 

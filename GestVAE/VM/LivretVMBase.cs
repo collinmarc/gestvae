@@ -1427,6 +1427,10 @@ namespace GestVAE.VM
             get { return NomDiplome == Properties.Settings.Default.NomDiplomeDefaut; }
         }
 
+        public Boolean ISNOTCAFDESV2
+        {
+            get { return !ISCAFDESV2; }
+        }
 
     }
 

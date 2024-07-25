@@ -76,8 +76,6 @@ namespace GestVAE.VM
                 lstLivrets.Add(oLivret);
             }
 
-            DeleteLivretCommand = new RelayCommand<CandidatVM>(c => { DeleteCurrentLivret(); },
-                                                                c => { return IsDeletePossible; });
         }
         public CandidatVM():base()
         {
@@ -675,59 +673,6 @@ namespace GestVAE.VM
             /// <summary>
             /// Suppression du Livert Courant
             /// </summary>
-            public void DeleteCurrentLivret()
-        {
-            Debug.Assert(CurrentLivret != null);
-
-            LivretVMBase oLiv = CurrentLivret;
-            oLiv.IsDeleted = true;
-            RaisePropertyChanged("lstLivretsActif");
-            SetModelHasChanges();
-            //            oLiv.ClearDCs();
-            //            if (!oLiv.IsNew)
-            //            {
-            //                foreach (JuryVM oJ in oLiv.lstJuryVM)
-            //                {
-            //                    _ctx.Juries.Remove((Jury)oJ.TheItem);
-            //                    //oLiv.TheLivret.lstJurys.Remove(((Jury)oJ.TheItem));
-
-            //                }
-            //                if (oLiv is Livret1VM)
-            //                {
-            //                    TheCandidat.lstLivrets1.Remove((Livret1)oLiv.TheLivret);
-
-            //                }
-            //                else
-            //                {
-            //                    while (((Livret2VM)oLiv).lstDCLivret.Count>0)
-            //                    {
-            //                        ((Livret2VM)oLiv).lstDCLivret.RemoveAt(0);
-            //                    }
-            //                    TheCandidat.lstLivrets2.Remove((Livret2)oLiv.TheLivret);
-
-            //                }
-            ////                _ctx.Entry<Livret>((Livret)oLiv.TheLivret).State = System.Data.Entity.EntityState.Deleted;
-
-            //            }
-            //            else
-            //            {
-            //                if (oLiv is Livret1VM)
-            //                {
-            //                    TheCandidat.lstLivrets1.Remove((Livret1)oLiv.TheLivret);
-            //                    oLiv.getEntity().State = System.Data.Entity.EntityState.Deleted;
-
-            //                }
-            //                else
-            //                {
-            //                    //TheCandidat.lstLivrets2.Remove((Livret2)oLiv.TheLivret);
-            //                    _ctx.Livret2.Remove((Livret2)oLiv.TheLivret);
-            //                    oLiv.getEntity().State = System.Data.Entity.EntityState.Deleted;
-            //                }
-            //                // Detache l'entity
-            //                //_ctx.Entry<Livret>((Livret)oLiv.TheLivret).State = System.Data.Entity.EntityState.Detached;
-            //            }
-
-        }//        public void DeleteLivret()
 
         internal Boolean Lock(Int32 pIDUser)
         {

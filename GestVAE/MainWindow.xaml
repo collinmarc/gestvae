@@ -9,8 +9,9 @@
         xmlns:localVM="clr-namespace:GestVAE.VM"
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" 
         xmlns:VM="clr-namespace:GestVAE.VM" 
-    xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
-    x:Class="GestVAE.MainWindow"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
+        x:Class="GestVAE.MainWindow"
         mc:Ignorable="d"
         Title="EHESP : Gestion VAE" Height="962.821" Width="1134.286" Loaded="Window_Loaded" Icon="IMG/logo_ehesp.ico" Closing="window_Closing" >
 
@@ -488,14 +489,12 @@
                               ItemsSource="{Binding lstLivretsActif, UpdateSourceTrigger=PropertyChanged}"  
                               SelectedItem="{Binding CurrentLivret}"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="true" CanUserResizeRows="False"
-                              RowHeaderWidth="0"
-                              CellEditEnding="gridLstLivrets_CellEditEnding" 
-                              MouseDoubleClick="gridLstLivrets_MouseDoubleClick"
+                              RowHeaderWidth="10"
                               IsReadOnly="True" 
-                              Style="{DynamicResource MyDataGridStyle}"
+                              Style="{DynamicResource MyDataGridStyle}" MouseDoubleClick="GridLstLivrets_MouseDoubleClick_1"
                                 >
                                 <DataGrid.InputBindings>
-                                    <KeyBinding Key="Delete" Command="{Binding DeleteLivretCommand}" />
+                                    <KeyBinding Key="Delete" Command="{Binding DataContext.DeleteCurrentLivretCommand , ElementName=window}" />
                                 </DataGrid.InputBindings>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}" Width="1*" />

@@ -86,12 +86,7 @@ namespace GestVAE
             odlg.ShowDialog();
         }
 
-        private void gridLstLivrets_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-
-        }
-
-        private void gridLstLivrets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+          private void gridLstLivrets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Window ofrm = null;
             VM.CurrentCandidat.CurrentLivret = (LivretVMBase)gridLstLivrets.SelectedItem;
@@ -140,6 +135,11 @@ namespace GestVAE
         {
             //VM.RaisePropertyChanged("lstParamBDCommunes");
             //VM.RaisePropertyChanged("lstParamBDCommunesFiltreesparCPNaissance");
+        }
+
+        private void GridLstLivrets_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        {
+            VM.AfficherCurrentLivret();
         }
     }
 }

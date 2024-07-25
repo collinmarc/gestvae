@@ -72,10 +72,13 @@
                     <Label Content="Diplome :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
                     <TextBox x:Name="tbDiplome" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsEnabled="{Binding IsLivretModifiable}"
                          Text="{Binding NomDiplome,Mode=OneWay}" Style="{DynamicResource TextBoxReadOnlyStyle}"/>
+
                     <DataGrid x:Name="dgDCLivret"  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                            ItemsSource="{Binding lstDCLivret, UpdateSourceTrigger=PropertyChanged}" 
                             AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" 
-                           Style="{DynamicResource MyDataGridStyle}">
+                           Style="{DynamicResource MyDataGridStyle}"
+                           Visibility="{Binding ISCAFDESV2 , Converter={StaticResource BooleanToVisibilityConverter}}"
+                              >
                         <DataGrid.Resources>
                             <VM:BindingProxy x:Key="proxy" Data="{Binding VM.CurrentCandidat.CurrentLivret, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
                         </DataGrid.Resources>
@@ -555,9 +558,14 @@
                 <Button x:Name="cbDecloturerL1" Margin="10" 
                 Command="{Binding DataContext.DecloturerLivretCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 
                 Content="Décloturer le Livret" 
-                
                 Visibility="{Binding IsLivretClos, Converter={StaticResource BooleanToVisibilityConverter}}">
                 </Button>
+                <Button x:Name="cbCreerCAFDESV2" Margin="10" 
+                Command="{Binding DataContext.MigrationCAFDESV2Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 
+                Content="Transformer en CAFDESV2"
+                    Visibility="{Binding ISNOTCAFDESV2 , Converter={StaticResource BooleanToVisibilityConverter}}" >
+                </Button>
+
             </UniformGrid>
             <!-- ECHANGE-->
             <!-- Jury-->

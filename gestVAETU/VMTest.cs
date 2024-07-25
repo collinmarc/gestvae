@@ -48,7 +48,7 @@ namespace GestVAETU
             oLiv = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
 //            Assert.AreEqual(1, oLiv.lstJuryVM.Count);
             Assert.AreEqual("TEST", oLiv.DecisionJuryRecours);
-            VM.CurrentCandidat.DeleteCurrentLivret();
+            VM.DeleteCurrentLivret();
             Assert.IsTrue(VM.saveData());
 
             VM.getData();
@@ -95,7 +95,7 @@ namespace GestVAETU
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
             oLiv = (Livret2VM)VM.CurrentCandidat.CurrentLivret;
             Assert.AreEqual("DECISIONJURYL2", oLiv.DecisionJury);
-            VM.CurrentCandidat.DeleteCurrentLivret();
+            VM.DeleteCurrentLivret();
 
             Assert.IsTrue(VM.saveData());
 
@@ -226,7 +226,7 @@ namespace GestVAETU
             oCand.LoadDetails();
             Assert.AreEqual(1, oCand.lstLivrets.Count);
             oCand.CurrentLivret = oCand.lstLivrets[0];
-            oCand.DeleteCurrentLivret();
+            VM.DeleteCurrentLivret();
 
             VM.LockCurrentCandidat();
 
@@ -1272,7 +1272,7 @@ namespace GestVAETU
             VM.LockCurrentCandidat();
             Assert.AreEqual(1, VM.CurrentCandidat.lstLivrets.Count);
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[0];
-            VM.CurrentCandidat.DeleteCurrentLivret();
+            VM.DeleteCurrentLivret();
             Assert.IsTrue(VM.saveData());
             oConn.Open();
             ocmd.CommandText = "SELECT Count(*) from Juries";
@@ -1358,7 +1358,7 @@ namespace GestVAETU
             VM.CurrentCandidat = VM.lstCandidatVM[0];
             VM.LockCurrentCandidat();
             VM.CurrentCandidat.CurrentLivret = VM.CurrentCandidat.lstLivrets[1];
-            VM.CurrentCandidat.DeleteCurrentLivret();
+            VM.DeleteCurrentLivret();
             Assert.IsTrue(VM.saveData());
             oConn.Open();
             ocmd.CommandText = "SELECT Count(*) from Juries";
@@ -1424,7 +1424,7 @@ namespace GestVAETU
             VM.AjouterMembreJury();
             VM.ValideretQuitterL2();
             // SUPPRESSION DU L2 AVANT SAUVEGARDE
-            VM.CurrentCandidat.DeleteCurrentLivret();
+            VM.DeleteCurrentLivret();
 
             Assert.IsTrue(VM.saveData());
             oConn.Open();

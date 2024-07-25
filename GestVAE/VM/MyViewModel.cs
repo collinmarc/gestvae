@@ -247,6 +247,8 @@ namespace GestVAE.VM
                                             );
             AjouteL2Command = new RelayCommand<MyViewModel>(o => { AjouteL2(); }
                                             );
+            AfficheCurrentLivretCommand = new RelayCommand<MyViewModel>(o => { AfficherCurrentLivret(); }
+                                            );
             dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
                                            );
             ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); }
@@ -265,7 +267,7 @@ namespace GestVAE.VM
             CloturerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL2(); }
                                            );
 
-            MigrationCAFDESV2Command = new RelayCommand<MyViewModel>(o => { MigrationCAFDESV2(); },o=> { return IsL2CAFDES(); });
+            MigrationCAFDESV2Command = new RelayCommand<MyViewModel>(o => { MigrationCAFDESV2(); },o=> { return IsNOTCAFDESV2(); });
 
             LockCommand = new RelayCommand<MyViewModel>(o => { LockCurrentCandidat(); }
                                                         );
@@ -285,6 +287,10 @@ namespace GestVAE.VM
             _RechercherBaseMembreJurycommand = new RelayCommand<MyViewModel>(o => { RechercherBaseMembreJury(); }
                                                                     );
             CommentaireCommand = new RelayCommand<MyViewModel>(o => { Commentaire(); });
+
+            DeleteCurrentLivretCommand = new RelayCommand<MyViewModel>(c => { DeleteCurrentLivret(); },
+                                                    c => { return CurrentCandidat.IsDeletePossible; });
+
         }//Createcommand
 
         public ObservableCollection<CandidatVM> lstCandidatVM
@@ -663,6 +669,7 @@ namespace GestVAE.VM
         public ICommand DeleteMembreJuryCommand { get; set; }
         public ICommand IsPostFormationCommand { get; set; }
         public ICommand AjouteL2Command { get; set; }
+        public ICommand AfficheCurrentLivretCommand { get; set; }
         public ICommand ValideretQuitterL1Command { get; set; }
         public ICommand ValideretQuitterL2Command { get; set; }
         public ICommand CloturerL1etCreerL2Command { get; set; }
@@ -680,6 +687,7 @@ namespace GestVAE.VM
         public ICommand ExecSQLCommand { get; set; }
         public ICommand ExporterDataCommand { get; set; }
         public ICommand CommentaireCommand { get; set; }
+        public ICommand DeleteCurrentLivretCommand { get; set; }
         public String rechIdentifiantVAE { get; set; }
         public String rechIdentifiantSISCOLE { get; set; }
         public String rechNom { get; set; }
@@ -930,9 +938,11 @@ namespace GestVAE.VM
             RaisePropertyChanged("IsCurrentCandidatAddL2Available");
 
         }//AjouteL1
+
          /// <summary>
          /// Ajout d'un Livret2
          /// </summary>
+         /// 
         public void AjouteL2()
         {
             Livret2VM oL2VM = null;
@@ -942,53 +952,52 @@ namespace GestVAE.VM
                 CandidatVM oCandVM = CurrentCandidat;
                 Livret1VM oL1 = null;
                 oL1 = CurrentCandidat.getL1Valide();
-
-                oL2VM = new Livret2VM((Livret1VM) oL1);
-                oL2VM.LstEtatLivret = LstEtatLivret2;
-
-                oL2VM.EtatLivret = LstEtatLivret2[2];
-                oL2VM.DateDemande = DateTime.Now;
-                // Numéro de passage
-                oL2VM.NumPassage = 1;
-                if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
+                if (oL1 != null)
                 {
-                    int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
-                    oL2VM.NumPassage = nbL2 + 1;
-                }
+                    oL2VM = new Livret2VM((Livret1VM)oL1);
+                    oL2VM.LstEtatLivret = LstEtatLivret2;
 
-
-
-
-                // Récupération de la date d'envoi du L2 premier passage s'il s'agit un second passage
-                if (oL2VM.NumPassage>1)
-                {
-                    Livret2VM oL2Prem = (Livret2VM)CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET && ((Livret2VM)l).NumPassage == 1).FirstOrDefault();
-                    if (oL2Prem != null)
+                    oL2VM.EtatLivret = LstEtatLivret2[2];
+                    oL2VM.DateDemande = DateTime.Now;
+                    // Numéro de passage
+                    oL2VM.NumPassage = 1;
+                    if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
                     {
-                        oL2VM.DateEnvoiEHESP = oL2Prem.DateEnvoiEHESP;
+                        int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
+                        oL2VM.NumPassage = nbL2 + 1;
                     }
-                }
 
-                // Récupération du diplome du candidat (si présent)
-                DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oL2VM.TheLivret.oDiplome.ID).FirstOrDefault();
-                if (oDiplomeCandidat == null)
-                {
-                    DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand(oL2VM.TheLivret.oDiplome);
-                    oDiplomeCandidat = oDipCandVM.TheDiplomeCand;
-                    oDipCandVM.ModeObtention = "VAE";
-                    oDipCandVM.StatutDiplome = "En cours";
-                    oDipCandVM.StatutDC1 = "";
-                    oDipCandVM.StatutDC2 = "";
-                    oDipCandVM.StatutDC3 = "";
-                    oDipCandVM.StatutDC4 = "";
-                }
-                CurrentCandidat.CurrentLivret = oL2VM;
+                    // Récupération de la date d'envoi du L2 premier passage s'il s'agit un second passage
+                    if (oL2VM.NumPassage > 1)
+                    {
+                        Livret2VM oL2Prem = (Livret2VM)CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET && ((Livret2VM)l).NumPassage == 1).FirstOrDefault();
+                        if (oL2Prem != null)
+                        {
+                            oL2VM.DateEnvoiEHESP = oL2Prem.DateEnvoiEHESP;
+                        }
+                    }
 
-                if (!IsInTest)
-                {
-                    frmLivret2 odlg = new frmLivret2();
-                    odlg.setContexte(this);
-                    odlg.ShowDialog();
+                    // Récupération du diplome du candidat (si présent)
+                    DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oL2VM.TheLivret.oDiplome.ID).FirstOrDefault();
+                    if (oDiplomeCandidat == null)
+                    {
+                        DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand(oL2VM.TheLivret.oDiplome);
+                        oDiplomeCandidat = oDipCandVM.TheDiplomeCand;
+                        oDipCandVM.ModeObtention = "VAE";
+                        oDipCandVM.StatutDiplome = "En cours";
+                        oDipCandVM.StatutDC1 = "";
+                        oDipCandVM.StatutDC2 = "";
+                        oDipCandVM.StatutDC3 = "";
+                        oDipCandVM.StatutDC4 = "";
+                    }
+                    CurrentCandidat.CurrentLivret = oL2VM;
+
+                    if (!IsInTest)
+                    {
+                        frmLivret2 odlg = new frmLivret2();
+                        odlg.setContexte(this);
+                        odlg.ShowDialog();
+                    }
                 }
             }
             catch (Exception ex)
@@ -1087,6 +1096,16 @@ namespace GestVAE.VM
             RaisePropertyChanged("IsCurrentCandidatAddL2Available");
 
         }
+
+        public void DeleteCurrentLivret()
+        {
+            LivretVMBase oLiv = CurrentCandidat.CurrentLivret;
+            oLiv.IsDeleted = true;
+               CurrentCandidat.RaisePropertyChanged("lstLivretsActif");
+            SetModelHasChanges();
+
+        }//DeleteCurrentLivret()
+
         public void AjoutePJL1()
         {
             Livret1VM oLiv = (Livret1VM)CurrentCandidat.CurrentLivret;
@@ -1164,18 +1183,80 @@ namespace GestVAE.VM
             }
             return breturn;
         }
+        public Boolean IsCAFDESV2()
+        {
+            Boolean breturn = false;
+            if (CurrentCandidat != null)
+            {
+                if (CurrentCandidat.CurrentLivret != null)
+                {
+                    breturn = (CurrentCandidat.CurrentLivret.ISCAFDESV2) ;
+
+                }
+            }
+            return breturn;
+        }
+        public Boolean IsNOTCAFDESV2()
+        {
+            return !IsCAFDESV2();
+        }
+        public Boolean IsL1CAFDES()
+        {
+            Boolean breturn = false;
+            if (CurrentCandidat != null)
+            {
+                if (CurrentCandidat.CurrentLivret != null)
+                {
+                    breturn = (!CurrentCandidat.CurrentLivret.ISCAFDESV2) && CurrentCandidat.CurrentLivret.IsL1;
+
+                }
+            }
+            return breturn;
+        }
 
         public void MigrationCAFDESV2()
         {
-            if (IsL2CAFDES())
+            if (CurrentCandidat.CurrentLivret.IsL2)
             {
                 Livret2VM oL2Ancien = (Livret2VM)CurrentCandidat.CurrentLivret;
                 Livret2VM oL2CAFDESV2 = new Livret2VM(oL2Ancien);
                 CurrentCandidat.lstLivrets.Add(oL2CAFDESV2);
+                oL2CAFDESV2.isAdded = true;
                 oL2Ancien.Cloturer();
+                ValideretQuitterL2();
                 CurrentCandidat.CurrentLivret = oL2CAFDESV2;
+                AfficherCurrentLivret();
 
             }
+            if (CurrentCandidat.CurrentLivret.IsL1)
+            {
+                Livret1VM oL1Ancien = (Livret1VM)CurrentCandidat.CurrentLivret;
+                Livret1VM oL1CAFDESV2 = new Livret1VM(oL1Ancien);
+                CurrentCandidat.lstLivrets.Add(oL1CAFDESV2);
+                oL1CAFDESV2.isAdded = true;
+                oL1Ancien.Cloturer();
+                ValideretQuitterL1();
+                CurrentCandidat.CurrentLivret = oL1CAFDESV2;
+                AfficherCurrentLivret();
+
+            }
+
+        }
+
+        public void AfficherCurrentLivret()
+        {
+            Window ofrm = null;
+            if (CurrentCandidat.CurrentLivret is Livret1VM)
+            {
+                ofrm = new frmLivret1();
+                ((frmLivret1)ofrm).setContexte(this);
+            }
+            else
+            {
+                ofrm = new frmLivret2();
+                ((frmLivret2)ofrm).setContexte(this);
+            }
+            ofrm.ShowDialog();
 
         }
         public void GestionDiplome()

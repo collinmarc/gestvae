@@ -658,7 +658,7 @@
                 <Button x:Name="cbCreerCAFDESV2" Margin="10" 
                 Command="{Binding DataContext.MigrationCAFDESV2Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" 
                 Content="Transformer en CAFDESV2"
-                    Visibility="{Binding ISNOTCAFDESV2 , Converter={StaticResource BooleanToVisibilityConverter}}">
+                    Visibility="{Binding IsNOTCAFDESV2 , Converter={StaticResource BooleanToVisibilityConverter}}">
                 </Button>
 
             </UniformGrid>

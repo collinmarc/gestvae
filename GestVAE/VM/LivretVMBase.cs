@@ -523,14 +523,14 @@ namespace GestVAE.VM
         }
         public Boolean IsLivretNonModifiable
         {
-            get { if (!IsLocked)
+            get { if (!IsLocked && IsCAFDESV2)
                 {
                     return true;
                 }
                 else
                 {
 
-                    return TheLivret.isClos;
+                    return TheLivret.isClos && IsCAFDESV2;
                 }
             }
         }
@@ -1154,6 +1154,20 @@ namespace GestVAE.VM
                 return (getNumetat() >= (int)MyEnums.EtatLivret.ETAT_Lv_RECU_COMPLET);
             }
         }
+        public Boolean IsEtatRecuCompletCAFDESV2
+        {
+            get
+            {
+                return IsEtatRecuComplet && IsCAFDESV2;
+            }
+        }
+        public Boolean IsEtatRecuCompletCAFDESV1
+        {
+            get
+            {
+                return IsEtatRecuComplet && !IsCAFDESV2;
+            }
+        }
         public Boolean IsEtatRefuse
         {
             get
@@ -1365,7 +1379,7 @@ namespace GestVAE.VM
 
         private Boolean IsBloc(int pNum)
         {
-            if (ISCAFDESV2)
+            if (IsCAFDESV2)
             {
                 return lstDCLivretAValider.Exists(b => b.NumDC == pNum);
             }
@@ -1422,14 +1436,14 @@ namespace GestVAE.VM
             get { return IsBlocDecisionFavorable(4); }
         }
 
-        public Boolean ISCAFDESV2
+        public Boolean IsCAFDESV2
         {
             get { return NomDiplome == Properties.Settings.Default.NomDiplomeDefaut; }
         }
 
-        public Boolean ISNOTCAFDESV2
+        public Boolean IsNOTCAFDESV2
         {
-            get { return !ISCAFDESV2; }
+            get { return !IsCAFDESV2; }
         }
 
     }

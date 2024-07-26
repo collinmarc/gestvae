@@ -42,7 +42,7 @@ namespace GestVAE.VM
             foreach (DCLivretVM item in pLivAncien.lstDCLivret)
             {
                 DCLivretVM oItemNew = this.lstDCLivret.First(d => d.NumDC == item.NumDC);
-                if (!pLivAncien.ISCAFDESV2)
+                if (!pLivAncien.IsCAFDESV2)
                 {
                     oItemNew = this.lstDCLivret.First(d => d.NumDC == item.getNumBlocV2());
                 }

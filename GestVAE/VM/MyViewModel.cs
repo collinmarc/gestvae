@@ -251,11 +251,11 @@ namespace GestVAE.VM
                                             );
             dlgDiplomeCommand = new RelayCommand<MyViewModel>(o => { GestionDiplome(); }
                                            );
-            ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); }
+            ValideretQuitterL1Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL1(); }, o => { return IsCAFDESV2(); }
                                            );
-            ValideretQuitterL2Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL2(); }
+            ValideretQuitterL2Command = new RelayCommand<MyViewModel>(o => { ValideretQuitterL2(); }, o => { return IsCAFDESV2(); }
                                            );
-            CloturerL1etCreerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL1etCreerL2(); }
+            CloturerL1etCreerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL1etCreerL2(); }, o => { return IsCAFDESV2(); }
                                            );
             CloseCommand = new RelayCommand<MyViewModel>(o => { QuitterLivret(); }
                                            );
@@ -1177,7 +1177,7 @@ namespace GestVAE.VM
             {
                 if (CurrentCandidat.CurrentLivret != null)
                 {
-                    breturn = (!CurrentCandidat.CurrentLivret.ISCAFDESV2) && CurrentCandidat.CurrentLivret.IsL2;
+                    breturn = (!CurrentCandidat.CurrentLivret.IsCAFDESV2) && CurrentCandidat.CurrentLivret.IsL2;
 
                 }
             }
@@ -1190,7 +1190,7 @@ namespace GestVAE.VM
             {
                 if (CurrentCandidat.CurrentLivret != null)
                 {
-                    breturn = (CurrentCandidat.CurrentLivret.ISCAFDESV2) ;
+                    breturn = (CurrentCandidat.CurrentLivret.IsCAFDESV2) ;
 
                 }
             }
@@ -1207,7 +1207,7 @@ namespace GestVAE.VM
             {
                 if (CurrentCandidat.CurrentLivret != null)
                 {
-                    breturn = (!CurrentCandidat.CurrentLivret.ISCAFDESV2) && CurrentCandidat.CurrentLivret.IsL1;
+                    breturn = (!CurrentCandidat.CurrentLivret.IsCAFDESV2) && CurrentCandidat.CurrentLivret.IsL1;
 
                 }
             }

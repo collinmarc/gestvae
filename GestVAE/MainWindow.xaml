@@ -500,10 +500,13 @@
                                     <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}" Width="1*" />
                                     <DataGridTextColumn Header="Numero" Binding="{Binding Numero}" Width="2*"/>
                                     <DataGridTextColumn Header="Diplome" Binding="{Binding NomDiplome}" Width="3*"/>
-                                    <DataGridCheckBoxColumn Header="B1" Binding="{Binding IsBloc1, Mode=OneWay}" IsReadOnly="true"  Width="1*" >
+                                    <DataGridCheckBoxColumn Header="B1" Binding="{Binding IsBloc1, Mode=OneWay}" IsReadOnly="true"  Width="1*">
                                         <DataGridCheckBoxColumn.ElementStyle>
                                             <Style TargetType="CheckBox">
                                                 <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsNOTCAFDESV2}" Value="true" >
+                                                        <Setter Property="Background" Value="Gray"/>
+                                                    </DataTrigger>
                                                     <DataTrigger Binding="{Binding IsBloc1DecisionFavorable}" Value="true" >
                                                         <Setter Property="Background" Value="Green"/>
                                                     </DataTrigger>
@@ -515,7 +518,10 @@
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsBloc2DecisionFavorable}" Value="true" >
+                                                    <DataTrigger Binding="{Binding IsNOTCAFDESV2}" Value="true" >
+                                                        <Setter Property="Background" Value="Gray"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsBloc2DecisionFavorable}" Value="true" >
                                                     <Setter Property="Background" Value="Green"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -526,7 +532,10 @@
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsBloc3DecisionFavorable}" Value="true" >
+                                                    <DataTrigger Binding="{Binding IsNOTCAFDESV2}" Value="true" >
+                                                        <Setter Property="Background" Value="Gray"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsBloc3DecisionFavorable}" Value="true" >
                                                     <Setter Property="Background" Value="Green"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -537,6 +546,9 @@
                                         <DataGridCheckBoxColumn.ElementStyle>
                                             <Style TargetType="CheckBox">
                                                 <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsNOTCAFDESV2}" Value="true" >
+                                                        <Setter Property="Background" Value="Gray"/>
+                                                    </DataTrigger>
                                                     <DataTrigger Binding="{Binding IsBloc4DecisionFavorable}" Value="true" >
                                                         <Setter Property="Background" Value="Green"/>
                                                     </DataTrigger>

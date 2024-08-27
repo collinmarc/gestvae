@@ -315,6 +315,10 @@
     <Compile Include="Migrations\202407240908360_MotifIrrecevabilite.Designer.cs">
       <DependentUpon>202407240908360_MotifIrrecevabilite.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202408271230345_ExtractionCAFDESV2.cs" />
+    <Compile Include="Migrations\202408271230345_ExtractionCAFDESV2.Designer.cs">
+      <DependentUpon>202408271230345_ExtractionCAFDESV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -554,6 +558,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202407240908360_MotifIrrecevabilite.resx">
       <DependentUpon>202407240908360_MotifIrrecevabilite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408271230345_ExtractionCAFDESV2.resx">
+      <DependentUpon>202408271230345_ExtractionCAFDESV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

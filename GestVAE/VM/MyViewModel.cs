@@ -1373,14 +1373,17 @@ namespace GestVAE.VM
                             {
                                 if (item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value)
                                 {
-                                    oDCCand.Statut = "Validé";
+                                    oDCCand.Statut = oDip.LstStatutModule[0]; 
                                     oDCCand.DateObtention = pLivret.DateJury;
+                                    oDCCand.Commentaire = item.MotifCommentaire;
                                     oDCCand.ModeObtention = "VAE";
                                 }
                                 else
                                 {
-                                    oDCCand.Statut = "Refusé";
+                                    oDCCand.Statut = oDip.LstStatutModule[1];
+                                    oDCCand.Commentaire = item.MotifCommentaire;
                                     oDCCand.DateObtention = pLivret.DateJury;
+                                    oDCCand.ModeObtention = "";
                                 }
                             }
                         }

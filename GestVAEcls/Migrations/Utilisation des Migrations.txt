@@ -8,6 +8,6 @@ Pour utiliser les migrations :
 5- Mise à jour de la base de données sur la derniere Migration
     Update-DataBase -ConfigurationTypeName Configuration
 6- Mise à jour de la base de données sur une Migration données
-    Update-DataBase -ConfigurationTypeName Configuration -TargetMigration 202011161648179_UpdateDCLivrets
+    Update-DataBase -ConfigurationTypeName Configuration -TargetMigration 202407240908360_MotifIrrecevabilite
 7- Liste des Migrations appliquée
 	Get-Migrations -ConfigurationTypeName Configuration

@@ -25,7 +25,7 @@ namespace GestVAE.VM
     //public enum Statuts { ACCEPTE, REFUSE};
     public class MyViewModel : NotifyUIBase
     {
-        private Context _ctx;
+        public Context _ctx;
         private ContextParam _ctxParam;
         private bool _modelhasChanges = false;
         private ObservableCollection<CandidatVM> _lstCandidatVM;
@@ -120,10 +120,23 @@ namespace GestVAE.VM
                 RaisePropertyChanged("IsCurrentCandidatAddL2Available");
                 RaisePropertyChanged("IsCurrentCandidatLockable");
                 RaisePropertyChanged("IsCurrentCandidatLockedByMe");
+                RaisePropertyChanged("CurrentCandidatNom");
 
 
                 RaisePropertyChanged(); }
         }
+
+        public String CurrentCandidatNom
+        {
+            get
+            {
+                if (CurrentCandidat != null)
+                { return CurrentCandidat.Nom; }
+                else
+                { return ""; }
+            }
+        }
+
         public String AppVersion
         {
             get { return Properties.Settings.Default.NUMVERSION; }
@@ -267,7 +280,10 @@ namespace GestVAE.VM
             CloturerL2Command = new RelayCommand<MyViewModel>(o => { CloturerL2(); }
                                            );
 
-            MigrationCAFDESV2Command = new RelayCommand<MyViewModel>(o => { MigrationCAFDESV2(); },o=> { return IsNOTCAFDESV2(); });
+            MigrationCAFDESV2Command = new RelayCommand<MyViewModel>(o => { MigrationCAFDESV2(); }, o => { return IsNOTCAFDESV2(); });
+            dlgMigrationcompleteCommand = new RelayCommand<MyViewModel>(o => { dlgMigrationcomplete(); });
+            MigrationcompleteCommand = new RelayCommand<MyViewModel>(o => { Migrationcomplete(); });
+            MigrationcompleteInterrompreCommand = new RelayCommand<MyViewModel>(o => { MigrationcompleteInterrompre(); });
 
             LockCommand = new RelayCommand<MyViewModel>(o => { LockCurrentCandidat(); }
                                                         );
@@ -278,7 +294,7 @@ namespace GestVAE.VM
                                                         );
             DecloturerLivretCommand = new RelayCommand<MyViewModel>(o => { DecloturerLivret(); }
                                                         );
-            DoubleClickCandidat = new RelayCommand<MyViewModel>(o => { DoubleClickSurCandidat(); }
+            DoubleClickCandidatCommand = new RelayCommand<MyViewModel>(o => { DoubleClickSurCandidat(); }
                                                                     );
 
             ExporterDataCommand = new RelayCommand<MyViewModel>(o => { exporterData(); }
@@ -302,9 +318,36 @@ namespace GestVAE.VM
                 {
                     _lstCandidatVM = value;
                     RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(lstCandidatsCount));
+                    RaisePropertyChanged(nameof(lstCandidatsIndex));
                 };
             }
         }
+
+        private int _lstCandidatsCount;
+        public int lstCandidatsCount
+        {
+            get { return lstCandidatVM.Count; }
+        }
+
+        /// <summary>
+        ///  Utlisé par le processus de migration pour la progressbar
+        /// </summary>
+        private int _lstCandidatsIndex;
+        public int lstCandidatsIndex
+        {
+            get { return _lstCandidatsIndex; }
+            set
+            {
+                if (value != _lstCandidatsIndex)
+                {
+                    _lstCandidatsIndex = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+
         public ObservableCollection<RegionVM> lstRegionVM
         {
             get {return _lstRegionVM;}
@@ -675,9 +718,12 @@ namespace GestVAE.VM
         public ICommand CloturerL1etCreerL2Command { get; set; }
         public ICommand CloturerL2Command { get; set; }
         public ICommand MigrationCAFDESV2Command { get; set; }
+        public ICommand dlgMigrationcompleteCommand { get; set; }
+        public ICommand MigrationcompleteCommand { get; set; }
+        public ICommand MigrationcompleteInterrompreCommand { get; set; }
         public ICommand AjouterMembreJuryCommand { get; set; }
         public ICommand DecloturerLivretCommand { get; set; }
-        public ICommand DoubleClickCandidat { get; set; }
+        public ICommand DoubleClickCandidatCommand { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand DeleteCandidatCommand { get; set; }
         public ICommand DeleteDiplomeCandCommand { get; set; }
@@ -834,12 +880,12 @@ namespace GestVAE.VM
 
                 }
                 CurrentCandidat = null;
-                _lstCandidatVM.Clear();
+                lstCandidatVM.Clear();
                 foreach (Candidat item in rq)
                 {
 
                     CandidatVM oCand = new CandidatVM(item);
-                    _lstCandidatVM.Add(oCand);
+                    lstCandidatVM.Add(oCand);
                 }
                 RaisePropertyChanged("lstCandidatVM");
                 RaisePropertyChanged("CurrentCandidat");
@@ -1213,7 +1259,69 @@ namespace GestVAE.VM
             }
             return breturn;
         }
+        public void dlgMigrationcomplete()
+        {
+            dlgMigration oDlg = new dlgMigration();
+            oDlg.setContexte(this);
+            oDlg.ShowDialog();
+        }
 
+        private bool _InterrompreMigration;
+        public void MigrationcompleteInterrompre()
+        {
+            _InterrompreMigration = true;
+        }
+        public async void Migrationcomplete()
+        {
+            _InterrompreMigration = false;
+            IQueryable<Candidat> rq;
+            IsInTest = true; // On utilise les commandes du Contexte sans agir sur les fenêtres
+            rq = _ctx.Candidats;
+            // Filtre sur les Candidats qui au moins 1 Livrets non clos
+            rq = rq.Where(c => c.lstLivrets1.Count + c.lstLivrets2.Count > 0); // Au moins 1 livret
+            rq = rq.Where(c => (c.lstLivrets1.Any(l => !l.isClos) || c.lstLivrets2.Any(l => !l.isClos)) ); // Au moins 1 Livret Non clos
+            rq = rq.Where(c =>  c.lstLivrets1.Any(l => l.EtatLivret != "") ); // au moins 1 L1 avec un etat correct
+            //rq = rq.Where(c => c.Nom == "NION");
+            lstCandidatVM.Clear();
+            foreach (Candidat item in rq)
+            {
+
+                CandidatVM oCand = new CandidatVM(item);
+                lstCandidatVM.Add(oCand);
+            }
+
+
+            lstCandidatsIndex = 0;
+            RaisePropertyChanged("lstCandidatsVM");
+            RaisePropertyChanged("lstCandidatsCount");
+            foreach (CandidatVM item in lstCandidatVM)
+            {
+                if (_InterrompreMigration)
+                {
+                    IsInTest = false;
+                    MessageBoxShow("Migration interrompue");
+                    return;
+                }
+                lstCandidatsIndex = lstCandidatsIndex + 1;
+                CurrentCandidat = item;
+                CurrentCandidat.bAfficherLivretsCAFDES = true;
+                foreach (LivretVMBase oL in CurrentCandidat.lstLivretsActif)
+                {
+                    if (!oL.IsCAFDESV2)
+                    {
+                        CurrentCandidat.CurrentLivret = oL;
+                        //await Task.Delay(10); // Remplace par le temps nécessaire pour traiter chaque candidat
+                        await Task.Run(() => { MigrationCAFDESV2(); });
+                    }
+                }
+            }
+            IsInTest = false;
+            MessageBoxShow("Terminé, Pensez à sauvegarder les données ");
+        }
+
+        /// <summary>
+        /// Migration d'un livret
+        /// </summary>
         public void MigrationCAFDESV2()
         {
             if (CurrentCandidat.CurrentLivret.IsL2)
@@ -1225,8 +1333,10 @@ namespace GestVAE.VM
                 oL2Ancien.Cloturer();
                 ValideretQuitterL2();
                 CurrentCandidat.CurrentLivret = oL2CAFDESV2;
-                AfficherCurrentLivret();
-
+                if (!IsInTest)
+                {
+                    AfficherCurrentLivret();
+                }
             }
             if (CurrentCandidat.CurrentLivret.IsL1)
             {
@@ -1237,7 +1347,10 @@ namespace GestVAE.VM
                 oL1Ancien.Cloturer();
                 ValideretQuitterL1();
                 CurrentCandidat.CurrentLivret = oL1CAFDESV2;
-                AfficherCurrentLivret();
+                if (!IsInTest)
+                {
+                    AfficherCurrentLivret();
+                }
 
             }
 

@@ -63,6 +63,7 @@
                 <Button Name="btnUnlockAll" Command="{Binding UnLockAllCommand}" Content="Tout déverrouiller" />
                 <Button Name="btnParam" Command="{Binding dlgParamCommand}" Content="Paramètres" />
                 <Button Name="btnAPropos" Command="{Binding dlgAProposCommand}" Content="?" />
+                <Button Name="btnMigration" Command="{Binding dlgMigrationcompleteCommand}" Content="Migration CAFDESV2" ToolTip=" Midgration de la base en totalité" />
             </ToolBar>
         </ToolBarTray>
 
@@ -257,7 +258,7 @@
                         <DataGrid.InputBindings>
                             <KeyBinding Key="Delete" Command="{Binding DeleteCandidatCommand}" />
                             <MouseBinding MouseAction="LeftDoubleClick"
-                                    Command="{Binding DoubleClickCandidat}"
+                                    Command="{Binding DoubleClickCandidatCommand}"
                                     />
                         </DataGrid.InputBindings>
                     </DataGrid>
@@ -482,8 +483,9 @@
                             </DataGrid>
 
                         </StackPanel>
+                        <CheckBox Grid.Row="23" Name="ckAfficherCAFDES" IsChecked="{Binding bAfficherLivretsCAFDES}" HorizontalAlignment="Right" Grid.Column="2"> Afficher les livrets CAFDES</CheckBox>
 
-                        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="23" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="24" Grid.ColumnSpan="2">
                             <DataGrid Name="gridLstLivrets"  Margin="5,5,5,0"  VerticalAlignment="Top" TabIndex="39"
                               HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"
                               ItemsSource="{Binding lstLivretsActif, UpdateSourceTrigger=PropertyChanged}"  
@@ -559,6 +561,16 @@
                                     <DataGridTextColumn Header="Etat" Binding="{Binding EtatLivret, Mode=OneWay}" Width="3*"/>
                                     <DataGridTextColumn Header="Validité" Binding="{Binding DateValiditeBase, StringFormat='dd/MM/yyyy', Mode=OneWay}"  Width="3*"/>
                                 </DataGrid.Columns>
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsLivretClos}" Value="true">
+                                                <Setter Property="Background" Value="LightGray"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.RowStyle>
+
                             </DataGrid>
 
                             <UniformGrid Name="pnlBoutonsLivrets" Margin="0,10,10,0" Columns="3">

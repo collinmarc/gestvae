@@ -24,8 +24,28 @@ namespace GestVAE.VM
         public ObservableCollection<DiplomeCandVM> lstDiplomesCandVMs { get; set; }
         public List<DiplomeCandVM> lstDiplomesCandVMsActifs { get { return lstDiplomesCandVMs.Where(d => !d.IsDeleted).ToList(); } }
         public ObservableCollection<LivretVMBase> lstLivrets { get; set; }
-        public List<LivretVMBase> lstLivretsActif { get { return lstLivrets.Where(c => !c.IsDeleted).ToList(); } }
+        public List<LivretVMBase> lstLivretsActif {
+            get {
+                if (bAfficherLivretsCAFDES)
+                    return lstLivrets.Where(l => !l.IsDeleted).ToList();
+                else
+                    return lstLivrets.Where(l => !l.IsDeleted).Where(l => l.NomDiplome != "CAFDES").ToList();
+                }
+        }
+        public List<LivretVMBase> lstLivretsNonClos { get { return lstLivrets.Where(l => l.IsLivretNonClos).ToList(); } }
         public DiplomeCandVM CurrentDiplomeCand { get; set; }
+        private bool _bAfficherLivretsCAFDES;
+
+        public bool bAfficherLivretsCAFDES
+        {
+            get { return _bAfficherLivretsCAFDES; }
+            set { if (value != bAfficherLivretsCAFDES)
+                { _bAfficherLivretsCAFDES = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(lstLivretsActif));
+                }
+            }
+        }
 
         public DiplomeCandVM getDiplomeCand(Livret2VM pL2)
         {

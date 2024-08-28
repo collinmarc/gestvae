@@ -152,6 +152,9 @@
     <Compile Include="dlgApropos.xaml.cs">
       <DependentUpon>dlgApropos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="dlgMigration.xaml.cs">
+      <DependentUpon>dlgMigration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="dlgParametre.xaml.cs">
       <DependentUpon>dlgParametre.xaml</DependentUpon>
     </Compile>
@@ -207,6 +210,10 @@
     <Page Include="dlgApropos.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="dlgMigration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="dlgParametre.xaml">
       <Generator>MSBuild:Compile</Generator>

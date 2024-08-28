@@ -163,6 +163,9 @@ namespace GestVAE
             }
         }
 
+        private void CbCreerCAFDESV2_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

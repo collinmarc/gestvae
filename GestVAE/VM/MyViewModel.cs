@@ -1426,6 +1426,8 @@ namespace GestVAE.VM
             {
                 CloseAction();
             }
+            RaisePropertyChanged(nameof(IsCurrentCandidatAddL1Available));
+            RaisePropertyChanged(nameof(IsCurrentCandidatAddL2Available));
         }
 
         public void ValideretQuitterL2()
@@ -1451,6 +1453,8 @@ namespace GestVAE.VM
             {
                 CloseAction();
             }
+            RaisePropertyChanged(nameof(IsCurrentCandidatAddL1Available));
+            RaisePropertyChanged(nameof(IsCurrentCandidatAddL2Available));
         }
         /// <summary>
         ///  Mise à jour du diplome du candidat

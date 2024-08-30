@@ -179,4 +179,23 @@ namespace GestVAE
             throw new Exception("Invalid call - one way only");
         }
     }
+
+    [ValueConversion(typeof(bool[]), typeof(bool))]
+    public class AndConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            // Vérifie si les deux premières valeurs sont des booléens
+            if (values.Length >= 2 && values[0] is bool firstValue && values[1] is bool secondValue)
+            {
+                return firstValue && secondValue;
+            }
+            return false;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

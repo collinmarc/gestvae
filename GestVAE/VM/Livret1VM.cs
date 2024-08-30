@@ -36,9 +36,10 @@ namespace GestVAE.VM
             foreach (DomaineCompetence oDC in Diplome.getDiplomeParDefaut().lstDomainesCompetences)
             {
                 DCLivretVM oDCLivretVM = new DCLivretVM(new DCLivret(oDC));
+                oDCLivretVM.IsAValider = true;
                 this.lstDCLivret.Add(oDCLivretVM);
             }
-            // Transfert des blocs de CAFDES V2 vers CAFDESV2
+            // Transfert des blocs de CAFDES vers CAFDESV2  (Normalement il n'y en a pas)
             foreach (DCLivretVM item in pLivAncien.lstDCLivret)
             {
                 DCLivretVM oItemNew = this.lstDCLivret.First(d => d.NumDC == item.NumDC);
@@ -247,7 +248,7 @@ namespace GestVAE.VM
         /// <returns></returns>
         public Boolean IsValide(CandidatVM pCand )
         {
-            Boolean bReturn = false;
+            Boolean bIsL1Valide = false;
             //            bReturn = (IsEtatAccepte && DateValidite > DateTime.Now);
             DateTime dDateValid = DateTime.Now;
             Int32 nDelai = new ContextParam() .dbParam.First().DelaiValiditeL1;
@@ -255,40 +256,34 @@ namespace GestVAE.VM
             {
                 dDateValid = DateValidite.Value.AddDays(nDelai);
             }
-            bReturn = (IsEtatAccepte && (dDateValid > DateTime.Now));
+            bIsL1Valide = (IsEtatAccepte && (dDateValid > DateTime.Now));
 
-            if (!bReturn)
+            if (bIsL1Valide)
             {
                 if (IsEtatAccepte)
                 {
+                    // Si le L1 est accepté
+                    // Récupération du diplome du candidat
                     CandidatVM oCand = pCand;
-                    // Parcours de la Liste des L2
-                    foreach (Livret2VM oLiv in oCand.getListLivret2())
+                    DiplomeCandVM oDiplomeCand = oCand.lstDiplomesCandVMsActifs.FirstOrDefault(oD => oD.oDiplome.Nom == NomDiplome);
+                    Boolean bTousLesBlocsDemandesSontValide = false;
+                    if (oDiplomeCand != null)
                     {
-                        if (oLiv.IsDecisionJuryPartielle)
-                        {
-                            foreach (DCLivretVM oDC in oLiv.lstDCLivretAValider)
-                            {
-                                // Si un DC a une décision Favorable
-                                if (oDC.IsDecisionFavorable.HasValue && oDC.IsDecisionFavorable.Value)
-                                {
-                                    bReturn = true;
-                                    break;
-                                }
-                            } // Foreach lstDCaValider
-                            if (bReturn)
-                            {
-                                // Un Dc a une décision favorable => pas la pein d'aller plus loin
-                                break;
-                            }
-                        }
-                    }// foreach lstLivret2
+                        bTousLesBlocsDemandesSontValide = lstDCLivretAValider.All(item =>
+                                            {
+                                                var oDCCand = oDiplomeCand.lstDCCands.FirstOrDefault(d => d.NomDomaineCompetence == item.NomDC);
+                                                return oDCCand != null && oDCCand.Statut == "Validé";
+                                            }
+                                            );
+                    }
+                    // Il n'est plus valide si tous des Blocs sont validés 
+                    bIsL1Valide = !bTousLesBlocsDemandesSontValide;
                 }
             }
 
 
 
-            return bReturn;
+            return bIsL1Valide;
         }//IsValide
 
         /// <summary>

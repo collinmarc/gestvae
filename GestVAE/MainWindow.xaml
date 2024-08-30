@@ -23,6 +23,7 @@
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:AndConverter x:Key="AndConverter"/>
         <local:TypeCommentaireToBackgroundConverter x:Key="TypeCommentaireToBackgroundConverter"/>
         <local:ABConverter x:Key="TypeCommentaireToImageConverter"/>
         <local:TolereToBackgroudConverter x:Key="TolereToBackgroudConverter"/>
@@ -506,10 +507,22 @@
                                         <DataGridCheckBoxColumn.ElementStyle>
                                             <Style TargetType="CheckBox">
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsNOTCAFDESV2}" Value="true" >
-                                                        <Setter Property="Background" Value="Gray"/>
+                                                    <DataTrigger  Value="true" >
+                                                        <DataTrigger.Binding>
+                                                            <MultiBinding Converter="{StaticResource AndConverter}">
+                                                                <Binding Path="IsBloc1DecisionFavorable"/>
+                                                                <Binding Path="IsL1"/>
+                                                            </MultiBinding>
+                                                        </DataTrigger.Binding>
+                                                        <Setter Property="Background" Value="Yellow"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsBloc1DecisionFavorable}" Value="true" >
+                                                    <DataTrigger  Value="true" >
+                                                        <DataTrigger.Binding>
+                                                            <MultiBinding Converter="{StaticResource AndConverter}">
+                                                                <Binding Path="IsBloc1DecisionFavorable"/>
+                                                                <Binding Path="IsL2"/>
+                                                            </MultiBinding>
+                                                        </DataTrigger.Binding>
                                                         <Setter Property="Background" Value="Green"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -519,39 +532,75 @@
                                     <DataGridCheckBoxColumn Header="B2" Binding="{Binding IsBloc2, Mode=OneWay}" IsReadOnly="true" Width="1*">
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
-                                            <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsNOTCAFDESV2}" Value="true" >
-                                                        <Setter Property="Background" Value="Gray"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger  Value="true" >
+                                                        <DataTrigger.Binding>
+                                                            <MultiBinding Converter="{StaticResource AndConverter}">
+                                                                <Binding Path="IsBloc2DecisionFavorable"/>
+                                                                <Binding Path="IsL1"/>
+                                                            </MultiBinding>
+                                                        </DataTrigger.Binding>
+                                                        <Setter Property="Background" Value="Yellow"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsBloc2DecisionFavorable}" Value="true" >
-                                                    <Setter Property="Background" Value="Green"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
+                                                    <DataTrigger  Value="true" >
+                                                        <DataTrigger.Binding>
+                                                            <MultiBinding Converter="{StaticResource AndConverter}">
+                                                                <Binding Path="IsBloc2DecisionFavorable"/>
+                                                                <Binding Path="IsL2"/>
+                                                            </MultiBinding>
+                                                        </DataTrigger.Binding>
+                                                        <Setter Property="Background" Value="Green"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     </DataGridCheckBoxColumn>
                                     <DataGridCheckBoxColumn Header="B3" Binding="{Binding IsBloc3, Mode=OneWay}" IsReadOnly="true" Width="1*">
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
-                                            <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsNOTCAFDESV2}" Value="true" >
-                                                        <Setter Property="Background" Value="Gray"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger  Value="true" >
+                                                        <DataTrigger.Binding>
+                                                            <MultiBinding Converter="{StaticResource AndConverter}">
+                                                                <Binding Path="IsBloc3DecisionFavorable"/>
+                                                                <Binding Path="IsL1"/>
+                                                            </MultiBinding>
+                                                        </DataTrigger.Binding>
+                                                        <Setter Property="Background" Value="Yellow"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsBloc3DecisionFavorable}" Value="true" >
-                                                    <Setter Property="Background" Value="Green"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
+                                                    <DataTrigger  Value="true" >
+                                                        <DataTrigger.Binding>
+                                                            <MultiBinding Converter="{StaticResource AndConverter}">
+                                                                <Binding Path="IsBloc3DecisionFavorable"/>
+                                                                <Binding Path="IsL2"/>
+                                                            </MultiBinding>
+                                                        </DataTrigger.Binding>
+                                                        <Setter Property="Background" Value="Green"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     </DataGridCheckBoxColumn>
                                     <DataGridCheckBoxColumn Header="B4" Binding="{Binding IsBloc4, Mode=OneWay}" IsReadOnly="true" Width="1*">
                                         <DataGridCheckBoxColumn.ElementStyle>
                                             <Style TargetType="CheckBox">
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsNOTCAFDESV2}" Value="true" >
-                                                        <Setter Property="Background" Value="Gray"/>
+                                                    <DataTrigger  Value="true" >
+                                                        <DataTrigger.Binding>
+                                                            <MultiBinding Converter="{StaticResource AndConverter}">
+                                                                <Binding Path="IsBloc4DecisionFavorable"/>
+                                                                <Binding Path="IsL1"/>
+                                                            </MultiBinding>
+                                                        </DataTrigger.Binding>
+                                                        <Setter Property="Background" Value="Yellow"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsBloc4DecisionFavorable}" Value="true" >
+                                                    <DataTrigger  Value="true" >
+                                                        <DataTrigger.Binding>
+                                                            <MultiBinding Converter="{StaticResource AndConverter}">
+                                                                <Binding Path="IsBloc4DecisionFavorable"/>
+                                                                <Binding Path="IsL2"/>
+                                                            </MultiBinding>
+                                                        </DataTrigger.Binding>
                                                         <Setter Property="Background" Value="Green"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -566,6 +615,9 @@
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsLivretClos}" Value="true">
                                                 <Setter Property="Background" Value="LightGray"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsNOTCAFDESV2}" Value="true">
+                                                <Setter Property="Background" Value="Gray"></Setter>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>

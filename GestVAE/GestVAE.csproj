@@ -488,6 +488,7 @@
     <Content Include="DOCS\BD Globale convertie Jurés en fonction.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="DOCS\ExtractionGESTVAE.xlsx" />
     <None Include="GestVAE_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GestVAEcls.Context.datasource" />

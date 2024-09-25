@@ -764,27 +764,6 @@ namespace GestVAE.VM
             return oReturn;
         }
         /// <summary>
-        /// Rend Vrai si on a un L2 EnCours de traitement dans la date de validité n'est pas échue
-        /// </summary>
-        public Boolean ISL2EnCours
-        {
-            get
-            {
-                Boolean bReturn = false;
-                foreach (Livret2VM oL2 in getListLivret2())
-                {
-                        // Si le L2 est clos => non Valide
-                        if (oL2.IsLivretEnCours)
-                        {
-                            bReturn = true;
-                        }
-                }
-
-                return bReturn;
-
-            }
-        }
-        /// <summary>
         /// Rend Vrai si le candidat a au moins 1 Livret2 en Décision partielle
         /// </summary>
         public Boolean ISL2EnValidationPartielle
@@ -816,14 +795,15 @@ namespace GestVAE.VM
         {
             get
                 {
-                Boolean bReturn = false;
-                // L'ajout d'un L2 est possible s'il y  a un L1 de Valide ET qu'il n'y a  pas un autre L2 Valide
+                return true;
+                //Boolean bReturn = false;
+                //// L'ajout d'un L2 est possible s'il y  a un L1 de Valide ET qu'il n'y a  pas un autre L2 Valide
 
-                if (IsL1Valide && !ISL2EnCours)
-                {
-                    bReturn = true;
-                }
-                return bReturn;
+                //if (IsL1Valide && !ISL2EnCours)
+                //{
+                //    bReturn = true;
+                //}
+                //return bReturn;
             }
         }
 
@@ -915,6 +895,93 @@ namespace GestVAE.VM
 
                 }
             }
+        }
+        /// <summary>
+        ///  Mise à jour du diplome du candidat
+        /// </summary>
+        /// <param name="pLivret"></param>
+        public void UpdateDiplomeCand(Livret2VM pLivret)
+        {
+
+            // Lecture du Diplome associé au livret
+            DiplomeCandVM oDip = this.getDiplomeCand(pLivret);
+            if (oDip != null)
+
+            {
+                if (pLivret.IsEtatEnCours)
+                {
+                    foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
+                    {
+                        DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
+                        if (oDCCand != null)
+                        {
+                            oDCCand.Statut = "En cours";
+                        }
+                        item.Statut = "En cours";
+                    }
+                }
+                else
+                {
+                    if (pLivret.IsDecisionJuryPartielle)
+                    {
+                        foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
+                        {
+                            DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
+                            if (oDCCand != null)
+                            {
+                                if (item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value)
+                                {
+                                    oDCCand.Statut = oDip.LstStatutModule[0];
+                                    oDCCand.DateObtention = pLivret.DateJury;
+                                    oDCCand.Commentaire = item.MotifCommentaire;
+                                    oDCCand.ModeObtention = "VAE";
+                                }
+                                else
+                                {
+                                    oDCCand.Statut = oDip.LstStatutModule[1];
+                                    oDCCand.Commentaire = item.MotifCommentaire;
+                                    oDCCand.DateObtention = pLivret.DateJury;
+                                    oDCCand.ModeObtention = "";
+                                }
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        if (pLivret.IsDecisionJuryFavorable)
+                        {
+                            // Validation des DC àValider
+                            foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
+                            {
+                                item.Statut = oDip.LstStatutModule[0];
+                                item.Decision = pLivret.DecisionL2ModuleFavorable;
+                                DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
+                                oDCCand.Statut = oDip.LstStatutModule[0];
+                                oDCCand.DateObtention = pLivret.DateJury;
+                                oDCCand.ModeObtention = "VAE";
+                            }
+                            oDip.DateObtentionDiplome = pLivret.DateJury;
+                            oDip.StatutDiplome = "Validé";
+                        }
+                        if (pLivret.IsDecisionJuryDefavorable)
+                        {
+                            // Validation des DC àValider
+                            foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
+                            {
+                                item.Statut = oDip.LstStatutModule[1];
+                                DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
+                                oDCCand.Statut = oDip.LstStatutModule[1];
+                                oDCCand.DateObtention = pLivret.DateJury;
+                                oDCCand.ModeObtention = "VAE";
+                            }
+                        }
+                    }
+                }
+                oDip.CalcStatutDiplome();
+
+            }
+
         }
 
     }

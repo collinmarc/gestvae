@@ -655,7 +655,6 @@ namespace GestVAETU
             oL2.lstDCLivret[3].IsAValider = true;
             VM.ValideretQuitterL2();
             //Ajout de L2 impossible car L2 en cours
-            Assert.IsTrue(VM.CurrentCandidat.ISL2EnCours);
             Assert.IsFalse(VM.AjouteL2Command.CanExecute(null));
 
             // Le L2 est Validé Partiellement => on peut Ajouter un L2

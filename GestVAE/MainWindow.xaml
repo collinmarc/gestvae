@@ -503,7 +503,7 @@
                                     <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}" Width="1*" />
                                     <DataGridTextColumn Header="Numero" Binding="{Binding Numero}" Width="2*"/>
                                     <DataGridTextColumn Header="Diplome" Binding="{Binding NomDiplome}" Width="3*"/>
-                                    <DataGridCheckBoxColumn Header="B1" Binding="{Binding IsBloc1, Mode=OneWay}" IsReadOnly="true"  Width="1*">
+                                    <DataGridCheckBoxColumn Header="BC1" Binding="{Binding IsBloc1, Mode=OneWay}" IsReadOnly="true"  Width="1*">
                                         <DataGridCheckBoxColumn.ElementStyle>
                                             <Style TargetType="CheckBox">
                                                 <Style.Triggers>
@@ -529,7 +529,7 @@
                                             </Style>
                                         </DataGridCheckBoxColumn.ElementStyle>
                                     </DataGridCheckBoxColumn>
-                                    <DataGridCheckBoxColumn Header="B2" Binding="{Binding IsBloc2, Mode=OneWay}" IsReadOnly="true" Width="1*">
+                                    <DataGridCheckBoxColumn Header="BC2" Binding="{Binding IsBloc2, Mode=OneWay}" IsReadOnly="true" Width="1*">
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
                                                 <Style.Triggers>
@@ -555,7 +555,7 @@
                                             </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     </DataGridCheckBoxColumn>
-                                    <DataGridCheckBoxColumn Header="B3" Binding="{Binding IsBloc3, Mode=OneWay}" IsReadOnly="true" Width="1*">
+                                    <DataGridCheckBoxColumn Header="BC3" Binding="{Binding IsBloc3, Mode=OneWay}" IsReadOnly="true" Width="1*">
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
                                                 <Style.Triggers>
@@ -581,7 +581,7 @@
                                             </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     </DataGridCheckBoxColumn>
-                                    <DataGridCheckBoxColumn Header="B4" Binding="{Binding IsBloc4, Mode=OneWay}" IsReadOnly="true" Width="1*">
+                                    <DataGridCheckBoxColumn Header="BC4" Binding="{Binding IsBloc4, Mode=OneWay}" IsReadOnly="true" Width="1*">
                                         <DataGridCheckBoxColumn.ElementStyle>
                                             <Style TargetType="CheckBox">
                                                 <Style.Triggers>

@@ -135,14 +135,19 @@ namespace GestVAE.VM
             {
                 DCLivretVM oDCLivretVM = new DCLivretVM(new DCLivret(oDC));
                 this.lstDCLivret.Add(oDCLivretVM);
+                this.TheLivret.lstDCLivrets.Add(oDCLivretVM.TheDCLivret);
             }
             // Transfert des blocs de CAFDES V2 vers CAFDESV2
             foreach (DCLivretVM item in pLivAncien.lstDCLivret)
             {
-                DCLivretVM oItemNew = this.lstDCLivret.First(d => d.NumDC == item.NumDC);
+                DCLivretVM oItemNew;
                 if (!pLivAncien.IsCAFDESV2)
                 {
                     oItemNew = this.lstDCLivret.First(d => d.NumDC == item.getNumBlocV2());
+                }
+                else
+                {
+                    oItemNew = this.lstDCLivret.First(d => d.NumDC == item.NumDC);
                 }
                 oItemNew.IsAValider = item.IsAValider;
                 oItemNew.Commentaire = item.Commentaire;
@@ -151,6 +156,7 @@ namespace GestVAE.VM
                 oItemNew.ModeObtention = item.ModeObtention;
                 oItemNew.PropositionDecision = item.PropositionDecision;
                 oItemNew.Statut = item.Statut;
+                lstDCLivret.Add(oItemNew);
             }
 
             // Recopie des attributs
@@ -166,7 +172,6 @@ namespace GestVAE.VM
             this.DatePrevJury2 = pLivAncien.DatePrevJury2;
             this.SessionJury = pLivAncien.SessionJury;
             this.DateLimiteJury = pLivAncien.DateLimiteJury;
-            this.DateValidite = pLivAncien.DateValidite;
             this.IsAttestationOK = pLivAncien.IsAttestationOK;
             this.IsCNIOK = pLivAncien.IsCNIOK;
             this.IsDispenseArt2 = pLivAncien.IsDispenseArt2;
@@ -186,6 +191,7 @@ namespace GestVAE.VM
             this.IsEnregistre = pLivAncien.IsEnregistre;
             this.IsPaye = pLivAncien.IsPaye;
             this.IsTrtSpecial = pLivAncien.IsTrtSpecial;
+            this.DateValidite = pLivAncien.DateValidite;
 
 
             this.lstJuryVM.Clear();
@@ -830,28 +836,6 @@ namespace GestVAE.VM
 
         }
         /// <summary>
-        /// Un Livret En cours est un Livret non Clos que n'est Ni Accepté, ni refusé
-        /// </summary>
-        /// <returns></returns>
-        public Boolean IsLivretEnCours
-        {
-            get
-            {
-                Boolean bReturn = false;
-                if (!IsLivretClos)
-                {
-                    bReturn = (!IsEtatAccepte && !IsEtatRefuse);
-                }
-                return bReturn;
-            }
-        }
-        public Boolean IsLivretNotEnCours
-        {
-            get {
-                return !IsLivretEnCours;
-            }
-        }
-        /// <summary>
         /// Rend le numéro de l'onglet a Afficher par défaut
         /// </summary>
         public Int32 getNumTab
@@ -1049,5 +1033,10 @@ namespace GestVAE.VM
 
         }
 
+        public override CandidatVM GetCandidatVM()
+        {
+            return new CandidatVM(oL2.oCandidat);
+
+        }
     }
 }

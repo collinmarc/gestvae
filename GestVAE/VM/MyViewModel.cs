@@ -319,7 +319,7 @@ namespace GestVAE.VM
                     _lstCandidatVM = value;
                     RaisePropertyChanged();
                     RaisePropertyChanged(nameof(lstCandidatsCount));
-                    RaisePropertyChanged(nameof(lstCandidatsIndex));
+                    RaisePropertyChanged(nameof(MlstCandidatsIndex));
                 };
             }
         }
@@ -333,15 +333,28 @@ namespace GestVAE.VM
         /// <summary>
         ///  Utlisé par le processus de migration pour la progressbar
         /// </summary>
-        private int _lstCandidatsIndex;
-        public int lstCandidatsIndex
+        private int M_lstCandidatsIndex;
+        public int MlstCandidatsIndex
         {
-            get { return _lstCandidatsIndex; }
+            get { return M_lstCandidatsIndex; }
             set
             {
-                if (value != _lstCandidatsIndex)
+                if (value != M_lstCandidatsIndex)
                 {
-                    _lstCandidatsIndex = value;
+                    M_lstCandidatsIndex = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private int M_lstCandidatsCount;
+        public int MlstCandidatsCount
+        {
+            get { return M_lstCandidatsCount; }
+            set
+            {
+                if (value != M_lstCandidatsCount)
+                {
+                    M_lstCandidatsCount = value;
                     RaisePropertyChanged();
                 }
             }
@@ -1265,6 +1278,21 @@ namespace GestVAE.VM
             oDlg.setContexte(this);
             oDlg.ShowDialog();
         }
+        public CandidatVM MCandidat { get; set; }
+        private String M_CandidatNom;
+
+        public String MCandidatNom
+        {
+            get { return M_CandidatNom; }
+            set
+            {
+                if (MCandidatNom != value)
+                {
+                    M_CandidatNom = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         private bool _InterrompreMigration;
         public void MigrationcompleteInterrompre()
@@ -1272,51 +1300,91 @@ namespace GestVAE.VM
             _InterrompreMigration = true;
         }
         public async void Migrationcomplete()
-        {
-            _InterrompreMigration = false;
-            IQueryable<Candidat> rq;
-            IsInTest = true; // On utilise les commandes du Contexte sans agir sur les fenêtres
-            rq = _ctx.Candidats;
-            // Filtre sur les Candidats qui au moins 1 Livrets non clos
-            rq = rq.Where(c => c.lstLivrets1.Count + c.lstLivrets2.Count > 0); // Au moins 1 livret
-            rq = rq.Where(c => (c.lstLivrets1.Any(l => !l.isClos) || c.lstLivrets2.Any(l => !l.isClos)) ); // Au moins 1 Livret Non clos
-            rq = rq.Where(c =>  c.lstLivrets1.Any(l => l.EtatLivret != "") ); // au moins 1 L1 avec un etat correct
-            //rq = rq.Where(c => c.Nom == "NION");
-            lstCandidatVM.Clear();
-            foreach (Candidat item in rq)
-            {
+        {   
+            List<CandidatVM> MLstCand = new List<CandidatVM>();
+            MlstCandidatsIndex = 0;
+            MlstCandidatsCount = 0;
+            MCandidatNom = "Chargement de la liste de candidats à migrer";
 
-                CandidatVM oCand = new CandidatVM(item);
-                lstCandidatVM.Add(oCand);
-            }
-
-
-            lstCandidatsIndex = 0;
-            RaisePropertyChanged("lstCandidatsVM");
-            RaisePropertyChanged("lstCandidatsCount");
-            foreach (CandidatVM item in lstCandidatVM)
-            {
-                if (_InterrompreMigration)
-                {
-                    IsInTest = false;
-                    MessageBoxShow("Migration interrompue");
-                    return;
-                }
-                lstCandidatsIndex = lstCandidatsIndex + 1;
-                CurrentCandidat = item;
-                CurrentCandidat.bAfficherLivretsCAFDES = true;
-                foreach (LivretVMBase oL in CurrentCandidat.lstLivretsActif)
-                {
-                    if (!oL.IsCAFDESV2)
+            await Task.Run(()=> { 
+                    _InterrompreMigration = false;
+                    IQueryable<Candidat> rq;
+                    IsInTest = true; // On utilise les commandes du Contexte sans agir sur les fenêtres
+                    rq = _ctx.Candidats;
+                    // Filtre sur les Candidats qui au moins 1 Livrets non clos
+                    rq = rq.Where(c => c.lstLivrets1.Count + c.lstLivrets2.Count > 0); // Au moins 1 livret
+                    rq = rq.Where(c => (c.lstLivrets1.Any(l => !l.isClos) || c.lstLivrets2.Any(l => !l.isClos)) ); // Au moins 1 Livret Non clos
+                    rq = rq.Where(c => c.lstLivrets1.Any(l => l.EtatLivret != "")); // au moins 1 L1 avec un etat correct
+                MLstCand.Clear();
+                    MlstCandidatsCount = rq.Count();
+                    foreach (Candidat item in rq)
                     {
-                        CurrentCandidat.CurrentLivret = oL;
-                        //await Task.Delay(10); // Remplace par le temps nécessaire pour traiter chaque candidat
-                        await Task.Run(() => { MigrationCAFDESV2(); });
+
+                        CandidatVM oCand = new CandidatVM(item);
+                        MLstCand.Add(oCand);
+                        MlstCandidatsIndex++;
+                    }
+                    MlstCandidatsCount = MLstCand.Count;
+            });
+
+            await Task.Run(() => {
+                MlstCandidatsIndex = 0;
+                foreach (CandidatVM item in MLstCand)
+                {
+                    if (_InterrompreMigration)
+                    {
+                        return;
+                    }
+                    MlstCandidatsIndex = MlstCandidatsIndex + 1;
+                    MCandidat = item;
+                    MCandidat.bAfficherLivretsCAFDES = true;
+                    MCandidat.LoadDetails();
+                    MCandidatNom = item.Nom;
+                    Trace.WriteLine("Migration de " + MCandidatNom);
+                //if (MCandidat.Nom == "CARON")
+                //    {
+                //        MCandidat.Prenom = "Test";
+                //    }
+                    foreach (LivretVMBase oL in MCandidat.lstLivretsActif)
+                    {
+                        if (!oL.IsCAFDESV2)
+                        {
+                            if (oL.IsL2)
+                            {
+                                Livret2VM oL2Ancien = (Livret2VM)oL;
+                                Livret2VM oL2CAFDESV2 = new Livret2VM(oL2Ancien);
+                                oL2Ancien.Cloturer();
+                                MCandidat.lstLivrets.Add(oL2CAFDESV2);
+                                MCandidat.TheCandidat.lstLivrets2.Add((Livret2)oL2CAFDESV2.TheLivret);
+                                oL2CAFDESV2.isAdded = true;
+                                MCandidat.UpdateDiplomeCand(oL2CAFDESV2);
+                            }
+                            if (oL.IsL1)
+                            {
+                                Livret1VM oL1Ancien = (Livret1VM)oL;
+                                Livret1VM oL1CAFDESV2 = new Livret1VM(oL1Ancien);
+                                oL1Ancien.Cloturer();
+                                MCandidat.lstLivrets.Add(oL1CAFDESV2);
+                                MCandidat.TheCandidat.lstLivrets1.Add((Livret1)oL1CAFDESV2.TheLivret);
+                                oL1CAFDESV2.isAdded = true;
+                            }
+                        }
                     }
                 }
+            });
+            if (_InterrompreMigration)
+            {
+                MCandidatNom = "MIGRATION INTERROMPUE, les données ne sont pas sauvegardées !!!";
+                SetModelHasChanges();
             }
-            IsInTest = false;
-            MessageBoxShow("Terminé, Pensez à sauvegarder les données ");
+            else
+            {
+                MCandidatNom = "MIGRATION TERMINEE !!!";
+                SetModelHasChanges();
+                saveData();
+
+            }
+
         }
 
         /// <summary>
@@ -1328,9 +1396,9 @@ namespace GestVAE.VM
             {
                 Livret2VM oL2Ancien = (Livret2VM)CurrentCandidat.CurrentLivret;
                 Livret2VM oL2CAFDESV2 = new Livret2VM(oL2Ancien);
-                CurrentCandidat.lstLivrets.Add(oL2CAFDESV2);
-                oL2CAFDESV2.isAdded = true;
                 oL2Ancien.Cloturer();
+                oL2CAFDESV2.isAdded = true;
+                CurrentCandidat.lstLivrets.Add(oL2CAFDESV2);
                 ValideretQuitterL2();
                 CurrentCandidat.CurrentLivret = oL2CAFDESV2;
                 if (!IsInTest)
@@ -1342,9 +1410,9 @@ namespace GestVAE.VM
             {
                 Livret1VM oL1Ancien = (Livret1VM)CurrentCandidat.CurrentLivret;
                 Livret1VM oL1CAFDESV2 = new Livret1VM(oL1Ancien);
+                oL1Ancien.Cloturer();
                 CurrentCandidat.lstLivrets.Add(oL1CAFDESV2);
                 oL1CAFDESV2.isAdded = true;
-                oL1Ancien.Cloturer();
                 ValideretQuitterL1();
                 CurrentCandidat.CurrentLivret = oL1CAFDESV2;
                 if (!IsInTest)
@@ -1353,7 +1421,7 @@ namespace GestVAE.VM
                 }
 
             }
-
+            Task.Delay(10);
         }
 
         public void AfficherCurrentLivret()
@@ -1439,7 +1507,7 @@ namespace GestVAE.VM
             // Mise à jour du diplome du candidat
             //if (oL2VM.IsEtatAccepte)
             {
-                UpdateDiplomeCand(oL2VM);
+                CurrentCandidat.UpdateDiplomeCand(oL2VM);
             }
             // Si le livret est Nouveau et qu'il n'a pas été ajouté => Ajout dans la Collection des Livrets
             if (oL2VM.IsNew  & ! oL2VM.isAdded )
@@ -1455,92 +1523,6 @@ namespace GestVAE.VM
             }
             RaisePropertyChanged(nameof(IsCurrentCandidatAddL1Available));
             RaisePropertyChanged(nameof(IsCurrentCandidatAddL2Available));
-        }
-        /// <summary>
-        ///  Mise à jour du diplome du candidat
-        /// </summary>
-        /// <param name="pLivret"></param>
-        private void UpdateDiplomeCand(Livret2VM pLivret)
-        {
-            // Lecture du Diplome associé au livret
-            DiplomeCandVM oDip = CurrentCandidat.getDiplomeCand(pLivret);
-            if (oDip != null)
-
-            {
-                if (pLivret.IsEtatEnCours)
-                {
-                    foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
-                    {
-                        DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
-                        if (oDCCand != null)
-                        {
-                            oDCCand.Statut = "En cours";
-                        }
-                        item.Statut = "En cours";
-                    }
-                }
-                else
-                {
-                    if (pLivret.IsDecisionJuryPartielle)
-                    {
-                        foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
-                        {
-                            DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
-                            if (oDCCand != null)
-                            {
-                                if (item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value)
-                                {
-                                    oDCCand.Statut = oDip.LstStatutModule[0]; 
-                                    oDCCand.DateObtention = pLivret.DateJury;
-                                    oDCCand.Commentaire = item.MotifCommentaire;
-                                    oDCCand.ModeObtention = "VAE";
-                                }
-                                else
-                                {
-                                    oDCCand.Statut = oDip.LstStatutModule[1];
-                                    oDCCand.Commentaire = item.MotifCommentaire;
-                                    oDCCand.DateObtention = pLivret.DateJury;
-                                    oDCCand.ModeObtention = "";
-                                }
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        if (pLivret.IsDecisionJuryFavorable)
-                        {
-                            // Validation des DC àValider
-                            foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
-                            {
-                                item.Statut = oDip.LstStatutModule[0];
-                                item.Decision = pLivret.DecisionL2ModuleFavorable;
-                                DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
-                                oDCCand.Statut = oDip.LstStatutModule[0];
-                                oDCCand.DateObtention = pLivret.DateJury;
-                                oDCCand.ModeObtention = "VAE";
-                            }
-                            oDip.DateObtentionDiplome = pLivret.DateJury;
-                            oDip.StatutDiplome = "Validé";
-                        }
-                        if (pLivret.IsDecisionJuryDefavorable)
-                        {
-                            // Validation des DC àValider
-                            foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
-                            {
-                                item.Statut = oDip.LstStatutModule[1];
-                                DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
-                                oDCCand.Statut = oDip.LstStatutModule[1];
-                                oDCCand.DateObtention = pLivret.DateJury;
-                                oDCCand.ModeObtention = "VAE";
-                            }
-                        }
-                    }
-                }
-                oDip.CalcStatutDiplome();
-
-            }
-
         }
 
         public void QuitterLivret()
@@ -1769,25 +1751,26 @@ namespace GestVAE.VM
         {
             get
             {
-                Boolean bReturn = false;
-                if (CurrentCandidat == null)
-                {
-                    bReturn = false;
-                }
-                else
-                {
-                    if (IsCurrentCandidatLocked)
-                    {
-                        // L'ajout d'un L1 n'est pas possible s'il y a un L1 de valide
-                        bReturn = !CurrentCandidat.IsL1Valide;
-                        if (bReturn)
-                        {
-                            // OU S'il y a un L1 en cours
-                            bReturn = !CurrentCandidat.IsL1Encours;
-                        }
-                    }
-                }
-                return bReturn;
+                return true;
+                //Boolean bReturn = false;
+                //if (CurrentCandidat == null)
+                //{
+                //    bReturn = false;
+                //}
+                //else
+                //{
+                //    if (IsCurrentCandidatLocked)
+                //    {
+                //        // L'ajout d'un L1 n'est pas possible s'il y a un L1 de valide
+                //        bReturn = !CurrentCandidat.IsL1Valide;
+                //        if (bReturn)
+                //        {
+                //            // OU S'il y a un L1 en cours
+                //            bReturn = !CurrentCandidat.IsL1Encours;
+                //        }
+                //    }
+                //}
+                //return bReturn;
             }
         }
 
@@ -1799,17 +1782,18 @@ namespace GestVAE.VM
         {
             get
             {
-                Boolean bReturn = false;
-                if (CurrentCandidat != null)
-                {
-                    if (IsCurrentCandidatLocked)
-                    {
-                        bReturn = CurrentCandidat.IsAddL2Available;
+                return true;
+            //    Boolean bReturn = false;
+            //    if (CurrentCandidat != null)
+            //    {
+            //        if (IsCurrentCandidatLocked)
+            //        {
+            //            bReturn = CurrentCandidat.IsAddL2Available;
 
 
-                    }
-                }
-                return bReturn;
+            //        }
+            //    }
+            //    return bReturn;
             }
         }
 

@@ -504,6 +504,8 @@ namespace GestVAE.VM
                     RaisePropertyChanged("IsEtatAccepte");
                     RaisePropertyChanged("IsEtatFerme");
                     RaisePropertyChanged("IsEtatIrrecevable");
+                    RaisePropertyChanged("IsLivretEnCours");
+                    RaisePropertyChanged("IsNotLivretEnCours");
                     if (!IsEtatRecuComplet)
                     {
                         DateJury = null;
@@ -521,6 +523,8 @@ namespace GestVAE.VM
                 }
             }
         }
+
+
         public Boolean IsLivretNonModifiable
         {
             get { if (!IsLocked && IsCAFDESV2)
@@ -554,6 +558,8 @@ namespace GestVAE.VM
                     RaisePropertyChanged("IsLivretNonClos");
                     RaisePropertyChanged("IsLivretModifiable");
                     RaisePropertyChanged("IsLivretNonModifiable");
+                    RaisePropertyChanged("IsLivretEnCours");
+                    RaisePropertyChanged("IsLivretNonEnCours");
                 }
             }
         }
@@ -1445,6 +1451,8 @@ namespace GestVAE.VM
         {
             get { return !IsCAFDESV2; }
         }
+        public abstract CandidatVM GetCandidatVM();
+
 
     }
 

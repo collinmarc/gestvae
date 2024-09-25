@@ -38,6 +38,8 @@ namespace GestVAE.VM
                 DCLivretVM oDCLivretVM = new DCLivretVM(new DCLivret(oDC));
                 oDCLivretVM.IsAValider = true;
                 this.lstDCLivret.Add(oDCLivretVM);
+                this.TheLivret.lstDCLivrets.Add(oDCLivretVM.TheDCLivret);
+
             }
             // Transfert des blocs de CAFDES vers CAFDESV2  (Normalement il n'y en a pas)
             foreach (DCLivretVM item in pLivAncien.lstDCLivret)
@@ -67,7 +69,6 @@ namespace GestVAE.VM
 //            this.DatePrevJury2 = pLivAncien.DatePrevJury2;
 //            this.SessionJury = pLivAncien.SessionJury;
             this.DateLimiteJury = pLivAncien.DateLimiteJury;
-            this.DateValidite = pLivAncien.DateValidite;
 //            this.IsAttestationOK = pLivAncien.IsAttestationOK;
             this.IsCNIOK = pLivAncien.IsCNIOK;
            //this.IsDispenseArt2 = pLivAncien.IsDispenseArt2;
@@ -87,6 +88,7 @@ namespace GestVAE.VM
             this.IsEnregistre = pLivAncien.IsEnregistre;
             this.IsPaye = pLivAncien.IsPaye;
             //this.IsTrtSpecial = pLivAncien.IsTrtSpecial;
+            this.DateValidite = pLivAncien.DateValidite;
 
 
             this.lstJuryVM.Clear();
@@ -803,5 +805,11 @@ namespace GestVAE.VM
         {
             return IsLocked;
         }
+        public override CandidatVM GetCandidatVM()
+        {
+            return new CandidatVM(oL1.oCandidat);
+
+        }
+
     }
 }

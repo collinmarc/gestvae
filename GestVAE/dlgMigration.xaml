@@ -8,13 +8,13 @@
         Title="Migration CAFDESV2" Height="603.659" Width="800">
     <Grid>
         <StackPanel Orientation="Vertical" Margin="10,10,10,19">
-            <TextBlock HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Cette action permet de faire la migration des données CAFDES vers CAFDESV2, Cette opération est a faire uneseule fois et elle elle irréversible. Assurez vous d'avoir une sauvegarde des données " VerticalAlignment="Top" Background="#FFFB0F04" FontFamily="Calibri" FontSize="20" FontWeight="Bold" TextAlignment="Center" Margin="0,100,0,0"/>
+            <TextBlock HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Cette action permet de faire la migration des données CAFDES vers CAFDESV2, Cette opération est a faire uneseule fois et elle est irréversible. Assurez vous d'avoir une sauvegarde des données " VerticalAlignment="Top" Background="#FFFB0F04" FontFamily="Calibri" FontSize="20" FontWeight="Bold" TextAlignment="Center" Margin="0,100,0,0"/>
             <Button x:Name="cbMigrationCAFDESV2"  
                 Command="{Binding MigrationcompleteCommand}" 
-                Content="Migration CAFDESV2" Margin="50" Height="50" />
+                Content="Migration CAFDESV2" Margin="50" Height="50" Click="CbMigrationCAFDESV2_Click_1" />
             <ProgressBar HorizontalAlignment="Center" Height="34" VerticalAlignment="Top" Width="695" x:Name="pbCandidats" 
-                     Maximum="{Binding lstCandidatsCount}" Value="{Binding lstCandidatsIndex}" HorizontalContentAlignment="Center"/>
-            <Label Content="{Binding CurrentCandidatNom}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                     Maximum="{Binding MlstCandidatsCount}" Value="{Binding MlstCandidatsIndex}" HorizontalContentAlignment="Center"/>
+            <Label Content="{Binding MCandidatNom}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
             <Button x:Name="cbInterrompreMigration"  
                 Command="{Binding MigrationcompleteInterrompreCommand}" 
                 Content="Interrompre la migration" Margin="50" Height="50" />

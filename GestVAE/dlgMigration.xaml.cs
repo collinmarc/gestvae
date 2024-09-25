@@ -39,25 +39,11 @@ namespace GestVAE
 
         private void CbMigrationCAFDESV2_Click(object sender, RoutedEventArgs e)
         {
-            IQueryable<Candidat> rq;
-            getViewModel().IsInTest = true; // On utilise les commandes de l'interface sans agir sur les fenêtres
-            rq = getViewModel()._ctx.Candidats;
-            this.pbCandidats.Maximum = rq.Count();
-            pbCandidats.Value = 0;
-            foreach (Candidat item in rq)
-            {
+            Cursor = Cursors.Wait;
+        }
 
-                getViewModel().CurrentCandidat = new CandidatVM(item);
-                foreach (LivretVMBase oL in getViewModel().CurrentCandidat.lstLivretsActif)
-                {
-                    pbCandidats.Value = pbCandidats.Value + 1;
-                    if (!oL.IsCAFDESV2)
-                    {
-                        getViewModel().CurrentCandidat.CurrentLivret = oL;
-                        getViewModel().MigrationCAFDESV2();
-                    }
-                }
-            }
+        private void CbMigrationCAFDESV2_Click_1(object sender, RoutedEventArgs e)
+        {
 
         }
     }

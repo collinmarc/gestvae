@@ -691,6 +691,22 @@ namespace GestVAE.VM
 
             }
         }
+        public Boolean IsDecisionJuryValidationTotale
+        {
+            get
+            {
+                if (IsL1)
+                {
+                    return false;
+                }
+                else
+                {
+                    return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+
+                }
+
+            }
+        }
         public Boolean IsDecisionJuryDefavorable
         {
             get
@@ -1383,7 +1399,7 @@ namespace GestVAE.VM
             }
         }
 
-        private Boolean IsBloc(int pNum)
+        private Boolean IsBlocAValider(int pNum)
         {
             if (IsCAFDESV2)
             {
@@ -1397,11 +1413,20 @@ namespace GestVAE.VM
         public Boolean IsBlocDecisionFavorable (int pNum)
         {
             Boolean breturn = false;
-            if (IsBloc(pNum))
+            // Si la decision du jury est 'Validation Totale' Donc Tous les blocs sont Accordés qu'ils soient AValiderOu Pas
+            if (IsDecisionJuryValidationTotale)
+                    { breturn = true; }
+            else
             {
-                if (lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.HasValue)
+                if (IsBlocAValider(pNum))
                 {
-                    breturn = lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.Value;
+                    {
+                        // Sinon on regarde chaque bloc
+                        if (lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.HasValue)
+                        {
+                            breturn = lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.Value;
+                        }
+                    }
                 }
             }
             return breturn;
@@ -1410,7 +1435,7 @@ namespace GestVAE.VM
 
         public Boolean IsBloc1
         {
-            get { return IsBloc(1); }
+            get { return IsBlocAValider(1); }
         }
 
         public Boolean IsBloc1DecisionFavorable
@@ -1419,7 +1444,7 @@ namespace GestVAE.VM
         }
         public Boolean IsBloc2
         {
-            get { return IsBloc(2); }
+            get { return IsBlocAValider(2); }
         }
         public Boolean IsBloc2DecisionFavorable
         {
@@ -1427,7 +1452,7 @@ namespace GestVAE.VM
         }
         public Boolean IsBloc3
         {
-            get { return IsBloc(3); }
+            get { return IsBlocAValider(3); }
         }
         public Boolean IsBloc3DecisionFavorable
         {
@@ -1435,7 +1460,7 @@ namespace GestVAE.VM
         }
         public Boolean IsBloc4
         {
-            get { return IsBloc(4); }
+            get { return IsBlocAValider(4); }
         }
         public Boolean IsBloc4DecisionFavorable
         {

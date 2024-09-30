@@ -1314,7 +1314,10 @@ namespace GestVAE.VM
                     // Filtre sur les Candidats qui au moins 1 Livrets non clos
                     rq = rq.Where(c => c.lstLivrets1.Count + c.lstLivrets2.Count > 0); // Au moins 1 livret
                     rq = rq.Where(c => (c.lstLivrets1.Any(l => !l.isClos) || c.lstLivrets2.Any(l => !l.isClos)) ); // Au moins 1 Livret Non clos
-                    rq = rq.Where(c => c.lstLivrets1.Any(l => l.EtatLivret != "")); // au moins 1 L1 avec un etat correct
+                rq = rq.Where(c => c.lstLivrets1.Any(l => l.EtatLivret != "")); // au moins 1 L1 avec un etat correct
+#if (DEBUG)
+//                rq = rq.Where(c => c.Nom== "JARDIN" || c.Nom == "CARON"); // DEBUG
+#endif
                 MLstCand.Clear();
                     MlstCandidatsCount = rq.Count();
                     foreach (Candidat item in rq)
@@ -1339,12 +1342,14 @@ namespace GestVAE.VM
                     MCandidat = item;
                     MCandidat.bAfficherLivretsCAFDES = true;
                     MCandidat.LoadDetails();
+                    MCandidat.Lock(_ContextID);
                     MCandidatNom = item.Nom;
                     Trace.WriteLine("Migration de " + MCandidatNom);
                 //if (MCandidat.Nom == "CARON")
                 //    {
                 //        MCandidat.Prenom = "Test";
                 //    }
+                    MCandidat.AjoutDiplomeCand(Diplome.getDiplomeParDefaut()); // Ajout du diplome CAFDESV2
                     foreach (LivretVMBase oL in MCandidat.lstLivretsActif)
                     {
                         if (!oL.IsCAFDESV2)
@@ -1355,7 +1360,6 @@ namespace GestVAE.VM
                                 Livret2VM oL2CAFDESV2 = new Livret2VM(oL2Ancien);
                                 oL2Ancien.Cloturer();
                                 MCandidat.lstLivrets.Add(oL2CAFDESV2);
-                                MCandidat.TheCandidat.lstLivrets2.Add((Livret2)oL2CAFDESV2.TheLivret);
                                 oL2CAFDESV2.isAdded = true;
                                 MCandidat.UpdateDiplomeCand(oL2CAFDESV2);
                             }
@@ -1365,7 +1369,6 @@ namespace GestVAE.VM
                                 Livret1VM oL1CAFDESV2 = new Livret1VM(oL1Ancien);
                                 oL1Ancien.Cloturer();
                                 MCandidat.lstLivrets.Add(oL1CAFDESV2);
-                                MCandidat.TheCandidat.lstLivrets1.Add((Livret1)oL1CAFDESV2.TheLivret);
                                 oL1CAFDESV2.isAdded = true;
                             }
                         }
@@ -1380,8 +1383,16 @@ namespace GestVAE.VM
             else
             {
                 MCandidatNom = "MIGRATION TERMINEE !!!";
-                SetModelHasChanges();
+                lstCandidatVM.Clear();
+                foreach (CandidatVM item in MLstCand)
+                {
+                    lstCandidatVM.Add(item);
+                }
+
+                    SetModelHasChanges();
                 saveData();
+
+                lstCandidatVM.Clear();
 
             }
 

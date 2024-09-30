@@ -948,11 +948,11 @@ namespace GestVAE.VM
 
                     }
                     else
-                    {
+                    { // Pas Partielle
                         if (pLivret.IsDecisionJuryFavorable)
                         {
                             // Validation des DC àValider
-                            foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
+                            foreach (DCLivretVM item in pLivret.lstDCLivret)
                             {
                                 item.Statut = oDip.LstStatutModule[0];
                                 item.Decision = pLivret.DecisionL2ModuleFavorable;

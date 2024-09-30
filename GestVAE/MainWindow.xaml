@@ -501,8 +501,20 @@
                                 </DataGrid.InputBindings>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Type" Binding="{Binding TheLivret.Typestr}" Width="1*" />
-                                    <DataGridTextColumn Header="Numero" Binding="{Binding Numero}" Width="2*"/>
-                                    <DataGridTextColumn Header="Diplome" Binding="{Binding NomDiplome}" Width="3*"/>
+                                    <DataGridTextColumn Header="Numero" Binding="{Binding Numero}" Width="2*">
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Diplome" Binding="{Binding NomDiplome}" Width="3*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDecisionJuryValidationTotale}" Value="true">
+                                                        <Setter Property="Background" Value="Green"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+
+                                    </DataGridTextColumn>
                                     <DataGridCheckBoxColumn Header="BC1" Binding="{Binding IsBloc1, Mode=OneWay}" IsReadOnly="true"  Width="1*">
                                         <DataGridCheckBoxColumn.ElementStyle>
                                             <Style TargetType="CheckBox">

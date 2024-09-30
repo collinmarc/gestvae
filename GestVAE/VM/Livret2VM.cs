@@ -155,6 +155,7 @@ namespace GestVAE.VM
                 oItemNew.DateObtention = item.DateObtention;
                 oItemNew.ModeObtention = item.ModeObtention;
                 oItemNew.PropositionDecision = item.PropositionDecision;
+                oItemNew.MotifCommentaire = item.MotifCommentaire;
                 oItemNew.Statut = item.Statut;
                 lstDCLivret.Add(oItemNew);
             }
@@ -192,6 +193,7 @@ namespace GestVAE.VM
             this.IsPaye = pLivAncien.IsPaye;
             this.IsTrtSpecial = pLivAncien.IsTrtSpecial;
             this.DateValidite = pLivAncien.DateValidite;
+            this.DateNotificationJury = pLivAncien.DateNotificationJury;
 
 
             this.lstJuryVM.Clear();
@@ -210,7 +212,7 @@ namespace GestVAE.VM
                 oItemNew.MotifDetail = item.MotifDetail;
                 oItemNew.MotifCommentaire = item.MotifCommentaire;
                 oItemNew.DateNotificationJury = item.DateNotificationJury;
-                oItemNew.DateNotificationJury = item.DateNotificationJuryRecours;
+                oItemNew.DateNotificationJuryRecours = item.DateNotificationJuryRecours;
 
                 this.lstJuryVM.Add(oItemNew);
             }

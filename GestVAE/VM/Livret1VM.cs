@@ -64,10 +64,10 @@ namespace GestVAE.VM
             this.DateLimiteReceptEHESP = pLivAncien.DateLimiteReceptEHESP;
             this.Date1ereDemandePieceManquantes = pLivAncien.Date1ereDemandePieceManquantes;
             this.Date2emeDemandePieceManquantes = pLivAncien.Date2emeDemandePieceManquantes;
-            this.DateReceptionPiecesManquantes = pLivAncien.DateReceptionPiecesManquantes;
-//            this.DatePrevJury1 = pLivAncien.DatePrevJury1;
-//            this.DatePrevJury2 = pLivAncien.DatePrevJury2;
-//            this.SessionJury = pLivAncien.SessionJury;
+            this.TypeDemande = pLivAncien.TypeDemande;
+            //            this.DatePrevJury1 = pLivAncien.DatePrevJury1;
+            //            this.DatePrevJury2 = pLivAncien.DatePrevJury2;
+            //            this.SessionJury = pLivAncien.SessionJury;
             this.DateLimiteJury = pLivAncien.DateLimiteJury;
 //            this.IsAttestationOK = pLivAncien.IsAttestationOK;
             this.IsCNIOK = pLivAncien.IsCNIOK;

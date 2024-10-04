@@ -89,7 +89,9 @@ namespace GestVAE.VM
             this.IsPaye = pLivAncien.IsPaye;
             //this.IsTrtSpecial = pLivAncien.IsTrtSpecial;
             this.DateValidite = pLivAncien.DateValidite;
-
+            this.DateReceptionPiecesManquantes = pLivAncien.DateReceptionPiecesManquantes;
+            this.DateEnvoiL2 = pLivAncien.DateEnvoiL2;
+            this.VecteurInformation = pLivAncien.VecteurInformation;
 
             this.lstJuryVM.Clear();
             foreach (JuryVM item in pLivAncien.lstJuryVM)
@@ -401,11 +403,37 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
+                oReturn.Add("");
                 oReturn.Add(String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE));
+                oReturn.Add(String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL1.DECISION_L1_PARTIELLE));
                 oReturn.Add(String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE));
                 return oReturn;
             }
             set { }
+        }
+        /// <summary>
+        /// défintion des Liste des motifs 
+        /// </summary>
+        private ObservableCollection<MotifGeneralL2> _lstMotifGL2;
+        public ObservableCollection<MotifGeneralL2> lstMotifGL2
+        {
+            get { return _lstMotifGL2; }
+            set { _lstMotifGL2 = value; }
+        }
+        private ObservableCollection<MotifGeneralL1> _lstMotifGL1;
+        public ObservableCollection<MotifGeneralL1> lstMotifGL1
+        {
+            get { return _lstMotifGL1; }
+            set { _lstMotifGL1 = value; }
+        }
+
+
+        private int myVar;
+
+        public int MyProperty
+        {
+            get { return myVar; }
+            set { myVar = value; }
         }
 
         /// <summary>
@@ -778,10 +806,12 @@ namespace GestVAE.VM
         {
             String strEtat = EtatLivret;
             String strKey = "";
-            if (IsDecisionJuryFavorable || (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursFavorable))
-            {
-                strKey = String.Format("{0:D}", MyEnums.EtatLivret.ETAT_Lv_ACCEPTE);
-            }
+            if (IsDecisionJuryFavorable || 
+                (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursFavorable) || 
+                IsDecisionJuryPartielle)
+                {
+                    strKey = String.Format("{0:D}", MyEnums.EtatLivret.ETAT_Lv_ACCEPTE);
+                }
             if ((IsDecisionJuryDefavorable && !IsRecoursDemande) ||
                 (IsDecisionJuryDefavorable && IsRecoursDemande && IsDecisionJuryRecoursDefavorable))
             {
@@ -799,6 +829,32 @@ namespace GestVAE.VM
             {
                 IsLivretClos = true;
             }
+        }
+        public override void  CalcDecisionJury()
+        {
+            int nDCFavorable = lstDCLivretAValider.Count(x => x.IsDecisionFavorable.HasValue && x.IsDecisionFavorable.Value);
+            int nDCdeFavorable = lstDCLivretAValider.Count(x => x.IsDecisionDefavorable.HasValue && x.IsDecisionDefavorable.Value);
+            int nDCsansDecision = lstDCLivretAValider.Count(x => !x.IsDecisionDefavorable.HasValue);
+            if (nDCsansDecision > 0)
+            {
+                DecisionJury = "";
+            }
+            else
+            {
+                if (nDCFavorable > 0 && nDCdeFavorable == 0)
+                {
+                    DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
+                }
+                if (nDCFavorable == 0 && nDCdeFavorable > 0)
+                {
+                    DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                }
+                if (nDCFavorable > 0 && nDCdeFavorable > 0)
+                {
+                    DecisionJury = String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL1.DECISION_L1_PARTIELLE);
+                }
+            }
+
         }
 
         public override bool IsValiderOK()

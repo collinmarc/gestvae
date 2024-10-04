@@ -1316,7 +1316,7 @@ namespace GestVAE.VM
                     rq = rq.Where(c => (c.lstLivrets1.Any(l => !l.isClos) || c.lstLivrets2.Any(l => !l.isClos)) ); // Au moins 1 Livret Non clos
                 rq = rq.Where(c => c.lstLivrets1.Any(l => l.EtatLivret != "")); // au moins 1 L1 avec un etat correct
 #if (DEBUG)
-//                rq = rq.Where(c => c.Nom== "JARDIN" || c.Nom == "CARON"); // DEBUG
+                rq = rq.Where(c => c.Nom== "JARDIN" || c.Nom == "CARON" || c.Nom == "NION"); // DEBUG
 #endif
                 MLstCand.Clear();
                     MlstCandidatsCount = rq.Count();
@@ -1441,6 +1441,8 @@ namespace GestVAE.VM
             if (CurrentCandidat.CurrentLivret is Livret1VM)
             {
                 ofrm = new frmLivret1();
+                ((Livret1VM)CurrentCandidat.CurrentLivret).lstMotifGL2 = this.lstMotifGL2;
+                ((Livret1VM)CurrentCandidat.CurrentLivret).lstMotifGL1 = this.lstMotifGL1;
                 ((frmLivret1)ofrm).setContexte(this);
             }
             else

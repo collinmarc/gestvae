@@ -410,13 +410,14 @@ namespace GestVAE.VM
                     oJury.Decision = value;
 
 
-                    if (!IsEtatRefuse)
+                    if (!IsDecisionJuryDefavorable)
                     {
                         MotifDetailJury = "";
                         MotifGeneralJury = "";
+                        CommentaireJury = "";
                         IsRecoursDemande = false;
                     }
-                    setEtatLivret();
+                    setEtatLivret();  // Accepté / Refusé
                     // Passage de tous les items à Favorable
                     foreach (DCLivretVM item in lstDCLivretAValider)
                     {
@@ -437,33 +438,7 @@ namespace GestVAE.VM
             }
         }
 
-        public void calcDecisionJury()
-        {
-            int nDCFavorable = lstDCLivretAValider.Count(x => x.IsDecisionFavorable.HasValue && x.IsDecisionFavorable.Value);
-            int nDCdeFavorable = lstDCLivretAValider.Count(x => x.IsDecisionDefavorable.HasValue && x.IsDecisionDefavorable.Value);
-            int nDCsansDecision = lstDCLivretAValider.Count(x => !x.IsDecisionDefavorable.HasValue);
-            if (nDCsansDecision > 0)
-            {
-                DecisionJury = "";
-            }
-            else
-            {
-                // Les enums de L1 et L2 sont les mêmes (ouf!!!)
-                if (nDCFavorable > 0 && nDCdeFavorable == 0)
-                {
-                    DecisionJury = String.Format("{0:D}-Favorable", MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
-                }
-                if (nDCFavorable == 0 && nDCdeFavorable > 0)
-                {
-                    DecisionJury = String.Format("{0:D}-Défavorable", MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
-                }
-                if (nDCFavorable > 0 && nDCdeFavorable > 0)
-                {
-                    DecisionJury = String.Format("{0:D}-Partielle", MyEnums.DecisionJuryL1.DECISION_L1_PARTIELLE);
-                }
-            }
-
-        }
+        abstract public void CalcDecisionJury();
 
         public Boolean IsDecisionJuryPartielle
         {

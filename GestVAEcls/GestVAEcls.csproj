@@ -319,6 +319,10 @@
     <Compile Include="Migrations\202408271230345_ExtractionCAFDESV2.Designer.cs">
       <DependentUpon>202408271230345_ExtractionCAFDESV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410020935283_StatutL1.cs" />
+    <Compile Include="Migrations\202410020935283_StatutL1.Designer.cs">
+      <DependentUpon>202410020935283_StatutL1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -561,6 +565,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202408271230345_ExtractionCAFDESV2.resx">
       <DependentUpon>202408271230345_ExtractionCAFDESV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410020935283_StatutL1.resx">
+      <DependentUpon>202410020935283_StatutL1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

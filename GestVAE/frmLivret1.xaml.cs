@@ -138,7 +138,10 @@ namespace GestVAE
  
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            cbValider.IsEnabled = m_oLivret.IsValiderOK();
+            if (m_oLivret!= null)
+                cbValider.IsEnabled = m_oLivret.IsValiderOK();
+            else
+                cbValider.IsEnabled = false;
         }
 
         private void CbxCategoriePJ_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -151,18 +154,7 @@ namespace GestVAE
             VM.RaisePropertyChanged("IsAjoutPJPossible");
         }
 
-        void OnDCDecisionChecked(object sender, RoutedEventArgs e)
-        {
-            Livret1VM oLiv = (Livret1VM)VM.CurrentCandidat.CurrentLivret;
-            if (oLiv != null)
-            {
-                if (oLiv.selectedDCLivret != null)
-                {
-                    oLiv.calcDecisionJury();
-                }
-            }
-        }
-
+ 
         private void CbCreerCAFDESV2_Click(object sender, RoutedEventArgs e)
         {
 

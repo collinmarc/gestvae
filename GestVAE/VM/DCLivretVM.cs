@@ -139,6 +139,13 @@ namespace GestVAE.VM
                         MotifCommentaire = "";
                         Statut = "Validé";
                     }
+                    if (IsDecisionDefavorable.HasValue && IsDecisionDefavorable.Value)
+                    {
+                        MotifGeneral = "";
+                        MotifDetaille = "";
+                        MotifCommentaire = "";
+                        Statut = "Refusé";
+                    }
                     RaisePropertyChanged();
                     RaisePropertyChanged("IsDecisionFavorable");
                     RaisePropertyChanged("IsDecisionDefavorable");
@@ -150,7 +157,8 @@ namespace GestVAE.VM
             get {
                 if (getNumDecision() > 0)
                 {
-                    return (getNumDecision() < (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+                    // Les Enums de L1 et L2 sont les mêmes !!!
+                    return (getNumDecision() == (int)MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
                 }
                 else
                 { // si pas de decision =< Pas favorable
@@ -167,13 +175,16 @@ namespace GestVAE.VM
                         Decision = "";
                     }
                     else
+                    {
+                        // Les Enums de L1 et L2 sont les mêmes !!!
                         if (value.Value)
-                    {
-                        Decision = new Livret2VM(false).DecisionL2ModuleFavorable;
-                    }
-                    else
-                    {
-                        Decision = new Livret2VM(false).DecisionL2ModuleDeFavorable;
+                        {
+                            Decision = new Livret2VM(false).DecisionL2ModuleFavorable;
+                        }
+                        else
+                        {
+                            Decision = new Livret2VM(false).DecisionL2ModuleDeFavorable;
+                        }
                     }
                 }
             }

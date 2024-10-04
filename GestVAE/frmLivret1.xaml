@@ -14,7 +14,6 @@
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"/>
 
         <Image x:Key="AddIco" Source="IMG/Add.png"/>
-
     </Window.Resources>
     <ScrollViewer Margin="0,10,0,0">
         <Grid x:Name ="grdLivret" DataContext="{Binding CurrentCandidat.CurrentLivret}"  Margin="10" RenderTransformOrigin="0.496,0.542">
@@ -378,6 +377,8 @@
                             <RowDefinition Height="Auto"  />
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20*"/>
@@ -385,58 +386,91 @@
                             <ColumnDefinition Width="343*"/>
                             <ColumnDefinition Width="343*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="2">
                             <Label Content="Date de recevabilité :" VerticalAlignment="Center"/>
                             <DatePicker x:Name="dtpDateJury" Margin="0" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}" SelectedDate="{Binding DateJury}" >
                                 <DatePicker.BlackoutDates>
                                     <CalendarDateRange Start="2080-01-01"/>
                                 </DatePicker.BlackoutDates>
                             </DatePicker>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Grid.ColumnSpan="2">
                             <Label Content="Décision:" VerticalAlignment="Center"/>
-                            <TextBox x:Name="tbDecisionLivret" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsEnabled="{Binding IsLivretModifiable}"
-                         Text="{Binding DecisionJury,Mode=OneWay}" Style="{DynamicResource TextBoxReadOnlyStyle}"/>
+                            <ComboBox HorizontalAlignment="Stretch" Style="{DynamicResource ComboboxReadOnlyStyle}" IsEnabled="{Binding IsLivretModifiable}" SelectedItem="{Binding DecisionJury}" 
+                                      ItemsSource="{Binding LstDecisionL1}"  />
+
+<!--                            <TextBox x:Name="tbDecisionLivret" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsEnabled="{Binding IsLivretModifiable}" 
+                         Text="{Binding DecisionJury,Mode=OneWay}" Style="{DynamicResource TextBoxReadOnlyStyle}"/>-->
 
 
                         </StackPanel>
+                        <!-- Motif general -->
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" IsEnabled="{Binding IsDecisionJuryDefavorable}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label VerticalAlignment="Center" Content="Motif général :" Grid.Column="0" Margin="0,2,0,0" />
+                            <ComboBox x:Name="cbxMotifGeneral" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ItemsSource="{Binding VM.lstMotifGL1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
+                                  DisplayMemberPath="Libelle"
+                                  SelectedValuePath="Libelle"
+                                  SelectedValue="{Binding MotifGeneralJury}" Style="{DynamicResource ComboboxReadOnlyStyle}" Width ="Auto"
+                                  />
+                            </Grid>
+                        <!-- Morif Commentaire -->
+                        <Grid  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" IsEnabled="{Binding IsDecisionJuryDefavorable}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" VerticalAlignment="Center" Content="Commentaire :"/>
+                                <TextBox Grid.Column="1"  x:Name="tbCommentaire" HorizontalAlignment="Stretch" Style="{DynamicResource TextBoxReadOnlyStyle}" Width="Auto" MinWidth="0"
+                                         Text="{Binding CommentaireJury}"/>
+
+                            </Grid>
+                            
                         <DataGrid x:Name="dgDCLivretDecision"
                                     ItemsSource="{Binding lstDCLivretAValider}" 
                                     SelectedItem="{Binding selectedDCLivret}"
-                                  Grid.Row="1"
+                                  Grid.Row="5"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="4"
-                                  AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10,11,10,9" RowHeaderWidth="0" HorizontalAlignment="Stretch">
+                                  AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10,11,10,9" RowHeaderWidth="0" HorizontalAlignment="Stretch"
+                                  IsEnabled="{Binding IsDecisionJuryPartielle}">
                             <DataGrid.Resources>
                                 <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
+                                    <!-- On définit la liste des items directement ici -->
+                                <CollectionViewSource x:Key="ListeMotifs" Source="{Binding lstMotifGL2}" />
                             </DataGrid.Resources>
 
+
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*"/>
+                                <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*" IsReadOnly="True"/>
 
                                 <DataGridCheckBoxColumn x:Name="DCFavorable" Header="Favorable" IsThreeState="True" Binding="{Binding IsDecisionFavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                    <DataGridCheckBoxColumn.CellStyle>
-                                        <Style>
-                                            <EventSetter Event="CheckBox.Checked" Handler="OnDCDecisionChecked"/>
-                                        </Style>
-                                    </DataGridCheckBoxColumn.CellStyle>
                                 </DataGridCheckBoxColumn>
                                 <DataGridCheckBoxColumn x:Name="DCdefavorable" Header="Défavorable" IsThreeState="True" Binding="{Binding IsDecisionDefavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                                    <DataGridCheckBoxColumn.CellStyle>
-                                        <Style>
-                                            <EventSetter Event="CheckBox.Checked" Handler="OnDCDecisionChecked"/>
-                                        </Style>
-                                    </DataGridCheckBoxColumn.CellStyle>
                                 </DataGridCheckBoxColumn>
-                                <DataGridTextColumn Header="Motif de refus" 
+                                <DataGridComboBoxColumn Header="Motif" ItemsSource="{Binding Source={StaticResource ListeMotifs}}"
+                                                                     DisplayMemberPath="Libelle"
+                                                                     SelectedValuePath="Libelle"
+                                                                    SelectedValueBinding="{Binding MotifGeneral}"
+                                                                    Width="2*"
+                                                                    />
+                                <DataGridTextColumn Header="Commentaire" 
                                                 Binding="{Binding MotifCommentaire}" 
                                                 Width="1*" />
                             </DataGrid.Columns>
+                            <!-- <DataGrid.Visibility>
+                                <Binding Converter="{StaticResource BooleanToVisibilityConverter}" Path="IsDecisionJuryPartielle"/>
+                            </DataGrid.Visibility> -->
                         </DataGrid>
 
 
                         <!--
                             Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}"  >
                         -->
-                        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" >
+                        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" >
                             <Label  Content="Recours :" VerticalAlignment="Center"/>
                             <CheckBox x:Name="chkRecours" VerticalAlignment="Center" IsChecked="{Binding IsRecoursDemande}"/>
                             <Label VerticalAlignment="Center" Content="Date limite de depot :" Margin="10,0,0,0"/>
@@ -567,20 +601,20 @@
                         <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Décision :" Grid.ColumnSpan="2" Margin="0,2,0,0"/>
                         <ComboBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="cbxDecision" HorizontalAlignment="Stretch" Style="{DynamicResource ComboboxReadOnlyStyle}" Margin="5,6,5,4" />
                         <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Motif général :" Grid.ColumnSpan="2" Margin="0,2,0,0"/>
-                        <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="cbxMotifGeneral" HorizontalAlignment="Stretch"                                   ItemsSource="{Binding VM.lstMotifGL1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
+                        <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch"                                   ItemsSource="{Binding VM.lstMotifGL1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}"
                                   DisplayMemberPath="Libelle"
                                   SelectedValuePath="Libelle"
                                   SelectedValue="{Binding MotifGeneralJury}" Style="{DynamicResource ComboboxReadOnlyStyle}" Margin="5,6,5,4"
                                   />
                         <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Motif détaillé :" Height="26" Grid.ColumnSpan="2" Margin="0,2,0,0"/>
-                        <ComboBox  Grid.Row="3" Grid.Column="2"  Grid.ColumnSpan="2" x:Name="cbxMotifDetaille" HorizontalAlignment="Stretch" 
+                        <ComboBox  Grid.Row="3" Grid.Column="2"  Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" 
                                 ItemsSource="{Binding SelectedItem.lstMotifDetaille, ElementName=cbxMotifGeneral}"
                                 DisplayMemberPath="Libelle"
                                 SelectedValuePath="Libelle"
                                 SelectedValue="{Binding MotifDetailJury}" Style="{DynamicResource ComboboxReadOnlyStyle}" Margin="5,6,5,4"
                                 />
                         <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Content="Commentaire :" Height="26" Grid.ColumnSpan="2" Margin="0,2,0,1"/>
-                        <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" x:Name="tbCommentaire" HorizontalAlignment="Stretch" Style="{DynamicResource TextBoxReadOnlyStyle}" />
+                        <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Style="{DynamicResource TextBoxReadOnlyStyle}" />
 
                         <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="0" 
                                     Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Grid.ColumnSpan="2">

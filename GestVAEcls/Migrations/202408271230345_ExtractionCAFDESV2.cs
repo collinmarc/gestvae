@@ -2,12 +2,15 @@ namespace GestVAEcls.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+    using System.Diagnostics;
+
     public partial class ExtractionCAFDESV2 : DbMigration
     {
         public override void Up()
         {
-            Sql(@"CREATE OR ALTER VIEW [dbo].[L1_BLOC_AVALIDER]
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ExtractionCAFDESV2" + "start");
+
+            Sql(@"CREATE VIEW[dbo].[L1_BLOC_AVALIDER]
                     AS
                     SELECT L1.ID AS L1_ID, diplomes.Nom as NOM_DIPLOME,
                     (SELECT DCLivrets.IsAValider AS B1
@@ -35,7 +38,10 @@ namespace GestVAEcls.Migrations
                     WHERE L1.Diplome_ID = Diplomes.ID 
                     ");
 
-            Sql(@"CREATE OR ALTER VIEW [dbo].[RQ_L1_DOC]
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ExtractionCAFDESV2" + "Step");
+            Sql(@"DROP VIEW [dbo].[RQ_L1_DOC]");
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ExtractionCAFDESV2" + "Step");
+            Sql(@"CREATE VIEW[dbo].[RQ_L1_DOC]
                         AS
                         SELECT        
                         choose(dbo.Livret1_NonClos.isContrat + 1, 'Non', 'Oui') AS IsContrat,
@@ -116,7 +122,10 @@ namespace GestVAEcls.Migrations
                          dbo.Recours ON dbo.Juries.ID = dbo.Recours.Jury_ID ON dbo.Livret1_NonClos.ID = dbo.Juries.Livret1_ID JOIN
 						 dbo.L1_BLOC_AVALIDER on L1_BLOC_AVALIDER.L1_ID = Livret1_NonClos.ID");
 
-            Sql(@"CREATE OR ALTER VIEW [dbo].[RQ_STATUT_DC_CAND]
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ExtractionCAFDESV2" + "Step");
+            Sql(@"DROP VIEW [dbo].[RQ_STATUT_DC_CAND]");
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ExtractionCAFDESV2" + "Step");
+            Sql(@"CREATE VIEW[dbo].[RQ_STATUT_DC_CAND]
                     AS
                     SELECT        dbo.DiplomeCands.ID, dbo.DiplomeCands.Candidat_ID, dbo.DiplomeCands.Diplome_ID, dbo.DomaineCompetences.Nom, dbo.DomaineCompetenceCands.Statut, CONVERT(nvarchar, 
                                              dbo.DomaineCompetenceCands.DateObtention, 103) AS DateObtention, dbo.DomaineCompetenceCands.ModeObtention, dbo.DomaineCompetences.Numero, dbo.Diplomes.Nom AS NomDiplome, DomaineCompetences.Nom as NomDC
@@ -126,7 +135,10 @@ namespace GestVAEcls.Migrations
                                              dbo.Diplomes ON dbo.DiplomeCands.Diplome_ID = dbo.Diplomes.ID AND dbo.DomaineCompetences.Diplome_ID = dbo.Diplomes.ID
                 ");
 
-            Sql(@"CREATE OR ALTER   VIEW[dbo].[RQ_L2_DOC]
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ExtractionCAFDESV2" + "Step");
+            Sql(@"DROP   VIEW[dbo].[RQ_L2_DOC]");
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ExtractionCAFDESV2" + "Step");
+            Sql(@"CREATE VIEW[dbo].[RQ_L2_DOC]
                     AS
                     SELECT        choose(dbo.Livret2.IsConvention + 1, 'Non', 'Oui') AS Isconvention, choose(dbo.Livret2.isContrat + 1, 'Non', 'Oui') AS iscontrat, choose(dbo.Livret2.IsPaye + 1, 'Non', 'Oui') AS IsPaye, dbo.Livret2.Numero, 
                                  dbo.Livret2.NumPassage, dbo.Candidats.Civilite, dbo.Candidats.NomJeuneFille, dbo.Candidats.Nom, dbo.Candidats.Prenom, dbo.Candidats.Prenom2, dbo.Candidats.Prenom3, dbo.Candidats.Adresse, 
@@ -310,21 +322,24 @@ namespace GestVAEcls.Migrations
 						        INNER JOIN Diplomes ON Livret2.Diplome_ID = Diplomes.id
         ");
 
-            Sql(@"CREATE OR ALTER VIEW [dbo].[RQ_ATTESTATION]
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ExtractionCAFDESV2" + "Step");
+            Sql(@"CREATE VIEW [dbo].[RQ_ATTESTATION]
                     AS
                     SELECT        Civilite, NomJeuneFille, Nom, Prenom, Prenom2, Prenom3, Adresse, CodePostal, Ville, Region, Pays, Nationalite, sexe, DateNaissance, VilleNaissance, NationaliteNaissance, DptNaissance, PaysNaissance, Decision, 
                                              NOM_DIPLOME, STATUT_BC1, STATUT_BC2, STATUT_BC3, STATUT_BC4
                     FROM            dbo.RQ_L2_DOC
                     WHERE        (NOM_DIPLOME = 'CAFDESV2')
                     ");
+            Trace.WriteLine(DateTime.Now.ToLongDateString() + ":[DBMIGRATION UP]" + "ExtractionCAFDESV2" + "end");
         }
-        
+
         public override void Down()
         {
             Sql(@"DROP VIEW [dbo].[RQ_ATTESTATION]");
 
 
-            Sql(@" CREATE OR ALTER VIEW [dbo].[RQ_L1_DOC]
+            Sql(@" DROP VIEW [dbo].[RQ_L1_DOC]");
+            Sql(@" CREATE OR ALTER VIEW[dbo].[RQ_L1_DOC]
                 AS
                 SELECT        
                 choose(dbo.Livret1_NonClos.isContrat + 1, 'Non', 'Oui') AS IsContrat,
@@ -404,6 +419,7 @@ namespace GestVAEcls.Migrations
             Sql(@"DROP VIEW [dbo].[L1_BLOC_AVALIDER]");
 
 
+            Sql(@"DROP VIEW[dbo].[RQ_L2_DOC]");
             Sql(@"CREATE OR ALTER VIEW[dbo].[RQ_L2_DOC]
             AS
             SELECT        choose(dbo.Livret2.IsConvention + 1, 'Non', 'Oui') AS Isconvention, choose(dbo.Livret2.isContrat + 1, 'Non', 'Oui') AS iscontrat, choose(dbo.Livret2.IsPaye + 1, 'Non', 'Oui') AS IsPaye, dbo.Livret2.Numero,
@@ -547,7 +563,8 @@ WHERE(IDLivret = dbo.Livret2.ID) AND(Nom = 'DC4')) AS PropositionDC4Livret, dbo.
                         LEFT OUTER JOIN dbo.Juries ON dbo.Livret2.ID = dbo.Juries.Livret2_ID
 ");
 
-            Sql(@"CREATE OR ALTER VIEW [dbo].[RQ_STATUT_DC_CAND]
+            Sql(@"DROP VIEW [dbo].[RQ_STATUT_DC_CAND]");
+            Sql(@"CREATE OR ALTER VIEW[dbo].[RQ_STATUT_DC_CAND]
                     AS
                     SELECT        dbo.DiplomeCands.ID, dbo.DiplomeCands.Candidat_ID, dbo.DiplomeCands.Diplome_ID, dbo.DomaineCompetences.Nom, dbo.DomaineCompetenceCands.Statut, CONVERT(nvarchar, 
                                              dbo.DomaineCompetenceCands.DateObtention, 103) AS DateObtention, dbo.DomaineCompetenceCands.ModeObtention, dbo.DomaineCompetences.Numero, dbo.Diplomes.Nom AS NomDiplome

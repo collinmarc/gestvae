@@ -136,14 +136,12 @@ namespace GestVAE.VM
                     {
                         MotifGeneral = "";
                         MotifDetaille = "";
-                        MotifCommentaire = "";
                         Statut = "Validé";
                     }
                     if (IsDecisionDefavorable.HasValue && IsDecisionDefavorable.Value)
                     {
                         MotifGeneral = "";
                         MotifDetaille = "";
-                        MotifCommentaire = "";
                         Statut = "Refusé";
                     }
                     RaisePropertyChanged();

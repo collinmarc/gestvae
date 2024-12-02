@@ -64,7 +64,7 @@
                 <Button Name="btnUnlockAll" Command="{Binding UnLockAllCommand}" Content="Tout déverrouiller" />
                 <Button Name="btnParam" Command="{Binding dlgParamCommand}" Content="Paramètres" />
                 <Button Name="btnAPropos" Command="{Binding dlgAProposCommand}" Content="?" />
-                <Button Name="btnMigration" Command="{Binding dlgMigrationcompleteCommand}" Content="Migration CAFDESV2" ToolTip=" Midgration de la base en totalité" />
+                <Button Name="btnMigration" Command="{Binding dlgMigrationcompleteCommand}" Content="Migration CAFDESV2" ToolTip=" Migration de la base en totalité" Visibility="Hidden" />
             </ToolBar>
         </ToolBarTray>
 

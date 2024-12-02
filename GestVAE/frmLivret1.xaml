@@ -24,14 +24,15 @@
                 </LinearGradientBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
-                <!--Type-->
+                <!--Type 0-->
                 <RowDefinition Height="Auto"/>
-                <!-- généralité -->
+                <!-- généralité 1-->
                 <RowDefinition Height="Auto"/>
-                <!--Tab contol-->
+                <!-- Blocs 2-->
                 <RowDefinition Height="Auto"/>
+                <!--Tab contol 3-->
                 <RowDefinition Height="Auto"/>
-                <!-- Bouttons -->
+                <!-- Bouttons 4-->
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -71,38 +72,6 @@
                     <Label Content="Diplome :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
                     <TextBox x:Name="tbDiplome" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsEnabled="{Binding IsLivretModifiable}"
                          Text="{Binding NomDiplome,Mode=OneWay}" Style="{DynamicResource TextBoxReadOnlyStyle}"/>
-
-                    <DataGrid x:Name="dgDCLivret"  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                           ItemsSource="{Binding lstDCLivret, UpdateSourceTrigger=PropertyChanged}" 
-                            AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" 
-                           Style="{DynamicResource MyDataGridStyle}"
-                           Visibility="{Binding IsCAFDESV2 , Converter={StaticResource BooleanToVisibilityConverter}}"
-                              >
-                        <DataGrid.Resources>
-                            <VM:BindingProxy x:Key="proxy" Data="{Binding VM.CurrentCandidat.CurrentLivret, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
-                        </DataGrid.Resources>
-
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="2*" IsReadOnly="True"/>
-                            <DataGridCheckBoxColumn Header="Bloc demandé" Binding="{Binding IsAValider}" Width="2*"/>
-                            <DataGridTextColumn Header="Décision" Binding="{Binding Decision}" Width="3*" IsReadOnly="True"/>
-                        </DataGrid.Columns>
-                        <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsDecisionFavorable}" Value="true">
-                                        <Setter Property="Background" Value="Green"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsAValider}" Value="false">
-                                        <Setter Property="Background" Value="Gray"></Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.RowStyle>
-                    </DataGrid>
-
-
-
                 </Grid>
                 <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" 
                         IsEnabled="{Binding IsLivretModifiable}" >
@@ -185,10 +154,39 @@
                 </StackPanel>
 
             </Grid>
+            <DataGrid x:Name="dgDCLivret"  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                           ItemsSource="{Binding lstDCLivret, UpdateSourceTrigger=PropertyChanged}" 
+                            AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False"  Margin="10" RowHeaderWidth="0" HorizontalAlignment="Stretch" 
+                           Style="{DynamicResource MyDataGridStyle}"
+                           Visibility="{Binding IsCAFDESV2 , Converter={StaticResource BooleanToVisibilityConverter}}"
+                              >
+                <DataGrid.Resources>
+                    <VM:BindingProxy x:Key="proxy" Data="{Binding VM.CurrentCandidat.CurrentLivret, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
+                </DataGrid.Resources>
 
-            <TabControl x:Name="TabL1" Grid.Row="2" 
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*" IsReadOnly="True"/>
+                    <DataGridCheckBoxColumn Header="Bloc demandé" Binding="{Binding IsAValider}" Width="1*"/>
+                    <DataGridTextColumn Header="Décision" Binding="{Binding Decision}" Width="3*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Commentaire" Binding="{Binding MotifCommentaire}" Width="4*" />
+                </DataGrid.Columns>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsDecisionFavorable}" Value="true">
+                                <Setter Property="Background" Value="Green"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsAValider}" Value="false">
+                                <Setter Property="Background" Value="Gray"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+
+            <TabControl x:Name="TabL1" Grid.Row="3" 
                     
-                    HorizontalAlignment="Stretch" Margin="10" Grid.RowSpan="2" >
+                    HorizontalAlignment="Stretch" Margin="10" >
                 <TabItem x:Name="tabLivret" Header="Livret1" Margin="0">
                     <StackPanel Orientation="Vertical" IsEnabled="{Binding IsLivretModifiable}" Visibility="{Binding IsEtatRecu, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <UniformGrid Rows="1" >

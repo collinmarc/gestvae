@@ -107,13 +107,26 @@ namespace GestVAE.VM
             this.IsPaye = false;
 
             // Transfert des blocs Validé depuis le Livret1 vers le Livret2
-            foreach (DCLivretVM item in pL1.lstDCLivret)
+            foreach (DCLivretVM item in pL1.lstDCLivretAValider)
             {
                 if (item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value)
                 {
                     DCLivretVM oDCLivret = new DCLivretVM();
                     oDCLivret.TheDCLivret.oDomaineCompetence = item.TheDCLivret.oDomaineCompetence;
                     oDCLivret.IsAValider = true;
+                    oDCLivret.MotifCommentaire = item.MotifCommentaire;
+                    if (pL1.GetCandidatVM().IsCAFERUIS && oDCLivret.NomDC == "BLOC4")
+                    {
+                        oDCLivret.Decision = DecisionL2ModuleFavorable;
+                        oDCLivret.PropositionDecision = oDCLivret.Decision;
+                    }
+                    if (pL1.GetCandidatVM().IsDEIS && (oDCLivret.NomDC == "BLOC1" || oDCLivret.NomDC == "BLOC4"))
+                    {
+                        oDCLivret.Decision = DecisionL2ModuleFavorable;
+                        oDCLivret.PropositionDecision = oDCLivret.Decision;
+                    }
+
+
                     this.lstDCLivret.Add(oDCLivret);
                     // Ajout de l'entité DB
                     TheLivret.lstDCLivrets.Add(oDCLivret.TheDCLivret);

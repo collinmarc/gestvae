@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,8 +55,11 @@ namespace GestVAE
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Trace.WriteLine("MainWindow.Loaded : Création du modèle");
+
             MyViewModel _VM = new MyViewModel();
             this.DataContext = _VM;
+            Trace.WriteLine("MainWindow.Loaded : Lecture des paramètres");
             _VM.getParams();
             
             //cbxPaysNaissance.ItemsSource = VM.lstParamBDPays;

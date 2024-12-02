@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("GestVAE")]
 [assembly: AssemblyDescription("Gestion des Livrets de VAE")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("2P Consultants")]
+[assembly: AssemblyCompany("Marc Collin")]
 [assembly: AssemblyProduct("GestVAE")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
@@ -52,4 +52,4 @@ using System.Windows;
 // en utilisant '*', comme indiqué ci-dessous :
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2020.05.15.0")]
-[assembly: AssemblyFileVersion("2024.09.25.0")]
+[assembly: AssemblyFileVersion("2024.12.02.0")]

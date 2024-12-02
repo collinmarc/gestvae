@@ -1,4 +1,12 @@
-﻿BUILD XXXXXXXX
+﻿BUILD 20241202
+	#1717 : Maintenance 02/12
+BUILD 20241012
+	Migration : Suppression des CREATE OR ALTER
+
+BUILD 20241014
+	CAFDESV2
+
+BUILD XXXXXXXX
 	0001569: Ajout d'une extraction pour 'moncompteFormation'
 
 

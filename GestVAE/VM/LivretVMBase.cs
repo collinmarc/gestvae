@@ -421,7 +421,7 @@ namespace GestVAE.VM
                     // Passage de tous les items à Favorable
                     foreach (DCLivretVM item in lstDCLivretAValider)
                     {
-                        if (IsDecisionJuryFavorable)
+                        if (IsDecisionJuryValidationTotale)
                         {
                             item.IsDecisionFavorable = true;
                         }

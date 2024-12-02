@@ -40,11 +40,12 @@ namespace GestVAEcls
 #endif
         {
             Trace.WriteLine("Context : SQLServer = " + this.Database.Connection.DataSource);
-#if DEBUG
-#else
+//#if DEBUG
+//#else
             Trace.WriteLine("Context : SetInitializer TO MigrateDatabaseToLatestVersion" );
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, GestVAEcls.Migrations.Configuration>());
-#endif
+            Trace.WriteLine("Context : fin MigrateDatabaseToLatestVersion");
+//#endif
 
         }
 #if DEBUG

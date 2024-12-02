@@ -191,8 +191,10 @@ namespace GestVAE.VM
 
         public MyViewModel()
         {
+            Trace.WriteLine("MyViewModel.New");
             IsInTest = false;
             Reset();
+            Trace.WriteLine("MyViewModel.New : Fin");
             //getData();
         }
         public MyViewModel(Boolean pIsInTest) :this()
@@ -201,10 +203,14 @@ namespace GestVAE.VM
         }
         private void Reset()
         {
+            Trace.WriteLine("MyViewModel.reset : Debut");
+            Trace.WriteLine("MyViewModel.reset : Context.reset");
             Context.Reset();
             _ctx = Context.instance;
+            Trace.WriteLine("MyViewModel.reset : création du context Param");
             _ctxParam = new ContextParam();
 
+            Trace.WriteLine("MyViewModel.reset : Création des Collections");
             _lstCandidatVM = new ObservableCollection<CandidatVM>();
             _lstRegionVM = new ObservableCollection<RegionVM>();
             _lstDiplomeVM = new ObservableCollection<DiplomeVM>();
@@ -221,7 +227,9 @@ namespace GestVAE.VM
             Thread.Sleep(1);
             _ContextID = Convert.ToInt32(DateTime.Now.ToString("fffffff"));
 
+            Trace.WriteLine("MyViewModel.reset : Création des commands");
             CreateCommands();
+            Trace.WriteLine("MyViewModel.reset : Fin");
 
         }
         private void CreateCommands()
@@ -433,7 +441,8 @@ namespace GestVAE.VM
             {
                 foreach (CandidatVM item in lstCandidatVM.Where(i=>i.IsLocked))
                 {
-                        if (item.IsDeleted)
+                    Trace.WriteLine("saveData :" + item.Nom);
+                    if (item.IsDeleted)
                         {
                             _ctx.DeleteOnCascade(item.TheCandidat);
                        // _ctx.Candidats.Remove(item.TheCandidat);
@@ -446,6 +455,7 @@ namespace GestVAE.VM
 
 //                 _ctx.DeleteOnCascade();
                 _ctx.SaveChanges();
+                Trace.WriteLine("saveData : unlockCandicats" );
                 UnlockCandidats();
                 _modelhasChanges = false;
                 if (CurrentCandidat != null)
@@ -453,6 +463,7 @@ namespace GestVAE.VM
                     CurrentCandidat.SetModelHasChanges(false);
                 }
                 bReturn = true;
+                Trace.WriteLine("saveData : Fin");
             }
             catch (Exception ex)
             {
@@ -969,17 +980,17 @@ namespace GestVAE.VM
                 ((Livret1)oL1VM.TheLivret).InitDCLivrets(oDiplomeCandidat);
                 foreach (DCLivret oDCL in ((Livret)oL1VM.TheLivret).lstDCLivrets)
                 {
-                    if (CurrentCandidat.IsCAFERUIS && oDCL.NomDC=="DC4" && oDCL.IsAValider)
+                    if (CurrentCandidat.IsCAFERUIS && oDCL.NomDC=="BLOC4" )
                     {
-                        oDCL.PropositionDecision = "CAFERUIS";
+                    oDCL.IsAValider = true;
+                    oDCL.PropositionDecision = "CAFERUIS";
+                    oDCL.MotifCommentaire = "CAFERUIS";
                     }
-                    if (CurrentCandidat.IsDEIS && oDCL.NomDC == "DC1" && oDCL.IsAValider)
-                    {
+                    if (CurrentCandidat.IsDEIS && (oDCL.NomDC == "BLOC1" || oDCL.NomDC == "BLOC4"))
+                        {
+                        oDCL.IsAValider = true;
                         oDCL.PropositionDecision = "DEIS";
-                    }
-                    if (CurrentCandidat.IsDEIS && oDCL.NomDC == "DC4" && oDCL.IsAValider)
-                    {
-                        oDCL.PropositionDecision = "DEIS";
+                        oDCL.MotifCommentaire = "DEIS";
                     }
                     oL1VM.lstDCLivret.Add(new DCLivretVM(oDCL));
                 }
@@ -1306,6 +1317,8 @@ namespace GestVAE.VM
             MlstCandidatsCount = 0;
             MCandidatNom = "Chargement de la liste de candidats à migrer";
 
+            Trace.WriteLine("Migration complete :Chargement de la Liste des candidats");
+
             await Task.Run(()=> { 
                     _InterrompreMigration = false;
                     IQueryable<Candidat> rq;
@@ -1330,6 +1343,7 @@ namespace GestVAE.VM
                     MlstCandidatsCount = MLstCand.Count;
             });
 
+            Trace.WriteLine("Migration complete :migration des candidats chargés");
             await Task.Run(() => {
                 MlstCandidatsIndex = 0;
                 foreach (CandidatVM item in MLstCand)
@@ -1344,18 +1358,24 @@ namespace GestVAE.VM
                     MCandidat.LoadDetails();
                     MCandidat.Lock(_ContextID);
                     MCandidatNom = item.Nom;
-                    Trace.WriteLine("Migration de " + MCandidatNom);
-                //if (MCandidat.Nom == "CARON")
-                //    {
-                //        MCandidat.Prenom = "Test";
-                //    }
-                    MCandidat.AjoutDiplomeCand(Diplome.getDiplomeParDefaut()); // Ajout du diplome CAFDESV2
+                    Trace.WriteLine("Migration complete :Migration de " + MCandidatNom);
+                    //if (MCandidat.Nom == "CARON")
+                    //    {
+                    //        MCandidat.Prenom = "Test";
+                    //    }
+                    if (MCandidat.lstDiplomesCandVMs.Count(d =>{return d.NomDiplome.Equals(Diplome.getDiplomeParDefaut());} )> 0)
+                    {
+                        Trace.WriteLine("Migration complete :Ajout du diplome " + Diplome.getDiplomeParDefaut());
+                        MCandidat.AjoutDiplomeCand(Diplome.getDiplomeParDefaut()); // Ajout du diplome CAFDESV2
+                    }
+                    Trace.WriteLine("Migration complete :Parcours des Livrets" );
                     foreach (LivretVMBase oL in MCandidat.lstLivretsActif)
                     {
                         if (!oL.IsCAFDESV2)
                         {
                             if (oL.IsL2)
                             {
+                                Trace.WriteLine("Migration complete :Migration L2 : " + oL.Numero);
                                 Livret2VM oL2Ancien = (Livret2VM)oL;
                                 Livret2VM oL2CAFDESV2 = new Livret2VM(oL2Ancien);
                                 oL2Ancien.Cloturer();
@@ -1365,6 +1385,7 @@ namespace GestVAE.VM
                             }
                             if (oL.IsL1)
                             {
+                                Trace.WriteLine("Migration complete :Migration L1 : " + oL.Numero);
                                 Livret1VM oL1Ancien = (Livret1VM)oL;
                                 Livret1VM oL1CAFDESV2 = new Livret1VM(oL1Ancien);
                                 oL1Ancien.Cloturer();
@@ -1372,9 +1393,10 @@ namespace GestVAE.VM
                                 oL1CAFDESV2.isAdded = true;
                             }
                         }
-                    }
-                }
+                    }// lstLivretsActif
+                }//MLstCand
             });
+            Trace.WriteLine("Migration complete Phase 1 : Migration Terminée ");
             if (_InterrompreMigration)
             {
                 MCandidatNom = "MIGRATION INTERROMPUE, les données ne sont pas sauvegardées !!!";
@@ -1389,13 +1411,15 @@ namespace GestVAE.VM
                     lstCandidatVM.Add(item);
                 }
 
-                    SetModelHasChanges();
+                Trace.WriteLine("Migration complete Phase 2 : Sauvegarde des données ");
+                SetModelHasChanges();
                 saveData();
 
                 lstCandidatVM.Clear();
 
             }
 
+            Trace.WriteLine("Migrationcomplete : Fin ");
         }
 
         /// <summary>

@@ -174,7 +174,7 @@
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsDecisionFavorable}" Value="true">
-                                <Setter Property="Background" Value="Green"></Setter>
+                                <Setter Property="Background" Value="Yellow"></Setter>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsAValider}" Value="false">
                                 <Setter Property="Background" Value="Gray"></Setter>

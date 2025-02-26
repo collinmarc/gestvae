@@ -408,10 +408,10 @@ namespace GestVAETU
             Assert.IsFalse(oCand.IsL1Valide);
             // La décision du L2 est validation Partielle
             oL2.FTO_SetDecisionJuryL2Partielle();
-            oL2.lstDCLivret[0].Decision = oL2.DecisionL2ModuleFavorable;
-            oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleDeFavorable;
-            oL2.lstDCLivret[2].Decision = oL2.DecisionL2ModuleDeFavorable;
-            oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleDeFavorable;
+            oL2.lstDCLivret[0].Decision = Livret2VM.DecisionDCFavorable;
+            oL2.lstDCLivret[1].Decision = Livret2VM.DecisionL2DCDefavorable;
+            oL2.lstDCLivret[2].Decision = Livret2VM.DecisionL2DCDefavorable;
+            oL2.lstDCLivret[3].Decision = Livret2VM.DecisionL2DCDefavorable;
             VM.saveData();
 
             VM.rechNom = "TESTCAND";

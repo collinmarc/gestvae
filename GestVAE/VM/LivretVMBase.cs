@@ -672,11 +672,11 @@ namespace GestVAE.VM
             {
                 if (IsL1)
                 {
-                    return false;
+                return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
                 }
                 else
                 {
-                    return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+                return (getNumDecisionJury() == (int)MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
 
                 }
 
@@ -1354,7 +1354,7 @@ namespace GestVAE.VM
             DecisionJury = String.Format("{0:D}-DeFavorable", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
             foreach (DCLivretVM oDCLivret in ((Livret2VM)this).lstDCLivretAValider)
             {
-                oDCLivret.Decision = ((Livret2VM)this).DecisionL2ModuleDeFavorable;
+                oDCLivret.Decision = Livret2VM.DecisionL2DCDefavorable;
             }
 
         }

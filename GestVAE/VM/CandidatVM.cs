@@ -931,14 +931,14 @@ namespace GestVAE.VM
                             {
                                 if (item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value)
                                 {
-                                    oDCCand.Statut = oDip.LstStatutModule[0];
+                                    oDCCand.Statut = DiplomeCandVM.StatutDCValidé;
                                     oDCCand.DateObtention = pLivret.DateJury;
                                     oDCCand.Commentaire = item.MotifCommentaire;
                                     oDCCand.ModeObtention = "VAE";
                                 }
                                 else
                                 {
-                                    oDCCand.Statut = oDip.LstStatutModule[1];
+                                    oDCCand.Statut = DiplomeCandVM.StatutDCRefusé;
                                     oDCCand.Commentaire = item.MotifCommentaire;
                                     oDCCand.DateObtention = pLivret.DateJury;
                                     oDCCand.ModeObtention = "";
@@ -952,26 +952,26 @@ namespace GestVAE.VM
                         if (pLivret.IsDecisionJuryFavorable)
                         {
                             // Validation des DC àValider
-                            foreach (DCLivretVM item in pLivret.lstDCLivret)
+                            foreach (DCLivretVM oDCL in pLivret.lstDCLivret)
                             {
-                                item.Statut = oDip.LstStatutModule[0];
-                                item.Decision = pLivret.DecisionL2ModuleFavorable;
-                                DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
-                                oDCCand.Statut = oDip.LstStatutModule[0];
+                                oDCL.Statut = DiplomeCandVM.StatutDCValidé;
+                                oDCL.Decision = Livret2VM.DecisionDCFavorable;
+                                DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == oDCL.NomDC).FirstOrDefault();
+                                oDCCand.Statut = DiplomeCandVM.StatutDCValidé;
                                 oDCCand.DateObtention = pLivret.DateJury;
                                 oDCCand.ModeObtention = "VAE";
                             }
                             oDip.DateObtentionDiplome = pLivret.DateJury;
-                            oDip.StatutDiplome = "Validé";
+                            oDip.StatutDiplome = oDip.StatutDiplomeValidé;
                         }
                         if (pLivret.IsDecisionJuryDefavorable)
                         {
                             // Validation des DC àValider
                             foreach (DCLivretVM item in pLivret.lstDCLivretAValider)
                             {
-                                item.Statut = oDip.LstStatutModule[1];
+                                item.Statut = DiplomeCandVM.StatutDCRefusé;
                                 DomaineCompetenceCand oDCCand = oDip.lstDCCands.Where(d => d.NomDomaineCompetence == item.NomDC).FirstOrDefault();
-                                oDCCand.Statut = oDip.LstStatutModule[1];
+                                oDCCand.Statut = DiplomeCandVM.StatutDCRefusé;
                                 oDCCand.DateObtention = pLivret.DateJury;
                                 oDCCand.ModeObtention = "VAE";
                             }

@@ -980,15 +980,27 @@ namespace GestVAE.VM
                 ((Livret1)oL1VM.TheLivret).InitDCLivrets(oDiplomeCandidat);
                 foreach (DCLivret oDCL in ((Livret)oL1VM.TheLivret).lstDCLivrets)
                 {
-                    if (CurrentCandidat.IsCAFERUIS && oDCL.NomDC=="BLOC4" )
+                    if (oDCL.Statut == DiplomeCandVM.StatutDCRefusé || oDCL.Statut == "")
                     {
-                    oDCL.IsAValider = true;
-                    oDCL.PropositionDecision = "CAFERUIS";
-                    oDCL.MotifCommentaire = "CAFERUIS";
-                    }
-                    if (CurrentCandidat.IsDEIS && (oDCL.NomDC == "BLOC1" || oDCL.NomDC == "BLOC4"))
-                        {
                         oDCL.IsAValider = true;
+                    }
+                    else
+                    {
+                        oDCL.IsAValider = false;
+                    }
+                if (CurrentCandidat.IsCAFERUIS && oDCL.NomDC=="BLOC1" )
+                    {
+                        oDCL.IsAValider = false;
+                        oDCL.Statut = DiplomeCandVM.StatutDCDispensé;
+                        oDCL.Decision = Livret2VM.DecisionDCDispensé;
+                        oDCL.PropositionDecision = "CAFERUIS";
+                        oDCL.MotifCommentaire = "CAFERUIS";
+                    }
+                    if (CurrentCandidat.IsDEIS && (oDCL.NomDC == "BLOC1" || oDCL.NomDC == "BLOC2"))
+                    {
+                        oDCL.IsAValider = false;
+                        oDCL.Statut = DiplomeCandVM.StatutDCDispensé;
+                        oDCL.Decision = Livret2VM.DecisionDCDispensé;
                         oDCL.PropositionDecision = "DEIS";
                         oDCL.MotifCommentaire = "DEIS";
                     }
@@ -1015,65 +1027,17 @@ namespace GestVAE.VM
          /// 
         public void AjouteL2()
         {
-            Livret2VM oL2VM = null;
             try
             {
 
                 CandidatVM oCandVM = CurrentCandidat;
                 Livret1VM oL1 = null;
                 oL1 = CurrentCandidat.getL1Valide();
-                if (oL1 != null)
-                {
-                    oL2VM = new Livret2VM((Livret1VM)oL1);
-                    oL2VM.LstEtatLivret = LstEtatLivret2;
-
-                    oL2VM.EtatLivret = LstEtatLivret2[2];
-                    oL2VM.DateDemande = DateTime.Now;
-                    // Numéro de passage
-                    oL2VM.NumPassage = 1;
-                    if (CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Count() > 0)
-                    {
-                        int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
-                        oL2VM.NumPassage = nbL2 + 1;
-                    }
-
-                    // Récupération de la date d'envoi du L2 premier passage s'il s'agit un second passage
-                    if (oL2VM.NumPassage > 1)
-                    {
-                        Livret2VM oL2Prem = (Livret2VM)CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET && ((Livret2VM)l).NumPassage == 1).FirstOrDefault();
-                        if (oL2Prem != null)
-                        {
-                            oL2VM.DateEnvoiEHESP = oL2Prem.DateEnvoiEHESP;
-                        }
-                    }
-
-                    // Récupération du diplome du candidat (si présent)
-                    DiplomeCand oDiplomeCandidat = CurrentCandidat.TheCandidat.lstDiplomes.Where(d => d.oDiplome.ID == oL2VM.TheLivret.oDiplome.ID).FirstOrDefault();
-                    if (oDiplomeCandidat == null)
-                    {
-                        DiplomeCandVM oDipCandVM = CurrentCandidat.AjoutDiplomeCand(oL2VM.TheLivret.oDiplome);
-                        oDiplomeCandidat = oDipCandVM.TheDiplomeCand;
-                        oDipCandVM.ModeObtention = "VAE";
-                        oDipCandVM.StatutDiplome = "En cours";
-                        oDipCandVM.StatutDC1 = "";
-                        oDipCandVM.StatutDC2 = "";
-                        oDipCandVM.StatutDC3 = "";
-                        oDipCandVM.StatutDC4 = "";
-                    }
-                    CurrentCandidat.CurrentLivret = oL2VM;
-
-                    if (!IsInTest)
-                    {
-                        frmLivret2 odlg = new frmLivret2();
-                        odlg.setContexte(this);
-                        odlg.ShowDialog();
-                    }
-                }
+                AjouteL2(oL1);
             }
             catch (Exception ex)
             {
                 CSDebug.TraceException("MVM.AjouteL2", ex);
-                oL2VM = null;
             }
             RaisePropertyChanged("IsCurrentCandidatAddL1Available");
             RaisePropertyChanged("IsCurrentCandidatAddL2Available");
@@ -1096,33 +1060,29 @@ namespace GestVAE.VM
                     int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
                     oL2VM.NumPassage = nbL2 + 1;
                 }
-                Livret1VM oL1 = CurrentCandidat.getL1Valide();
-                if (oL1 != null)
-                {
-                    oL2VM.Numero = oL1.Numero;
-                    oL2VM.DateValidite = oL1.DateValidite;
-                    oL2VM.DateLimiteReceptEHESP = oL1.DateValidite;
-                    if (oL1.IsRecoursDemande)
+                    oL2VM.Numero = pL1.Numero;
+                    oL2VM.DateValidite = pL1.DateValidite;
+                    oL2VM.DateLimiteReceptEHESP = pL1.DateValidite;
+                    if (pL1.IsRecoursDemande)
                     {
                         oL2VM.IsOuvertureApresRecours = true;
                     }
-                    if (oL1.DateEnvoiL2.HasValue)
+                    if (pL1.DateEnvoiL2.HasValue)
                     {
-                        oL2VM.DateEnvoiEHESP = oL1.DateEnvoiL2;
+                        oL2VM.DateEnvoiEHESP = pL1.DateEnvoiL2;
                     }
                     else
                     {
-                        oL1.DateEnvoiL2 = DateTime.Today;
+                        pL1.DateEnvoiL2 = DateTime.Today;
                         oL2VM.DateEnvoiEHESP = DateTime.Today;
                     }
-                    oL2VM.IsContrat = oL1.IsContrat;
-                    oL2VM.IsConvention = oL1.IsConvention;
-                    oL2VM.IsNonRecu = oL1.IsNonRecu;
-                    oL2VM.IsCNIOK = oL1.IsCNIOK;
-                    oL2VM.DateValiditeCNI = oL1.DateValiditeCNI;
+                    oL2VM.IsContrat = pL1.IsContrat;
+                    oL2VM.IsConvention = pL1.IsConvention;
+                    oL2VM.IsNonRecu = pL1.IsNonRecu;
+                    oL2VM.IsCNIOK = pL1.IsCNIOK;
+                    oL2VM.DateValiditeCNI = pL1.DateValiditeCNI;
                     oL2VM.IsEnregistre = false;
                     oL2VM.IsPaye = false;
-                }
 
 
                 // Récupération de la date d'envoi du L2 premier passage s'il s'agit un second passage
@@ -1225,7 +1185,7 @@ namespace GestVAE.VM
                 CloseAction();
             }
             // Création du Livret2 (Recupération du Livret1)
-            AjouteL2(); 
+            AjouteL2(oLiv); 
             // CloturerLivret1
             oLiv.IsLivretClos = true;
         }

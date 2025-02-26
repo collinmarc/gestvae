@@ -156,7 +156,7 @@ namespace GestVAE.VM
                 if (getNumDecision() > 0)
                 {
                     // Les Enums de L1 et L2 sont les mêmes !!!
-                    return (getNumDecision() == (int)MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE);
+                    return (getNumDecision() == (int)MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE || getNumDecision() == (int)MyEnums.DecisionJuryL2.DECISION_L2_DISPENSE);
                 }
                 else
                 { // si pas de decision =< Pas favorable
@@ -177,11 +177,11 @@ namespace GestVAE.VM
                         // Les Enums de L1 et L2 sont les mêmes !!!
                         if (value.Value)
                         {
-                            Decision = new Livret2VM(false).DecisionL2ModuleFavorable;
+                            Decision = Livret2VM.DecisionDCFavorable;
                         }
                         else
                         {
-                            Decision = new Livret2VM(false).DecisionL2ModuleDeFavorable;
+                            Decision = Livret2VM.DecisionL2DCDefavorable;
                         }
                     }
                 }

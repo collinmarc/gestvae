@@ -167,6 +167,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*" IsReadOnly="True"/>
                     <DataGridCheckBoxColumn Header="Bloc demandé" Binding="{Binding IsAValider}" Width="1*"/>
+                    <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="1*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Mode Obtention" Binding="{Binding ModeObtention}" Width="1*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Décision" Binding="{Binding Decision}" Width="3*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Commentaire" Binding="{Binding MotifCommentaire}" Width="4*" />
                 </DataGrid.Columns>
@@ -368,7 +370,7 @@
                 <TabItem x:Name="tabJury" Header="Examen Recevabilité" 
                     Visibility="{Binding IsEtatRecuCompletCAFDESV2, Converter={StaticResource BooleanToVisibilityConverter}}"
                      >
-                    <Grid x:Name="grdJury1"  ShowGridLines="False" HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretModifiable}" Margin="0,0,0,-1" >
+                    <Grid x:Name="grdJury1"  ShowGridLines="False" HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretModifiable}" Margin="0,0,0,31" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto"  />
@@ -377,6 +379,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" /> <!-- GridSecours 8 -->
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20*"/>
@@ -384,7 +387,7 @@
                             <ColumnDefinition Width="343*"/>
                             <ColumnDefinition Width="343*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="26" Margin="0,2,0,8">
                             <Label Content="Date de recevabilité :" VerticalAlignment="Center"/>
                             <DatePicker x:Name="dtpDateJury" Margin="0" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpReceptComplet}" SelectedDate="{Binding DateJury}" >
                                 <DatePicker.BlackoutDates>
@@ -392,12 +395,12 @@
                                 </DatePicker.BlackoutDates>
                             </DatePicker>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="28" Margin="0,0,0,8">
                             <Label Content="Décision:" VerticalAlignment="Center"/>
                             <ComboBox HorizontalAlignment="Stretch" Style="{DynamicResource ComboboxReadOnlyStyle}" IsEnabled="{Binding IsLivretModifiable}" SelectedItem="{Binding DecisionJury}" 
                                       ItemsSource="{Binding LstDecisionL1}"  />
 
-<!--                            <TextBox x:Name="tbDecisionLivret" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsEnabled="{Binding IsLivretModifiable}" 
+                            <!--                            <TextBox x:Name="tbDecisionLivret" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsEnabled="{Binding IsLivretModifiable}" 
                          Text="{Binding DecisionJury,Mode=OneWay}" Style="{DynamicResource TextBoxReadOnlyStyle}"/>-->
 
 
@@ -414,7 +417,7 @@
                                   SelectedValuePath="Libelle"
                                   SelectedValue="{Binding MotifGeneralJury}" Style="{DynamicResource ComboboxReadOnlyStyle}" Width ="Auto"
                                   />
-                            </Grid>
+                        </Grid>
                         <!-- Morif Commentaire -->
                         <Grid  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" IsEnabled="{Binding IsDecisionJuryDefavorable}">
                             <Grid.ColumnDefinitions>
@@ -422,11 +425,11 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" VerticalAlignment="Center" Content="Commentaire :"/>
-                                <TextBox Grid.Column="1"  x:Name="tbCommentaire" HorizontalAlignment="Stretch" Style="{DynamicResource TextBoxReadOnlyStyle}" Width="Auto" MinWidth="0"
+                            <TextBox Grid.Column="1"  x:Name="tbCommentaire" HorizontalAlignment="Stretch" Style="{DynamicResource TextBoxReadOnlyStyle}" Width="Auto" MinWidth="0"
                                          Text="{Binding CommentaireJury}"/>
 
-                            </Grid>
-                            
+                        </Grid>
+
                         <DataGrid x:Name="dgDCLivretDecision"
                                     ItemsSource="{Binding lstDCLivretAValider}" 
                                     SelectedItem="{Binding selectedDCLivret}"
@@ -437,7 +440,7 @@
                                   IsEnabled="{Binding IsDecisionJuryPartielle}">
                             <DataGrid.Resources>
                                 <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
-                                    <!-- On définit la liste des items directement ici -->
+                                <!-- On définit la liste des items directement ici -->
                                 <CollectionViewSource x:Key="ListeMotifs" Source="{Binding lstMotifGL2}" />
                             </DataGrid.Resources>
 
@@ -468,7 +471,7 @@
                         <!--
                             Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}"  >
                         -->
-                        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" >
+                        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Height="44" >
                             <Label  Content="Recours :" VerticalAlignment="Center"/>
                             <CheckBox x:Name="chkRecours" VerticalAlignment="Center" IsChecked="{Binding IsRecoursDemande}"/>
                             <Label VerticalAlignment="Center" Content="Date limite de depot :" Margin="10,0,0,0"/>
@@ -480,14 +483,14 @@
                             </DatePicker>
                         </StackPanel>
 
-                        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
+                        <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="2" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}" Grid.RowSpan="3">
                             <StackPanel Orientation="Horizontal" >
                                 <Label Width="169" VerticalAlignment="Center" Content="Date de dépôt du recours :"  />
                                 <DatePicker x:Name="dtpDateDepotRecours" Width="125" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal"/>
                         </StackPanel>
-                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
+                        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}" Grid.RowSpan="2">
                             <Label VerticalAlignment="Center" Content="Type de recours :"/>
                             <RadioButton x:Name="rbTypeRecoursGracieux" GroupName="TypeRecours" 
                                  IsChecked="{Binding TypeRecours, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Gracieux}, Converter={StaticResource EnumToBoleanConverter}}" VerticalAlignment="Center"
@@ -500,7 +503,7 @@
                         </StackPanel>
 
 
-                        <Grid x:Name="grdRecours" ShowGridLines="False" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="4" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
+                        <Grid x:Name="grdRecours" ShowGridLines="False" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -733,7 +736,9 @@
                     />
 
                 <Button x:Name="dbCreerL2"  Margin="10"  IsCancel="True" Content="Clôturer et créer le Livret2" 
-                    Command="{Binding DataContext.CloturerL1etCreerL2Command, ElementName=window}" />
+                    Command="{Binding DataContext.CloturerL1etCreerL2Command, ElementName=window}" 
+                    Visibility="{Binding IsLivretNonClos, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        />
                 <Button x:Name="cbDecloturerL1" Margin="10" 
                 Command="{Binding DataContext.DecloturerLivretCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" 
                 Content="Décloturer le Livret" 

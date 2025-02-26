@@ -94,7 +94,8 @@ namespace GestVAEcls
                 if (oDCL == null)
                 {
                     oDCL = new DCLivret(oDCCand.oDomaineCompetence);
-                    oDCL.Statut = "";
+                    oDCL.Statut = oDCCand.Statut;
+                    oDCL.ModeObtention = oDCCand.ModeObtention;
                     lstDCLivrets.Add(oDCL);
                 }
                 else

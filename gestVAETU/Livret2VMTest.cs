@@ -94,10 +94,10 @@ namespace GestVAETU
 
             // Validation partielle du L2
             oL2.FTO_SetDecisionJuryL2Partielle();
-            oL2.lstDCLivret[0].Decision = oL2.DecisionL2ModuleFavorable;
-            oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleDeFavorable;
-            oL2.lstDCLivret[2].Decision = oL2.DecisionL2ModuleFavorable;
-            oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleDeFavorable;
+            oL2.lstDCLivret[0].Decision = Livret2VM.DecisionDCFavorable;
+            oL2.lstDCLivret[1].Decision = Livret2VM.DecisionL2DCDefavorable;
+            oL2.lstDCLivret[2].Decision = Livret2VM.DecisionDCFavorable;
+            oL2.lstDCLivret[3].Decision = Livret2VM.DecisionL2DCDefavorable;
             VM.ValideretQuitterL2();
             VM.saveData();
 
@@ -121,8 +121,8 @@ namespace GestVAETU
 
             // Validation PArtielle du L2
             oL2.FTO_SetDecisionJuryL2Partielle();
-            oL2.lstDCLivret[1].Decision = oL2.DecisionL2ModuleFavorable;
-            oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleDeFavorable;
+            oL2.lstDCLivret[1].Decision = Livret2VM.DecisionDCFavorable;
+            oL2.lstDCLivret[3].Decision = Livret2VM.DecisionL2DCDefavorable;
             VM.ValideretQuitterL2();
             VM.saveData();
             // test de l'état des DCCand
@@ -142,7 +142,7 @@ namespace GestVAETU
             Assert.AreEqual("Validé", oL2.lstDCLivret[2].Statut);
             Assert.AreEqual("Refusé", oL2.lstDCLivret[3].Statut);
             oL2.FTO_SetDecisionJuryL2Partielle();
-            oL2.lstDCLivret[3].Decision = oL2.DecisionL2ModuleFavorable;
+            oL2.lstDCLivret[3].Decision = Livret2VM.DecisionDCFavorable;
             VM.ValideretQuitterL2();
             VM.saveData();
         }

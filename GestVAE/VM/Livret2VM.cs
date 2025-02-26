@@ -16,7 +16,7 @@ namespace GestVAE.VM
         private Livret2 oL2 { get { return (Livret2)TheLivret; } }
 
         private ObservableCollection<MembreJuryVM> _lstMembreJuryVM;
-        public ObservableCollection<MembreJuryVM> lstMembreJury{
+        public ObservableCollection<MembreJuryVM> lstMembreJury {
             get
             {
                 return _lstMembreJuryVM;
@@ -26,10 +26,10 @@ namespace GestVAE.VM
         {
             get
             {
-                return lstMembreJury.Where(m=>!m.IsDeleted).ToList();
+                return lstMembreJury.Where(m => !m.IsDeleted).ToList();
             }
         }
-        public Livret2VM(Livret2 pLivret) :  base(pLivret)
+        public Livret2VM(Livret2 pLivret) : base(pLivret)
         {
             _lstMembreJuryVM = new ObservableCollection<MembreJuryVM>();
 
@@ -106,7 +106,7 @@ namespace GestVAE.VM
             this.IsEnregistre = false;
             this.IsPaye = false;
 
-            // Transfert des blocs Validé depuis le Livret1 vers le Livret2
+            // Transfert des blocs Validé et favorable depuis le Livret1 vers le Livret2
             foreach (DCLivretVM item in pL1.lstDCLivretAValider)
             {
                 if (item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value)
@@ -114,17 +114,20 @@ namespace GestVAE.VM
                     DCLivretVM oDCLivret = new DCLivretVM();
                     oDCLivret.TheDCLivret.oDomaineCompetence = item.TheDCLivret.oDomaineCompetence;
                     oDCLivret.IsAValider = true;
-                    oDCLivret.MotifCommentaire = item.MotifCommentaire;
-                    if (pL1.GetCandidatVM().IsCAFERUIS && oDCLivret.NomDC == "BLOC4")
-                    {
-                        oDCLivret.Decision = DecisionL2ModuleFavorable;
-                        oDCLivret.PropositionDecision = oDCLivret.Decision;
-                    }
-                    if (pL1.GetCandidatVM().IsDEIS && (oDCLivret.NomDC == "BLOC1" || oDCLivret.NomDC == "BLOC4"))
-                    {
-                        oDCLivret.Decision = DecisionL2ModuleFavorable;
-                        oDCLivret.PropositionDecision = oDCLivret.Decision;
-                    }
+                    //oDCLivret.MotifCommentaire = item.MotifCommentaire;
+                    //oDCLivret.Decision = item.Decision;
+                    //oDCLivret.PropositionDecision = item.PropositionDecision;
+                    //oDCLivret.Statut = item.Statut;
+                    //if (pL1.GetCandidatVM().IsCAFERUIS && oDCLivret.NomDC == "BLOC4")
+                    //{
+//                        oDCLivret.Decision = DecisionDCFavorable;
+  //                      oDCLivret.PropositionDecision = oDCLivret.Decision;
+                    //}
+                    //if (pL1.GetCandidatVM().IsDEIS && (oDCLivret.NomDC == "BLOC1" || oDCLivret.NomDC == "BLOC4"))
+                    //{
+    //                    oDCLivret.Decision = DecisionDCFavorable;
+      //                  oDCLivret.PropositionDecision = oDCLivret.Decision;
+                    //}
 
 
                     this.lstDCLivret.Add(oDCLivret);
@@ -139,7 +142,7 @@ namespace GestVAE.VM
         /// NB: on ne peut utiliser le MemberwiseClone car il faut recréer une nouvelle entity
         /// </summary>
         /// <returns></returns>
-        public Livret2VM (Livret2VM pLivAncien) : base(pLivAncien.IsLocked)
+        public Livret2VM(Livret2VM pLivAncien) : base(pLivAncien.IsLocked)
         {
             this.TheItem = (Livret)new Livret2(); // Recréation de l'entité
             this.TheLivret.oDiplome = Diplome.getDiplomeParDefaut(); // Diplome CAFDESV2
@@ -416,13 +419,27 @@ namespace GestVAE.VM
             }
             set { }
         }
-        public String DecisionL2ModuleFavorable { get { return LstDecisionL2Module[0]; } }
-        public String DecisionL2ModuleDeFavorable { get { return LstDecisionL2Module[1]; } }
-        public List<String> LstDecisionL2Module
+        public static String DecisionL2ValidationTotale 
+        { 
+            get { return LstDecisionL2[0];}
+        }
+        public static String DecisionL2Refus
+        {
+            get { return LstDecisionL2[1]; }
+        }
+        public static String DecisionL2ValidationPartielle
+        {
+            get { return LstDecisionL2[2]; }
+        }
+        public static String DecisionDCDispensé { get { return LstDecisionDC[0]; } }
+        public static String DecisionDCFavorable { get { return LstDecisionDC[1]; } }
+        public static String DecisionL2DCDefavorable { get { return LstDecisionDC[2]; } }
+        public static List<String> LstDecisionDC
         {
             get
             {
                 List<String> oReturn = new List<String>();
+                oReturn.Add(String.Format("{0:D}-Dispensé", MyEnums.DecisionJuryL2.DECISION_L2_DISPENSE));
                 oReturn.Add(String.Format("{0:D}-Validation", MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE));
                 oReturn.Add(String.Format("{0:D}-Refus de validation", MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE));
                 return oReturn;

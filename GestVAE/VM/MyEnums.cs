@@ -29,6 +29,7 @@ namespace GestVAE.VM
         }
         public enum DecisionJuryL2
         {
+            DECISION_L2_DISPENSE = 00,
             DECISION_L2_FAVORABLE = 10,
             DECISION_L2_DEFAVORABLE = 20,
             DECISION_L2_PARTIELLE = 30

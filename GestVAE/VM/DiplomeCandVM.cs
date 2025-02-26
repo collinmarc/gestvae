@@ -100,9 +100,9 @@ namespace GestVAE.VM
             nbValidé = lstDCCands.Where(d => d.Statut == "Validé").Count();
 
             if (nbRefusé == lstDCCands.Count())
-                { StatutDiplome = LstStatutDiplome[2]; } // Refusé
+                { StatutDiplome = StatutDiplomeRefusé; } // Refusé
             if (nbValidé == lstDCCands.Count())
-                { StatutDiplome = LstStatutDiplome[0]; } // Validé
+                { StatutDiplome = StatutDiplomeValidé; } // Validé
 
             if (nbValidé != lstDCCands.Count() && nbRefusé != lstDCCands.Count())
             {
@@ -111,12 +111,12 @@ namespace GestVAE.VM
                 {
                     if (StatutDiplome == "")
                     {
-                        StatutDiplome = LstStatutDiplome[3]; // encours
+                        StatutDiplome = StatutDiplomeEncours; // encours
                     }
                 }
                 else
                 {
-                     StatutDiplome = LstStatutDiplome[1];  // Validé partiellement                
+                     StatutDiplome = StatutDiplomeValidéPartiel;  // Validé partiellement                
                 }
             }
         }
@@ -401,17 +401,34 @@ namespace GestVAE.VM
                 }
             }
         }
-        public List<String> LstStatutModule {
+        public static List<String> LstStatutModule {
             get
             {
                 List<String> oReturn = new List<String>();
                 oReturn.Add("Validé");
                 oReturn.Add("Refusé");
                 oReturn.Add("En cours");
+                oReturn.Add("Dispensé");
                 return oReturn;
             }
             set { }
-                 }
+            }
+        public static String StatutDCValidé
+        {
+            get { return LstStatutModule[0]; }
+        }
+        public static String StatutDCRefusé
+        {
+            get { return LstStatutModule[1]; }
+        }
+        public static String StatutDCEnCours
+        {
+            get { return LstStatutModule[2]; }
+        }
+        public static String StatutDCDispensé
+        {
+            get { return LstStatutModule[3]; }
+        }
         public List<String> LstStatutDiplome
         {
             get
@@ -425,6 +442,22 @@ namespace GestVAE.VM
                 return oReturn;
             }
             set { }
+        }
+        public String StatutDiplomeValidé
+        {
+            get { return LstStatutDiplome[0]; }
+        }
+        public String StatutDiplomeValidéPartiel
+        {
+            get { return LstStatutDiplome[1]; }
+        }
+        public String StatutDiplomeRefusé
+        {
+            get { return LstStatutDiplome[2]; }
+        }
+        public String StatutDiplomeEncours
+        {
+            get { return LstStatutDiplome[3]; }
         }
         public List<String> LstModeObtention
         {

@@ -192,6 +192,7 @@ namespace GestVAE.VM
                     RaisePropertyChanged("IsEtatEnvoye");
                     RaisePropertyChanged("IsEtatRecu");
                     RaisePropertyChanged("IsEtatRecuComplet");
+                    RaisePropertyChanged("IsEtatRecuCompletCAFDESV2");
                     RaisePropertyChanged("IsEtatRecuIncomplet");
                     RaisePropertyChanged("IsEtatRefuse");
                     RaisePropertyChanged("IsEtatRecours");

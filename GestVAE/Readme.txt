@@ -1,4 +1,7 @@
-﻿BUILD 20241202
+﻿BUILD 20250225
+	Maintenance Fevrier 2025 : Gestion des L1
+
+BUILD 20241202
 	#1717 : Maintenance 02/12
 BUILD 20241012
 	Migration : Suppression des CREATE OR ALTER

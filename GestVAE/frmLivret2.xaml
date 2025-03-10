@@ -70,8 +70,8 @@
                     <ComboBox x:Name="cbxEtatLivret"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0"
                           SelectedItem="{Binding EtatLivret}" ItemsSource="{Binding VM.lstCandidatVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret2}}}" Style="{DynamicResource ComboboxReadOnlyStyle}" 
                           IsEnabled="{Binding IsLivretModifiable}"/>
-                    <TextBox x:Name="tbMotifIrrecevable" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="0,5,0,0"  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                         Text="{Binding MotifIrrecevabilité}"
+                    <TextBox x:Name="tbMotifIrrecevable" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="0,9,0,3"  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                         Text="{Binding MotifIrrecevabilité}" TextWrapping="Wrap"
                          Visibility="{Binding IsEtatIrrecevable, Converter={StaticResource BooleanToVisibilityConverter}}"
                          />
                     <Label Content="Livret CLOTURE :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>

@@ -11,7 +11,7 @@ namespace GestVAE.VM
 
         public enum EtatLivret
         {
-            ETAT_Lv_SANS_SUITE = 05,
+            ETAT_Lv_IRRECEVABLE = 05,
             ETAT_Lv_DEMANDE = 10,
             ETAT_Lv_ENVOYE = 20,
             ETAT_Lv_RECU_INCOMPLET = 30,

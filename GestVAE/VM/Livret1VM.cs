@@ -826,7 +826,7 @@ namespace GestVAE.VM
                     EtatLivret = strEtat;
                 }
             }
-            if (IsEtatSansSuite)
+            if (IsEtatIrrecevable)
             {
                 IsLivretClos = true;
             }

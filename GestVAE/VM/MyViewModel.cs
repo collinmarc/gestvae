@@ -405,7 +405,7 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add(String.Format("{0:D}-Sans_Suite", MyEnums.EtatLivret.ETAT_Lv_SANS_SUITE));
+                oReturn.Add(String.Format("{0:D}-Irrecevable", MyEnums.EtatLivret.ETAT_Lv_IRRECEVABLE));
                 oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatLivret.ETAT_Lv_DEMANDE));
                 oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatLivret.ETAT_Lv_ENVOYE));
                 oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatLivret.ETAT_Lv_RECU_INCOMPLET));
@@ -421,7 +421,7 @@ namespace GestVAE.VM
             get
             {
                 List<String> oReturn = new List<String>();
-                oReturn.Add(String.Format("{0:D}-Sans_Suite", MyEnums.EtatLivret.ETAT_Lv_SANS_SUITE));
+                oReturn.Add(String.Format("{0:D}-Irrecevable", MyEnums.EtatLivret.ETAT_Lv_IRRECEVABLE));
                 oReturn.Add(String.Format("{0:D}-Demandé", MyEnums.EtatLivret.ETAT_Lv_DEMANDE));
                 oReturn.Add(String.Format("{0:D}-Envoyé", MyEnums.EtatLivret.ETAT_Lv_ENVOYE));
                 oReturn.Add(String.Format("{0:D}-Reçu incomplet", MyEnums.EtatLivret.ETAT_Lv_RECU_INCOMPLET));
@@ -974,6 +974,19 @@ namespace GestVAE.VM
                 oDipCandVM.StatutDC2 = "";
                 oDipCandVM.StatutDC3 = "";
                 oDipCandVM.StatutDC4 = "";
+                if (CurrentCandidat.IsCAFERUIS )
+                {
+                    oDipCandVM.StatutDC1 = DiplomeCandVM.StatutDCDispensé;
+                    oDipCandVM.ModeObtentionDC1 = "CAFERUIS";
+                }
+                if (CurrentCandidat.IsDEIS )
+                {
+                    oDipCandVM.StatutDC1 = DiplomeCandVM.StatutDCDispensé;
+                    oDipCandVM.ModeObtentionDC1 = "DEIS";
+                    oDipCandVM.StatutDC2 = DiplomeCandVM.StatutDCDispensé;
+                    oDipCandVM.ModeObtentionDC2 = "DEIS";
+
+                }
             }
 
             // Initialisation des Domaines de compétences 
@@ -1033,7 +1046,10 @@ namespace GestVAE.VM
                 CandidatVM oCandVM = CurrentCandidat;
                 Livret1VM oL1 = null;
                 oL1 = CurrentCandidat.getL1Valide();
-                AjouteL2(oL1);
+                if (oL1 != null)
+                {
+                    AjouteL2(oL1);
+                }
             }
             catch (Exception ex)
             {
@@ -1049,7 +1065,7 @@ namespace GestVAE.VM
             try
             {
                 CandidatVM oCandVM = CurrentCandidat;
-                oL2VM = new Livret2VM(pL1);
+                oL2VM = new Livret2VM(pL1);  // Création du Livret2 en fonction du Livret1
                 oL2VM.LstEtatLivret = LstEtatLivret2;
 
                 oL2VM.EtatLivret = LstEtatLivret2[2];
@@ -1060,6 +1076,7 @@ namespace GestVAE.VM
                     int nbL2 = CurrentCandidat.lstLivrets.Where(l => l.Typestr == Livret2.TYPELIVRET).Select(l => ((Livret2VM)l).NumPassage).Max();
                     oL2VM.NumPassage = nbL2 + 1;
                 }
+
                     oL2VM.Numero = pL1.Numero;
                     oL2VM.DateValidite = pL1.DateValidite;
                     oL2VM.DateLimiteReceptEHESP = pL1.DateValidite;

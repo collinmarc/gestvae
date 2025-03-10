@@ -408,26 +408,27 @@ namespace GestVAE.VM
                 {
 
                     oJury.Decision = value;
-
-
-                    if (!IsDecisionJuryDefavorable)
+                    if (oJury.Decision != "")
                     {
-                        MotifDetailJury = "";
-                        MotifGeneralJury = "";
-                        CommentaireJury = "";
-                        IsRecoursDemande = false;
-                    }
-                    setEtatLivret();  // Accepté / Refusé
-                    // Passage de tous les items à Favorable
-                    foreach (DCLivretVM item in lstDCLivretAValider)
-                    {
-                        if (IsDecisionJuryValidationTotale)
+                        if (!IsDecisionJuryDefavorable)
                         {
-                            item.IsDecisionFavorable = true;
+                            MotifDetailJury = "";
+                            MotifGeneralJury = "";
+                            CommentaireJury = "";
+                            IsRecoursDemande = false;
                         }
-                        if (IsDecisionJuryDefavorable)
+                        setEtatLivret();  // Accepté / Refusé
+                                          // Passage de tous les items à Favorable
+                        foreach (DCLivretVM item in lstDCLivretAValider)
                         {
-                            item.IsDecisionDefavorable = true;
+                            if (IsDecisionJuryValidationTotale)
+                            {
+                                item.IsDecisionFavorable = true;
+                            }
+                            if (IsDecisionJuryDefavorable)
+                            {
+                                item.IsDecisionDefavorable = true;
+                            }
                         }
                     }
                     RaisePropertyChanged();
@@ -1119,7 +1120,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return (getNumetat() == (int)MyEnums.EtatLivret.ETAT_Lv_SANS_SUITE);
+                return (getNumetat() == (int)MyEnums.EtatLivret.ETAT_Lv_IRRECEVABLE);
             }
         }
         public Boolean IsEtatEnvoye
@@ -1141,7 +1142,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return IsEtatRecuComplet || IsEtatRecuIncomplet;
+                return IsEtatRecuComplet || IsEtatRecuIncomplet || IsEtatIrrecevable;
             }
         }
         public Boolean IsEtatRecuComplet
@@ -1188,13 +1189,6 @@ namespace GestVAE.VM
             get
             {
                 return ! (IsEtatAccepte  || IsEtatRefuse) ;
-            }
-        }
-        public Boolean IsEtatSansSuite
-        {
-            get
-            {
-                return (getNumetat() == (int)MyEnums.EtatLivret.ETAT_Lv_SANS_SUITE);
             }
         }
 

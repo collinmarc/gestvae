@@ -106,27 +106,48 @@ namespace GestVAE.VM
             this.IsEnregistre = false;
             this.IsPaye = false;
 
+            TransfertDCLivrets(pL1);
+        }
+
+        public void TransfertDCLivrets(Livret1VM pL1)
+        {
             // Transfert des blocs Validé et favorable depuis le Livret1 vers le Livret2
             foreach (DCLivretVM item in pL1.lstDCLivretAValider)
             {
-                if (item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value)
+                if ((item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value) || (item.Decision == ""))
                 {
                     DCLivretVM oDCLivret = new DCLivretVM();
                     oDCLivret.TheDCLivret.oDomaineCompetence = item.TheDCLivret.oDomaineCompetence;
                     oDCLivret.IsAValider = true;
+
+                    // Vérification dans le diplome du candidat 
+                    CandidatVM oCand = pL1.GetCandidatVM();
+                    if (oCand != null)
+                    {
+                        DiplomeCandVM oDip = oCand.lstDiplomesCandVMsActifs.Where(d => d.oDiplome.ID == pL1.TheLivret.Diplome_ID).FirstOrDefault();
+                        if (oDip != null)
+                        {
+                            DomaineCompetenceCand oDC = oDip.lstDCCands.Where(dc => dc.DomaineCompetence_ID == oDCLivret.TheDCLivret.oDomaineCompetence.ID &&
+                                                                                     (dc.Statut == "Validé" || dc.Statut == "Dispensé")).FirstOrDefault();
+                            if (oDC != null)
+                            {
+                                oDCLivret.IsAValider = false;
+                            }
+                        }
+                    }
                     //oDCLivret.MotifCommentaire = item.MotifCommentaire;
                     //oDCLivret.Decision = item.Decision;
                     //oDCLivret.PropositionDecision = item.PropositionDecision;
                     //oDCLivret.Statut = item.Statut;
                     //if (pL1.GetCandidatVM().IsCAFERUIS && oDCLivret.NomDC == "BLOC4")
                     //{
-//                        oDCLivret.Decision = DecisionDCFavorable;
-  //                      oDCLivret.PropositionDecision = oDCLivret.Decision;
+                    //                        oDCLivret.Decision = DecisionDCFavorable;
+                    //                      oDCLivret.PropositionDecision = oDCLivret.Decision;
                     //}
                     //if (pL1.GetCandidatVM().IsDEIS && (oDCLivret.NomDC == "BLOC1" || oDCLivret.NomDC == "BLOC4"))
                     //{
-    //                    oDCLivret.Decision = DecisionDCFavorable;
-      //                  oDCLivret.PropositionDecision = oDCLivret.Decision;
+                    //                    oDCLivret.Decision = DecisionDCFavorable;
+                    //                  oDCLivret.PropositionDecision = oDCLivret.Decision;
                     //}
 
 
@@ -137,6 +158,7 @@ namespace GestVAE.VM
 
             }
         }
+
         /// <summary>
         /// Clonage de l'objet
         /// NB: on ne peut utiliser le MemberwiseClone car il faut recréer une nouvelle entity
@@ -861,8 +883,9 @@ namespace GestVAE.VM
                     EtatLivret = strEtat;
                 }
             }
-            if (IsEtatSansSuite)
+            if (IsEtatIrrecevable)
             {
+                MotifIrrecevabilité = "votre livret 2 n’est pas conforme au référentiel de compétences de l’arrêté du 27 août 2022 relatif au CAFDES";
                 IsLivretClos = true;
             }
 

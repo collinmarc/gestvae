@@ -323,6 +323,10 @@
     <Compile Include="Migrations\202410020935283_StatutL1.Designer.cs">
       <DependentUpon>202410020935283_StatutL1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202502280801078_SupprDiplomeDouble.cs" />
+    <Compile Include="Migrations\202502280801078_SupprDiplomeDouble.Designer.cs">
+      <DependentUpon>202502280801078_SupprDiplomeDouble.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MotifL2.cs" />
     <Compile Include="MotifL1.cs" />
@@ -568,6 +572,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202410020935283_StatutL1.resx">
       <DependentUpon>202410020935283_StatutL1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502280801078_SupprDiplomeDouble.resx">
+      <DependentUpon>202502280801078_SupprDiplomeDouble.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

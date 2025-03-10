@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 // en utilisant '*', comme indiqué ci-dessous :
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2019.09.01.0")]
-[assembly: AssemblyFileVersion("2025.02.25.0")]
+[assembly: AssemblyFileVersion("2025.03.10.0")]
 [assembly: InternalsVisibleTo("GestVAEcls.Tests")]
 [assembly: InternalsVisibleTo("GestVAEcls.Explorables")]
 

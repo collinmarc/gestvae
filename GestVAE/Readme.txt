@@ -1,4 +1,10 @@
-﻿BUILD 20250225
+﻿BUILD 20250310
+	Suppression des diplome en double
+	Trt des L2 dans DC
+	extraction sur CAFDESV2
+	Irrecevable
+
+BUILD 20250225
 	Maintenance Fevrier 2025 : Gestion des L1
 
 BUILD 20241202

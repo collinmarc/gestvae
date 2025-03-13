@@ -99,7 +99,8 @@ namespace GestVAE.VM
                     if (oL2.lstDCLivret.Count() == 0)
                     {
                         Livret1VM oL1 = getL1Valide();
-                        oL2.TransfertDCLivrets(oL1);
+                        if (oL1 != null)
+                            oL2.TransfertDCLivrets(oL1);
                     }
                     lstLivrets.Add(oL2);
             }

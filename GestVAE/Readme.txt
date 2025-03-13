@@ -1,4 +1,7 @@
-﻿BUILD 20250310
+﻿BUILD 20250313
+	Prise en compte des L1 valides
+
+BUILD 20250310
 	Suppression des diplome en double
 	Trt des L2 dans DC
 	extraction sur CAFDESV2

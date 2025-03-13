@@ -254,37 +254,38 @@ namespace GestVAE.VM
         public Boolean IsValide(CandidatVM pCand )
         {
             Boolean bIsL1Valide = false;
-            //            bReturn = (IsEtatAccepte && DateValidite > DateTime.Now);
-            DateTime dDateValid = DateTime.Now;
-            Int32 nDelai = new ContextParam() .dbParam.First().DelaiValiditeL1;
-            if (DateValidite.HasValue)
-            {
-                dDateValid = DateValidite.Value.AddDays(nDelai);
-            }
-            bIsL1Valide = (IsEtatAccepte && (dDateValid > DateTime.Now));
+            bIsL1Valide = IsEtatAccepte;
+            ////            bReturn = (IsEtatAccepte && DateValidite > DateTime.Now);
+            //DateTime dDateValid = DateTime.Now;
+            //Int32 nDelai = new ContextParam() .dbParam.First().DelaiValiditeL1;
+            //if (DateValidite.HasValue)
+            //{
+            //    dDateValid = DateValidite.Value.AddDays(nDelai);
+            //}
+            //bIsL1Valide = (IsEtatAccepte && (dDateValid > DateTime.Now));
 
-            if (bIsL1Valide)
-            {
-                if (IsEtatAccepte)
-                {
-                    // Si le L1 est accepté
-                    // Récupération du diplome du candidat
-                    CandidatVM oCand = pCand;
-                    DiplomeCandVM oDiplomeCand = oCand.lstDiplomesCandVMsActifs.FirstOrDefault(oD => oD.oDiplome.Nom == NomDiplome);
-                    Boolean bTousLesBlocsDemandesSontValide = false;
-                    if (oDiplomeCand != null)
-                    {
-                        bTousLesBlocsDemandesSontValide = lstDCLivretAValider.All(item =>
-                                            {
-                                                var oDCCand = oDiplomeCand.lstDCCands.FirstOrDefault(d => d.NomDomaineCompetence == item.NomDC);
-                                                return oDCCand != null && oDCCand.Statut == "Validé";
-                                            }
-                                            );
-                    }
-                    // Il n'est plus valide si tous des Blocs sont validés 
-                    bIsL1Valide = !bTousLesBlocsDemandesSontValide;
-                }
-            }
+            //if (bIsL1Valide)
+            //{
+            //    if (IsEtatAccepte)
+            //    {
+            //        // Si le L1 est accepté
+            //        // Récupération du diplome du candidat
+            //        CandidatVM oCand = pCand;
+            //        DiplomeCandVM oDiplomeCand = oCand.lstDiplomesCandVMsActifs.FirstOrDefault(oD => oD.oDiplome.Nom == NomDiplome);
+            //        Boolean bTousLesBlocsDemandesSontValide = false;
+            //        if (oDiplomeCand != null)
+            //        {
+            //            bTousLesBlocsDemandesSontValide = lstDCLivretAValider.All(item =>
+            //                                {
+            //                                    var oDCCand = oDiplomeCand.lstDCCands.FirstOrDefault(d => d.NomDomaineCompetence == item.NomDC);
+            //                                    return oDCCand != null && oDCCand.Statut == "Validé";
+            //                                }
+            //                                );
+            //        }
+            //        // Il n'est plus valide si tous des Blocs sont validés 
+            //        bIsL1Valide = !bTousLesBlocsDemandesSontValide;
+            //    }
+            //}
 
 
 

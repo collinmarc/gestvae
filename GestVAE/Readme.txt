@@ -1,4 +1,6 @@
-﻿BUILD 20250313
+﻿BUILD 20250414
+	0001791: Rendre le status des blocs Modifiable sur le Livret1
+BUILD 20250313
 	Prise en compte des L1 valides
 
 BUILD 20250310

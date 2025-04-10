@@ -161,15 +161,21 @@
                            Visibility="{Binding IsCAFDESV2 , Converter={StaticResource BooleanToVisibilityConverter}}"
                               >
                 <DataGrid.Resources>
-                    <VM:BindingProxy x:Key="proxy" Data="{Binding VM.CurrentCandidat.CurrentLivret, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:frmLivret1}}}" />
+                    <VM:BindingProxy x:Key="proxy" Data="{Binding VM.CurrentCandidat.CurrentLivret, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+
                 </DataGrid.Resources>
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*" IsReadOnly="True"/>
                     <DataGridCheckBoxColumn Header="Bloc demandé" Binding="{Binding IsAValider}" Width="1*"/>
-                    <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="1*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Mode Obtention" Binding="{Binding ModeObtention}" Width="1*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Décision" Binding="{Binding Decision}" Width="3*" IsReadOnly="True"/>
+                    <!--<DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="1*" /> -->
+                    <DataGridComboBoxColumn Header="Statut" ItemsSource="{Binding Data.listeStatutsBloc, Source={StaticResource proxy} }"
+                                                                    SelectedValueBinding="{Binding Statut}"
+                                                                    Width="1*"
+                                                                    />
+
+                    <DataGridTextColumn Header="Mode Obtention" Binding="{Binding ModeObtention}" Width="1*" />
+                    <DataGridTextColumn Header="Décision" Binding="{Binding Decision}" Width="3*" />
                     <DataGridTextColumn Header="Commentaire" Binding="{Binding MotifCommentaire}" Width="4*" />
                 </DataGrid.Columns>
                 <DataGrid.RowStyle>

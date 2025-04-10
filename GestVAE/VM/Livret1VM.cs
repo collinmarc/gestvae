@@ -429,6 +429,14 @@ namespace GestVAE.VM
             set { _lstMotifGL1 = value; }
         }
 
+        public List<String> listeStatutsBloc
+        {
+            get
+            {
+                return DiplomeCandVM.LstStatutModule;
+            }
+            set {}
+        }
 
         private int myVar;
 

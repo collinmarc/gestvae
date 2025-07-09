@@ -659,41 +659,6 @@ namespace GestVAE.VM
             }
         }
 
-         public ICommand DeleteLivretCommand { get; set; }
-
-        public Boolean IsDeletePossible
-        {
-            get
-            {
-                Boolean bReturn = false;
-                if (CurrentLivret != null)
-                {
-                    if (IsLocked)
-                    {
-                        if (CurrentLivret is Livret1VM)
-                        {
-                            bReturn = true;
-                            // C'est impossible si on n'a 1 Livret2
-                            foreach (LivretVMBase oLiv in lstLivrets)
-                            {
-                                if (oLiv is Livret2VM)
-                                {
-                                    bReturn = false;
-                                }
-                            }
-                        }
-                        if (CurrentLivret is Livret2VM)
-                        {
-                            // C'est impossible si Le Livret n'est pas Clos
-                            bReturn = CurrentLivret.IsLivretClos;
-                        }
-                    }
-                }
-
-                return bReturn;
-            }
-        }
-
         public void DeleteCurrentDiplome()
         {
             Debug.Assert(CurrentDiplomeCand != null);

@@ -145,6 +145,11 @@ namespace GestVAE
         {
             VM.AfficherCurrentLivret();
         }
+
+        private void ChkIsDEIS_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 

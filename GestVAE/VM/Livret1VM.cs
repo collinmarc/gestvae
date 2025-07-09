@@ -254,7 +254,8 @@ namespace GestVAE.VM
         public Boolean IsValide(CandidatVM pCand )
         {
             Boolean bIsL1Valide = false;
-            bIsL1Valide = IsEtatAccepte;
+            bIsL1Valide = IsEtatAccepte && (!IsLivretClos); // Valide = Accepté et Non clos
+
             ////            bReturn = (IsEtatAccepte && DateValidite > DateTime.Now);
             //DateTime dDateValid = DateTime.Now;
             //Int32 nDelai = new ContextParam() .dbParam.First().DelaiValiditeL1;
@@ -873,7 +874,14 @@ namespace GestVAE.VM
         }
         public override CandidatVM GetCandidatVM()
         {
-            return new CandidatVM(oL1.oCandidat);
+            if (oL1.oCandidat != null)
+            {
+                return new CandidatVM(oL1.oCandidat);
+            }
+            else
+            {
+                return null;
+            }
 
         }
 

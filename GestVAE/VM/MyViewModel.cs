@@ -121,9 +121,30 @@ namespace GestVAE.VM
                 RaisePropertyChanged("IsCurrentCandidatLockable");
                 RaisePropertyChanged("IsCurrentCandidatLockedByMe");
                 RaisePropertyChanged("CurrentCandidatNom");
+                RaisePropertyChanged("IsDeleteCurrentLivretPossible");
 
 
                 RaisePropertyChanged(); }
+        }
+        /// <summary>
+        /// Le Livret Courant du candidat courant
+        /// </summary>
+        public LivretVMBase CurrentLivret
+        {
+            get { if (CurrentCandidat == null)
+                { return null; }
+                else
+                { return CurrentCandidat.CurrentLivret; }
+                }
+            set
+            {
+                if (CurrentCandidat != null)
+                {
+                    CurrentCandidat.CurrentLivret = value;
+                }
+                RaisePropertyChanged("IsDeleteCurrentLivretPossible");
+                RaisePropertyChanged();
+            }
         }
 
         public String CurrentCandidatNom
@@ -313,8 +334,10 @@ namespace GestVAE.VM
             CommentaireCommand = new RelayCommand<MyViewModel>(o => { Commentaire(); });
 
             DeleteCurrentLivretCommand = new RelayCommand<MyViewModel>(c => { DeleteCurrentLivret(); },
-                                                    c => { return CurrentCandidat.IsDeletePossible; });
+                                                    c => { return IsDeleteCurrentLivretPossible; });
 
+            _IsDEISCommand = new RelayCommand<MyViewModel>(c => { isDEIS(); });
+            _IsCAFERUISCommand = new RelayCommand<MyViewModel>(c => { isCAFERUIS(); });
         }//Createcommand
 
         public ObservableCollection<CandidatVM> lstCandidatVM
@@ -727,6 +750,18 @@ namespace GestVAE.VM
         {
             get { return _RechercherCommand; }
         }
+        private ICommand _IsDEISCommand;
+
+        public ICommand IsDEISCommand
+        {
+            get { return _IsDEISCommand; }
+        }
+        private ICommand _IsCAFERUISCommand;
+
+        public ICommand IsCAFERUISCommand
+        {
+            get { return _IsCAFERUISCommand; }
+        }
         public ICommand dlgDiplomeCommand { get; set; }
         public ICommand AjouteDiplomeCandCommand { get; set; }
         public ICommand AjouteL1Command { get; set; }
@@ -1064,6 +1099,11 @@ namespace GestVAE.VM
             Livret2VM oL2VM = null;
             try
             {
+                if (pL1.GetCandidatVM() == null)
+                {
+                    MessageBox.Show("Veuillez sauvegarder le Livret1 avant de créer le Livret2");
+                    return;
+                }
                 CandidatVM oCandVM = CurrentCandidat;
                 oL2VM = new Livret2VM(pL1);  // Création du Livret2 en fonction du Livret1
                 oL2VM.LstEtatLivret = LstEtatLivret2;
@@ -1126,7 +1166,7 @@ namespace GestVAE.VM
                     oDipCandVM.StatutDC4 = "";
                 }
                 CurrentCandidat.CurrentLivret = oL2VM;
-
+                oL2VM.IsLocked = true;
                 if (!IsInTest)
                 {
                     frmLivret2 odlg = new frmLivret2();
@@ -1143,6 +1183,38 @@ namespace GestVAE.VM
             RaisePropertyChanged("IsCurrentCandidatAddL2Available");
 
         }
+        public ICommand DeleteLivretCommand { get; set; }
+
+        public Boolean IsDeleteCurrentLivretPossible
+        {
+            get
+            {
+                Boolean bReturn = false;
+                if (IsCurrentCandidatLocked )
+                {
+                        if (CurrentCandidat.CurrentLivret is Livret1VM)
+                        {
+                            bReturn = true;
+                            // C'est impossible si on n'a 1 Livret2
+                            foreach (LivretVMBase oLiv in CurrentCandidat.lstLivrets)
+                            {
+                                if (oLiv is Livret2VM)
+                                {
+                                    bReturn = false;
+                                }
+                            }
+                        }
+                        if (CurrentCandidat.CurrentLivret is Livret2VM)
+                        {
+                            // C'est impossible si Le Livret n'est pas Clos
+                            bReturn = CurrentCandidat.CurrentLivret.IsLivretClos;
+                        }
+                }
+
+                return bReturn;
+            }
+        }
+
 
         public void DeleteCurrentLivret()
         {
@@ -2370,6 +2442,69 @@ namespace GestVAE.VM
             ofrm.SetconTexte(this);
             ofrm.ShowDialog();
         }
+        /// <summary>
+        /// Traietement du DEIS à posteriori
+        /// </summary>
+        public void isDEIS()
+        {
+            if (CurrentCandidat.IsDEIS)
+            {
+                List<Livret1VM> olstL1 = null;
+                olstL1 = CurrentCandidat.getListLivret1().Where(l => { return !l.IsLivretClos; }).ToList<Livret1VM>();
+                if (olstL1.Count > 0)
+                {
+                    if (MessageBox.Show("Voulez-vous mettre à jour les Livrets1 non clos?", "DEIS à postériori", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        foreach (Livret1VM oL1 in olstL1)
+                        {
+                            DCLivretVM oDCL;
+                            oDCL = oL1.lstDCLivret.Where(dc => dc.NomDC == "BLOC1").First();
+                            if (oDCL != null)
+                            {
+                                oDCL.IsAValider = false;
+                                oDCL.Statut = oL1.listeStatutsBloc.Where(s => { return s == "Dispensé"; }).FirstOrDefault();
+                                oDCL.MotifCommentaire = "DEIS";
+                            }
+                            oDCL = oL1.lstDCLivret.Where(dc => dc.NomDC == "BLOC2").First();
+                            if (oDCL != null)
+                            {
+                                oDCL.IsAValider = false;
+                                oDCL.Statut = oL1.listeStatutsBloc.Where(s => { return s == "Dispensé"; }).FirstOrDefault();
+                                oDCL.MotifCommentaire = "DEIS";
+                            }
+                        }
+                        CurrentCandidat.refreshlstLivrets();
+                    }
+                }
+            }
 
+        }
+        public void isCAFERUIS()
+        {
+            if (CurrentCandidat.IsCAFERUIS)
+            {
+                List<Livret1VM> olstL1 = null;
+                olstL1 = CurrentCandidat.getListLivret1().Where(l => { return !l.IsLivretClos; }).ToList<Livret1VM>();
+                if (olstL1.Count > 0)
+                {
+                    if (MessageBox.Show("Voulez-vous mettre à jour les Livrets1 non clos?", "CAFERUIS à postériori", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        foreach (Livret1VM oL1 in olstL1)
+                        {
+                            DCLivretVM oDCL;
+                            oDCL = oL1.lstDCLivret.Where(dc => dc.NomDC == "BLOC1").First();
+                            if (oDCL != null)
+                            {
+                                oDCL.IsAValider = false;
+                                oDCL.Statut = oL1.listeStatutsBloc.Where(s => { return s == "Dispensé"; }).FirstOrDefault();
+                                oDCL.MotifCommentaire = "CAFERUIS";
+                            }
+                        }
+                        CurrentCandidat.refreshlstLivrets();
+                    }
+                }
+                }
+
+        }
     }
 }

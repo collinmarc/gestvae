@@ -447,9 +447,12 @@
                         <StackPanel Grid.Row ="21" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="0">
                             <StackPanel Orientation="Horizontal" >
                                 <Label VerticalAlignment="Center">DEIS :</Label>
-                                <CheckBox Name="chkIsDEIS" IsChecked="{Binding IsDEIS}" VerticalAlignment="Center" TabIndex="30"/>
+                                <CheckBox Name="chkIsDEIS" IsChecked="{Binding IsDEIS}" VerticalAlignment="Center" TabIndex="30" 
+                                          Command="{Binding DataContext.IsDEISCommand, ElementName=window}">
+                                </CheckBox>
                                 <Label VerticalAlignment="Center">CAFERUIS :</Label>
-                                <CheckBox Name="chkIsCAFERUIS" IsChecked="{Binding IsCAFERUIS}" VerticalAlignment="Center" TabIndex="31"></CheckBox>
+                                <CheckBox Name="chkIsCAFERUIS" IsChecked="{Binding IsCAFERUIS}" VerticalAlignment="Center" TabIndex="31" 
+                                          Command="{Binding DataContext.IsCAFERUISCommand, ElementName=window}"></CheckBox>
                                 <Label VerticalAlignment="Center">CAFDES :</Label>
                                 <CheckBox Name="chkIsCAFDES" IsChecked="{Binding IsCAFDES}" VerticalAlignment="Center" TabIndex="32"></CheckBox>
                                 <Label VerticalAlignment="Center">PostFormation :</Label>
@@ -490,7 +493,7 @@
                             <DataGrid Name="gridLstLivrets"  Margin="5,5,5,0"  VerticalAlignment="Top" TabIndex="39"
                               HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"
                               ItemsSource="{Binding lstLivretsActif, UpdateSourceTrigger=PropertyChanged}"  
-                              SelectedItem="{Binding CurrentLivret}"
+                              SelectedItem="{Binding DataContext.CurrentLivret, ElementName=window}"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="true" CanUserResizeRows="False"
                               RowHeaderWidth="10"
                               IsReadOnly="True" 
@@ -654,7 +657,7 @@
                                 <!--
 -->
                                 <Button x:Name="btnSupprLivret" Margin="5,0,0,0" TabIndex="42"
-                                Command="{Binding DeleteLivretCommand}" >
+                                Command="{Binding DataContext.DeleteCurrentLivretCommand, ElementName=window}" >
                                     Supprimer
                                 </Button>
                             </UniformGrid>

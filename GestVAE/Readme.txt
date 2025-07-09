@@ -1,4 +1,8 @@
-﻿BUILD 20250414
+﻿BUILD 20250709
+	0001818: Suppression de Livrets
+	0001817: Prendre en compte les DEIS et CAFERUIS à postériori
+
+BUILD 20250414
 	0001791: Rendre le status des blocs Modifiable sur le Livret1
 BUILD 20250313
 	Prise en compte des L1 valides

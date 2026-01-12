@@ -1837,7 +1837,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return true;
+                return IsCurrentCandidatLocked;
                 //Boolean bReturn = false;
                 //if (CurrentCandidat == null)
                 //{
@@ -1868,7 +1868,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return true;
+                return IsCurrentCandidatLocked;
             //    Boolean bReturn = false;
             //    if (CurrentCandidat != null)
             //    {

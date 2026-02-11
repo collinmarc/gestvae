@@ -114,7 +114,7 @@ namespace GestVAE.VM
             // Transfert des blocs Validé et favorable depuis le Livret1 vers le Livret2
             foreach (DCLivretVM item in pL1.lstDCLivretAValider)
             {
-                if ((item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value) || (item.Decision == ""))
+                if ((item.IsDecisionFavorable.HasValue && item.IsDecisionFavorable.Value) || (item.IsDecisionRecoursFavorable.HasValue && item.IsDecisionRecoursFavorable.Value) || (item.Decision == ""))
                 {
                     DCLivretVM oDCLivret = new DCLivretVM();
                     oDCLivret.TheDCLivret.oDomaineCompetence = item.TheDCLivret.oDomaineCompetence;

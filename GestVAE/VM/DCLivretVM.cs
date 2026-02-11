@@ -314,6 +314,104 @@ namespace GestVAE.VM
             }
             return nReturn;
         }
+        public String DecisionRecours
+        {
+            get
+            {
+                return TheDCLivret.AttSup   ;
+            }
+            set
+            {
+                if (value != DecisionRecours)
+                {
+                    TheDCLivret.AttSup = value;
+                    if (IsDecisionRecoursFavorable.HasValue && IsDecisionRecoursFavorable.Value)
+                    {
+                        Statut = "Validé";
+                    }
+                    if (IsDecisionRecoursDefavorable.HasValue && IsDecisionRecoursDefavorable.Value)
+                    {
+                        Statut = "Refusé";
+                    }
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("IsDecisionRecoursFavorable");
+                    RaisePropertyChanged("IsDecisionRecoursDefavorable");
+                }
+            }
+        }
+        public Boolean? IsDecisionRecoursFavorable
+        {
+            get
+            {
+                if (getNumDecisionRecours() > 0)
+                {
+                    // Les Enums de L1 et L2 sont les mêmes !!!
+                    return (getNumDecisionRecours() == (int)MyEnums.DecisionJuryL2.DECISION_L2_FAVORABLE || getNumDecision() == (int)MyEnums.DecisionJuryL2.DECISION_L2_DISPENSE);
+                }
+                else
+                { // si pas de decision =< Pas favorable
+                    return null;
+                }
+            }
+            set
+            {
+
+                if (value != IsDecisionRecoursFavorable)
+                {
+                    if (value == null)
+                    {
+                        DecisionRecours = "";
+                    }
+                    else
+                    {
+                        // Les Enums de L1 et L2 sont les mêmes !!!
+                        if (value.Value)
+                        {
+                            DecisionRecours = Livret2VM.DecisionDCFavorable;
+                        }
+                        else
+                        {
+                            DecisionRecours = Livret2VM.DecisionL2DCDefavorable;
+                        }
+                    }
+                }
+            }
+        }
+        public Boolean? IsDecisionRecoursDefavorable
+        {
+            get
+            {
+                if (getNumDecisionRecours() > 0)
+                {
+                    return (getNumDecisionRecours() == (int)MyEnums.DecisionJuryL2.DECISION_L2_DEFAVORABLE);
+                }
+                else
+                { // si pas de decision =< Pas défavorable
+                    return null;
+                }
+            }
+            set
+            {
+
+                if (value != IsDecisionRecoursDefavorable)
+                {
+                    IsDecisionRecoursFavorable = !value;
+                }
+            }
+        }
+        private int getNumDecisionRecours()
+        {
+            int nReturn = 0;
+            try
+            {
+                nReturn = Convert.ToInt32(this.DecisionRecours.Split('-')[0]);
+            }
+            catch (Exception)
+            {
+                nReturn = 0;
+            }
+            return nReturn;
+        }
 
 
 

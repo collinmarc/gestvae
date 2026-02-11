@@ -8,7 +8,8 @@
         xmlns:GestVAEcls="clr-namespace:GestVAEcls;assembly=GestVAEcls" xmlns:VM="clr-namespace:GestVAE.VM" xmlns:SampleDataSource="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="window" x:Class="GestVAE.frmLivret1" 
         mc:Ignorable="d"
-        Title="Gestion du Livret 1" Icon="IMG/LivretN.ico" Unloaded="window_Unloaded" Width="1200" Height="827" DataContextChanged="Window_DataContextChanged">
+        Title="Gestion du Livret 1" Icon="IMG/LivretN.ico" Unloaded="window_Unloaded" Width="1200" Height="955" DataContextChanged="Window_DataContextChanged">
+
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToBoleanConverter x:Key="EnumToBoleanConverter"/>
@@ -175,13 +176,17 @@
                                                                     />
 
                     <DataGridTextColumn Header="Mode Obtention" Binding="{Binding ModeObtention}" Width="1*" />
-                    <DataGridTextColumn Header="Décision" Binding="{Binding Decision}" Width="3*" />
+                    <DataGridTextColumn Header="Décision" Binding="{Binding Decision}" Width="2*" />
+                    <DataGridTextColumn Header="DécisionRecours" Binding="{Binding DecisionRecours}" Width="2*" />
                     <DataGridTextColumn Header="Commentaire" Binding="{Binding MotifCommentaire}" Width="4*" />
                 </DataGrid.Columns>
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsDecisionFavorable}" Value="true">
+                                <Setter Property="Background" Value="Yellow"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsDecisionRecoursFavorable}" Value="true">
                                 <Setter Property="Background" Value="Yellow"></Setter>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsAValider}" Value="false">
@@ -378,14 +383,16 @@
                      >
                     <Grid x:Name="grdJury1"  ShowGridLines="False" HorizontalAlignment="Stretch" IsEnabled="{Binding IsLivretModifiable}" Margin="0,0,0,31" >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" /><!--1-->
                             <RowDefinition Height="Auto"  />
                             <RowDefinition Height="Auto"  />
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" /> <!-- GridSecours 8 -->
+                            <RowDefinition Height="Auto" /><!--8-->
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20*"/>
@@ -436,10 +443,10 @@
 
                         </Grid>
 
-                        <DataGrid x:Name="dgDCLivretDecision"
+                        <DataGrid x:Name="dgDCLivretDecision" Grid.Row="5"
                                     ItemsSource="{Binding lstDCLivretAValider}" 
                                     SelectedItem="{Binding selectedDCLivret}"
-                                  Grid.Row="5"
+                                  
                                   Grid.Column="0"
                                   Grid.ColumnSpan="4"
                                   AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10,11,10,9" RowHeaderWidth="0" HorizontalAlignment="Stretch"
@@ -477,77 +484,74 @@
                         <!--
                             Visibility="{Binding IsDecisionJuryDefavorable, Converter={StaticResource BooleanToVisibilityConverter}}"  >
                         -->
-                        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Height="44" >
-                            <Label  Content="Recours :" VerticalAlignment="Center"/>
-                            <CheckBox x:Name="chkRecours" VerticalAlignment="Center" IsChecked="{Binding IsRecoursDemande}"/>
-                            <Label VerticalAlignment="Center" Content="Date limite de depot :" Margin="10,0,0,0"/>
-                            <DatePicker x:Name="dtpDateLimiteRecours" VerticalAlignment="Center" Width="100" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}">
-                                <DatePicker.BlackoutDates>
-                                    <CalendarDateRange Start="2080-01-01"/>
-                                </DatePicker.BlackoutDates>
-
-                            </DatePicker>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="2" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}" Grid.RowSpan="3">
-                            <StackPanel Orientation="Horizontal" >
-                                <Label Width="169" VerticalAlignment="Center" Content="Date de dépôt du recours :"  />
-                                <DatePicker x:Name="dtpDateDepotRecours" Width="125" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1" >
+                            <StackPanel Orientation="Horizontal">
+                                <Label  Content="Recours :" VerticalAlignment="Center"/>
+                                <CheckBox x:Name="chkRecours" VerticalAlignment="Center" IsChecked="True"/><!--IsChecked="{Binding IsRecoursDemande}"-->
+                                <Label Content="Date limite de depot :"  VerticalAlignment="Center"/>
+                                <DatePicker x:Name="dtpDateLimiteRecours" VerticalAlignment="Center" Width="100" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}">
+                                    <DatePicker.BlackoutDates>
+                                        <CalendarDateRange Start="2080-01-01"/>
+                                    </DatePicker.BlackoutDates>
+                                </DatePicker>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal"/>
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}"
+>
+                                <Label Content="Date notification du recours: "  VerticalAlignment="Center"/>
+                                <DatePicker  x:Name="dtpDateNotificationJuryRecours" VerticalAlignment="Center" Width="100" 
+                                     DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
+
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}" Grid.RowSpan="2">
-                            <Label VerticalAlignment="Center" Content="Type de recours :"/>
-                            <RadioButton x:Name="rbTypeRecoursGracieux" GroupName="TypeRecours" 
+
+                        <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2"
+                                    Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
+                            <StackPanel Orientation="Horizontal" >
+                                <Label VerticalAlignment="Center" Content="Date de dépôt du recours :"  />
+                                <DatePicker x:Name="dtpDateDepotRecours" Width="125" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
+                                <Label VerticalAlignment="Center" Content="Type de recours :"/>
+                                <RadioButton x:Name="rbTypeRecoursGracieux" GroupName="TypeRecours" 
                                  IsChecked="{Binding TypeRecours, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Gracieux}, Converter={StaticResource EnumToBoleanConverter}}" VerticalAlignment="Center"
                                  Content="Gracieux"
                                  />
-                            <RadioButton x:Name="rbTypeRecoursContentieux" GroupName="TypeRecours" 
+                                <RadioButton x:Name="rbTypeRecoursContentieux" GroupName="TypeRecours" 
                                  IsChecked="{Binding TypeRecours, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Contentieux}, Converter={StaticResource EnumToBoleanConverter}}" VerticalAlignment="Center"
                                  Content="Contentieux"
                                  />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Motif du recours :" />
+                                <TextBox x:Name="tbMotifRecours" HorizontalAlignment="Stretch" Width="638"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Commentaire :     " />
+                                <TextBox x:Name="tbMotifRecoursCommentaire" Width="637"  />
+                            </StackPanel>
                         </StackPanel>
 
-
-                        <Grid x:Name="grdRecours" ShowGridLines="False" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0*" />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <!--                        
-                    <RadioButton Content="Homme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="15" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.H}}"/>
-                        <RadioButton Content="Femme" Grid.Column="3" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Height="21" Width="85" IsChecked="{Binding TheCandidat.Sexe, Converter={StaticResource EnumToBoleanConverter}, ConverterParameter={x:Static GestVAEcls:Sexe.F}}"/>
--->
+                        <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}">
+                        <Label VerticalAlignment="Center" Content="Décision du jury de recours :" />
+                            <ComboBox  x:Name="cbxDecisionRecours" Style="{DynamicResource ComboboxReadOnlyStyle}"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  Width ="Auto"/>
+                        </StackPanel>
+                        <DataGrid x:Name="dgDCLivretDecisionRecours" Grid.Row="8"
+                                  Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkRecours}"
+                        ItemsSource="{Binding lstDCLivretRecours}" 
+                                    SelectedItem="{Binding selectedDCLivretRecours}"
+                            Grid.Column="0"
+                                  Grid.ColumnSpan="4"
+                                  AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10,11,10,9" RowHeaderWidth="0" HorizontalAlignment="Stretch"
+                                  IsEnabled="{Binding IsDecisionJuryRecoursPartielle}">
 
 
-                            <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"  Content="Motif du recours :" />
-                            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecours" HorizontalAlignment="Stretch" />
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nom" Binding="{Binding NomDC}" Width="1*" IsReadOnly="True"/>
 
+                                <DataGridCheckBoxColumn x:Name="DCFavorableRecours" Header="Favorable" IsThreeState="True" Binding="{Binding IsDecisionRecoursFavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridCheckBoxColumn x:Name="DCdefavorableRecours" Header="Défavorable" IsThreeState="True" Binding="{Binding IsDecisionRecoursDefavorable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <Label Grid.Row="2" Grid.Column="0"  VerticalAlignment="Center" Content="Commentaire :" />
-                            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="tbMotifRecoursCommentaire" HorizontalAlignment="Stretch" />
+                            </DataGrid.Columns>
+                        </DataGrid>
 
-                            <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Décision du jury de recours :"/>
-                            <ComboBox  Grid.Row="3" Grid.Column="1" x:Name="cbxDecisionRecours" Grid.ColumnSpan="2" Style="{DynamicResource ComboboxReadOnlyStyle}" />
-
-                            <Label Grid.Row="4" Grid.Column="0" Content="Date notification du recours: " />
-                            <DatePicker  Grid.Row="4" Grid.Column="1" x:Name="dtpDateNotificationJuryRecours" HorizontalAlignment="Left" Width="125" 
-                                     DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
-                        </Grid>
 
 
                     </Grid>

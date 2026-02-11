@@ -1,4 +1,6 @@
-﻿BUILD 20260112
+﻿BUILD 20260211
+	0001841: Prendre en compte les décisions de jury de recours L1 dans la création des Livrets L2
+BUILD 20260112
 	0001842: Empêcher la création de Livret si le candidat n'est pas vérouillé.
 BUILD 20250709
 	0001818: Suppression de Livrets

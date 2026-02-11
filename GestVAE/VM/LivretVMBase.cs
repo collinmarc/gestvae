@@ -34,8 +34,9 @@ namespace GestVAE.VM
 
 
         public ObservableCollection<DCLivretVM> lstDCLivret { get; set; }
-        public DCLivretVM selectedDCLivret { get; set;}
-                       public ObservableCollection<JuryVM> lstJuryVM;
+        public DCLivretVM selectedDCLivret { get; set; }
+        public DCLivretVM selectedDCLivretRecours { get; set; }
+        public ObservableCollection<JuryVM> lstJuryVM;
         public ObservableCollection<PieceJointeLivretVM> lstPieceJointe { get; set; }
         public List<PieceJointeLivretVM> lstPieceJointeActif { get { return lstPieceJointe.Where(pj => !pj.IsDeleted).ToList(); } }
         public PieceJointeLivretVM selectedPJ { get; set; }
@@ -701,7 +702,7 @@ namespace GestVAE.VM
         {
             get
             {
-                return (getNumDecisionJuryRecours() != (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+                return (getNumDecisionJuryRecours() == (int)MyEnums.DecisionJuryL1.DECISION_L1_FAVORABLE);
             }
         }
         public Boolean IsDecisionJuryRecoursDefavorable
@@ -709,6 +710,13 @@ namespace GestVAE.VM
             get
             {
                 return (getNumDecisionJuryRecours() == (int)MyEnums.DecisionJuryL1.DECISION_L1_DEFAVORABLE);
+            }
+        }
+        public Boolean IsDecisionJuryRecoursPartielle
+        {
+            get
+            {
+                return (getNumDecisionJuryRecours() == (int)MyEnums.DecisionJuryL1.DECISION_L1_PARTIELLE);
             }
         }
         protected abstract  void setEtatLivret();
@@ -969,9 +977,18 @@ namespace GestVAE.VM
                         MotifDetailJuryRecours = "";
                         MotifGeneralJuryRecours = "";
                     }
+                    foreach (DCLivretVM item in lstDCLivretRecours)
+                    {
+                        if (IsDecisionJuryRecoursFavorable)
+                        {
+                            item.IsDecisionRecoursFavorable = true;
+                        }
+                    }
+
                     RaisePropertyChanged();
                     RaisePropertyChanged("IsDecisionJuryRecoursFavorable");
                     RaisePropertyChanged("IsDecisionJuryRecoursDefavorable");
+                    RaisePropertyChanged("IsDecisionJuryRecoursPartielle");
                 }
             }
         }
@@ -1367,6 +1384,13 @@ namespace GestVAE.VM
                 return lstDCLivret.Where(i => i.IsAValider == true).ToList<DCLivretVM>();
             }
         }
+        public List<DCLivretVM> lstDCLivretRecours
+        {
+            get
+            {
+                return lstDCLivret.Where(i => i.IsDecisionDefavorable == true).ToList<DCLivretVM>();
+            }
+        }
 
         private Boolean IsBlocAValider(int pNum)
         {
@@ -1393,7 +1417,18 @@ namespace GestVAE.VM
                         // Sinon on regarde chaque bloc
                         if (lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.HasValue)
                         {
-                            breturn = lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.Value;
+                            // S'il y a une decision de recours
+                            if (! String.IsNullOrEmpty(lstDCLivretAValider.First(b => b.NumDC == pNum).DecisionRecours))
+                            {
+                                //Prise en compte de la decision de recours
+                                breturn = lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.Value || lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionRecoursFavorable.Value;
+                            }
+                            else
+                            {
+                                breturn = lstDCLivretAValider.First(b => b.NumDC == pNum).IsDecisionFavorable.Value;
+                            }
+
+
                         }
                     }
                 }

@@ -1,4 +1,6 @@
-﻿BUILD 20260211
+﻿BUILD 20260505
+	0001873: Recours sur le L1
+BUILD 20260211
 	0001841: Prendre en compte les décisions de jury de recours L1 dans la création des Livrets L2
 BUILD 20260112
 	0001842: Empêcher la création de Livret si le candidat n'est pas vérouillé.

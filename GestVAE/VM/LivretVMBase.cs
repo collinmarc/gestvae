@@ -449,6 +449,16 @@ namespace GestVAE.VM
                 return ((getNumDecisionJury() >= (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE));
             }
         }
+        /// <summary>
+        /// Rend Vrai S'il y a une decision de Jury Partielle et qu'il n'y a pas recours
+        /// </summary>
+        public Boolean IsDecisionJuryPartielleEtNonRecours
+        {
+            get
+            {
+                return ((getNumDecisionJury() >= (int)MyEnums.DecisionJuryL2.DECISION_L2_PARTIELLE) && !IsRecoursDemande);
+            }
+        }
 
         public virtual String EtatLivret
         {
@@ -755,6 +765,7 @@ namespace GestVAE.VM
                         MotifRecoursCommentaire = "";
                     }
                     RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(IsDecisionJuryPartielleEtNonRecours));
                 }
             }
         }
@@ -830,7 +841,30 @@ namespace GestVAE.VM
                 }
             }
         }
-        public EnumTypeRecours TypeRecours
+        public Boolean isTypeRecoursGracieux
+        {
+            get { return TypeRecours == EnumTypeRecours.Gracieux; }
+            set
+            {
+                if (value)
+                {
+                    TypeRecours = EnumTypeRecours.Gracieux;
+                }
+            }
+        }
+        public Boolean isTypeRecoursContentieux {
+            get { return TypeRecours == EnumTypeRecours.Contentieux ; }
+            set
+            {
+                if (value)
+                {
+                    TypeRecours = EnumTypeRecours.Contentieux;
+                }
+            }
+        }
+    
+
+    public EnumTypeRecours TypeRecours
         {
             get
             {

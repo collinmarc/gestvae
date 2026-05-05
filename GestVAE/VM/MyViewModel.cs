@@ -994,7 +994,7 @@ namespace GestVAE.VM
             oL1VM.EtatLivret = LstEtatLivret1[2];
             oL1VM.DateDemande = oCandVM.DateCreation;
             oL1VM.DateEnvoiEHESP = oCandVM.DateCreation;
-            oL1VM.DateValidite = oL1VM.DateDemande.Value.AddYears(Properties.Settings.Default.DelaiValidite);
+            oL1VM.CalcDateValidite();
             oL1VM.TypeDemande = CurrentCandidat.TypeDemande;
 
             // Récupération du diplome du candidat (si présent)

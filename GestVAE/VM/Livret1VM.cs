@@ -235,8 +235,16 @@ namespace GestVAE.VM
                     {
                         DateRef = DateJury.Value;
                     }
-//                }
-                DateValidite = DateRef.AddYears(Properties.Settings.Default.DelaiValidite);
+                //                }
+                if (Properties.Settings.Default.delaiValiditeType == "Mois")
+                {
+                    DateValidite = DateRef.AddMonths(Properties.Settings.Default.DelaiValidite);
+                }
+                else
+                {
+                    DateValidite = DateRef.AddYears(Properties.Settings.Default.DelaiValidite);
+
+                }
 
             }
             if (IsEtatRefuse)

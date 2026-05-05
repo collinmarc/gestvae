@@ -450,7 +450,7 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="4"
                                   AutoGenerateColumns="False" SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserAddRows="False" Margin="10,11,10,9" RowHeaderWidth="0" HorizontalAlignment="Stretch"
-                                  IsEnabled="{Binding IsDecisionJuryPartielle}">
+                                  IsEnabled="{Binding IsDecisionJuryPartielleEtNonRecours}">
                             <DataGrid.Resources>
                                 <VM:BindingProxy x:Key="proxy" Data="{Binding}" />
                                 <!-- On définit la liste des items directement ici -->
@@ -487,7 +487,7 @@
                         <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1" >
                             <StackPanel Orientation="Horizontal">
                                 <Label  Content="Recours :" VerticalAlignment="Center"/>
-                                <CheckBox x:Name="chkRecours" VerticalAlignment="Center" IsChecked="True"/><!--IsChecked="{Binding IsRecoursDemande}"-->
+                                <CheckBox x:Name="chkRecours" VerticalAlignment="Center" IsChecked="{Binding IsRecoursDemande}"/>
                                 <Label Content="Date limite de depot :"  VerticalAlignment="Center"/>
                                 <DatePicker x:Name="dtpDateLimiteRecours" VerticalAlignment="Center" Width="100" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}">
                                     <DatePicker.BlackoutDates>
@@ -511,11 +511,11 @@
                                 <DatePicker x:Name="dtpDateDepotRecours" Width="125" VerticalAlignment="Center" DisplayDateStart="{Binding SelectedDate, ElementName=dtpDateJury}"/>
                                 <Label VerticalAlignment="Center" Content="Type de recours :"/>
                                 <RadioButton x:Name="rbTypeRecoursGracieux" GroupName="TypeRecours" 
-                                 IsChecked="{Binding TypeRecours, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Gracieux}, Converter={StaticResource EnumToBoleanConverter}}" VerticalAlignment="Center"
+                                 IsChecked="{Binding isTypeRecoursGracieux}" VerticalAlignment="Center"
                                  Content="Gracieux"
                                  />
                                 <RadioButton x:Name="rbTypeRecoursContentieux" GroupName="TypeRecours" 
-                                 IsChecked="{Binding TypeRecours, ConverterParameter={x:Static GestVAEcls:EnumTypeRecours.Contentieux}, Converter={StaticResource EnumToBoleanConverter}}" VerticalAlignment="Center"
+                                 IsChecked="{Binding isTypeRecoursContentieux}" VerticalAlignment="Center"
                                  Content="Contentieux"
                                  />
                             </StackPanel>

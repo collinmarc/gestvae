@@ -62,17 +62,6 @@ namespace GestVAE.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ICARE;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#;M" +
-            "ultipleActiveResultSets=true")]
-        public string CSGESTVAE {
-            get {
-                return ((string)(this["CSGESTVAE"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FORTUNA;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#" +
             ";MultipleActiveResultSets=true")]
         public string CSGESTVAEPP {
@@ -103,7 +92,7 @@ namespace GestVAE.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Mois")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Année")]
         public string delaiValiditeType {
             get {
                 return ((string)(this["delaiValiditeType"]));
@@ -112,7 +101,7 @@ namespace GestVAE.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int DelaiValidite {
             get {
                 return ((int)(this["DelaiValidite"]));
@@ -125,6 +114,17 @@ namespace GestVAE.Properties {
         public string NUMVERSION {
             get {
                 return ((string)(this["NUMVERSION"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=OUREA;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#;M" +
+            "ultipleActiveResultSets=true")]
+        public string CSGESTVAE {
+            get {
+                return ((string)(this["CSGESTVAE"]));
             }
         }
     }

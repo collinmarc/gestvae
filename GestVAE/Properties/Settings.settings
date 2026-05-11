@@ -14,14 +14,6 @@
     <Setting Name="DelaiJuryL1" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">60</Value>
     </Setting>
-    <Setting Name="CSGESTVAE" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=ICARE;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#;MultipleActiveResultSets=true&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=ICARE;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#;MultipleActiveResultSets=true</Value>
-    </Setting>
     <Setting Name="CSGESTVAEPP" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
@@ -40,13 +32,21 @@
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="delaiValiditeType" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Mois</Value>
+      <Value Profile="(Default)">Année</Value>
     </Setting>
     <Setting Name="DelaiValidite" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">6</Value>
+      <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="NUMVERSION" Type="System.String" Scope="Application">
       <Value Profile="(Default)">V20260505</Value>
+    </Setting>
+    <Setting Name="CSGESTVAE" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=OUREA;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#;MultipleActiveResultSets=true&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=OUREA;Initial Catalog=GESTVAE;User ID=gestvae;Password=gestvae#123#;MultipleActiveResultSets=true</Value>
     </Setting>
   </Settings>
 </SettingsFile>
